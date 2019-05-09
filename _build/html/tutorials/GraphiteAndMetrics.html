@@ -1,0 +1,604 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ko" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ko" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Setting up Graphite on Ubuntu using the Metrics subsystem &mdash; uWSGI 2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="색인" href="../genindex.html" />
+    <link rel="search" title="검색" href="../search.html" />
+    <link rel="next" title="Serializing accept(), AKA Thundering Herd, AKA the Zeeg Problem" href="../articles/SerializingAccept.html" />
+    <link rel="prev" title="Build a dynamic proxy using RPC and internal routing" href="DynamicProxying.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> uWSGI
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../WSGIquickstart.html">Quickstart for Python/WSGI applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PSGIquickstart.html">Quickstart for perl/PSGI applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RackQuickstart.html">Quickstart for ruby/Rack applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Snippets.html">Snippets</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Download.html">Getting uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Install.html">Installing uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../BuildSystem.html">The uWSGI build system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Management.html">Managing the uWSGI server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LanguagesAndPlatforms.html">Supported languages and platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SupportedPlatforms.html">Supported Platforms/Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../WebServers.html">Web server integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FAQ.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ThingsToKnow.html">Things to know (best practices and &quot;issues&quot;) READ IT !!!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Configuration.html">Configuring uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FallbackConfig.html">Fallback configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ConfigLogic.html">Configuration logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Options.html">uWSGI Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CustomOptions.html">Defining new options for your instances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ParsingOrder.html">How uWSGI parses config files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Vars.html">uwsgi protocol magic variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Protocol.html">The uwsgi Protocol</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AttachingDaemons.html">Managing external daemons/services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../MasterFIFO.html">The Master FIFO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Inetd.html">Socket activation with inetd/xinetd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Upstart.html">Running uWSGI via Upstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Systemd.html">Systemd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Circus.html">Running uWSGI instances with Circus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Embed.html">Embedding an application in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Logging.html">Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LogFormat.html">Formatting uWSGI requests logs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LogEncoders.html">Log encoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Hooks.html">Hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../WorkerOverride.html">Overriding Workers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ThirdPartyPlugins.html">uWSGI third party plugins</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="CachingCookbook.html">The uWSGI Caching Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Django_and_nginx.html">Setting up Django and your web server with uWSGI and nginx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dreamhost.html">Running uWSGI on Dreamhost shared hosting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="heroku_python.html">Running python webapps on Heroku with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="heroku_ruby.html">Running Ruby/Rack webapps on Heroku with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ReliableFuse.html">Reliably use FUSE filesystems for uWSGI vassals (with Linux)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DynamicProxying.html">Build a dynamic proxy using RPC and internal routing</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Setting up Graphite on Ubuntu using the Metrics subsystem</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installing-graphite-and-the-others-needed-packages">Installing Graphite and the others needed packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#initializing-graphite">Initializing Graphite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#building-and-installing-uwsgi">Building and Installing uWSGI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#setting-up-the-uwsgi-emperor">Setting up the uWSGI Emperor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#spawning-the-graphite-web-interface">Spawning the Graphite web interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#spawning-vassals-sending-metrics-to-graphite">Spawning vassals sending metrics to Graphite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-graphiti-ruby-sinatra-based-as-alternative-frontend">Using Graphiti (Ruby/Sinatra based) as alternative frontend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#notes">Notes</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../articles/SerializingAccept.html">Serializing accept(), AKA Thundering Herd, AKA the Zeeg Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../articles/TheArtOfGracefulReloading.html">The Art of Graceful Reloading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../articles/FunWithPerlEyetoyRaspberrypi.html">Fun with Perl, Eyetoy and RaspberryPi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../articles/OffloadingWebsocketsAndSSE.html">Offloading Websockets and Server-Sent Events AKA &quot;Combine them with Django safely&quot;</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../articles/WSGIEnvBehaviour.html">WSGI env behaviour policies</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../AlarmSubsystem.html">The uWSGI alarm subsystem (from 1.3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Caching.html">The uWSGI caching framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../WebCaching.html">WebCaching framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Cron.html">The uWSGI cron-like interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Fastrouter.html">The uWSGI FastRouter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../InternalRouting.html">uWSGI internal routing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Legion.html">The uWSGI Legion subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Locks.html">Locks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Mules.html">uWSGI Mules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../OffloadSubsystem.html">The uWSGI offloading subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Queue.html">The uWSGI queue framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RPC.html">uWSGI RPC Stack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SharedArea.html">SharedArea -- share memory pages between uWSGI components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Signals.html">The uWSGI Signal Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Spooler.html">The uWSGI Spooler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SubscriptionServer.html">uWSGI Subscription Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../StaticFiles.html">Serving static files with uWSGI (updated to 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SNI.html">SNI - Server Name Identification (virtual hosting for SSL nodes)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GeoIP.html">The GeoIP plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Transformations.html">uWSGI Transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../WebSockets.html">WebSocket support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Metrics.html">The Metrics subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Chunked.html">The Chunked input API</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Cheaper.html">The uWSGI cheaper subsystem -- adaptive process spawning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Emperor.html">The uWSGI Emperor -- multi-app deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Broodlord.html">Auto-scaling with Broodlord mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Zerg.html">Zerg mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../DynamicApps.html">Adding applications dynamically</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SSLScaling.html">Scaling SSL connections (uWSGI 1.9)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Capabilities.html">Setting POSIX Capabilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Cgroups.html">Running uWSGI in a Linux CGroup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../KSM.html">Using Linux KSM in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Namespaces.html">Jailing your apps using Linux Namespaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Namespaces.html#the-old-way-the-namespace-option">The old way: the --namespace option</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FreeBSDJails.html">FreeBSD Jails</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ForkptyRouter.html">The Forkpty Router</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../TunTapRouter.html">The TunTap Router</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Nagios.html">Monitoring uWSGI with Nagios</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SNMP.html">The embedded SNMP server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PushingStats.html">Pushing statistics (from 1.4)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Carbon.html">Integration with Graphite/Carbon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../StatsServer.html">The uWSGI Stats Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Metrics.html">The Metrics subsystem</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Async.html">uWSGI asynchronous/non-blocking modes (updated to uWSGI 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Gevent.html">The Gevent loop engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Tornado.html">The Tornado loop engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../uGreen.html">uGreen -- uWSGI Green Threads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../asyncio.html">The asyncio loop engine (CPython &gt;= 3.4, uWSGI &gt;= 2.0.4)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Apache.html">Apache support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Cherokee.html">Cherokee support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HTTP.html">Native HTTP support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HTTPS.html">HTTPS 지원 (1.3 버전부터)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SPDY.html">The SPDY router (uWSGI 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Lighttpd.html">Lighttpd support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Mongrel2.html">Attaching uWSGI to Mongrel2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Nginx.html">Nginx support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../OpenBSDhttpd.html">Using OpenBSD httpd as proxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../OpenBSDhttpd.html#notes">Notes</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Python.html">Python support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PyPy.html">The PyPy plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PHP.html">Running PHP scripts in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Perl.html">uWSGI Perl support (PSGI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Ruby.html">Ruby support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Lua.html">Using Lua/WSAPI with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../JVM.html">JVM in the uWSGI server (updated to 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Mono.html">The Mono ASP.NET plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CGI.html">Running CGI scripts on uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCCGO.html">The GCCGO plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Symcall.html">The Symcall plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../XSLT.html">The XSLT plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SSI.html">SSI (Server Side Includes) plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../V8.html">uWSGI V8 support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GridFS.html">The GridFS plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GlusterFS.html">The GlusterFS plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Rados.html">The RADOS plugin</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Pty.html">The Pty plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SPNEGO.html">SPNEGO authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LDAP.html">Configuring uWSGI with LDAP</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Erlang.html">Integrating uWSGI with Erlang</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ManagementFlag.html">Management Flags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Go.html">uWSGI Go support (1.4 only)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.18.html">uWSGI 2.0.18</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.17.1.html">uWSGI 2.0.17.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.17.html">uWSGI 2.0.17</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.16.html">uWSGI 2.0.16</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.15.html">uWSGI 2.0.15</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.14.html">uWSGI 2.0.14</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.13.1.html">uWSGI 2.0.13.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.13.html">uWSGI 2.0.13</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.12.html">uWSGI 2.0.12</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.11.2.html">uWSGI 2.0.11.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.11.1.html">uWSGI 2.0.11.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.11.html">uWSGI 2.0.11</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.10.html">uWSGI 2.0.10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.9.html">uWSGI 2.0.9</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.8.html">uWSGI 2.0.8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.7.html">uWSGI 2.0.7</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.6.html">uWSGI 2.0.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.5.html">uWSGI 2.0.5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.4.html">uWSGI 2.0.4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.3.html">uWSGI 2.0.3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.2.html">uWSGI 2.0.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.1.html">uWSGI 2.0.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.html">uWSGI 2.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.21.html">uWSGI 1.9.21</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.20.html">uWSGI 1.9.20</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.19.html">uWSGI 1.9.19</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.18.html">uWSGI 1.9.18</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.17.html">uWSGI 1.9.17</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.16.html">uWSGI 1.9.16</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.15.html">uWSGI 1.9.15</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.14.html">uWSGI 1.9.14</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.13.html">uWSGI 1.9.13</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.12.html">uWSGI 1.9.12</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.11.html">uWSGI 1.9.11</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.10.html">uWSGI 1.9.10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.9.html">uWSGI 1.9.9</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.8.html">uWSGI 1.9.8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.7.html">uWSGI 1.9.7</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.6.html">uWSGI 1.9.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.5.html">uWSGI 1.9.5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.4.html">uWSGI 1.9.4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.3.html">uWSGI 1.9.3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.2.html">uWSGI 1.9.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.1.html">uWSGI 1.9.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.html">uWSGI 1.9</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">uWSGI</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Setting up Graphite on Ubuntu using the Metrics subsystem</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/tutorials/GraphiteAndMetrics.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="setting-up-graphite-on-ubuntu-using-the-metrics-subsystem">
+<h1>Setting up Graphite on Ubuntu using the Metrics subsystem<a class="headerlink" href="#setting-up-graphite-on-ubuntu-using-the-metrics-subsystem" title="제목 주소">¶</a></h1>
+<p>This tutorial will guide you in installing a multi-app server, with each application sending metrics to a central graphite/carbon server.</p>
+<p>Graphite is available here: <a class="reference external" href="http://graphite.wikidot.com/">http://graphite.wikidot.com/</a></p>
+<p>The uWSGI Metrics subsystem is documented here <a class="reference internal" href="../Metrics.html"><span class="doc">The Metrics subsystem</span></a></p>
+<p>The tutorial assumes an Ubuntu Saucy (13.10) release on amd64</p>
+<p>While for Graphite we will use Ubuntu official packages, uWSGI core and plugins will be downloaded and installed from official sources</p>
+<div class="section" id="installing-graphite-and-the-others-needed-packages">
+<h2>Installing Graphite and the others needed packages<a class="headerlink" href="#installing-graphite-and-the-others-needed-packages" title="제목 주소">¶</a></h2>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sudo apt-get install python-dev ruby-dev bundler build-essential libpcre3-dev graphite-carbon graphite-web
+</pre></div>
+</div>
+<p>python-dev and ruby-dev are required as we want to support both WSGI and Rack apps.</p>
+<p>pcre development headers allow you to build uWSGI with internal routing support (something you always want)</p>
+</div>
+<div class="section" id="initializing-graphite">
+<h2>Initializing Graphite<a class="headerlink" href="#initializing-graphite" title="제목 주소">¶</a></h2>
+<p>The first step will be enabling th Carbon server.</p>
+<p>The Graphite project is composed by three subsystems: whisper, carbon and the web frontend</p>
+<p>Whisper is a data storage format (similar to rrdtool)</p>
+<p>Carbon is the server gathering metrics and storing them in whisper files (well it does more, but this is its main purpose)</p>
+<p>The web frontend visualize the charts/graphs built from the data gathered by the carbon server.</p>
+<p>To enable the carbon server edit <code class="docutils literal notranslate"><span class="pre">/etc/default/graphite-carbon</span></code> and set CARBON_CACHE_ENABLED to true</p>
+<p>Before starting the carbon server we need to build its search index.</p>
+<p>Just run:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sudo /usr/bin/graphite-build-search-index
+</pre></div>
+</div>
+<p>Then start the carbon server (at the next reboot it will be automatically started)</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sudo /etc/init.d/carbon-cache start
+</pre></div>
+</div>
+</div>
+<div class="section" id="building-and-installing-uwsgi">
+<h2>Building and Installing uWSGI<a class="headerlink" href="#building-and-installing-uwsgi" title="제목 주소">¶</a></h2>
+<p>Download latest stable uWSGI tarball</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>wget https://projects.unbit.it/downloads/uwsgi-latest.tar.gz
+</pre></div>
+</div>
+<p>explode it, and from the created directory run:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python uwsgiconfig.py --build core
+</pre></div>
+</div>
+<p>this will build the uWSGI &quot;core&quot; binary.</p>
+<p>We now want to build the python, rack and carbon plugins:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python uwsgiconfig.py --plugin plugins/python core
+python uwsgiconfig.py --plugin plugins/rack core
+python uwsgiconfig.py --plugin plugins/carbon core
+</pre></div>
+</div>
+<p>now we have <code class="docutils literal notranslate"><span class="pre">uwsgi</span></code>, <code class="docutils literal notranslate"><span class="pre">python_plugin.so</span></code>, <code class="docutils literal notranslate"><span class="pre">rack_plugin.so</span></code> and <code class="docutils literal notranslate"><span class="pre">carbon_plugin.so</span></code></p>
+<p>let's copy it to system directories:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sudo mkdir /etc/uwsgi
+sudo mkdir /usr/lib/uwsgi
+sudo cp uwsgi /usr/bin/uwsgi
+sudo cp python_plugin.so /usr/lib/uwsgi
+sudo cp rack_plugin.so /usr/lib/uwsgi
+sudo cp carbon_plugin.so /usr/lib/uwsgi
+</pre></div>
+</div>
+</div>
+<div class="section" id="setting-up-the-uwsgi-emperor">
+<h2>Setting up the uWSGI Emperor<a class="headerlink" href="#setting-up-the-uwsgi-emperor" title="제목 주소">¶</a></h2>
+<p>Create an upstart config file for starting <a class="reference internal" href="../Emperor.html"><span class="doc">The uWSGI Emperor -- multi-app deployment</span></a></p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># Emperor uWSGI script</span>
+
+description <span class="s2">&quot;uWSGI Emperor&quot;</span>
+start on runlevel <span class="o">[</span><span class="m">2345</span><span class="o">]</span>
+stop on runlevel <span class="o">[</span><span class="m">06</span><span class="o">]</span>
+
+<span class="nb">exec</span> /usr/bin/uwsgi --emperor /etc/uwsgi
+</pre></div>
+</div>
+<p>save it as <code class="docutils literal notranslate"><span class="pre">/etc/init/emperor.conf</span></code> and start the Emperor:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>start emperor
+</pre></div>
+</div>
+<p>From now on, to start uWSGI instances just drop their config files into /etc/uwsgi</p>
+</div>
+<div class="section" id="spawning-the-graphite-web-interface">
+<h2>Spawning the Graphite web interface<a class="headerlink" href="#spawning-the-graphite-web-interface" title="제목 주소">¶</a></h2>
+<p>Before starting the graphite web interface (that is a Django app) we need to initialize its database.</p>
+<p>Just run:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sudo graphite-manage syncdb
+</pre></div>
+</div>
+<p>this is the standard django syncdb command for manage.py. Just answer the questions to create an admin user.</p>
+<p>Now we are ready to create a uWSGI vassal:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">plugins-dir</span> <span class="o">=</span> <span class="s">/usr/lib/uwsgi</span>
+<span class="na">plugins</span> <span class="o">=</span> <span class="s">python</span>
+<span class="na">uid</span> <span class="o">=</span> <span class="s">_graphite</span>
+<span class="na">gid</span> <span class="o">=</span> <span class="s">_graphite</span>
+<span class="na">wsgi-file</span> <span class="o">=</span> <span class="s">/usr/share/graphite-web/graphite.wsgi</span>
+<span class="na">http-socket</span> <span class="o">=</span> <span class="s">:8080</span>
+</pre></div>
+</div>
+<p>Save it as <code class="docutils literal notranslate"><span class="pre">/etc/uwsgi/graphite.ini</span></code></p>
+<p>the _graphite user (and group) is created by the graphite ubuntu package. Our uWSGI vassal will run under this privileges.</p>
+<p>The web interface will be available on the port 8080 of your server natively speaking HTTP. If you prefer to proxy it,
+just change <code class="docutils literal notranslate"><span class="pre">http-socket</span></code> to <code class="docutils literal notranslate"><span class="pre">http</span></code> or place it behind a full webserver like nginx (this step is not covered in this tutorial)</p>
+</div>
+<div class="section" id="spawning-vassals-sending-metrics-to-graphite">
+<h2>Spawning vassals sending metrics to Graphite<a class="headerlink" href="#spawning-vassals-sending-metrics-to-graphite" title="제목 주소">¶</a></h2>
+<p>We are now ready to send applications metrics to the carbon/graphite server.</p>
+<p>For every vassal file in /etc/uwsgi just be sure to add the following options:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">...</span>
+<span class="na">plugins</span> <span class="o">=</span> <span class="s">carbon</span>
+<span class="na">enable-metrics</span> <span class="o">=</span> <span class="s">true</span>
+<span class="na">carbon-use-metrics</span> <span class="o">=</span> <span class="s">true</span>
+<span class="na">carbon-id</span> <span class="o">=</span> <span class="s">%n</span>
+<span class="na">carbon</span> <span class="o">=</span> <span class="s">127.0.0.1:2003</span>
+<span class="na">...</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">carbon-id</span></code> set a meaningful prefix to each metric (%n automatically translates to the name without extension of the vassal file).</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">carbon</span></code> option set the address of the carbon server to send metrics to (by default the carbon server binds on port 2003, but you can change it editing
+<code class="docutils literal notranslate"><span class="pre">/etc/carbon/carbon.conf</span></code> and restarting the carbon server)</p>
+</div>
+<div class="section" id="using-graphiti-ruby-sinatra-based-as-alternative-frontend">
+<h2>Using Graphiti (Ruby/Sinatra based) as alternative frontend<a class="headerlink" href="#using-graphiti-ruby-sinatra-based-as-alternative-frontend" title="제목 주소">¶</a></h2>
+<p>Graphiti is an alternative dashboard/frontend from Graphite writte in Sinatra (a Ruby/Rack framework).</p>
+<p>Graphiti requires redis, so be sure a redis server is running in your system.</p>
+<p>Running:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sudo apt-get install redis-server
+</pre></div>
+</div>
+<p>will be enough</p>
+<p>First step is cloning the graphiti app (place it where you want/need):</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/paperlesspost/graphiti.git
+</pre></div>
+</div>
+<p>then run the bundler tool (if you are not confident with the ruby world it is a tool for managing dependencies)</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>bundle install
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">주석</p>
+<p class="last">if the eventmachine gem installation fails, add &quot;gem 'eventmachine'&quot; in the Gemfile as the first gem and run bundle update. This will ensure latest eventmachine version will be installed</p>
+</div>
+<p>After bundle has installed all of the gems, you have to copy the graphiti example configuration:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>cp config/settings.yml.example config/settings.yml
+</pre></div>
+</div>
+<p>edit it and set graphite_base_url to the url where the graphite web interface (the django one) is running.</p>
+<p>Now we can deploy it on uWSGI</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">plugins-dir</span> <span class="o">=</span> <span class="s">/usr/lib/uwsgi</span>
+<span class="na">plugins</span> <span class="o">=</span> <span class="s">rack</span>
+<span class="na">chdir</span> <span class="o">=</span> <span class="s">&lt;path_to_graphiti&gt;</span>
+<span class="na">rack</span> <span class="o">=</span> <span class="s">config.ru</span>
+<span class="na">rbrequire</span> <span class="o">=</span> <span class="s">bundler/setup</span>
+<span class="na">http-socket</span> <span class="o">=</span> <span class="s">:9191</span>
+<span class="na">uid</span> <span class="o">=</span> <span class="s">_graphite</span>
+<span class="na">gid</span> <span class="o">=</span> <span class="s">_graphite</span>
+</pre></div>
+</div>
+<p>save it as <code class="docutils literal notranslate"><span class="pre">/etc/uwsgi/graphiti.ini</span></code> to let the Emperor deploy it</p>
+<p>You can now connect to port 9191 to manage your gathered metrics.</p>
+<p>As always you are free to place the instance under a proxy.</p>
+</div>
+<div class="section" id="notes">
+<h2>Notes<a class="headerlink" href="#notes" title="제목 주소">¶</a></h2>
+<p>By default the carbon server listens on a public address. Unless you know what you are doing you should point it to a local one (like 127.0.0.1)</p>
+<p>uWSGI exports a gazillion of metrics (and more are planned), do not be afraid to use them</p>
+<p>There is no security between apps and the carbon server, any apps can write metrics to it. If you are hosting untrusted apps you'd better to use other approcahes (like giving a graphite instance to every user in the system)</p>
+<p>The same is true for redis, if you run untrusted apps a shared redis instance is absolutely not a good choice from a secuity point of view</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../articles/SerializingAccept.html" class="btn btn-neutral float-right" title="Serializing accept(), AKA Thundering Herd, AKA the Zeeg Problem" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="DynamicProxying.html" class="btn btn-neutral" title="Build a dynamic proxy using RPC and internal routing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2012-2016, uWSGI.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'2.0',
+            LANGUAGE:'ko',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/language_data.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          
+          SphinxRtdTheme.Navigation.enableSticky();
+          
+      });
+  </script> 
+
+</body>
+</html>

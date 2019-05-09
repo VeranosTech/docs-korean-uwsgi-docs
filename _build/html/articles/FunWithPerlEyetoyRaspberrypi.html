@@ -1,0 +1,708 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ko" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ko" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Fun with Perl, Eyetoy and RaspberryPi &mdash; uWSGI 2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="색인" href="../genindex.html" />
+    <link rel="search" title="검색" href="../search.html" />
+    <link rel="next" title="Offloading Websockets and Server-Sent Events AKA &#34;Combine them with Django safely&#34;" href="OffloadingWebsocketsAndSSE.html" />
+    <link rel="prev" title="The Art of Graceful Reloading" href="TheArtOfGracefulReloading.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> uWSGI
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../WSGIquickstart.html">Quickstart for Python/WSGI applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PSGIquickstart.html">Quickstart for perl/PSGI applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RackQuickstart.html">Quickstart for ruby/Rack applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Snippets.html">Snippets</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Download.html">Getting uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Install.html">Installing uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../BuildSystem.html">The uWSGI build system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Management.html">Managing the uWSGI server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LanguagesAndPlatforms.html">Supported languages and platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SupportedPlatforms.html">Supported Platforms/Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../WebServers.html">Web server integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FAQ.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ThingsToKnow.html">Things to know (best practices and &quot;issues&quot;) READ IT !!!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Configuration.html">Configuring uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FallbackConfig.html">Fallback configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ConfigLogic.html">Configuration logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Options.html">uWSGI Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CustomOptions.html">Defining new options for your instances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ParsingOrder.html">How uWSGI parses config files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Vars.html">uwsgi protocol magic variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Protocol.html">The uwsgi Protocol</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AttachingDaemons.html">Managing external daemons/services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../MasterFIFO.html">The Master FIFO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Inetd.html">Socket activation with inetd/xinetd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Upstart.html">Running uWSGI via Upstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Systemd.html">Systemd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Circus.html">Running uWSGI instances with Circus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Embed.html">Embedding an application in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Logging.html">Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LogFormat.html">Formatting uWSGI requests logs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LogEncoders.html">Log encoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Hooks.html">Hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../WorkerOverride.html">Overriding Workers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ThirdPartyPlugins.html">uWSGI third party plugins</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/CachingCookbook.html">The uWSGI Caching Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/Django_and_nginx.html">Setting up Django and your web server with uWSGI and nginx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/dreamhost.html">Running uWSGI on Dreamhost shared hosting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/heroku_python.html">Running python webapps on Heroku with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/heroku_ruby.html">Running Ruby/Rack webapps on Heroku with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/ReliableFuse.html">Reliably use FUSE filesystems for uWSGI vassals (with Linux)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/DynamicProxying.html">Build a dynamic proxy using RPC and internal routing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/GraphiteAndMetrics.html">Setting up Graphite on Ubuntu using the Metrics subsystem</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="SerializingAccept.html">Serializing accept(), AKA Thundering Herd, AKA the Zeeg Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TheArtOfGracefulReloading.html">The Art of Graceful Reloading</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Fun with Perl, Eyetoy and RaspberryPi</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#intro">Intro</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#uwsgi-subsystems-and-plugins">uWSGI subsystems and plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#what-we-want-to-accomplish">What we want to accomplish</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#technical-background">Technical background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#let-s-start-the-uwsgi-capture-plugin">Let's start: the uwsgi-capture plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-2-the-psgi-app">Step 2: the PSGI app</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-3-html5">Step 3: HTML5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ready-to-watch">Ready to watch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#concurrency">Concurrency</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#zero-copy-all-the-things">Zero-copy all the things</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#alternative-approaches">Alternative approaches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#other-languages">Other languages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#more-hacking">More hacking</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="OffloadingWebsocketsAndSSE.html">Offloading Websockets and Server-Sent Events AKA &quot;Combine them with Django safely&quot;</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WSGIEnvBehaviour.html">WSGI env behaviour policies</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../AlarmSubsystem.html">The uWSGI alarm subsystem (from 1.3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Caching.html">The uWSGI caching framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../WebCaching.html">WebCaching framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Cron.html">The uWSGI cron-like interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Fastrouter.html">The uWSGI FastRouter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../InternalRouting.html">uWSGI internal routing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Legion.html">The uWSGI Legion subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Locks.html">Locks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Mules.html">uWSGI Mules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../OffloadSubsystem.html">The uWSGI offloading subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Queue.html">The uWSGI queue framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RPC.html">uWSGI RPC Stack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SharedArea.html">SharedArea -- share memory pages between uWSGI components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Signals.html">The uWSGI Signal Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Spooler.html">The uWSGI Spooler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SubscriptionServer.html">uWSGI Subscription Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../StaticFiles.html">Serving static files with uWSGI (updated to 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SNI.html">SNI - Server Name Identification (virtual hosting for SSL nodes)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GeoIP.html">The GeoIP plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Transformations.html">uWSGI Transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../WebSockets.html">WebSocket support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Metrics.html">The Metrics subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Chunked.html">The Chunked input API</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Cheaper.html">The uWSGI cheaper subsystem -- adaptive process spawning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Emperor.html">The uWSGI Emperor -- multi-app deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Broodlord.html">Auto-scaling with Broodlord mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Zerg.html">Zerg mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../DynamicApps.html">Adding applications dynamically</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SSLScaling.html">Scaling SSL connections (uWSGI 1.9)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Capabilities.html">Setting POSIX Capabilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Cgroups.html">Running uWSGI in a Linux CGroup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../KSM.html">Using Linux KSM in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Namespaces.html">Jailing your apps using Linux Namespaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Namespaces.html#the-old-way-the-namespace-option">The old way: the --namespace option</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FreeBSDJails.html">FreeBSD Jails</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ForkptyRouter.html">The Forkpty Router</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../TunTapRouter.html">The TunTap Router</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Nagios.html">Monitoring uWSGI with Nagios</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SNMP.html">The embedded SNMP server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PushingStats.html">Pushing statistics (from 1.4)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Carbon.html">Integration with Graphite/Carbon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../StatsServer.html">The uWSGI Stats Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Metrics.html">The Metrics subsystem</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Async.html">uWSGI asynchronous/non-blocking modes (updated to uWSGI 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Gevent.html">The Gevent loop engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Tornado.html">The Tornado loop engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../uGreen.html">uGreen -- uWSGI Green Threads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../asyncio.html">The asyncio loop engine (CPython &gt;= 3.4, uWSGI &gt;= 2.0.4)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Apache.html">Apache support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Cherokee.html">Cherokee support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HTTP.html">Native HTTP support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HTTPS.html">HTTPS 지원 (1.3 버전부터)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SPDY.html">The SPDY router (uWSGI 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Lighttpd.html">Lighttpd support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Mongrel2.html">Attaching uWSGI to Mongrel2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Nginx.html">Nginx support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../OpenBSDhttpd.html">Using OpenBSD httpd as proxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../OpenBSDhttpd.html#notes">Notes</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Python.html">Python support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PyPy.html">The PyPy plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PHP.html">Running PHP scripts in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Perl.html">uWSGI Perl support (PSGI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Ruby.html">Ruby support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Lua.html">Using Lua/WSAPI with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../JVM.html">JVM in the uWSGI server (updated to 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Mono.html">The Mono ASP.NET plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CGI.html">Running CGI scripts on uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCCGO.html">The GCCGO plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Symcall.html">The Symcall plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../XSLT.html">The XSLT plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SSI.html">SSI (Server Side Includes) plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../V8.html">uWSGI V8 support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GridFS.html">The GridFS plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GlusterFS.html">The GlusterFS plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Rados.html">The RADOS plugin</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Pty.html">The Pty plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SPNEGO.html">SPNEGO authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LDAP.html">Configuring uWSGI with LDAP</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Erlang.html">Integrating uWSGI with Erlang</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ManagementFlag.html">Management Flags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Go.html">uWSGI Go support (1.4 only)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.18.html">uWSGI 2.0.18</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.17.1.html">uWSGI 2.0.17.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.17.html">uWSGI 2.0.17</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.16.html">uWSGI 2.0.16</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.15.html">uWSGI 2.0.15</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.14.html">uWSGI 2.0.14</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.13.1.html">uWSGI 2.0.13.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.13.html">uWSGI 2.0.13</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.12.html">uWSGI 2.0.12</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.11.2.html">uWSGI 2.0.11.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.11.1.html">uWSGI 2.0.11.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.11.html">uWSGI 2.0.11</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.10.html">uWSGI 2.0.10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.9.html">uWSGI 2.0.9</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.8.html">uWSGI 2.0.8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.7.html">uWSGI 2.0.7</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.6.html">uWSGI 2.0.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.5.html">uWSGI 2.0.5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.4.html">uWSGI 2.0.4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.3.html">uWSGI 2.0.3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.2.html">uWSGI 2.0.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.1.html">uWSGI 2.0.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.html">uWSGI 2.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.21.html">uWSGI 1.9.21</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.20.html">uWSGI 1.9.20</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.19.html">uWSGI 1.9.19</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.18.html">uWSGI 1.9.18</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.17.html">uWSGI 1.9.17</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.16.html">uWSGI 1.9.16</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.15.html">uWSGI 1.9.15</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.14.html">uWSGI 1.9.14</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.13.html">uWSGI 1.9.13</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.12.html">uWSGI 1.9.12</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.11.html">uWSGI 1.9.11</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.10.html">uWSGI 1.9.10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.9.html">uWSGI 1.9.9</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.8.html">uWSGI 1.9.8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.7.html">uWSGI 1.9.7</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.6.html">uWSGI 1.9.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.5.html">uWSGI 1.9.5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.4.html">uWSGI 1.9.4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.3.html">uWSGI 1.9.3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.2.html">uWSGI 1.9.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.1.html">uWSGI 1.9.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.html">uWSGI 1.9</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">uWSGI</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Fun with Perl, Eyetoy and RaspberryPi</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/articles/FunWithPerlEyetoyRaspberrypi.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="fun-with-perl-eyetoy-and-raspberrypi">
+<h1>Fun with Perl, Eyetoy and RaspberryPi<a class="headerlink" href="#fun-with-perl-eyetoy-and-raspberrypi" title="제목 주소">¶</a></h1>
+<p>Author: Roberto De Ioris</p>
+<p>Date: 2013-12-07</p>
+<img alt="https://raw.github.com/unbit/uwsgi-capture/master/rpi-examples/rpi_eyetoy.jpg" src="https://raw.github.com/unbit/uwsgi-capture/master/rpi-examples/rpi_eyetoy.jpg" />
+<div class="section" id="intro">
+<h2>Intro<a class="headerlink" href="#intro" title="제목 주소">¶</a></h2>
+<p>This article is the result of various experiments aimed at improving uWSGI performance and usability in various areas before the 2.0 release.</p>
+<p>To follow the article you need:</p>
+<ul class="simple">
+<li>a Raspberry Pi (any model) with a Linux distribution installed (I used standard Raspbian)</li>
+<li>a PS3 Eyetoy webcam</li>
+<li>a websocket-enabled browser (basically any serious browser)</li>
+<li>a bit of Perl knowledge (really only a bit, there's less than 10 lines of Perl ;)</li>
+<li>Patience (building uWSGI + PSGI + coroae on the RPI requires 13 minutes)</li>
+</ul>
+</div>
+<div class="section" id="uwsgi-subsystems-and-plugins">
+<h2>uWSGI subsystems and plugins<a class="headerlink" href="#uwsgi-subsystems-and-plugins" title="제목 주소">¶</a></h2>
+<p>The project makes use of the following uWSGI subsystems and plugins:</p>
+<ul class="simple">
+<li><a class="reference internal" href="../WebSockets.html"><span class="doc">WebSocket support</span></a></li>
+<li><a class="reference internal" href="../SharedArea.html"><span class="doc">SharedArea -- share memory pages between uWSGI components</span></a> (for storing frames)</li>
+<li><a class="reference internal" href="../Mules.html"><span class="doc">uWSGI Mules</span></a> (for gathering frames)</li>
+<li><a class="reference internal" href="../Symcall.html"><span class="doc">The Symcall plugin</span></a></li>
+<li><a class="reference internal" href="../Perl.html"><span class="doc">uWSGI Perl support (PSGI)</span></a></li>
+<li><a class="reference internal" href="../Async.html"><span class="doc">uWSGI asynchronous/non-blocking modes (updated to uWSGI 1.9)</span></a> (optional, we use <code class="docutils literal notranslate"><span class="pre">Coro::Anyevent</span></code> but you can rely on standard processes, though you'll need way more memory)</li>
+</ul>
+</div>
+<div class="section" id="what-we-want-to-accomplish">
+<h2>What we want to accomplish<a class="headerlink" href="#what-we-want-to-accomplish" title="제목 주소">¶</a></h2>
+<p>We want our RPI to gather frames from the Eyetoy and stream them to various connected clients using websockets, using a HTML5 canvas element to show them.</p>
+<p>The whole system must use as little memory as possible, as few CPU cycles as possible, and it should support a large number of clients (... though well, even 10 clients will be a success for the Raspberry Pi hardware ;)</p>
+</div>
+<div class="section" id="technical-background">
+<h2>Technical background<a class="headerlink" href="#technical-background" title="제목 주소">¶</a></h2>
+<p>The Eyetoy captures frames in YUYV format (known as YUV 4:2:2). This means we need 4 bytes for 2 pixels.</p>
+<p>By default the resolution is set to 640x480, so each frame will need 614,400 bytes.</p>
+<p>Once we have a frame we need to decode it to RGBA to allow the HTML5 canvas to show it.</p>
+<p>The translation between YUYV and RGBA is pretty heavy for the RPI (especially if you need to do it for every connected client) so we will do it
+in the browser using Javascript. (There are other approaches we could follow, just check the end of the article for them.)</p>
+<p>The uWSGI stack is composed by a mule gathering frames from the Eyetoy and writing them to the uWSGI SharedArea.</p>
+<p>Workers constantly read from that SharedArea and send frames as binary websocket messages.</p>
+</div>
+<div class="section" id="let-s-start-the-uwsgi-capture-plugin">
+<h2>Let's start: the uwsgi-capture plugin<a class="headerlink" href="#let-s-start-the-uwsgi-capture-plugin" title="제목 주소">¶</a></h2>
+<p>uWSGI 1.9.21 introduced a simplified (and safe) procedure to build uWSGI plugins. (Expect more third party plugins soon!)</p>
+<p>The project at: <a class="reference external" href="https://github.com/unbit/uwsgi-capture">https://github.com/unbit/uwsgi-capture</a> shows a very simple plugin using the Video4Linux 2 API to gather frames.</p>
+<p>Each frame is written in a shared area initialized by the plugin itself.</p>
+<p>The first step is getting uWSGI and building it with the 'coroae' profile:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sudo apt-get install git build-essential libperl-dev libcoro-perl
+git clone https://github.com/unbit/uwsgi
+<span class="nb">cd</span> uwsgi
+make coroae
+</pre></div>
+</div>
+<p>The procedure requires about 13 minutes. If all goes well you can clone the uwsgi-capture plugin and build it.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/unbit/uwsgi-capture
+./uwsgi --build-plugin uwsgi-capture
+</pre></div>
+</div>
+<p>You now have the capture_plugin.so file in your uwsgi directory.</p>
+<p>Plug your Eyetoy into an USB port on your RPI and check if it works:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>./uwsgi --plugin capture --v4l-capture /dev/video0
+</pre></div>
+</div>
+<p>(the <code class="docutils literal notranslate"><span class="pre">--v4l-capture</span></code> option is exposed by the capture plugin)</p>
+<p>If all goes well you should see the following lines in uWSGI startup logs:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>/dev/video0 detected <span class="nv">width</span> <span class="o">=</span> <span class="m">640</span>
+/dev/video0 detected <span class="nv">height</span> <span class="o">=</span> <span class="m">480</span>
+/dev/video0 detected <span class="nv">format</span> <span class="o">=</span> YUYV
+sharedarea <span class="m">0</span> created at 0xb6935000 <span class="o">(</span><span class="m">150</span> pages, area at 0xb6936000<span class="o">)</span>
+/dev/video0 started streaming frames to sharedarea <span class="m">0</span>
+</pre></div>
+</div>
+<p>(the sharedarea memory pointers will obviously probably be different)</p>
+<p>The uWSGI process will exit soon after this as we did not tell it what to do. :)</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">uwsgi-capture</span></code> plugin exposes 2 functions:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">captureinit()</span></code>, mapped as the init() hook of the plugin, will be called automatically by uWSGI. If the --v4l-capture option is specified, this function will initialize the specified device and will map it to a uWSGI sharedarea.</li>
+<li><code class="docutils literal notranslate"><span class="pre">captureloop()</span></code> is the function gathering frames and writing them to the sharedarea. This function should constantly run (even if there are no clients reading frames)</li>
+</ul>
+<p>We want a mule to run the <code class="docutils literal notranslate"><span class="pre">captureloop()</span></code> function.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>./uwsgi --plugin capture --v4l-capture /dev/video0 --mule<span class="o">=</span><span class="s2">&quot;captureloop()&quot;</span> --http-socket :9090
+</pre></div>
+</div>
+<p>This time we have bound uWSGI to HTTP port 9090 with a mule mapped to the &quot;captureloop()&quot; function. This mule syntax is
+exposed by the symcall plugin that takes control of every mule argument ending with &quot;()&quot; (the quoting is required to avoid the shell making a mess of the parentheses).</p>
+<p>If all goes well you should see your uWSGI server spawning a master, a mule and a worker.</p>
+</div>
+<div class="section" id="step-2-the-psgi-app">
+<h2>Step 2: the PSGI app<a class="headerlink" href="#step-2-the-psgi-app" title="제목 주소">¶</a></h2>
+<p>Time to write our websocket server sending Eyetoy frames (you can find sources for the example here: <a class="reference external" href="https://github.com/unbit/uwsgi-capture/tree/master/rpi-examples">https://github.com/unbit/uwsgi-capture/tree/master/rpi-examples</a>).</p>
+<p>The PSGI app will be very simple:</p>
+<div class="highlight-pl notranslate"><div class="highlight"><pre><span></span><span class="k">use</span> <span class="nn">IO::File</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">File::Basename</span><span class="p">;</span>
+
+<span class="k">my</span> <span class="nv">$app</span> <span class="o">=</span> <span class="k">sub</span> <span class="p">{</span>
+     <span class="k">my</span> <span class="nv">$env</span> <span class="o">=</span> <span class="nb">shift</span><span class="p">;</span>
+
+     <span class="c1"># websockets connection happens on /eyetoy</span>
+     <span class="k">if</span> <span class="p">(</span><span class="nv">$env</span><span class="o">-&gt;</span><span class="p">{</span><span class="n">PATH_INFO</span><span class="p">}</span> <span class="ow">eq</span> <span class="s">&#39;/eyetoy&#39;</span><span class="p">)</span> <span class="p">{</span>
+             <span class="c1"># complete the handshake</span>
+             <span class="nn">uwsgi::</span><span class="n">websocket_handshake</span><span class="p">(</span><span class="nv">$env</span><span class="o">-&gt;</span><span class="p">{</span><span class="n">HTTP_SEC_WEBSOCKET_KEY</span><span class="p">},</span> <span class="nv">$env</span><span class="o">-&gt;</span><span class="p">{</span><span class="n">HTTP_ORIGIN</span><span class="p">});</span>
+             <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+                     <span class="c1"># wait for updates in the sharedarea</span>
+                     <span class="nn">uwsgi::</span><span class="n">sharedarea_wait</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">);</span>
+                     <span class="c1"># send a binary websocket message directly from the sharedarea</span>
+                     <span class="nn">uwsgi::</span><span class="n">websocket_send_binary_from_sharedarea</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+             <span class="p">}</span>
+     <span class="p">}</span>
+     <span class="c1"># other requests generate the html</span>
+     <span class="k">else</span> <span class="p">{</span>
+             <span class="k">return</span> <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="p">[</span><span class="s">&#39;Content-Type&#39;</span> <span class="o">=&gt;</span> <span class="s">&#39;text/html&#39;</span><span class="p">],</span> <span class="k">new</span> <span class="nn">IO::</span><span class="n">File</span><span class="p">(</span><span class="n">dirname</span><span class="p">(</span><span class="n">__FILE__</span><span class="p">)</span><span class="o">.</span><span class="s">&#39;/eyetoy.html&#39;</span><span class="p">)];</span>
+     <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The only interesting parts are:</p>
+<div class="highlight-pl notranslate"><div class="highlight"><pre><span></span><span class="nn">uwsgi::</span><span class="n">sharedarea_wait</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>This function suspends the current request until the specified shared area (the 'zero' one) gets an update. As this function is basically a busy-loop poll, the second argument specifies the polling frequency in milliseconds. 50 milliseconds gave us good results (feel free to try with other values).</p>
+<div class="highlight-pl notranslate"><div class="highlight"><pre><span></span><span class="nn">uwsgi::</span><span class="n">websocket_send_binary_from_sharedarea</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This is a special utility function sending a websocket binary message directly from the sharedarea (yep, zero-copy). The first argument is the sharedarea id (the 'zero' one) and the second is the position
+in the sharedarea to start reading from (zero again, as we want a full frame).</p>
+</div>
+<div class="section" id="step-3-html5">
+<h2>Step 3: HTML5<a class="headerlink" href="#step-3-html5" title="제목 주소">¶</a></h2>
+<p>The HTML part (well it would be better to say Javascript part) is very easy, aside from the YUYV to RGB(A) transform voodoo.</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+     <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+             <span class="p">&lt;</span><span class="nt">canvas</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;mystream&quot;</span> <span class="na">width</span><span class="o">=</span><span class="s">&quot;640&quot;</span> <span class="na">height</span><span class="o">=</span><span class="s">&quot;480&quot;</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;border:solid 1px red&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">canvas</span><span class="p">&gt;</span>
+
+             <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+
+
+                     <span class="kd">var</span> <span class="nx">canvas</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;mystream&#39;</span><span class="p">);</span>
+                     <span class="kd">var</span> <span class="nx">width</span> <span class="o">=</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span><span class="p">;</span>
+                     <span class="kd">var</span> <span class="nx">height</span> <span class="o">=</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">height</span><span class="p">;</span>
+                     <span class="kd">var</span> <span class="nx">ctx</span> <span class="o">=</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">getContext</span><span class="p">(</span><span class="s2">&quot;2d&quot;</span><span class="p">);</span>
+                     <span class="kd">var</span> <span class="nx">rgba</span> <span class="o">=</span> <span class="nx">ctx</span><span class="p">.</span><span class="nx">getImageData</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">width</span><span class="p">,</span> <span class="nx">height</span><span class="p">);</span>
+
+                     <span class="c1">// fill alpha (optimization)</span>
+                     <span class="k">for</span><span class="p">(</span><span class="nx">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">y</span><span class="o">&lt;</span> <span class="nx">height</span><span class="p">;</span> <span class="nx">y</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                             <span class="k">for</span><span class="p">(</span><span class="nx">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">x</span> <span class="o">&lt;</span> <span class="nx">width</span><span class="p">;</span> <span class="nx">x</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                                     <span class="nx">pos</span> <span class="o">=</span> <span class="p">(</span><span class="nx">y</span> <span class="o">*</span> <span class="nx">width</span> <span class="o">*</span> <span class="mi">4</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="nx">x</span> <span class="o">*</span> <span class="mi">4</span><span class="p">)</span> <span class="p">;</span>
+                                     <span class="nx">rgba</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="nx">pos</span><span class="o">+</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">255</span><span class="p">;</span>
+                             <span class="p">}</span>
+                     <span class="p">}</span>
+
+                     <span class="c1">// connect to the PSGI websocket server</span>
+                     <span class="kd">var</span> <span class="nx">ws</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WebSocket</span><span class="p">(</span><span class="s1">&#39;ws://&#39;</span> <span class="o">+</span> <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">host</span> <span class="o">+</span> <span class="s1">&#39;/eyetoy&#39;</span><span class="p">);</span>
+                     <span class="nx">ws</span><span class="p">.</span><span class="nx">binaryType</span> <span class="o">=</span> <span class="s1">&#39;arraybuffer&#39;</span><span class="p">;</span>
+                     <span class="nx">ws</span><span class="p">.</span><span class="nx">onopen</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+                             <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;ready&#39;</span><span class="p">);</span>
+                     <span class="p">};</span>
+
+                     <span class="nx">ws</span><span class="p">.</span><span class="nx">onmessage</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+                             <span class="kd">var</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">;</span>
+                             <span class="kd">var</span> <span class="nx">ycbcr</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Uint8ClampedArray</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+                             <span class="c1">// convert YUYV to RGBA</span>
+                             <span class="k">for</span><span class="p">(</span><span class="nx">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">y</span><span class="o">&lt;</span> <span class="nx">height</span><span class="p">;</span> <span class="nx">y</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                                     <span class="k">for</span><span class="p">(</span><span class="nx">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">x</span> <span class="o">&lt;</span> <span class="nx">width</span><span class="p">;</span> <span class="nx">x</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                                             <span class="nx">pos</span> <span class="o">=</span> <span class="p">(</span><span class="nx">y</span> <span class="o">*</span> <span class="nx">width</span> <span class="o">*</span> <span class="mi">4</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="nx">x</span> <span class="o">*</span> <span class="mi">4</span><span class="p">)</span> <span class="p">;</span>
+                                             <span class="kd">var</span> <span class="nx">vy</span><span class="p">,</span> <span class="nx">cb</span><span class="p">,</span> <span class="nx">cr</span><span class="p">;</span>
+                                             <span class="k">if</span> <span class="p">(</span><span class="nx">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+                                                     <span class="nx">ycbcr_pos</span> <span class="o">=</span> <span class="p">(</span><span class="nx">y</span> <span class="o">*</span> <span class="nx">width</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="nx">x</span> <span class="o">*</span> <span class="mi">2</span><span class="p">);</span>
+                                                     <span class="nx">vy</span> <span class="o">=</span> <span class="nx">ycbcr</span><span class="p">[</span><span class="nx">ycbcr_pos</span><span class="p">];</span>
+                                                     <span class="nx">cb</span> <span class="o">=</span> <span class="nx">ycbcr</span><span class="p">[</span><span class="nx">ycbcr_pos</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
+                                                     <span class="nx">cr</span> <span class="o">=</span> <span class="nx">ycbcr</span><span class="p">[</span><span class="nx">ycbcr_pos</span><span class="o">+</span><span class="mi">3</span><span class="p">];</span>
+                                             <span class="p">}</span>
+                                             <span class="k">else</span> <span class="p">{</span>
+                                                     <span class="nx">ycbcr_pos</span> <span class="o">=</span> <span class="p">(</span><span class="nx">y</span> <span class="o">*</span> <span class="nx">width</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="p">((</span><span class="nx">x</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span><span class="p">);</span>
+                                                     <span class="nx">vy</span> <span class="o">=</span> <span class="nx">ycbcr</span><span class="p">[</span><span class="nx">ycbcr_pos</span><span class="o">+</span><span class="mi">2</span><span class="p">];</span>
+                                                     <span class="nx">cb</span> <span class="o">=</span> <span class="nx">ycbcr</span><span class="p">[</span><span class="nx">ycbcr_pos</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
+                                                     <span class="nx">cr</span> <span class="o">=</span> <span class="nx">ycbcr</span><span class="p">[</span><span class="nx">ycbcr_pos</span><span class="o">+</span><span class="mi">3</span><span class="p">];</span>
+                                             <span class="p">}</span>
+                                             <span class="kd">var</span> <span class="nx">r</span> <span class="o">=</span> <span class="p">(</span><span class="nx">cr</span> <span class="o">+</span> <span class="p">((</span><span class="nx">cr</span> <span class="o">*</span> <span class="mi">103</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">8</span><span class="p">))</span> <span class="o">-</span> <span class="mi">179</span><span class="p">;</span>
+                                             <span class="kd">var</span> <span class="nx">g</span> <span class="o">=</span> <span class="p">((</span><span class="nx">cb</span> <span class="o">*</span> <span class="mi">88</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">-</span> <span class="mi">44</span> <span class="o">+</span> <span class="p">((</span><span class="nx">cr</span> <span class="o">*</span> <span class="mi">183</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">-</span> <span class="mi">91</span><span class="p">;</span>
+                                             <span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="p">(</span><span class="nx">cb</span> <span class="o">+</span> <span class="p">((</span><span class="nx">cb</span> <span class="o">*</span> <span class="mi">198</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">8</span><span class="p">))</span> <span class="o">-</span> <span class="mi">227</span><span class="p">;</span>
+                                             <span class="nx">rgba</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="nx">pos</span><span class="p">]</span> <span class="o">=</span> <span class="nx">vy</span> <span class="o">+</span> <span class="nx">r</span><span class="p">;</span>
+                                             <span class="nx">rgba</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="nx">pos</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nx">vy</span> <span class="o">+</span> <span class="nx">g</span><span class="p">;</span>
+                                             <span class="nx">rgba</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="nx">pos</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="nx">vy</span> <span class="o">+</span> <span class="nx">b</span><span class="p">;</span>
+                                     <span class="p">}</span>
+                             <span class="p">}</span>
+                             <span class="c1">// draw pixels</span>
+                             <span class="nx">ctx</span><span class="p">.</span><span class="nx">putImageData</span><span class="p">(</span><span class="nx">rgba</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+                     <span class="p">};</span>
+                     <span class="nx">ws</span><span class="p">.</span><span class="nx">onclose</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span> <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;goodbye&#39;</span><span class="p">);}</span>
+                     <span class="nx">ws</span><span class="p">.</span><span class="nx">onerror</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span> <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;oops&#39;</span><span class="p">);}</span>
+             <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+
+     <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>Nothing special here. The vast majority of the code is related to YUYV-&gt;RGBA conversion. Pay attention to set the websocket communication in 'binary' mode (binaryType = 'arraybuffer' is enough) and be sure to use
+an Uint8ClampedArray (otherwise performance will be terribly bad)</p>
+</div>
+<div class="section" id="ready-to-watch">
+<h2>Ready to watch<a class="headerlink" href="#ready-to-watch" title="제목 주소">¶</a></h2>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>./uwsgi --plugin capture --v4l-capture /dev/video0 --http-socket :9090 --psgi uwsgi-capture/rpi-examples/eyetoy.pl --mule<span class="o">=</span><span class="s2">&quot;captureloop()&quot;</span>
+</pre></div>
+</div>
+<p>Connect with your browser to TCP port 9090 of your Raspberry Pi and start watching.</p>
+</div>
+<div class="section" id="concurrency">
+<h2>Concurrency<a class="headerlink" href="#concurrency" title="제목 주소">¶</a></h2>
+<p>While you watch your websocket stream, you may want to start another browser window to see a second copy of your video. Unfortunately
+you spawned uWSGI with a single worker, so only a single client can get the stream.</p>
+<p>You can add multiple workers easily:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>./uwsgi --plugin capture --v4l-capture /dev/video0 --http-socket :9090 --psgi uwsgi-capture/rpi-examples/eyetoy.pl --mule<span class="o">=</span><span class="s2">&quot;captureloop()&quot;</span> --processes <span class="m">10</span>
+</pre></div>
+</div>
+<p>Like this up to 10 people will be able to watch the stream.</p>
+<p>But coroutines are way better (and cheaper) for I/O bound applications such as this:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>./uwsgi --plugin capture --v4l-capture /dev/video0 --http-socket :9090 --psgi uwsgi-capture/rpi-examples/eyetoy.pl --mule<span class="o">=</span><span class="s2">&quot;captureloop()&quot;</span> --coroae <span class="m">10</span>
+</pre></div>
+</div>
+<p>Now, magically, we are able to manage 10 clients with but a single process! The memory on the RPI will be grateful to you.</p>
+</div>
+<div class="section" id="zero-copy-all-the-things">
+<h2>Zero-copy all the things<a class="headerlink" href="#zero-copy-all-the-things" title="제목 주소">¶</a></h2>
+<p>Why are we using the SharedArea?</p>
+<p>The SharedArea is one of the most advanced uWSGI features. If you give a look at the uwsgi-capture plugin you will see how it easily creates a sharedarea pointing
+to a mmap()'ed region. Basically each worker, thread (but please do not use threads with Perl) or coroutine will have access to that memory in a concurrently safe way.</p>
+<p>In addition to this, thanks to the websocket/sharedarea cooperation API you can directly send websocket packets from a sharedarea without copying memory (except for the resulting websocket packet).</p>
+<p>This is way faster than something like:</p>
+<div class="highlight-pl notranslate"><div class="highlight"><pre><span></span><span class="k">my</span> <span class="nv">$chunk</span> <span class="o">=</span> <span class="nn">uwsgi::</span><span class="n">sharedarea_read</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="nn">uwsgi::</span><span class="n">websocket_send_binary</span><span class="p">(</span><span class="nv">$chunk</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We would need to allocate the memory for $chunk at every iteration, copying the sharedarea content into it and finally encapsulating it in a websocket message.</p>
+<p>With the sharedarea you remove the need to allocate (and free) memory constantly and to copy it from sharedarea to the Perl VM.</p>
+</div>
+<div class="section" id="alternative-approaches">
+<h2>Alternative approaches<a class="headerlink" href="#alternative-approaches" title="제목 주소">¶</a></h2>
+<p>There are obviously other approaches you can follow.</p>
+<p>You could hack uwsgi-capture to allocate a second sharedarea into which it will directly write RGBA frames.</p>
+<p>JPEG encoding is relatively fast, you can try encoding frames in the RPI and sending them as MJPEG frames (instead of using websockets):</p>
+<div class="highlight-pl notranslate"><div class="highlight"><pre><span></span><span class="k">my</span> <span class="nv">$writer</span> <span class="o">=</span> <span class="nv">$responder</span><span class="o">-&gt;</span><span class="p">(</span> <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="p">[</span><span class="s">&#39;Content-Type&#39;</span> <span class="o">=&gt;</span> <span class="s">&#39;multipart/x-mixed-replace; boundary=uwsgi_mjpeg_frame&#39;</span><span class="p">]]);</span>
+<span class="nv">$writer</span><span class="o">-&gt;</span><span class="nb">write</span><span class="p">(</span><span class="s">&quot;--uwsgi_mjpeg_frame\r\n&quot;</span><span class="p">);</span>
+<span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nn">uwsgi::</span><span class="n">sharedarea_wait</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="k">my</span> <span class="nv">$chunk</span> <span class="o">=</span> <span class="nn">uwsgi::</span><span class="n">sharedarea_read</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="nv">$writer</span><span class="o">-&gt;</span><span class="nb">write</span><span class="p">(</span><span class="s">&quot;Content-Type: image/jpeg\r\n&quot;</span><span class="p">);</span>
+    <span class="nv">$writer</span><span class="o">-&gt;</span><span class="nb">write</span><span class="p">(</span><span class="s">&quot;Content-Length: &quot;</span><span class="o">.</span><span class="nb">length</span><span class="p">(</span><span class="nv">$chunk</span><span class="p">)</span><span class="o">.</span><span class="s">&quot;\r\n\r\n&quot;</span><span class="p">);</span>
+    <span class="nv">$writer</span><span class="o">-&gt;</span><span class="nb">write</span><span class="p">(</span><span class="nv">$chunk</span><span class="p">);</span>
+    <span class="nv">$writer</span><span class="o">-&gt;</span><span class="nb">write</span><span class="p">(</span><span class="s">&quot;\r\n--uwsgi_mjpeg_frame\r\n&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="other-languages">
+<h2>Other languages<a class="headerlink" href="#other-languages" title="제목 주소">¶</a></h2>
+<p>At the time of writing, the uWSGI PSGI plugin is the only one exposing the additional API for websockets+sharedarea. The other language plugins will be updated soon.</p>
+</div>
+<div class="section" id="more-hacking">
+<h2>More hacking<a class="headerlink" href="#more-hacking" title="제목 주소">¶</a></h2>
+<p>The RPI board is really fun to tinker with and uWSGI is a great companion for it (especially its lower-level API functions).</p>
+<div class="admonition note">
+<p class="first admonition-title">주석</p>
+<p class="last">As an exercise left to the reader: remember you can mmap() the address 0x20200000 to access the Raspberry PI GPIO controller... ready to write a uwsgi-gpio plugin?</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="OffloadingWebsocketsAndSSE.html" class="btn btn-neutral float-right" title="Offloading Websockets and Server-Sent Events AKA &#34;Combine them with Django safely&#34;" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="TheArtOfGracefulReloading.html" class="btn btn-neutral" title="The Art of Graceful Reloading" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2012-2016, uWSGI.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'2.0',
+            LANGUAGE:'ko',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/language_data.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          
+          SphinxRtdTheme.Navigation.enableSticky();
+          
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,775 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ko" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ko" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>The uWSGI cheaper subsystem -- adaptive process spawning &mdash; uWSGI 2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="색인" href="genindex.html" />
+    <link rel="search" title="검색" href="search.html" />
+    <link rel="next" title="The uWSGI Emperor -- multi-app deployment" href="Emperor.html" />
+    <link rel="prev" title="The Chunked input API" href="Chunked.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> uWSGI
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="WSGIquickstart.html">Quickstart for Python/WSGI applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PSGIquickstart.html">Quickstart for perl/PSGI applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RackQuickstart.html">Quickstart for ruby/Rack applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Snippets.html">Snippets</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Download.html">Getting uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Install.html">Installing uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BuildSystem.html">The uWSGI build system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Management.html">Managing the uWSGI server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LanguagesAndPlatforms.html">Supported languages and platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SupportedPlatforms.html">Supported Platforms/Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WebServers.html">Web server integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FAQ.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ThingsToKnow.html">Things to know (best practices and &quot;issues&quot;) READ IT !!!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Configuration.html">Configuring uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FallbackConfig.html">Fallback configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ConfigLogic.html">Configuration logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Options.html">uWSGI Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CustomOptions.html">Defining new options for your instances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ParsingOrder.html">How uWSGI parses config files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Vars.html">uwsgi protocol magic variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Protocol.html">The uwsgi Protocol</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AttachingDaemons.html">Managing external daemons/services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MasterFIFO.html">The Master FIFO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Inetd.html">Socket activation with inetd/xinetd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Upstart.html">Running uWSGI via Upstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Systemd.html">Systemd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Circus.html">Running uWSGI instances with Circus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Embed.html">Embedding an application in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Logging.html">Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LogFormat.html">Formatting uWSGI requests logs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LogEncoders.html">Log encoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Hooks.html">Hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WorkerOverride.html">Overriding Workers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ThirdPartyPlugins.html">uWSGI third party plugins</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/CachingCookbook.html">The uWSGI Caching Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/Django_and_nginx.html">Setting up Django and your web server with uWSGI and nginx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/dreamhost.html">Running uWSGI on Dreamhost shared hosting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/heroku_python.html">Running python webapps on Heroku with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/heroku_ruby.html">Running Ruby/Rack webapps on Heroku with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/ReliableFuse.html">Reliably use FUSE filesystems for uWSGI vassals (with Linux)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/DynamicProxying.html">Build a dynamic proxy using RPC and internal routing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/GraphiteAndMetrics.html">Setting up Graphite on Ubuntu using the Metrics subsystem</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="articles/SerializingAccept.html">Serializing accept(), AKA Thundering Herd, AKA the Zeeg Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="articles/TheArtOfGracefulReloading.html">The Art of Graceful Reloading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="articles/FunWithPerlEyetoyRaspberrypi.html">Fun with Perl, Eyetoy and RaspberryPi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="articles/OffloadingWebsocketsAndSSE.html">Offloading Websockets and Server-Sent Events AKA &quot;Combine them with Django safely&quot;</a></li>
+<li class="toctree-l1"><a class="reference internal" href="articles/WSGIEnvBehaviour.html">WSGI env behaviour policies</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="AlarmSubsystem.html">The uWSGI alarm subsystem (from 1.3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Caching.html">The uWSGI caching framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WebCaching.html">WebCaching framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cron.html">The uWSGI cron-like interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Fastrouter.html">The uWSGI FastRouter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="InternalRouting.html">uWSGI internal routing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Legion.html">The uWSGI Legion subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Locks.html">Locks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Mules.html">uWSGI Mules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OffloadSubsystem.html">The uWSGI offloading subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Queue.html">The uWSGI queue framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RPC.html">uWSGI RPC Stack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SharedArea.html">SharedArea -- share memory pages between uWSGI components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Signals.html">The uWSGI Signal Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Spooler.html">The uWSGI Spooler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SubscriptionServer.html">uWSGI Subscription Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="StaticFiles.html">Serving static files with uWSGI (updated to 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SNI.html">SNI - Server Name Identification (virtual hosting for SSL nodes)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GeoIP.html">The GeoIP plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Transformations.html">uWSGI Transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WebSockets.html">WebSocket support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Metrics.html">The Metrics subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Chunked.html">The Chunked input API</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">The uWSGI cheaper subsystem -- adaptive process spawning</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#setting-memory-limits">Setting memory limits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#spare-cheaper-algorithm"><code class="docutils literal notranslate"><span class="pre">spare</span></code> cheaper algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#spare2-cheaper-algorithm"><code class="docutils literal notranslate"><span class="pre">spare2</span></code> cheaper algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#backlog-cheaper-algorithm"><code class="docutils literal notranslate"><span class="pre">backlog</span></code> cheaper algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#busyness-cheaper-algorithm"><code class="docutils literal notranslate"><span class="pre">busyness</span></code> cheaper algorithm</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#cheaper-overload">cheaper-overload</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cheaper-step">cheaper-step</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cheaper-initial">cheaper-initial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cheaper-busyness-max">cheaper-busyness-max</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cheaper-busyness-min">cheaper-busyness-min</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cheaper-busyness-multiplier">cheaper-busyness-multiplier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cheaper-busyness-penalty">cheaper-busyness-penalty</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cheaper-busyness-verbose">cheaper-busyness-verbose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cheaper-busyness-backlog-alert">cheaper-busyness-backlog-alert</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cheaper-busyness-backlog-multiplier">cheaper-busyness-backlog-multiplier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cheaper-busyness-backlog-step">cheaper-busyness-backlog-step</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cheaper-busyness-backlog-nonzero">cheaper-busyness-backlog-nonzero</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#notes-regarding-busyness">Notes regarding Busyness</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Emperor.html">The uWSGI Emperor -- multi-app deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Broodlord.html">Auto-scaling with Broodlord mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Zerg.html">Zerg mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DynamicApps.html">Adding applications dynamically</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SSLScaling.html">Scaling SSL connections (uWSGI 1.9)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Capabilities.html">Setting POSIX Capabilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cgroups.html">Running uWSGI in a Linux CGroup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="KSM.html">Using Linux KSM in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Namespaces.html">Jailing your apps using Linux Namespaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Namespaces.html#the-old-way-the-namespace-option">The old way: the --namespace option</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FreeBSDJails.html">FreeBSD Jails</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ForkptyRouter.html">The Forkpty Router</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TunTapRouter.html">The TunTap Router</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Nagios.html">Monitoring uWSGI with Nagios</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SNMP.html">The embedded SNMP server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PushingStats.html">Pushing statistics (from 1.4)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Carbon.html">Integration with Graphite/Carbon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="StatsServer.html">The uWSGI Stats Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Metrics.html">The Metrics subsystem</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Async.html">uWSGI asynchronous/non-blocking modes (updated to uWSGI 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Gevent.html">The Gevent loop engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tornado.html">The Tornado loop engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uGreen.html">uGreen -- uWSGI Green Threads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="asyncio.html">The asyncio loop engine (CPython &gt;= 3.4, uWSGI &gt;= 2.0.4)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Apache.html">Apache support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cherokee.html">Cherokee support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="HTTP.html">Native HTTP support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="HTTPS.html">HTTPS 지원 (1.3 버전부터)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SPDY.html">The SPDY router (uWSGI 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lighttpd.html">Lighttpd support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Mongrel2.html">Attaching uWSGI to Mongrel2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Nginx.html">Nginx support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OpenBSDhttpd.html">Using OpenBSD httpd as proxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OpenBSDhttpd.html#notes">Notes</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Python.html">Python support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PyPy.html">The PyPy plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PHP.html">Running PHP scripts in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Perl.html">uWSGI Perl support (PSGI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Ruby.html">Ruby support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lua.html">Using Lua/WSAPI with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="JVM.html">JVM in the uWSGI server (updated to 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Mono.html">The Mono ASP.NET plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CGI.html">Running CGI scripts on uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GCCGO.html">The GCCGO plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Symcall.html">The Symcall plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="XSLT.html">The XSLT plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SSI.html">SSI (Server Side Includes) plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="V8.html">uWSGI V8 support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GridFS.html">The GridFS plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GlusterFS.html">The GlusterFS plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Rados.html">The RADOS plugin</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Pty.html">The Pty plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SPNEGO.html">SPNEGO authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LDAP.html">Configuring uWSGI with LDAP</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Erlang.html">Integrating uWSGI with Erlang</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ManagementFlag.html">Management Flags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Go.html">uWSGI Go support (1.4 only)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.18.html">uWSGI 2.0.18</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.17.1.html">uWSGI 2.0.17.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.17.html">uWSGI 2.0.17</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.16.html">uWSGI 2.0.16</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.15.html">uWSGI 2.0.15</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.14.html">uWSGI 2.0.14</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.13.1.html">uWSGI 2.0.13.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.13.html">uWSGI 2.0.13</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.12.html">uWSGI 2.0.12</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.11.2.html">uWSGI 2.0.11.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.11.1.html">uWSGI 2.0.11.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.11.html">uWSGI 2.0.11</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.10.html">uWSGI 2.0.10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.9.html">uWSGI 2.0.9</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.8.html">uWSGI 2.0.8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.7.html">uWSGI 2.0.7</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.6.html">uWSGI 2.0.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.5.html">uWSGI 2.0.5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.4.html">uWSGI 2.0.4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.3.html">uWSGI 2.0.3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.2.html">uWSGI 2.0.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.1.html">uWSGI 2.0.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.html">uWSGI 2.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.21.html">uWSGI 1.9.21</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.20.html">uWSGI 1.9.20</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.19.html">uWSGI 1.9.19</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.18.html">uWSGI 1.9.18</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.17.html">uWSGI 1.9.17</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.16.html">uWSGI 1.9.16</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.15.html">uWSGI 1.9.15</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.14.html">uWSGI 1.9.14</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.13.html">uWSGI 1.9.13</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.12.html">uWSGI 1.9.12</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.11.html">uWSGI 1.9.11</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.10.html">uWSGI 1.9.10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.9.html">uWSGI 1.9.9</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.8.html">uWSGI 1.9.8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.7.html">uWSGI 1.9.7</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.6.html">uWSGI 1.9.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.5.html">uWSGI 1.9.5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.4.html">uWSGI 1.9.4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.3.html">uWSGI 1.9.3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.2.html">uWSGI 1.9.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.1.html">uWSGI 1.9.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.html">uWSGI 1.9</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">uWSGI</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>The uWSGI cheaper subsystem -- adaptive process spawning</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/Cheaper.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="the-uwsgi-cheaper-subsystem-adaptive-process-spawning">
+<h1>The uWSGI cheaper subsystem -- adaptive process spawning<a class="headerlink" href="#the-uwsgi-cheaper-subsystem-adaptive-process-spawning" title="제목 주소">¶</a></h1>
+<p>uWSGI provides the ability to dynamically scale the number of running workers
+via pluggable algorithms.  Use <code class="docutils literal notranslate"><span class="pre">uwsgi</span> <span class="pre">--cheaper-algos-list</span></code> to get the list
+of available algorithms.</p>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="제목 주소">¶</a></h2>
+<p>To enable cheaper mode add the <code class="docutils literal notranslate"><span class="pre">cheaper</span> <span class="pre">=</span> <span class="pre">N</span></code> option to the uWSGI
+configuration file, where N is the minimum number of workers uWSGI can run. The
+<code class="docutils literal notranslate"><span class="pre">cheaper</span></code> value must be lower than the maximum number of configured workers
+(<code class="docutils literal notranslate"><span class="pre">workers</span></code> or <code class="docutils literal notranslate"><span class="pre">processes</span></code> option).</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="c1"># set cheaper algorithm to use, if not set default will be used</span>
+<span class="na">cheaper-algo</span> <span class="o">=</span> <span class="s">spare</span>
+
+<span class="c1"># minimum number of workers to keep at all times</span>
+<span class="na">cheaper</span> <span class="o">=</span> <span class="s">2</span>
+
+<span class="c1"># number of workers to spawn at startup</span>
+<span class="na">cheaper-initial</span> <span class="o">=</span> <span class="s">5</span>
+
+<span class="c1"># maximum number of workers that can be spawned</span>
+<span class="na">workers</span> <span class="o">=</span> <span class="s">10</span>
+
+<span class="c1"># how many workers should be spawned at a time</span>
+<span class="na">cheaper-step</span> <span class="o">=</span> <span class="s">1</span>
+</pre></div>
+</div>
+<p>This configuration will tell uWSGI to run up to 10 workers under load. If the
+app is idle uWSGI will stop workers but it will always leave at least 2 of them
+running.  With <code class="docutils literal notranslate"><span class="pre">cheaper-initial</span></code> you can control how many workers should be
+spawned at startup. If your average load requires more than minimum number of
+workers you can have them spawned right away and then &quot;cheaped&quot; (killed off) if
+load is low enough.  When the cheaper algorithm decides that it needs more
+workers it will spawn <code class="docutils literal notranslate"><span class="pre">cheaper-step</span></code> of them. This is useful if you have a
+high maximum number of workers -- in the event of a sudden load spike it would
+otherwise take a lot of time to spawn enough workers one by one.</p>
+<p>Note: Worker is notified by uWSGI before being cheaped. Worker should finish until
+timeout is reached (this is configured by <code class="docutils literal notranslate"><span class="pre">worker-reload-mercy</span></code> configuration parameter).
+Otherwise, uWSGI kills the worker. Killing worker in the middle of serving request can cause
+errors or partial responses to the client.</p>
+</div>
+<div class="section" id="setting-memory-limits">
+<h2>Setting memory limits<a class="headerlink" href="#setting-memory-limits" title="제목 주소">¶</a></h2>
+<p>Starting with 1.9.16 rss memory limits can be set to stop cheaper spawning
+new workers if process count limit was not reached, but total sum of rss
+memory used by all workers reached given limit.</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="c1"># soft limit will prevent cheaper from spawning new workers</span>
+<span class="c1"># if workers total rss memory is equal or higher</span>
+<span class="c1"># we use 128MB soft limit below (values are in bytes)</span>
+<span class="na">cheaper-rss-limit-soft</span> <span class="o">=</span> <span class="s">134217728</span>
+
+<span class="c1"># hard limit will force cheaper to cheap single worker</span>
+<span class="c1"># if workers total rss memory is equal or higher</span>
+<span class="c1"># we use 160MB hard limit below (values are in bytes)</span>
+<span class="na">cheaper-rss-limit-hard</span> <span class="o">=</span> <span class="s">167772160</span>
+</pre></div>
+</div>
+<p>Notes:</p>
+<ul class="simple">
+<li>Hard limit is optional, soft limit alone can be used.</li>
+<li>Hard value must be higher then soft value, both values shouldn't be too close to each other.</li>
+<li>Hard value should be soft + at least average worker memory usage for given app.</li>
+<li>Soft value is the limiter for cheaper, it won't spawn more workers, but already running workers
+memory usage might grow, to handle that reload-on-rss can be set too. To set unbreakable barrier
+for app memory usage cgroups are recommended.</li>
+</ul>
+</div>
+<div class="section" id="spare-cheaper-algorithm">
+<h2><code class="docutils literal notranslate"><span class="pre">spare</span></code> cheaper algorithm<a class="headerlink" href="#spare-cheaper-algorithm" title="제목 주소">¶</a></h2>
+<p>This is the default algorithm.  If all workers are busy for
+<code class="docutils literal notranslate"><span class="pre">cheaper_overload</span></code> seconds then uWSGI will spawn new workers. When the load
+is gone it will begin stopping processes one at a time.</p>
+</div>
+<div class="section" id="spare2-cheaper-algorithm">
+<h2><code class="docutils literal notranslate"><span class="pre">spare2</span></code> cheaper algorithm<a class="headerlink" href="#spare2-cheaper-algorithm" title="제목 주소">¶</a></h2>
+<p>This algorithm is similar to spare, but suitable for large scale by increase workers faster and
+decrease workers slower.</p>
+<p>When number of idle workers is smaller than number specified by <code class="docutils literal notranslate"><span class="pre">cheaper</span></code>, it spawns (<code class="docutils literal notranslate"><span class="pre">cheaper</span></code> -
+number of idle workers) workers.  Maximum workers spawned at once can be limited by <code class="docutils literal notranslate"><span class="pre">cheaper-step</span></code>.
+For example, <code class="docutils literal notranslate"><span class="pre">cheaper</span></code> is 4, there are 2 idle workers and <code class="docutils literal notranslate"><span class="pre">cheaper-step</span></code> is 1, it spawns 1 worker.</p>
+<p>When number of idle workers is larger than <code class="docutils literal notranslate"><span class="pre">cheaper</span></code>, it increments internal counter.
+When number of idle workers is smaller than or equal to <code class="docutils literal notranslate"><span class="pre">cheaper</span></code>, reset the counter.
+When the counter is equal to <code class="docutils literal notranslate"><span class="pre">cheaper-idle</span></code>, cheap one worker and reset the counter.</p>
+<p>Sample configuration:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="na">workers</span> <span class="o">=</span> <span class="s">64          # maximum number of workers</span>
+
+<span class="na">cheaper-algo</span> <span class="o">=</span> <span class="s">spare2</span>
+<span class="na">cheaper</span> <span class="o">=</span> <span class="s">8           # tries to keep 8 idle workers</span>
+<span class="na">cheaper-initial</span> <span class="o">=</span> <span class="s">8   # starts with minimal workers</span>
+<span class="na">cheaper-step</span> <span class="o">=</span> <span class="s">4      # spawn at most 4 workers at once</span>
+<span class="na">cheaper-idle</span> <span class="o">=</span> <span class="s">60     # cheap one worker per minute while idle</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="backlog-cheaper-algorithm">
+<h2><code class="docutils literal notranslate"><span class="pre">backlog</span></code> cheaper algorithm<a class="headerlink" href="#backlog-cheaper-algorithm" title="제목 주소">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">주석</p>
+<p class="last"><code class="docutils literal notranslate"><span class="pre">backlog</span></code> is only available on Linux and only on TCP sockets (not UNIX domain sockets).</p>
+</div>
+<p>If the socket's listen queue has more than <code class="docutils literal notranslate"><span class="pre">cheaper_overload</span></code> requests
+waiting to be processed, uWSGI will spawn new workers.  If the backlog is lower
+it will begin killing processes one at a time.</p>
+</div>
+<div class="section" id="busyness-cheaper-algorithm">
+<h2><code class="docutils literal notranslate"><span class="pre">busyness</span></code> cheaper algorithm<a class="headerlink" href="#busyness-cheaper-algorithm" title="제목 주소">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">주석</p>
+<p class="last">This algorithm is optional, it is only available if the <code class="docutils literal notranslate"><span class="pre">cheaper_busyness</span></code> plugin is compiled and loaded.</p>
+</div>
+<p>This plugin implements an algorithm which adds or removes workers based on
+average utilization for a given time period. It's goal is to keep more workers
+than the minimum needed available at any given time, so the app will always
+have capacity for new requests. If you want to run only minimum number of
+workers then use the spare or backlog algorithms.</p>
+<p>This plugin primarily is used because the way spare and backlog plugins work
+causes very aggressive scaling behavior. If you set a low <code class="docutils literal notranslate"><span class="pre">cheaper</span></code> value
+(for example 1), then uWSGI will keep only 1 worker running and spawn new
+workers only when that running worker is overloaded.  If an app requires more
+workers, then uWSGI will be spawning and stopping workers all the time. Only
+during times of very low load the would the minimum number of workers be
+enough.</p>
+<p>The Busyness algorithm tries to do the opposite: spawn as many workers as
+needed and stop some of them only when there is a good chance that they are not
+needed. This should lead to a more stable worker count and much less respawns.
+Since for most of the time we have more worker capacity  than actually needed,
+average application response times should be lower than with other plugins.</p>
+<p>Options:</p>
+<div class="section" id="cheaper-overload">
+<h3>cheaper-overload<a class="headerlink" href="#cheaper-overload" title="제목 주소">¶</a></h3>
+<p>Specifies the window, in seconds, for tracking the average busyness of workers. Example:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="na">cheaper-overload</span> <span class="o">=</span> <span class="s">30</span>
+</pre></div>
+</div>
+<p>This option will check busyness every 30 seconds. If during the last 30 seconds
+all workers were running for 3 seconds and idle for the remaining 27 seconds
+the calculated busyness will be 10% (3/30). This value will decide how fast
+uWSGI can respond to load spikes. New workers will be spawned at most every
+<code class="docutils literal notranslate"><span class="pre">cheaper-overload</span></code> seconds (unless you are running uWSGI on Linux -- see
+<code class="docutils literal notranslate"><span class="pre">cheaper-busyness-backlog-alert</span></code> for details).</p>
+<p>If you want to react to load spikes faster, keep this value low so busyness is
+calculated more often. Keep in mind this may cause workers to be
+started/stopped more often than required since every minor spike may spawn new
+workers. With a high <code class="docutils literal notranslate"><span class="pre">cheaper-overload</span></code> value the worker count will change
+much less since longer cycles will eat all short spikes of load and extreme
+values.
+Default is 3, for busyness plugin it's best to use higher value (10-30).</p>
+</div>
+<div class="section" id="cheaper-step">
+<h3>cheaper-step<a class="headerlink" href="#cheaper-step" title="제목 주소">¶</a></h3>
+<p>How many workers to spawn when the algorithm decides they are needed. Default
+is 1.</p>
+</div>
+<div class="section" id="cheaper-initial">
+<h3>cheaper-initial<a class="headerlink" href="#cheaper-initial" title="제목 주소">¶</a></h3>
+<p>The number of workers to be started when starting the application. After the
+app is started the algorithm can stop or start workers if needed.</p>
+</div>
+<div class="section" id="cheaper-busyness-max">
+<h3>cheaper-busyness-max<a class="headerlink" href="#cheaper-busyness-max" title="제목 주소">¶</a></h3>
+<p>This is the maximum busyness we allow. Every time the calculated busyness for
+last <code class="docutils literal notranslate"><span class="pre">cheaper-overload</span></code> seconds is higher than this value, uWSGI will spawn
+<code class="docutils literal notranslate"><span class="pre">cheaper-step</span></code> new workers.  Default is 50.</p>
+</div>
+<div class="section" id="cheaper-busyness-min">
+<h3>cheaper-busyness-min<a class="headerlink" href="#cheaper-busyness-min" title="제목 주소">¶</a></h3>
+<p>This is minimum busyness. If current busyness is below this value, the app is
+considered as being in an &quot;idle cycl&quot; and uWSGI will start counting them. Once
+we reach needed number of idle cycles uWSGI will kill one worker.  Default is
+25.</p>
+</div>
+<div class="section" id="cheaper-busyness-multiplier">
+<h3>cheaper-busyness-multiplier<a class="headerlink" href="#cheaper-busyness-multiplier" title="제목 주소">¶</a></h3>
+<p>This option tells uWSGI how many idle cycles we need before stopping a worker.
+After reaching this limit uWSGI will stop a worker and reset this counter.</p>
+<p>For example:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="na">cheaper-overload</span> <span class="o">=</span> <span class="s">10</span>
+<span class="na">cheaper-busyness-multiplier</span> <span class="o">=</span> <span class="s">20</span>
+<span class="na">cheaper-busyness-min</span> <span class="o">=</span> <span class="s">25</span>
+</pre></div>
+</div>
+<p>If average worker busyness is under 25% for 20 checks in a row, executed every
+10 seconds (total of 200 seconds), one worker will be stopped. The idle cycles
+counter will be reset if average busyness jumps above <code class="docutils literal notranslate"><span class="pre">cheaper-busyness-max</span></code>
+and we spawn new workers. If during idle cycle counting the average busyness
+jumps above <code class="docutils literal notranslate"><span class="pre">cheaper-busyness-min</span></code> but still below <code class="docutils literal notranslate"><span class="pre">cheaper-busyness-max</span></code>,
+then the idle cycles counter is adjusted and we need to wait extra one idle
+cycle. If during idle cycle counting the average busyness jumps above
+<code class="docutils literal notranslate"><span class="pre">cheaper-busyness-min</span></code> but still below <code class="docutils literal notranslate"><span class="pre">cheaper-busyness-max</span></code> three times
+in a row, then the idle cycle counter is reset.</p>
+</div>
+<div class="section" id="cheaper-busyness-penalty">
+<h3>cheaper-busyness-penalty<a class="headerlink" href="#cheaper-busyness-penalty" title="제목 주소">¶</a></h3>
+<p>uWSGI will automatically tune the number of idle cycles needed to stop worker
+when worker is stopped due to enough idle cycles and then spawned back to fast
+(less than the same time we need to cheap worker), then we will increment the
+<code class="docutils literal notranslate"><span class="pre">cheaper-busyness-multiplier</span></code> value this value.  Default is 1.</p>
+<p>Example:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="na">cheaper-overload</span> <span class="o">=</span> <span class="s">10</span>
+<span class="na">cheaper-busyness-multiplier</span> <span class="o">=</span> <span class="s">20</span>
+<span class="na">cheaper-busyness-min</span> <span class="o">=</span> <span class="s">25</span>
+<span class="na">cheaper-busyness-penalty</span> <span class="o">=</span> <span class="s">2</span>
+</pre></div>
+</div>
+<p>If average worker busyness is under 25% for 20 checks in a row, executed every
+10 seconds (total 200 seconds), one worker will be stopped. If new worker is
+spawned in less than 200 seconds (counting from the time when we spawned the
+last worker before it), the <code class="docutils literal notranslate"><span class="pre">cheaper-busyness-multiplier</span></code> value will be
+incremented up to 22 (20+2). Now we will need to wait 220 seconds (22*10) to
+cheap another worker.  This option is used to prevent workers from being
+started and stopped all the time since once we stop one worker, busyness might
+jump up enough to hit <code class="docutils literal notranslate"><span class="pre">cheaper-busyness-max</span></code>. Without this, or if tuned
+poorly, we can get into a stop/start feedback loop .</p>
+</div>
+<div class="section" id="cheaper-busyness-verbose">
+<h3>cheaper-busyness-verbose<a class="headerlink" href="#cheaper-busyness-verbose" title="제목 주소">¶</a></h3>
+<p>This option enables debug logs from the <code class="docutils literal notranslate"><span class="pre">cheaper_busyness</span></code> plugin.</p>
+</div>
+<div class="section" id="cheaper-busyness-backlog-alert">
+<h3>cheaper-busyness-backlog-alert<a class="headerlink" href="#cheaper-busyness-backlog-alert" title="제목 주소">¶</a></h3>
+<p>This option is only available on Linux. It is used to allow quick response to
+load spikes even with high <code class="docutils literal notranslate"><span class="pre">cheaper-overload</span></code> values. On every uWSGI master
+cycle (default 1 second) the current listen queue is checked. If it is higher
+than this value, an emergency worker is spawned. When using this option it is
+safe to use high <code class="docutils literal notranslate"><span class="pre">cheaper-overload</span></code> values to have smoother scaling of worker
+count. Default is 33.</p>
+</div>
+<div class="section" id="cheaper-busyness-backlog-multiplier">
+<h3>cheaper-busyness-backlog-multiplier<a class="headerlink" href="#cheaper-busyness-backlog-multiplier" title="제목 주소">¶</a></h3>
+<p>This option is only available on Linux. It works just like
+<code class="docutils literal notranslate"><span class="pre">cheaper-busyness-multiplier</span></code>, except it is used only for emergency workers
+spawned when listen queue was higher than <code class="docutils literal notranslate"><span class="pre">cheaper-busyness-backlog-alert</span></code>.</p>
+<p>Emergency workers are spawned in case of big load spike to prevent currently
+running workers from being overloaded. Sometimes load spike are random and
+short which can spawn a lot of emergency workers. In such cases we would need
+to wait several cycles before reaping those workers. This provides an alternate
+multiplier to reap these processes faster.  Default is 3.</p>
+</div>
+<div class="section" id="cheaper-busyness-backlog-step">
+<h3>cheaper-busyness-backlog-step<a class="headerlink" href="#cheaper-busyness-backlog-step" title="제목 주소">¶</a></h3>
+<p>This option is only available on Linux. It sets the number of emergency workers
+spawned when listen queue is higher than <code class="docutils literal notranslate"><span class="pre">cheaper-busyness-backlog-alert</span></code>.
+Defaults to 1.</p>
+</div>
+<div class="section" id="cheaper-busyness-backlog-nonzero">
+<h3>cheaper-busyness-backlog-nonzero<a class="headerlink" href="#cheaper-busyness-backlog-nonzero" title="제목 주소">¶</a></h3>
+<p>This option is only available on Linux. It will spawn new emergency workers if
+the request listen queue is &gt; 0 for more than N seconds.  It is used to protect
+the server from the corner case where there is only a single worker running and
+the worker is handling a long running request. If uWSGI receives new requests
+they would stay in the request queue until that long running request is
+completed. With this option we can detect such a condition and spawn new worker
+to prevent queued requests from being timed out.  Default is 60.</p>
+</div>
+<div class="section" id="notes-regarding-busyness">
+<h3>Notes regarding Busyness<a class="headerlink" href="#notes-regarding-busyness" title="제목 주소">¶</a></h3>
+<ul>
+<li><p class="first">Experiment with settings, there is no one golden rule of what values should be used for everyone. Test and pick values that are best for you. Monitoring uWSGI stats (via Carbon, for instance) will make it easy to decide on good values.</p>
+</li>
+<li><p class="first">Don't expect busyness to be constant. it will change frequently. In the end, real users interact with your apps in very random way. It's recommended to use longer --cheaper-overload values (&gt;=30) to have less spikes.</p>
+</li>
+<li><p class="first">If you want to run some benchmarks with this plugin, you should use tools that add randomness to the work load</p>
+</li>
+<li><p class="first">With a low number of workers (2-3) starting new worker or stopping one might affect busyness a lot, if You have 2 workers with busyness of 50%, than stopping one of them will increase busyness to 100%. Keep that in mind when picking min and max levels, with only few workers running most of the time max should be more than double of min, otherwise every time one worker is stopped it might increase busyness to above max level.</p>
+</li>
+<li><p class="first">With a low number of workers (1-4) and default settings expect this plugin will keep average busyness below the minimum level; adjust levels to compensate for this.</p>
+</li>
+<li><p class="first">With a higher number of workers required to handle load, worker count should stabilize somewhere near minimum busyness level, jumping a little bit around this value</p>
+</li>
+<li><p class="first">When experimenting with this plugin it is advised to enable <code class="docutils literal notranslate"><span class="pre">--cheaper-busyness-verbose</span></code> to get an idea of what it is doing. An example log follows.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># These messages are logged at startup to show current settings</span>
+<span class="p">[</span><span class="n">busyness</span><span class="p">]</span> <span class="n">settings</span><span class="p">:</span> <span class="nb">min</span><span class="o">=</span><span class="mi">20</span><span class="o">%</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">60</span><span class="o">%</span><span class="p">,</span> <span class="n">overload</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">multiplier</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">respawn</span> <span class="n">penalty</span><span class="o">=</span><span class="mi">3</span>
+<span class="p">[</span><span class="n">busyness</span><span class="p">]</span> <span class="n">backlog</span> <span class="n">alert</span> <span class="ow">is</span> <span class="nb">set</span> <span class="n">to</span> <span class="mi">33</span> <span class="n">request</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+
+<span class="c1"># With --cheaper-busyness-verbose enabled You can monitor calculated busyness</span>
+<span class="p">[</span><span class="n">busyness</span><span class="p">]</span> <span class="n">worker</span> <span class="n">nr</span> <span class="mi">1</span> <span class="mi">20</span><span class="n">s</span> <span class="n">average</span> <span class="n">busyness</span> <span class="ow">is</span> <span class="n">at</span> <span class="mi">11</span><span class="o">%</span>
+<span class="p">[</span><span class="n">busyness</span><span class="p">]</span> <span class="n">worker</span> <span class="n">nr</span> <span class="mi">2</span> <span class="mi">20</span><span class="n">s</span> <span class="n">average</span> <span class="n">busyness</span> <span class="ow">is</span> <span class="n">at</span> <span class="mi">11</span><span class="o">%</span>
+<span class="p">[</span><span class="n">busyness</span><span class="p">]</span> <span class="n">worker</span> <span class="n">nr</span> <span class="mi">3</span> <span class="mi">20</span><span class="n">s</span> <span class="n">average</span> <span class="n">busyness</span> <span class="ow">is</span> <span class="n">at</span> <span class="mi">20</span><span class="o">%</span>
+<span class="p">[</span><span class="n">busyness</span><span class="p">]</span> <span class="mi">20</span><span class="n">s</span> <span class="n">average</span> <span class="n">busyness</span> <span class="n">of</span> <span class="mi">3</span> <span class="n">worker</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="ow">is</span> <span class="n">at</span> <span class="mi">14</span><span class="o">%</span>
+
+<span class="c1"># Average busyness is under 20%, we start counting idle cycles</span>
+<span class="c1"># we have overload=20 and multiplier=15 so we need to wait 300 seconds before we can stop worker</span>
+<span class="c1"># cycle we just had was counted as idle so we need to wait another 280 seconds</span>
+<span class="c1"># 1 missing second below is just from rounding, master cycle is every 1 second but it also takes some time, this is normal</span>
+<span class="p">[</span><span class="n">busyness</span><span class="p">]</span> <span class="n">need</span> <span class="n">to</span> <span class="n">wait</span> <span class="mi">279</span> <span class="n">more</span> <span class="n">second</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="n">to</span> <span class="n">cheap</span> <span class="n">worker</span>
+
+<span class="c1"># We waited long enough and we can stop one worker</span>
+<span class="p">[</span><span class="n">busyness</span><span class="p">]</span> <span class="n">worker</span> <span class="n">nr</span> <span class="mi">1</span> <span class="mi">20</span><span class="n">s</span> <span class="n">average</span> <span class="n">busyness</span> <span class="ow">is</span> <span class="n">at</span> <span class="mi">6</span><span class="o">%</span>
+<span class="p">[</span><span class="n">busyness</span><span class="p">]</span> <span class="n">worker</span> <span class="n">nr</span> <span class="mi">2</span> <span class="mi">20</span><span class="n">s</span> <span class="n">average</span> <span class="n">busyness</span> <span class="ow">is</span> <span class="n">at</span> <span class="mi">22</span><span class="o">%</span>
+<span class="p">[</span><span class="n">busyness</span><span class="p">]</span> <span class="n">worker</span> <span class="n">nr</span> <span class="mi">3</span> <span class="mi">20</span><span class="n">s</span> <span class="n">average</span> <span class="n">busyness</span> <span class="ow">is</span> <span class="n">at</span> <span class="mi">19</span><span class="o">%</span>
+<span class="p">[</span><span class="n">busyness</span><span class="p">]</span> <span class="mi">20</span><span class="n">s</span> <span class="n">average</span> <span class="n">busyness</span> <span class="n">of</span> <span class="mi">3</span> <span class="n">worker</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="ow">is</span> <span class="n">at</span> <span class="mi">15</span><span class="o">%</span>
+<span class="p">[</span><span class="n">busyness</span><span class="p">]</span> <span class="mi">20</span><span class="n">s</span> <span class="n">average</span> <span class="n">busyness</span> <span class="ow">is</span> <span class="n">at</span> <span class="mi">15</span><span class="o">%</span><span class="p">,</span> <span class="n">cheap</span> <span class="n">one</span> <span class="n">of</span> <span class="mi">3</span> <span class="n">running</span> <span class="n">workers</span>
+
+<span class="c1"># After stopping one worker average busyness is now higher, which is no surprise</span>
+<span class="p">[</span><span class="n">busyness</span><span class="p">]</span> <span class="n">worker</span> <span class="n">nr</span> <span class="mi">2</span> <span class="mi">20</span><span class="n">s</span> <span class="n">average</span> <span class="n">busyness</span> <span class="ow">is</span> <span class="n">at</span> <span class="mi">36</span><span class="o">%</span>
+<span class="p">[</span><span class="n">busyness</span><span class="p">]</span> <span class="n">worker</span> <span class="n">nr</span> <span class="mi">3</span> <span class="mi">20</span><span class="n">s</span> <span class="n">average</span> <span class="n">busyness</span> <span class="ow">is</span> <span class="n">at</span> <span class="mi">24</span><span class="o">%</span>
+<span class="p">[</span><span class="n">busyness</span><span class="p">]</span> <span class="mi">20</span><span class="n">s</span> <span class="n">average</span> <span class="n">busyness</span> <span class="n">of</span> <span class="mi">2</span> <span class="n">worker</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="ow">is</span> <span class="n">at</span> <span class="mi">30</span><span class="o">%</span>
+<span class="c1"># 30% is above our minimum (20%), but it&#39;s still far from our maximum (60%)</span>
+<span class="c1"># since this is not idle cycle uWSGI will ignore it when counting when to stop worker</span>
+<span class="p">[</span><span class="n">busyness</span><span class="p">]</span> <span class="mi">20</span><span class="n">s</span> <span class="n">average</span> <span class="n">busyness</span> <span class="ow">is</span> <span class="n">at</span> <span class="mi">30</span><span class="o">%</span><span class="p">,</span> <span class="mi">1</span> <span class="n">non</span><span class="o">-</span><span class="n">idle</span> <span class="n">cycle</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="n">adjusting</span> <span class="n">cheaper</span> <span class="n">timer</span>
+
+<span class="c1"># After a while our average busyness is still low enough, so we stop another worker</span>
+<span class="p">[</span><span class="n">busyness</span><span class="p">]</span> <span class="mi">20</span><span class="n">s</span> <span class="n">average</span> <span class="n">busyness</span> <span class="ow">is</span> <span class="n">at</span> <span class="mi">3</span><span class="o">%</span><span class="p">,</span> <span class="n">cheap</span> <span class="n">one</span> <span class="n">of</span> <span class="mi">2</span> <span class="n">running</span> <span class="n">workers</span>
+
+<span class="c1"># With only one worker running we won&#39;t see per worker busyness since it&#39;s the same as total average</span>
+<span class="p">[</span><span class="n">busyness</span><span class="p">]</span> <span class="mi">20</span><span class="n">s</span> <span class="n">average</span> <span class="n">busyness</span> <span class="n">of</span> <span class="mi">1</span> <span class="n">worker</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="ow">is</span> <span class="n">at</span> <span class="mi">16</span><span class="o">%</span>
+<span class="p">[</span><span class="n">busyness</span><span class="p">]</span> <span class="mi">20</span><span class="n">s</span> <span class="n">average</span> <span class="n">busyness</span> <span class="n">of</span> <span class="mi">1</span> <span class="n">worker</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="ow">is</span> <span class="n">at</span> <span class="mi">17</span><span class="o">%</span>
+
+<span class="c1"># Shortly after stopping second worker and with only one running we have load spike that is enough to hit our maximum level</span>
+<span class="c1"># this was just few cycles after stopping worker so uWSGI will increase multiplier</span>
+<span class="c1"># now we need to wait extra 3 cycles before stopping worker</span>
+<span class="p">[</span><span class="n">busyness</span><span class="p">]</span> <span class="n">worker</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="n">respawned</span> <span class="n">to</span> <span class="n">fast</span><span class="p">,</span> <span class="n">increasing</span> <span class="n">cheaper</span> <span class="n">multiplier</span> <span class="n">to</span> <span class="mi">18</span> <span class="p">(</span><span class="o">+</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="c1"># Initially we needed to wait only 300 seconds, now we need to have 360 subsequent seconds when workers busyness is below minimum level</span>
+<span class="c1"># 10*20 + 3*20 = 360</span>
+<span class="p">[</span><span class="n">busyness</span><span class="p">]</span> <span class="n">worker</span> <span class="n">nr</span> <span class="mi">1</span> <span class="mi">20</span><span class="n">s</span> <span class="n">average</span> <span class="n">busyness</span> <span class="ow">is</span> <span class="n">at</span> <span class="mi">9</span><span class="o">%</span>
+<span class="p">[</span><span class="n">busyness</span><span class="p">]</span> <span class="n">worker</span> <span class="n">nr</span> <span class="mi">2</span> <span class="mi">20</span><span class="n">s</span> <span class="n">average</span> <span class="n">busyness</span> <span class="ow">is</span> <span class="n">at</span> <span class="mi">17</span><span class="o">%</span>
+<span class="p">[</span><span class="n">busyness</span><span class="p">]</span> <span class="n">worker</span> <span class="n">nr</span> <span class="mi">3</span> <span class="mi">20</span><span class="n">s</span> <span class="n">average</span> <span class="n">busyness</span> <span class="ow">is</span> <span class="n">at</span> <span class="mi">17</span><span class="o">%</span>
+<span class="p">[</span><span class="n">busyness</span><span class="p">]</span> <span class="n">worker</span> <span class="n">nr</span> <span class="mi">4</span> <span class="mi">20</span><span class="n">s</span> <span class="n">average</span> <span class="n">busyness</span> <span class="ow">is</span> <span class="n">at</span> <span class="mi">21</span><span class="o">%</span>
+<span class="p">[</span><span class="n">busyness</span><span class="p">]</span> <span class="mi">20</span><span class="n">s</span> <span class="n">average</span> <span class="n">busyness</span> <span class="n">of</span> <span class="mi">4</span> <span class="n">worker</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="ow">is</span> <span class="n">at</span> <span class="mi">16</span><span class="o">%</span>
+<span class="p">[</span><span class="n">busyness</span><span class="p">]</span> <span class="n">need</span> <span class="n">to</span> <span class="n">wait</span> <span class="mi">339</span> <span class="n">more</span> <span class="n">second</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="n">to</span> <span class="n">cheap</span> <span class="n">worker</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Emperor.html" class="btn btn-neutral float-right" title="The uWSGI Emperor -- multi-app deployment" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Chunked.html" class="btn btn-neutral" title="The Chunked input API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2012-2016, uWSGI.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'2.0',
+            LANGUAGE:'ko',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/language_data.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          
+          SphinxRtdTheme.Navigation.enableSticky();
+          
+      });
+  </script> 
+
+</body>
+</html>

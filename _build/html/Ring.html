@@ -1,0 +1,664 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ko" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ko" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>The Clojure/Ring JVM request handler &mdash; uWSGI 2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="색인" href="genindex.html" />
+    <link rel="search" title="검색" href="search.html" />
+    <link rel="next" title="The Mono ASP.NET plugin" href="Mono.html" />
+    <link rel="prev" title="The JWSGI interface" href="JWSGI.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> uWSGI
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="WSGIquickstart.html">Quickstart for Python/WSGI applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PSGIquickstart.html">Quickstart for perl/PSGI applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RackQuickstart.html">Quickstart for ruby/Rack applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Snippets.html">Snippets</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Download.html">Getting uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Install.html">Installing uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BuildSystem.html">The uWSGI build system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Management.html">Managing the uWSGI server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LanguagesAndPlatforms.html">Supported languages and platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SupportedPlatforms.html">Supported Platforms/Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WebServers.html">Web server integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FAQ.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ThingsToKnow.html">Things to know (best practices and &quot;issues&quot;) READ IT !!!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Configuration.html">Configuring uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FallbackConfig.html">Fallback configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ConfigLogic.html">Configuration logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Options.html">uWSGI Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CustomOptions.html">Defining new options for your instances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ParsingOrder.html">How uWSGI parses config files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Vars.html">uwsgi protocol magic variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Protocol.html">The uwsgi Protocol</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AttachingDaemons.html">Managing external daemons/services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MasterFIFO.html">The Master FIFO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Inetd.html">Socket activation with inetd/xinetd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Upstart.html">Running uWSGI via Upstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Systemd.html">Systemd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Circus.html">Running uWSGI instances with Circus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Embed.html">Embedding an application in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Logging.html">Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LogFormat.html">Formatting uWSGI requests logs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LogEncoders.html">Log encoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Hooks.html">Hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WorkerOverride.html">Overriding Workers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ThirdPartyPlugins.html">uWSGI third party plugins</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/CachingCookbook.html">The uWSGI Caching Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/Django_and_nginx.html">Setting up Django and your web server with uWSGI and nginx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/dreamhost.html">Running uWSGI on Dreamhost shared hosting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/heroku_python.html">Running python webapps on Heroku with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/heroku_ruby.html">Running Ruby/Rack webapps on Heroku with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/ReliableFuse.html">Reliably use FUSE filesystems for uWSGI vassals (with Linux)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/DynamicProxying.html">Build a dynamic proxy using RPC and internal routing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/GraphiteAndMetrics.html">Setting up Graphite on Ubuntu using the Metrics subsystem</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="articles/SerializingAccept.html">Serializing accept(), AKA Thundering Herd, AKA the Zeeg Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="articles/TheArtOfGracefulReloading.html">The Art of Graceful Reloading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="articles/FunWithPerlEyetoyRaspberrypi.html">Fun with Perl, Eyetoy and RaspberryPi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="articles/OffloadingWebsocketsAndSSE.html">Offloading Websockets and Server-Sent Events AKA &quot;Combine them with Django safely&quot;</a></li>
+<li class="toctree-l1"><a class="reference internal" href="articles/WSGIEnvBehaviour.html">WSGI env behaviour policies</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="AlarmSubsystem.html">The uWSGI alarm subsystem (from 1.3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Caching.html">The uWSGI caching framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WebCaching.html">WebCaching framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cron.html">The uWSGI cron-like interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Fastrouter.html">The uWSGI FastRouter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="InternalRouting.html">uWSGI internal routing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Legion.html">The uWSGI Legion subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Locks.html">Locks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Mules.html">uWSGI Mules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OffloadSubsystem.html">The uWSGI offloading subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Queue.html">The uWSGI queue framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RPC.html">uWSGI RPC Stack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SharedArea.html">SharedArea -- share memory pages between uWSGI components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Signals.html">The uWSGI Signal Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Spooler.html">The uWSGI Spooler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SubscriptionServer.html">uWSGI Subscription Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="StaticFiles.html">Serving static files with uWSGI (updated to 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SNI.html">SNI - Server Name Identification (virtual hosting for SSL nodes)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GeoIP.html">The GeoIP plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Transformations.html">uWSGI Transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WebSockets.html">WebSocket support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Metrics.html">The Metrics subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Chunked.html">The Chunked input API</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Cheaper.html">The uWSGI cheaper subsystem -- adaptive process spawning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Emperor.html">The uWSGI Emperor -- multi-app deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Broodlord.html">Auto-scaling with Broodlord mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Zerg.html">Zerg mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DynamicApps.html">Adding applications dynamically</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SSLScaling.html">Scaling SSL connections (uWSGI 1.9)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Capabilities.html">Setting POSIX Capabilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cgroups.html">Running uWSGI in a Linux CGroup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="KSM.html">Using Linux KSM in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Namespaces.html">Jailing your apps using Linux Namespaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Namespaces.html#the-old-way-the-namespace-option">The old way: the --namespace option</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FreeBSDJails.html">FreeBSD Jails</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ForkptyRouter.html">The Forkpty Router</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TunTapRouter.html">The TunTap Router</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Nagios.html">Monitoring uWSGI with Nagios</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SNMP.html">The embedded SNMP server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PushingStats.html">Pushing statistics (from 1.4)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Carbon.html">Integration with Graphite/Carbon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="StatsServer.html">The uWSGI Stats Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Metrics.html">The Metrics subsystem</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Async.html">uWSGI asynchronous/non-blocking modes (updated to uWSGI 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Gevent.html">The Gevent loop engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tornado.html">The Tornado loop engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uGreen.html">uGreen -- uWSGI Green Threads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="asyncio.html">The asyncio loop engine (CPython &gt;= 3.4, uWSGI &gt;= 2.0.4)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Apache.html">Apache support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cherokee.html">Cherokee support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="HTTP.html">Native HTTP support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="HTTPS.html">HTTPS 지원 (1.3 버전부터)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SPDY.html">The SPDY router (uWSGI 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lighttpd.html">Lighttpd support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Mongrel2.html">Attaching uWSGI to Mongrel2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Nginx.html">Nginx support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OpenBSDhttpd.html">Using OpenBSD httpd as proxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OpenBSDhttpd.html#notes">Notes</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Python.html">Python support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PyPy.html">The PyPy plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PHP.html">Running PHP scripts in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Perl.html">uWSGI Perl support (PSGI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Ruby.html">Ruby support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lua.html">Using Lua/WSAPI with uWSGI</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="JVM.html">JVM in the uWSGI server (updated to 1.9)</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="JWSGI.html">The JWSGI interface</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">The Clojure/Ring JVM request handler</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#our-first-ring-app">Our first Ring app</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#using-leiningen">Using Leiningen</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#concurrency">Concurrency</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#accessing-the-uwsgi-api">Accessing the uWSGI api</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#notes-and-status">Notes and status</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="JVM.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="JVM.html#building-the-jvm-support">Building the JVM support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="JVM.html#exposing-functions-via-the-rpc-subsystem">Exposing functions via the RPC subsystem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="JVM.html#registering-signal-handlers">Registering signal handlers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="JVM.html#the-fork-problem-and-multithreading">The fork() problem and multithreading</a></li>
+<li class="toctree-l2"><a class="reference internal" href="JVM.html#how-does-it-work">How does it work?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="JVM.html#passing-options-to-the-jvm">Passing options to the JVM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="JVM.html#loading-classes-without-main-method">Loading classes (without main method)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="JVM.html#request-handlers">Request handlers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="JVM.html#notes">Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Mono.html">The Mono ASP.NET plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CGI.html">Running CGI scripts on uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GCCGO.html">The GCCGO plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Symcall.html">The Symcall plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="XSLT.html">The XSLT plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SSI.html">SSI (Server Side Includes) plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="V8.html">uWSGI V8 support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GridFS.html">The GridFS plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GlusterFS.html">The GlusterFS plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Rados.html">The RADOS plugin</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Pty.html">The Pty plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SPNEGO.html">SPNEGO authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LDAP.html">Configuring uWSGI with LDAP</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Erlang.html">Integrating uWSGI with Erlang</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ManagementFlag.html">Management Flags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Go.html">uWSGI Go support (1.4 only)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.18.html">uWSGI 2.0.18</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.17.1.html">uWSGI 2.0.17.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.17.html">uWSGI 2.0.17</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.16.html">uWSGI 2.0.16</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.15.html">uWSGI 2.0.15</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.14.html">uWSGI 2.0.14</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.13.1.html">uWSGI 2.0.13.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.13.html">uWSGI 2.0.13</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.12.html">uWSGI 2.0.12</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.11.2.html">uWSGI 2.0.11.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.11.1.html">uWSGI 2.0.11.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.11.html">uWSGI 2.0.11</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.10.html">uWSGI 2.0.10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.9.html">uWSGI 2.0.9</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.8.html">uWSGI 2.0.8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.7.html">uWSGI 2.0.7</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.6.html">uWSGI 2.0.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.5.html">uWSGI 2.0.5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.4.html">uWSGI 2.0.4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.3.html">uWSGI 2.0.3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.2.html">uWSGI 2.0.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.1.html">uWSGI 2.0.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.html">uWSGI 2.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.21.html">uWSGI 1.9.21</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.20.html">uWSGI 1.9.20</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.19.html">uWSGI 1.9.19</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.18.html">uWSGI 1.9.18</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.17.html">uWSGI 1.9.17</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.16.html">uWSGI 1.9.16</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.15.html">uWSGI 1.9.15</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.14.html">uWSGI 1.9.14</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.13.html">uWSGI 1.9.13</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.12.html">uWSGI 1.9.12</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.11.html">uWSGI 1.9.11</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.10.html">uWSGI 1.9.10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.9.html">uWSGI 1.9.9</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.8.html">uWSGI 1.9.8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.7.html">uWSGI 1.9.7</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.6.html">uWSGI 1.9.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.5.html">uWSGI 1.9.5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.4.html">uWSGI 1.9.4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.3.html">uWSGI 1.9.3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.2.html">uWSGI 1.9.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.1.html">uWSGI 1.9.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.html">uWSGI 1.9</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">uWSGI</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="JVM.html">JVM in the uWSGI server (updated to 1.9)</a> &raquo;</li>
+        
+      <li>The Clojure/Ring JVM request handler</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/Ring.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="the-clojure-ring-jvm-request-handler">
+<h1>The Clojure/Ring JVM request handler<a class="headerlink" href="#the-clojure-ring-jvm-request-handler" title="제목 주소">¶</a></h1>
+<p>Thanks to the <a class="reference internal" href="JVM.html"><span class="doc">JVM in the uWSGI server (updated to 1.9)</span></a> plugin available from 1.9, Clojure web apps can be run on uWSGI.</p>
+<p>The supported gateway standard is Ring, <a class="reference external" href="https://github.com/ring-clojure/ring">https://github.com/ring-clojure/ring</a> . Its full specification is available here: <a class="reference external" href="https://github.com/ring-clojure/ring/blob/master/SPEC">https://github.com/ring-clojure/ring/blob/master/SPEC</a></p>
+<p>A uWSGI build profile named &quot;ring&quot; is available for generating a monolithic build with both the JVM and Ring plugins.</p>
+<p>From the uWSGI sources:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">UWSGI_PROFILE</span><span class="o">=</span>ring make
+</pre></div>
+</div>
+<p>The build system will try to detect your JDK installation based on various presets (for example on CentOS you can <code class="docutils literal notranslate"><span class="pre">yum</span> <span class="pre">install</span>
+<span class="pre">java-1.6.0-openjdk.x86_64-devel</span></code> or <code class="docutils literal notranslate"><span class="pre">java-1.7.0-openjdk-devel.x86_64</span></code> or on Debian/Ubuntu <code class="docutils literal notranslate"><span class="pre">openjdk-6-jdk</span></code> and so on...).</p>
+<p>OSX/Xcode default paths are searched too.</p>
+<p>After a successful build you will have the uwsgi binary and a uwsgi.jar file that you should copy in your CLASSPATH (or just remember
+to set it in the uwsgi configuration every time).</p>
+<div class="admonition seealso">
+<p class="first admonition-title">더 보기</p>
+<p class="last">For more information on the JVM plugin check <a class="reference internal" href="JVM.html"><span class="doc">JVM in the uWSGI server (updated to 1.9)</span></a></p>
+</div>
+<div class="section" id="our-first-ring-app">
+<h2>Our first Ring app<a class="headerlink" href="#our-first-ring-app" title="제목 주소">¶</a></h2>
+<p>A basic Clojure/Ring app could be the following (save it as myapp.clj):</p>
+<div class="highlight-Clojure notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="kd">ns </span><span class="nv">myapp</span><span class="p">)</span>
+
+<span class="p">(</span><span class="kd">defn </span><span class="nv">handler</span> <span class="p">[</span><span class="nv">req</span><span class="p">]</span>
+     <span class="p">{</span><span class="ss">:status</span> <span class="mi">200</span>
+      <span class="ss">:headers</span> <span class="p">{</span> <span class="s">&quot;Content-Type&quot;</span> <span class="s">&quot;text/plain&quot;</span> , <span class="s">&quot;Server&quot;</span> <span class="s">&quot;uWSGI&quot;</span> <span class="p">}</span>
+      <span class="ss">:body</span> <span class="p">(</span><span class="nb">str </span><span class="s">&quot;&lt;h1&gt;The requested uri is &quot;</span> <span class="p">(</span><span class="nb">get </span><span class="nv">req</span> <span class="ss">:uri</span><span class="p">)</span> <span class="s">&quot;&lt;/h1&gt;&quot;</span><span class="p">)</span>
+     <span class="p">}</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>The code defines a new namespace called 'myapp', in which the 'handler' function is the Ring entry point (the function called at each web request)</p>
+<p>We can now build a configuration serving that app on the HTTP router on port 9090 (call it config.ini):</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">http</span> <span class="o">=</span> <span class="s">:9090</span>
+<span class="na">http-modifier1</span> <span class="o">=</span> <span class="s">8</span>
+<span class="na">http-modifier2</span> <span class="o">=</span> <span class="s">1</span>
+
+<span class="na">jvm-classpath</span> <span class="o">=</span> <span class="s">plugins/jvm/uwsgi.jar</span>
+<span class="na">jvm-classpath</span> <span class="o">=</span> <span class="s">../.lein/self-installs/leiningen-2.0.0-standalone.jar</span>
+
+<span class="na">clojure-load</span> <span class="o">=</span> <span class="s">myapp.clj</span>
+<span class="na">ring-app</span> <span class="o">=</span> <span class="s">myapp:handler</span>
+</pre></div>
+</div>
+<p>Run uWSGI:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>./uwsgi config.ini
+</pre></div>
+</div>
+<p>Now connect to port 9090 and you should see the app response.</p>
+<p>As you can note we have manually added uwsgi.jar and the Leiningen standalone jar (it includes the whole Clojure distribution) to our classpath.</p>
+<p>Obviously if you do not want to use Leiningen, just add the Clojure jar to your classpath.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">clojure-load</span></code> option loads a Clojure script in the JVM (very similar to what <code class="docutils literal notranslate"><span class="pre">jvm-class</span></code> do with the basic jvm plugin).</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">ring-app</span></code> option specify the class/namespace in which to search for the ring function entry point.</p>
+<p>In our case the function is in the 'myapp' namespace and it is called 'handler' (you can understand that the syntax is namespace:function)</p>
+<p>Pay attention to the modifier configuration. The JVM plugin registers itself as 8, while Ring registers itself as modifier 2 #1, yielding an effective configuration of &quot;modifier1 8, modifier2 1&quot;.</p>
+</div>
+<div class="section" id="using-leiningen">
+<h2>Using Leiningen<a class="headerlink" href="#using-leiningen" title="제목 주소">¶</a></h2>
+<p>Leiningen is a great tool for managing Clojure projects. If you use Clojure, you are very probably a Leiningen user.</p>
+<p>One of the great advantages of Leiningen is the easy generation of a single JAR distribution. That means you can deploy a whole app
+with a single file.</p>
+<p>Let's create a new &quot;helloworld&quot; Ring application with the <code class="docutils literal notranslate"><span class="pre">lein</span></code> command.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>lein new helloworld
+</pre></div>
+</div>
+<p>Move it to the just created 'helloworld' directory and edit the project.clj file</p>
+<div class="highlight-Clojure notranslate"><div class="highlight"><pre><span></span> <span class="p">(</span><span class="kd">defproject </span><span class="nv">helloworld</span> <span class="s">&quot;0.1.0-SNAPSHOT&quot;</span>
+<span class="ss">:description</span> <span class="s">&quot;FIXME: write description&quot;</span>
+<span class="ss">:url</span> <span class="s">&quot;http://example.com/FIXME&quot;</span>
+<span class="ss">:license</span> <span class="p">{</span><span class="ss">:name</span> <span class="s">&quot;Eclipse Public License&quot;</span>
+          <span class="ss">:url</span> <span class="s">&quot;http://www.eclipse.org/legal/epl-v10.html&quot;</span><span class="p">}</span>
+<span class="ss">:dependencies</span> <span class="p">[[</span><span class="nv">org.Clojure/Clojure</span> <span class="s">&quot;1.4.0&quot;</span><span class="p">]])</span>
+</pre></div>
+</div>
+<p>We want to add the <code class="docutils literal notranslate"><span class="pre">ring-core</span></code> package to our dependencies (it contains a set of classes/modules to simplify the writing of ring apps) and obviously we need to change the description and URL:</p>
+<div class="highlight-Clojure notranslate"><div class="highlight"><pre><span></span> <span class="p">(</span><span class="kd">defproject </span><span class="nv">helloworld</span> <span class="s">&quot;0.1.0-SNAPSHOT&quot;</span>
+<span class="ss">:description</span> <span class="s">&quot;My second uWSGI ring app&quot;</span>
+<span class="ss">:url</span> <span class="s">&quot;https://uwsgi-docs.readthedocs.io/en/latest/Ring.html&quot;</span>
+<span class="ss">:license</span> <span class="p">{</span><span class="ss">:name</span> <span class="s">&quot;Eclipse Public License&quot;</span>
+          <span class="ss">:url</span> <span class="s">&quot;http://www.eclipse.org/legal/epl-v10.html&quot;</span><span class="p">}</span>
+<span class="ss">:dependencies</span> <span class="p">[[</span><span class="nv">org.Clojure/Clojure</span> <span class="s">&quot;1.4.0&quot;</span><span class="p">]</span> <span class="p">[</span><span class="nv">ring/ring-core</span> <span class="s">&quot;1.2.0-beta1&quot;</span><span class="p">]])</span>
+</pre></div>
+</div>
+<p>Now save it and run...</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>lein repl
+</pre></div>
+</div>
+<p>This will install all of the jars we need and move us to the Clojure console (just exit from it for now).</p>
+<p>Now we want to write our Ring app, just edit the file src/helloworld/core.clj and place the following content in it:</p>
+<div class="highlight-Clojure notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="kd">ns </span><span class="nv">helloworld.core</span>
+ <span class="p">(</span><span class="ss">:use</span> <span class="nv">ring.util.response</span><span class="p">))</span>
+
+<span class="p">(</span><span class="kd">defn </span><span class="nv">handler</span> <span class="p">[</span><span class="nv">request</span><span class="p">]</span>
+ <span class="p">(</span><span class="nb">-&gt; </span><span class="p">(</span><span class="nf">response</span> <span class="s">&quot;Hello World&quot;</span><span class="p">)</span>
+ <span class="p">(</span><span class="nf">content-type</span> <span class="s">&quot;text/plain&quot;</span><span class="p">)))</span>
+</pre></div>
+</div>
+<p>Then re-edit project.clj to instruct Leiningen on which namespaces to build:</p>
+<div class="highlight-Clojure notranslate"><div class="highlight"><pre><span></span> <span class="p">(</span><span class="kd">defproject </span><span class="nv">helloworld</span> <span class="s">&quot;0.1.0-SNAPSHOT&quot;</span>
+<span class="ss">:description</span> <span class="s">&quot;FIXME: write description&quot;</span>
+<span class="ss">:url</span> <span class="s">&quot;http://example.com/FIXME&quot;</span>
+<span class="ss">:license</span> <span class="p">{</span><span class="ss">:name</span> <span class="s">&quot;Eclipse Public License&quot;</span>
+          <span class="ss">:url</span> <span class="s">&quot;http://www.eclipse.org/legal/epl-v10.html&quot;</span><span class="p">}</span>
+
+<span class="ss">:aot</span> <span class="p">[</span><span class="nv">helloworld.core</span><span class="p">]</span>
+
+<span class="ss">:dependencies</span> <span class="p">[[</span><span class="nv">org.Clojure/Clojure</span> <span class="s">&quot;1.4.0&quot;</span><span class="p">]</span> <span class="p">[</span><span class="nv">ring/ring-core</span> <span class="s">&quot;1.2.0-beta1&quot;</span><span class="p">]])</span>
+</pre></div>
+</div>
+<p>As you can see we have added helloworld.core in the <code class="docutils literal notranslate"><span class="pre">:aot</span></code> keyword.</p>
+<p>Now let's compile our code:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>lein compile
+</pre></div>
+</div>
+<p>And build the full jar (the uberjar):</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>lein uberjar
+</pre></div>
+</div>
+<p>If all goes well you should see a message like this at the end of the procedure:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>Created /home/unbit/helloworld/target/helloworld-0.1.0-SNAPSHOT-standalone.jar
+</pre></div>
+</div>
+<p>Take a note of the path so we can configure uWSGI to run our application.</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">http</span> <span class="o">=</span> <span class="s">:9090</span>
+<span class="na">http-modifier1</span> <span class="o">=</span> <span class="s">8</span>
+<span class="na">http-modifier2</span> <span class="o">=</span> <span class="s">1</span>
+
+<span class="na">jvm-classpath</span> <span class="o">=</span> <span class="s">plugins/jvm/uwsgi.jar</span>
+<span class="na">jvm-classpath</span> <span class="o">=</span> <span class="s">/home/unbit/helloworld/target/helloworld-0.1.0-SNAPSHOT-standalone.jar</span>
+
+<span class="na">jvm-class</span> <span class="o">=</span> <span class="s">helloworld/core__init</span>
+
+<span class="na">ring-app</span> <span class="o">=</span> <span class="s">helloworld.core:handler</span>
+</pre></div>
+</div>
+<p>This time we do not load Clojure code, but directly a JVM class.</p>
+<p>Pay attention: when you specify a JVM class you have to use the '/' form, not the usual dotted form.</p>
+<p>The __init suffix is automatically added by the Clojure system when your app is compiled.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">ring-app</span></code> set the entry point to the helloworld.core namespace and the function 'handler'.</p>
+<p>We can access that namespace as we have loaded it with <code class="docutils literal notranslate"><span class="pre">jvm-class</span></code></p>
+</div>
+<div class="section" id="concurrency">
+<h2>Concurrency<a class="headerlink" href="#concurrency" title="제목 주소">¶</a></h2>
+<p>As all of the JVM plugin request handlers, multi-threading is the best way to achieve concurrency.</p>
+<p>Threads in the JVM are really solid, do not be afraid to use them (even if you can spawn multiple processes too)</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">http</span> <span class="o">=</span> <span class="s">:9090</span>
+<span class="na">http-modifier1</span> <span class="o">=</span> <span class="s">8</span>
+<span class="na">http-modifier2</span> <span class="o">=</span> <span class="s">1</span>
+
+<span class="na">jvm-classpath</span> <span class="o">=</span> <span class="s">plugins/jvm/uwsgi.jar</span>
+<span class="na">jvm-classpath</span> <span class="o">=</span> <span class="s">/home/unbit/helloworld/target/helloworld-0.1.0-SNAPSHOT-standalone.jar</span>
+
+<span class="na">jvm-class</span> <span class="o">=</span> <span class="s">helloworld/core__init</span>
+
+<span class="na">ring-app</span> <span class="o">=</span> <span class="s">helloworld.core:handler</span>
+
+<span class="na">master</span> <span class="o">=</span> <span class="s">true</span>
+<span class="na">processes</span> <span class="o">=</span> <span class="s">4</span>
+<span class="na">threads</span> <span class="o">=</span> <span class="s">8</span>
+</pre></div>
+</div>
+<p>This setup will spawn 4 uWSGI processes (workers) with 8 threads each (for a total of 32 threads).</p>
+</div>
+<div class="section" id="accessing-the-uwsgi-api">
+<h2>Accessing the uWSGI api<a class="headerlink" href="#accessing-the-uwsgi-api" title="제목 주소">¶</a></h2>
+<p>Clojure can call native Java classes too, so it is able to access the uWSGI API exposed by the JVM plugin.</p>
+<p>The following example shows how to call a function (written in python) via Clojure:</p>
+<div class="highlight-Clojure notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="kd">ns </span><span class="nv">myapp</span>
+ <span class="p">(</span><span class="nb">import </span><span class="nv">uwsgi</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="p">(</span><span class="kd">defn </span><span class="nv">handler</span> <span class="p">[</span><span class="nv">req</span><span class="p">]</span>
+  <span class="p">{</span><span class="ss">:status</span> <span class="mi">200</span>
+   <span class="ss">:headers</span> <span class="p">{</span> <span class="s">&quot;Content-Type&quot;</span> <span class="s">&quot;text/html&quot;</span> , <span class="s">&quot;Server&quot;</span> <span class="s">&quot;uWSGI&quot;</span> <span class="p">}</span>
+   <span class="ss">:body</span> <span class="p">(</span><span class="nb">str </span><span class="s">&quot;&lt;h1&gt;The requested uri is &quot;</span> <span class="p">(</span><span class="nb">get </span><span class="nv">req</span> <span class="ss">:uri</span><span class="p">)</span> <span class="s">&quot;&lt;/h1&gt;&quot;</span> <span class="s">&quot;&lt;h2&gt;reverse is &quot;</span> <span class="p">(</span><span class="nf">uwsgi/rpc</span> <span class="p">(</span><span class="nb">into-array </span><span class="p">[</span><span class="s">&quot;&quot;</span> <span class="s">&quot;reverse&quot;</span> <span class="p">(</span><span class="nb">get </span><span class="nv">req</span> <span class="ss">:uri</span><span class="p">)]))</span> <span class="s">&quot;&lt;/h2&gt;&quot;</span> <span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>The &quot;reverse&quot; function has been registered from a Python module:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">uwsgidecorators</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="nd">@rpc</span><span class="p">(</span><span class="s1">&#39;reverse&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">contrario</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">arg</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>This is the used configuration:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">http</span> <span class="o">=</span> <span class="s">:9090</span>
+<span class="na">http-modifier1</span> <span class="o">=</span> <span class="s">8</span>
+<span class="na">http-modifier2</span> <span class="o">=</span> <span class="s">1</span>
+<span class="na">jvm-classpath</span> <span class="o">=</span> <span class="s">plugins/jvm/uwsgi.jar</span>
+<span class="na">jvm-classpath</span> <span class="o">=</span> <span class="s">/usr/share/java/Clojure-1.4.jar</span>
+<span class="na">Clojure-load</span> <span class="o">=</span> <span class="s">myapp.clj</span>
+<span class="na">plugin</span> <span class="o">=</span> <span class="s">python</span>
+<span class="na">import</span> <span class="o">=</span> <span class="s">pyrpc.py</span>
+<span class="na">ring-app</span> <span class="o">=</span> <span class="s">myapp:handler</span>
+<span class="na">master</span> <span class="o">=</span> <span class="s">true</span>
+</pre></div>
+</div>
+<p>Another useful feature is accessing the uwsgi cache. Remember that cache keys are string while values are bytes.</p>
+<p>The uWSGI Ring implementation supports byte array in addition to string for the response. This is obviously a violation of the standard
+but avoids you to re-encode bytes every time (but obviously you are free to do it if you like).</p>
+</div>
+<div class="section" id="notes-and-status">
+<h2>Notes and status<a class="headerlink" href="#notes-and-status" title="제목 주소">¶</a></h2>
+<ul class="simple">
+<li>A shortcut option allowing to load compiled code and specifying the ring app would be cool.</li>
+<li>As with the <a class="reference internal" href="JWSGI.html"><span class="doc">The JWSGI interface</span></a> handler, all of the uWSGI performance features are automatically used (like when sending static files or buffering input)</li>
+<li>The plugin has been developed with the cooperation and ideas of Mingli Yuan. Thanks!</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Mono.html" class="btn btn-neutral float-right" title="The Mono ASP.NET plugin" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="JWSGI.html" class="btn btn-neutral" title="The JWSGI interface" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2012-2016, uWSGI.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'2.0',
+            LANGUAGE:'ko',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/language_data.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          
+          SphinxRtdTheme.Navigation.enableSticky();
+          
+      });
+  </script> 
+
+</body>
+</html>

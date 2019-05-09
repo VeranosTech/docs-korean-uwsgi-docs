@@ -1,0 +1,604 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ko" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ko" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Reliably use FUSE filesystems for uWSGI vassals (with Linux) &mdash; uWSGI 2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="색인" href="../genindex.html" />
+    <link rel="search" title="검색" href="../search.html" />
+    <link rel="next" title="Build a dynamic proxy using RPC and internal routing" href="DynamicProxying.html" />
+    <link rel="prev" title="Running Ruby/Rack webapps on Heroku with uWSGI" href="heroku_ruby.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> uWSGI
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../WSGIquickstart.html">Quickstart for Python/WSGI applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PSGIquickstart.html">Quickstart for perl/PSGI applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RackQuickstart.html">Quickstart for ruby/Rack applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Snippets.html">Snippets</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Download.html">Getting uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Install.html">Installing uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../BuildSystem.html">The uWSGI build system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Management.html">Managing the uWSGI server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LanguagesAndPlatforms.html">Supported languages and platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SupportedPlatforms.html">Supported Platforms/Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../WebServers.html">Web server integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FAQ.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ThingsToKnow.html">Things to know (best practices and &quot;issues&quot;) READ IT !!!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Configuration.html">Configuring uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FallbackConfig.html">Fallback configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ConfigLogic.html">Configuration logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Options.html">uWSGI Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CustomOptions.html">Defining new options for your instances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ParsingOrder.html">How uWSGI parses config files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Vars.html">uwsgi protocol magic variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Protocol.html">The uwsgi Protocol</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AttachingDaemons.html">Managing external daemons/services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../MasterFIFO.html">The Master FIFO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Inetd.html">Socket activation with inetd/xinetd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Upstart.html">Running uWSGI via Upstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Systemd.html">Systemd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Circus.html">Running uWSGI instances with Circus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Embed.html">Embedding an application in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Logging.html">Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LogFormat.html">Formatting uWSGI requests logs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LogEncoders.html">Log encoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Hooks.html">Hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../WorkerOverride.html">Overriding Workers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ThirdPartyPlugins.html">uWSGI third party plugins</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="CachingCookbook.html">The uWSGI Caching Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Django_and_nginx.html">Setting up Django and your web server with uWSGI and nginx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dreamhost.html">Running uWSGI on Dreamhost shared hosting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="heroku_python.html">Running python webapps on Heroku with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="heroku_ruby.html">Running Ruby/Rack webapps on Heroku with uWSGI</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Reliably use FUSE filesystems for uWSGI vassals (with Linux)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#a-zip-filesystem">A Zip filesystem</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#the-emperor">The Emperor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#a-vassal">A Vassal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#monitoring-mount-points">Monitoring mount points</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#going-heavy-metal-a-cow-rootfs-unionfs-fuse">Going Heavy Metal: A CoW rootfs (unionfs-fuse)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">The Emperor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">A Vassal</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#notes">Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="DynamicProxying.html">Build a dynamic proxy using RPC and internal routing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GraphiteAndMetrics.html">Setting up Graphite on Ubuntu using the Metrics subsystem</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../articles/SerializingAccept.html">Serializing accept(), AKA Thundering Herd, AKA the Zeeg Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../articles/TheArtOfGracefulReloading.html">The Art of Graceful Reloading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../articles/FunWithPerlEyetoyRaspberrypi.html">Fun with Perl, Eyetoy and RaspberryPi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../articles/OffloadingWebsocketsAndSSE.html">Offloading Websockets and Server-Sent Events AKA &quot;Combine them with Django safely&quot;</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../articles/WSGIEnvBehaviour.html">WSGI env behaviour policies</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../AlarmSubsystem.html">The uWSGI alarm subsystem (from 1.3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Caching.html">The uWSGI caching framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../WebCaching.html">WebCaching framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Cron.html">The uWSGI cron-like interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Fastrouter.html">The uWSGI FastRouter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../InternalRouting.html">uWSGI internal routing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Legion.html">The uWSGI Legion subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Locks.html">Locks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Mules.html">uWSGI Mules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../OffloadSubsystem.html">The uWSGI offloading subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Queue.html">The uWSGI queue framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RPC.html">uWSGI RPC Stack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SharedArea.html">SharedArea -- share memory pages between uWSGI components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Signals.html">The uWSGI Signal Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Spooler.html">The uWSGI Spooler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SubscriptionServer.html">uWSGI Subscription Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../StaticFiles.html">Serving static files with uWSGI (updated to 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SNI.html">SNI - Server Name Identification (virtual hosting for SSL nodes)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GeoIP.html">The GeoIP plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Transformations.html">uWSGI Transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../WebSockets.html">WebSocket support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Metrics.html">The Metrics subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Chunked.html">The Chunked input API</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Cheaper.html">The uWSGI cheaper subsystem -- adaptive process spawning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Emperor.html">The uWSGI Emperor -- multi-app deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Broodlord.html">Auto-scaling with Broodlord mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Zerg.html">Zerg mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../DynamicApps.html">Adding applications dynamically</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SSLScaling.html">Scaling SSL connections (uWSGI 1.9)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Capabilities.html">Setting POSIX Capabilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Cgroups.html">Running uWSGI in a Linux CGroup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../KSM.html">Using Linux KSM in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Namespaces.html">Jailing your apps using Linux Namespaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Namespaces.html#the-old-way-the-namespace-option">The old way: the --namespace option</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FreeBSDJails.html">FreeBSD Jails</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ForkptyRouter.html">The Forkpty Router</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../TunTapRouter.html">The TunTap Router</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Nagios.html">Monitoring uWSGI with Nagios</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SNMP.html">The embedded SNMP server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PushingStats.html">Pushing statistics (from 1.4)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Carbon.html">Integration with Graphite/Carbon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../StatsServer.html">The uWSGI Stats Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Metrics.html">The Metrics subsystem</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Async.html">uWSGI asynchronous/non-blocking modes (updated to uWSGI 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Gevent.html">The Gevent loop engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Tornado.html">The Tornado loop engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../uGreen.html">uGreen -- uWSGI Green Threads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../asyncio.html">The asyncio loop engine (CPython &gt;= 3.4, uWSGI &gt;= 2.0.4)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Apache.html">Apache support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Cherokee.html">Cherokee support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HTTP.html">Native HTTP support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HTTPS.html">HTTPS 지원 (1.3 버전부터)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SPDY.html">The SPDY router (uWSGI 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Lighttpd.html">Lighttpd support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Mongrel2.html">Attaching uWSGI to Mongrel2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Nginx.html">Nginx support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../OpenBSDhttpd.html">Using OpenBSD httpd as proxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../OpenBSDhttpd.html#notes">Notes</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Python.html">Python support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PyPy.html">The PyPy plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PHP.html">Running PHP scripts in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Perl.html">uWSGI Perl support (PSGI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Ruby.html">Ruby support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Lua.html">Using Lua/WSAPI with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../JVM.html">JVM in the uWSGI server (updated to 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Mono.html">The Mono ASP.NET plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CGI.html">Running CGI scripts on uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCCGO.html">The GCCGO plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Symcall.html">The Symcall plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../XSLT.html">The XSLT plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SSI.html">SSI (Server Side Includes) plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../V8.html">uWSGI V8 support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GridFS.html">The GridFS plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GlusterFS.html">The GlusterFS plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Rados.html">The RADOS plugin</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Pty.html">The Pty plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SPNEGO.html">SPNEGO authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LDAP.html">Configuring uWSGI with LDAP</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Erlang.html">Integrating uWSGI with Erlang</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ManagementFlag.html">Management Flags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Go.html">uWSGI Go support (1.4 only)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.18.html">uWSGI 2.0.18</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.17.1.html">uWSGI 2.0.17.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.17.html">uWSGI 2.0.17</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.16.html">uWSGI 2.0.16</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.15.html">uWSGI 2.0.15</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.14.html">uWSGI 2.0.14</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.13.1.html">uWSGI 2.0.13.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.13.html">uWSGI 2.0.13</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.12.html">uWSGI 2.0.12</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.11.2.html">uWSGI 2.0.11.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.11.1.html">uWSGI 2.0.11.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.11.html">uWSGI 2.0.11</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.10.html">uWSGI 2.0.10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.9.html">uWSGI 2.0.9</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.8.html">uWSGI 2.0.8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.7.html">uWSGI 2.0.7</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.6.html">uWSGI 2.0.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.5.html">uWSGI 2.0.5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.4.html">uWSGI 2.0.4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.3.html">uWSGI 2.0.3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.2.html">uWSGI 2.0.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.1.html">uWSGI 2.0.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.html">uWSGI 2.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.21.html">uWSGI 1.9.21</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.20.html">uWSGI 1.9.20</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.19.html">uWSGI 1.9.19</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.18.html">uWSGI 1.9.18</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.17.html">uWSGI 1.9.17</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.16.html">uWSGI 1.9.16</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.15.html">uWSGI 1.9.15</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.14.html">uWSGI 1.9.14</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.13.html">uWSGI 1.9.13</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.12.html">uWSGI 1.9.12</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.11.html">uWSGI 1.9.11</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.10.html">uWSGI 1.9.10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.9.html">uWSGI 1.9.9</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.8.html">uWSGI 1.9.8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.7.html">uWSGI 1.9.7</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.6.html">uWSGI 1.9.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.5.html">uWSGI 1.9.5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.4.html">uWSGI 1.9.4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.3.html">uWSGI 1.9.3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.2.html">uWSGI 1.9.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.1.html">uWSGI 1.9.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.html">uWSGI 1.9</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">uWSGI</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Reliably use FUSE filesystems for uWSGI vassals (with Linux)</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/tutorials/ReliableFuse.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="reliably-use-fuse-filesystems-for-uwsgi-vassals-with-linux">
+<h1>Reliably use FUSE filesystems for uWSGI vassals (with Linux)<a class="headerlink" href="#reliably-use-fuse-filesystems-for-uwsgi-vassals-with-linux" title="제목 주소">¶</a></h1>
+<p>Requirements: uWSGI 1.9.18, Linux kernel with FUSE and namespaces support.</p>
+<p>FUSE is a technology allowing the implementation of filesystems in user space (hence the name: <strong>F</strong>ilesystem in <strong>Use</strong>rspace).
+There are hundreds of high-quality FUSE filesystems, so having your application relying on them is a common situation.</p>
+<p>FUSE filesystems are normal system processes, so as any process in the system, they can crash (or you may involuntarily kill them).
+In addition to this, if you host multiple applications, each one requiring a FUSE mount point, you may want to avoid polluting the main mount points namespace and, more important,
+avoid having unused mount points in your system (i.e. an instance is completely removed and you do not want its FUSE mount point to be still available in the system).</p>
+<p>The purpose of this tutorial is to configure an Emperor and a series of vassals, each one mounting a FUSE filesystem.</p>
+<div class="section" id="a-zip-filesystem">
+<h2>A Zip filesystem<a class="headerlink" href="#a-zip-filesystem" title="제목 주소">¶</a></h2>
+<p><a class="reference external" href="https://code.google.com/p/fuse-zip/">fuse-zip</a> is a FUSE process exposing a zip file as a filesystem.</p>
+<p>Our objective is to store whole app in a zip archive and instruct uWSGI to mount it as a filesystem (via FUSE) under <code class="docutils literal notranslate"><span class="pre">/app</span></code>.</p>
+<div class="section" id="the-emperor">
+<h3>The Emperor<a class="headerlink" href="#the-emperor" title="제목 주소">¶</a></h3>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">emperor</span> <span class="o">=</span> <span class="s">/etc/uwsgi/vassals</span>
+<span class="na">emperor-use-clone</span> <span class="o">=</span> <span class="s">fs,pid</span>
+</pre></div>
+</div>
+<p>The trick here is to use Linux namespaces to create vassals in a new pid and filesystem namespace.</p>
+<p>The first one (<code class="docutils literal notranslate"><span class="pre">fs</span></code>) allows mount point created by the vassal to be available only to the vassal (without messing with the main system), while the <code class="docutils literal notranslate"><span class="pre">pid</span></code>
+allows the uWSGI master to be the &quot;init&quot; process (pid 1) of the vassal. Being &quot;pid 1&quot; means that when you die all your children die too. In our scenario (where our vassal launches a FUSE process on startup) it means that when
+the vassal is destroyed, the FUSE process is destroyed too, as well as its mount point.</p>
+</div>
+<div class="section" id="a-vassal">
+<h3>A Vassal<a class="headerlink" href="#a-vassal" title="제목 주소">¶</a></h3>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">uid</span> <span class="o">=</span> <span class="s">user001</span>
+<span class="na">gid</span> <span class="o">=</span> <span class="s">user001</span>
+
+<span class="c1">; mount FUSE filesystem under /app (but only if it is not a reload)</span>
+<span class="na">if-not-reload</span> <span class="o">=</span><span class="s"></span>
+<span class="s">  exec-as-user = fuse-zip -r /var/www/app001.zip /app</span>
+<span class="na">endif</span> <span class="o">=</span>
+
+<span class="na">http-socket</span> <span class="o">=</span> <span class="s">:9090</span>
+<span class="na">psgi</span> <span class="o">=</span> <span class="s">/app/myapp.pl</span>
+</pre></div>
+</div>
+<p>Here we use the <code class="docutils literal notranslate"><span class="pre">-r</span></code> option of the <code class="docutils literal notranslate"><span class="pre">fuse-zip</span></code> command for a read-only mount.</p>
+</div>
+<div class="section" id="monitoring-mount-points">
+<h3>Monitoring mount points<a class="headerlink" href="#monitoring-mount-points" title="제목 주소">¶</a></h3>
+<p>The problem with the current setup is that if the <code class="docutils literal notranslate"><span class="pre">fuse-zip</span></code> process dies, the instance will no more be able to access <code class="docutils literal notranslate"><span class="pre">/app</span></code> until it is respawned.</p>
+<p>uWSGI 1.9.18 added the <code class="docutils literal notranslate"><span class="pre">--mountpoint-check</span></code> option. It forces the master to constantly verify the specified filesystem. If it fails, the whole instance will be brutally destroyed.
+As we are under The Emperor, soon after the vassal is destroyed it will be restarted in a clean state (allowing the FUSE mount point to be started again).</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">uid</span> <span class="o">=</span> <span class="s">user001</span>
+<span class="na">gid</span> <span class="o">=</span> <span class="s">user001</span>
+
+<span class="c1">; mount FUSE filesystem under /app (but only if it is not a reload)</span>
+<span class="na">if-not-reload</span> <span class="o">=</span><span class="s"></span>
+<span class="s">  exec-as-user = fuse-zip -r /var/www/app001.zip /app</span>
+<span class="na">endif</span> <span class="o">=</span>
+
+<span class="na">http-socket</span> <span class="o">=</span> <span class="s">:9090</span>
+<span class="na">psgi</span> <span class="o">=</span> <span class="s">/app/myapp.pl</span>
+
+<span class="na">mountpoint-check</span> <span class="o">=</span> <span class="s">/app</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="going-heavy-metal-a-cow-rootfs-unionfs-fuse">
+<h2>Going Heavy Metal: A CoW rootfs (unionfs-fuse)<a class="headerlink" href="#going-heavy-metal-a-cow-rootfs-unionfs-fuse" title="제목 주소">¶</a></h2>
+<p><a class="reference external" href="http://podgorny.cz/moin/UnionFsFuse">unionfs-fuse</a> is a user-space implementation of a union filesystem.
+A union filesystem is a stack of multiple filesystems, so directories with same name are merged into a single view.</p>
+<p>Union filesystems are more than this and one of the most useful features is copy-on-write (COW or CoW).
+Enabling CoWs means you will have an immutable/read-only mount point base and all of the modifications to it will go to another mount point.</p>
+<p>Our objective is to have a read-only rootfs shared by all of our customers, and a writable mount point (configured as CoW) for each customer, in which every modification will be stored.</p>
+<div class="section" id="id1">
+<h3>The Emperor<a class="headerlink" href="#id1" title="제목 주소">¶</a></h3>
+<p>Previous Emperor configuration can be used, but we need to prepare our
+filesystems.</p>
+<p>The layout will be:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span>/ufs (where we initially mount our unionfs for each vassal)
+/ns
+  /ns/precise (the shared rootfs, based on Ubuntu Precise Pangolin)
+  /ns/lucid (an alternative rootfs for old-fashioned customers, based on Ubuntu Lucid Lynx)
+  /ns/saucy (another shared rootfs, based on Ubuntu Saucy Salamander)
+
+  /ns/cow (the customers&#39; writable areas)
+    /ns/cow/user001
+    /ns/cow/user002
+    /ns/cow/userXXX
+    ...
+</pre></div>
+</div>
+<p>We create our rootfs:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>debootstrap precise /ns/precise
+debootstrap lucid /ns/lucid
+debootstrap saucy /ns/saucy
+</pre></div>
+</div>
+<p>And we create the <code class="docutils literal notranslate"><span class="pre">.old_root</span></code> directory in each one (it is required for <code class="docutils literal notranslate"><span class="pre">pivot_root</span></code>, see below):</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>mkdir /ns/precise/.old_root
+mkdir /ns/lucid/.old_root
+mkdir /ns/saucy/.old_root
+</pre></div>
+</div>
+<p>Be sure to install the required libraries into each of them (especially the libraries required for your language).</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">uwsgi</span></code> binary must be executable in this rootfs, so you have to invest a bit of time in it (a good approach is having a language plugin
+compiled for each distribution and placed into a common directory, for example, each rootfs could have an <code class="docutils literal notranslate"><span class="pre">/opt/uwsgi/plugins/psgi_plugin.so</span></code> file and so on).</p>
+</div>
+<div class="section" id="id2">
+<h3>A Vassal<a class="headerlink" href="#id2" title="제목 주소">¶</a></h3>
+<p>Here things get a bit more complicated. We need to launch the unionfs process (as root, as it must be our new rootfs) and then call <code class="docutils literal notranslate"><span class="pre">pivot_root</span></code> (a more advanced <code class="docutils literal notranslate"><span class="pre">chroot</span></code> available on Linux).</p>
+<p><a class="reference internal" href="../Hooks.html"><span class="doc">Hooks</span></a> are the best way to run custom commands (or functions) at various uWSGI startup phases.</p>
+<p>In our example we will run FUSE processes at the &quot;pre-jail&quot; phase, and deal with mount points at the &quot;as-root&quot; phase (that happens after <code class="docutils literal notranslate"><span class="pre">pivot_root</span></code>).</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="c1">; choose the approach that suits you best (plugins loading)</span>
+<span class="c1">; this will be used for the first run ...</span>
+<span class="na">plugins-dir</span> <span class="o">=</span> <span class="s">/ns/precise/opt/uwsgi/plugins</span>
+<span class="c1">; and this after a reload (where our rootfs is already /ns/precise)</span>
+<span class="na">plugins-dir</span> <span class="o">=</span> <span class="s">/opt/uwsgi/plugins</span>
+<span class="na">plugin</span> <span class="o">=</span> <span class="s">psgi</span>
+
+<span class="c1">; drop privileges</span>
+<span class="na">uid</span> <span class="o">=</span> <span class="s">user001</span>
+<span class="na">gid</span> <span class="o">=</span> <span class="s">user001</span>
+
+<span class="c1">; chdir to / to avoid problems after pivot_root</span>
+<span class="na">hook-pre-jail</span> <span class="o">=</span> <span class="s">callret:chdir /</span>
+<span class="c1">; run unionfs-fuse using chroot (it is required to avoid deadlocks) and cow (we mount it under /ufs)</span>
+<span class="na">hook-pre-jail</span> <span class="o">=</span> <span class="s">exec:unionfs-fuse -ocow,chroot=/ns,default_permissions,allow_other /precise=RO:/cow/%(uid)=RW /ufs</span>
+
+<span class="c1">; change the rootfs to the unionfs one</span>
+<span class="c1">; the .old_root directory is where the old rootfs is still available</span>
+<span class="na">pivot_root</span> <span class="o">=</span> <span class="s">/ufs /ufs/.old_root</span>
+
+<span class="c1">; now we are in the new rootfs and in &#39;as-root&#39; phase</span>
+<span class="c1">; remount the /proc filesystem</span>
+<span class="na">hook-as-root</span> <span class="o">=</span> <span class="s">mount:proc none /proc</span>
+<span class="c1">; bind mount the original /dev in the new rootfs (simplifies things a lot)</span>
+<span class="na">hook-as-root</span> <span class="o">=</span> <span class="s">mount:none /.old_root/dev /dev bind</span>
+<span class="c1">; recursively un-mount the old rootfs</span>
+<span class="na">hook-as-root</span> <span class="o">=</span> <span class="s">umount:/.old_root rec,detach</span>
+
+<span class="c1">; common bind</span>
+<span class="na">http-socket</span> <span class="o">=</span> <span class="s">:9090</span>
+
+<span class="c1">; load the app (fix it according to your requirements)</span>
+<span class="na">psgi</span> <span class="o">=</span> <span class="s">/var/www/myapp.pl</span>
+
+<span class="c1">; constantly check for the rootfs (seems odd but is is very useful)</span>
+<span class="na">mountpoint-check</span> <span class="o">=</span> <span class="s">/</span>
+</pre></div>
+</div>
+<p>If your app will try to write to its filesystem, you will see that all
+of the created/updated files are available in its <code class="docutils literal notranslate"><span class="pre">/cow</span></code> directory.</p>
+</div>
+</div>
+<div class="section" id="notes">
+<h2>Notes<a class="headerlink" href="#notes" title="제목 주소">¶</a></h2>
+<p>Some FUSE filesystems do not commit writes until they are unmounted.
+In such a case unmounting on vassal shutdown is a good trick:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="c1">; vassal options ...</span>
+<span class="na">...</span>
+<span class="c1">; umount on exit</span>
+<span class="na">exec-as-user-atexit</span> <span class="o">=</span> <span class="s">fusermount -u /app</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="DynamicProxying.html" class="btn btn-neutral float-right" title="Build a dynamic proxy using RPC and internal routing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="heroku_ruby.html" class="btn btn-neutral" title="Running Ruby/Rack webapps on Heroku with uWSGI" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2012-2016, uWSGI.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'2.0',
+            LANGUAGE:'ko',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/language_data.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          
+          SphinxRtdTheme.Navigation.enableSticky();
+          
+      });
+  </script> 
+
+</body>
+</html>

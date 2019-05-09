@@ -1,0 +1,687 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ko" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ko" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>The uWSGI alarm subsystem (from 1.3) &mdash; uWSGI 2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="색인" href="genindex.html" />
+    <link rel="search" title="검색" href="search.html" />
+    <link rel="next" title="The uWSGI caching framework" href="Caching.html" />
+    <link rel="prev" title="WSGI env behaviour policies" href="articles/WSGIEnvBehaviour.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> uWSGI
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="WSGIquickstart.html">Quickstart for Python/WSGI applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PSGIquickstart.html">Quickstart for perl/PSGI applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RackQuickstart.html">Quickstart for ruby/Rack applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Snippets.html">Snippets</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Download.html">Getting uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Install.html">Installing uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BuildSystem.html">The uWSGI build system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Management.html">Managing the uWSGI server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LanguagesAndPlatforms.html">Supported languages and platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SupportedPlatforms.html">Supported Platforms/Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WebServers.html">Web server integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FAQ.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ThingsToKnow.html">Things to know (best practices and &quot;issues&quot;) READ IT !!!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Configuration.html">Configuring uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FallbackConfig.html">Fallback configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ConfigLogic.html">Configuration logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Options.html">uWSGI Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CustomOptions.html">Defining new options for your instances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ParsingOrder.html">How uWSGI parses config files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Vars.html">uwsgi protocol magic variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Protocol.html">The uwsgi Protocol</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AttachingDaemons.html">Managing external daemons/services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MasterFIFO.html">The Master FIFO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Inetd.html">Socket activation with inetd/xinetd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Upstart.html">Running uWSGI via Upstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Systemd.html">Systemd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Circus.html">Running uWSGI instances with Circus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Embed.html">Embedding an application in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Logging.html">Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LogFormat.html">Formatting uWSGI requests logs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LogEncoders.html">Log encoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Hooks.html">Hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WorkerOverride.html">Overriding Workers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ThirdPartyPlugins.html">uWSGI third party plugins</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/CachingCookbook.html">The uWSGI Caching Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/Django_and_nginx.html">Setting up Django and your web server with uWSGI and nginx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/dreamhost.html">Running uWSGI on Dreamhost shared hosting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/heroku_python.html">Running python webapps on Heroku with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/heroku_ruby.html">Running Ruby/Rack webapps on Heroku with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/ReliableFuse.html">Reliably use FUSE filesystems for uWSGI vassals (with Linux)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/DynamicProxying.html">Build a dynamic proxy using RPC and internal routing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/GraphiteAndMetrics.html">Setting up Graphite on Ubuntu using the Metrics subsystem</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="articles/SerializingAccept.html">Serializing accept(), AKA Thundering Herd, AKA the Zeeg Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="articles/TheArtOfGracefulReloading.html">The Art of Graceful Reloading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="articles/FunWithPerlEyetoyRaspberrypi.html">Fun with Perl, Eyetoy and RaspberryPi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="articles/OffloadingWebsocketsAndSSE.html">Offloading Websockets and Server-Sent Events AKA &quot;Combine them with Django safely&quot;</a></li>
+<li class="toctree-l1"><a class="reference internal" href="articles/WSGIEnvBehaviour.html">WSGI env behaviour policies</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">The uWSGI alarm subsystem (from 1.3)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#embedded-event-monitors">Embedded event monitors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#defining-an-alarm">Defining an alarm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#damnit-this-this-is-the-rawest-thing-i-ve-seen">Damnit, this... this is the rawest thing I've seen...</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#protecting-from-bad-rules">Protecting from bad rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-does-log-alarm-work">How does log-alarm work?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#available-plugins-and-their-syntax">Available plugins and their syntax</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#cmd">cmd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#signal">signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mule">mule</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#curl">curl</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#xmpp">xmpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#speech">speech</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#airbrake">airbrake</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Caching.html">The uWSGI caching framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WebCaching.html">WebCaching framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cron.html">The uWSGI cron-like interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Fastrouter.html">The uWSGI FastRouter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="InternalRouting.html">uWSGI internal routing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Legion.html">The uWSGI Legion subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Locks.html">Locks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Mules.html">uWSGI Mules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OffloadSubsystem.html">The uWSGI offloading subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Queue.html">The uWSGI queue framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RPC.html">uWSGI RPC Stack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SharedArea.html">SharedArea -- share memory pages between uWSGI components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Signals.html">The uWSGI Signal Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Spooler.html">The uWSGI Spooler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SubscriptionServer.html">uWSGI Subscription Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="StaticFiles.html">Serving static files with uWSGI (updated to 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SNI.html">SNI - Server Name Identification (virtual hosting for SSL nodes)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GeoIP.html">The GeoIP plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Transformations.html">uWSGI Transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WebSockets.html">WebSocket support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Metrics.html">The Metrics subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Chunked.html">The Chunked input API</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Cheaper.html">The uWSGI cheaper subsystem -- adaptive process spawning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Emperor.html">The uWSGI Emperor -- multi-app deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Broodlord.html">Auto-scaling with Broodlord mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Zerg.html">Zerg mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DynamicApps.html">Adding applications dynamically</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SSLScaling.html">Scaling SSL connections (uWSGI 1.9)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Capabilities.html">Setting POSIX Capabilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cgroups.html">Running uWSGI in a Linux CGroup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="KSM.html">Using Linux KSM in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Namespaces.html">Jailing your apps using Linux Namespaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Namespaces.html#the-old-way-the-namespace-option">The old way: the --namespace option</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FreeBSDJails.html">FreeBSD Jails</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ForkptyRouter.html">The Forkpty Router</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TunTapRouter.html">The TunTap Router</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Nagios.html">Monitoring uWSGI with Nagios</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SNMP.html">The embedded SNMP server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PushingStats.html">Pushing statistics (from 1.4)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Carbon.html">Integration with Graphite/Carbon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="StatsServer.html">The uWSGI Stats Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Metrics.html">The Metrics subsystem</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Async.html">uWSGI asynchronous/non-blocking modes (updated to uWSGI 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Gevent.html">The Gevent loop engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tornado.html">The Tornado loop engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uGreen.html">uGreen -- uWSGI Green Threads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="asyncio.html">The asyncio loop engine (CPython &gt;= 3.4, uWSGI &gt;= 2.0.4)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Apache.html">Apache support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cherokee.html">Cherokee support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="HTTP.html">Native HTTP support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="HTTPS.html">HTTPS 지원 (1.3 버전부터)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SPDY.html">The SPDY router (uWSGI 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lighttpd.html">Lighttpd support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Mongrel2.html">Attaching uWSGI to Mongrel2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Nginx.html">Nginx support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OpenBSDhttpd.html">Using OpenBSD httpd as proxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OpenBSDhttpd.html#notes">Notes</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Python.html">Python support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PyPy.html">The PyPy plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PHP.html">Running PHP scripts in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Perl.html">uWSGI Perl support (PSGI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Ruby.html">Ruby support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lua.html">Using Lua/WSAPI with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="JVM.html">JVM in the uWSGI server (updated to 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Mono.html">The Mono ASP.NET plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CGI.html">Running CGI scripts on uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GCCGO.html">The GCCGO plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Symcall.html">The Symcall plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="XSLT.html">The XSLT plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SSI.html">SSI (Server Side Includes) plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="V8.html">uWSGI V8 support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GridFS.html">The GridFS plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GlusterFS.html">The GlusterFS plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Rados.html">The RADOS plugin</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Pty.html">The Pty plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SPNEGO.html">SPNEGO authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LDAP.html">Configuring uWSGI with LDAP</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Erlang.html">Integrating uWSGI with Erlang</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ManagementFlag.html">Management Flags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Go.html">uWSGI Go support (1.4 only)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.18.html">uWSGI 2.0.18</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.17.1.html">uWSGI 2.0.17.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.17.html">uWSGI 2.0.17</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.16.html">uWSGI 2.0.16</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.15.html">uWSGI 2.0.15</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.14.html">uWSGI 2.0.14</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.13.1.html">uWSGI 2.0.13.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.13.html">uWSGI 2.0.13</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.12.html">uWSGI 2.0.12</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.11.2.html">uWSGI 2.0.11.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.11.1.html">uWSGI 2.0.11.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.11.html">uWSGI 2.0.11</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.10.html">uWSGI 2.0.10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.9.html">uWSGI 2.0.9</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.8.html">uWSGI 2.0.8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.7.html">uWSGI 2.0.7</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.6.html">uWSGI 2.0.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.5.html">uWSGI 2.0.5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.4.html">uWSGI 2.0.4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.3.html">uWSGI 2.0.3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.2.html">uWSGI 2.0.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.1.html">uWSGI 2.0.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.html">uWSGI 2.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.21.html">uWSGI 1.9.21</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.20.html">uWSGI 1.9.20</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.19.html">uWSGI 1.9.19</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.18.html">uWSGI 1.9.18</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.17.html">uWSGI 1.9.17</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.16.html">uWSGI 1.9.16</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.15.html">uWSGI 1.9.15</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.14.html">uWSGI 1.9.14</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.13.html">uWSGI 1.9.13</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.12.html">uWSGI 1.9.12</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.11.html">uWSGI 1.9.11</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.10.html">uWSGI 1.9.10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.9.html">uWSGI 1.9.9</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.8.html">uWSGI 1.9.8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.7.html">uWSGI 1.9.7</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.6.html">uWSGI 1.9.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.5.html">uWSGI 1.9.5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.4.html">uWSGI 1.9.4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.3.html">uWSGI 1.9.3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.2.html">uWSGI 1.9.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.1.html">uWSGI 1.9.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.html">uWSGI 1.9</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">uWSGI</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>The uWSGI alarm subsystem (from 1.3)</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/AlarmSubsystem.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="the-uwsgi-alarm-subsystem-from-1-3">
+<h1>The uWSGI alarm subsystem (from 1.3)<a class="headerlink" href="#the-uwsgi-alarm-subsystem-from-1-3" title="제목 주소">¶</a></h1>
+<p>As of 1.3, uWSGI includes an alarm system. This subsystem allows the
+developer/sysadmin to 'announce' special conditions of an app via various
+channels.  For example, you may want to get notified via Jabber/XMPP of a full
+listen queue, or a harakiri condition.  The alarm subsystem is based on
+two components: an event monitor and an event action.</p>
+<p>An event monitor is something waiting for a specific condition (like an event on a file descriptor or a specific log message).</p>
+<p>As soon as the condition is true an action (like sending an email) is triggered.</p>
+<div class="section" id="embedded-event-monitors">
+<h2>Embedded event monitors<a class="headerlink" href="#embedded-event-monitors" title="제목 주소">¶</a></h2>
+<p>Event monitors can be added via plugins, the uWSGI core includes the following:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">log-alarm</span></code> triggers an alarm when a specific regexp matches a log line</li>
+<li><code class="docutils literal notranslate"><span class="pre">alarm-fd</span></code> triggers an alarm when the specified file descriptor is ready (which is pretty low-level and the basis of most of the alarm plugins)</li>
+<li><code class="docutils literal notranslate"><span class="pre">alarm-backlog</span></code> triggers an alarm when the socket backlog queue is full</li>
+<li><code class="docutils literal notranslate"><span class="pre">alarm-segfault</span></code> (since 1.9.9) triggers an alarm when uWSGI segfaults.</li>
+<li><code class="docutils literal notranslate"><span class="pre">alarm-cheap</span></code> Use main alarm thread rather than creating dedicated threads for each curl-based alarm</li>
+</ul>
+</div>
+<div class="section" id="defining-an-alarm">
+<h2>Defining an alarm<a class="headerlink" href="#defining-an-alarm" title="제목 주소">¶</a></h2>
+<p>You can define an unlimited number of alarms. Each alarm has a unique name.</p>
+<p>Currently the following alarm actions are available in the main distribution:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;cmd&#39;</span> <span class="o">-</span> <span class="n">run</span> <span class="n">a</span> <span class="n">command</span> <span class="n">passing</span> <span class="n">the</span> <span class="n">log</span> <span class="n">line</span> <span class="n">to</span> <span class="n">the</span> <span class="n">stdin</span>
+<span class="s1">&#39;signal&#39;</span> <span class="o">-</span>  <span class="n">generate</span> <span class="n">an</span> <span class="n">uWSGI</span> <span class="n">signal</span>
+<span class="s1">&#39;mule&#39;</span> <span class="o">-</span> <span class="n">send</span> <span class="n">the</span> <span class="n">log</span> <span class="n">line</span> <span class="n">to</span> <span class="n">a</span> <span class="n">mule</span>
+<span class="s1">&#39;curl&#39;</span> <span class="o">-</span> <span class="k">pass</span> <span class="n">the</span> <span class="n">log</span> <span class="n">line</span> <span class="n">to</span> <span class="n">a</span> <span class="n">curl</span> <span class="n">url</span> <span class="p">(</span><span class="n">http</span><span class="p">,</span><span class="n">https</span> <span class="ow">and</span> <span class="n">smtp</span> <span class="n">are</span> <span class="n">supported</span><span class="p">)</span>
+<span class="s1">&#39;xmpp&#39;</span> <span class="o">-</span> <span class="n">send</span> <span class="n">the</span> <span class="n">log</span> <span class="n">line</span> <span class="n">via</span> <span class="n">XMPP</span><span class="o">/</span><span class="n">jabber</span>
+</pre></div>
+</div>
+<p>To define an alarm, use the option <code class="docutils literal notranslate"><span class="pre">--alarm</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">--</span><span class="n">alarm</span> <span class="s2">&quot;&lt;name&gt; &lt;plugin&gt;:&lt;opts&gt;&quot;</span>
+</pre></div>
+</div>
+<p>Remember to quote ONLY when you are defining alarms on the command line.</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">alarm</span> <span class="o">=</span> <span class="s">mailme cmd:mail -s &#39;uWSGI alarm&#39; -a &#39;From: foobar@example.com&#39; admin@example.com</span>
+<span class="na">alarm</span> <span class="o">=</span> <span class="s">cachefull signal:17</span>
+</pre></div>
+</div>
+<p>Here we define two alarms: <code class="docutils literal notranslate"><span class="pre">mailme</span></code> and <code class="docutils literal notranslate"><span class="pre">cachefull</span></code>. The first one invokes
+the <code class="docutils literal notranslate"><span class="pre">mail</span></code> binary to send the log line to a mail address; the second one
+generates an uWSGI signal.  We now need to add rules to trigger alarms:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">alarm</span> <span class="o">=</span> <span class="s">mailme cmd:mail -s &#39;uWSGI alarm&#39; -a &#39;From: foobar@example.com&#39; admin@example.com</span>
+<span class="na">alarm</span> <span class="o">=</span> <span class="s">cachefull signal:17</span>
+<span class="na">log-alarm</span> <span class="o">=</span> <span class="s">cachefull,mailme uWSGI listen queue of socket</span>
+<span class="na">log-alarm</span> <span class="o">=</span> <span class="s">mailme HARAKIRI ON WORKER</span>
+</pre></div>
+</div>
+<p>The syntax of log-alarm is</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">--</span><span class="n">log</span><span class="o">-</span><span class="n">alarm</span> <span class="s2">&quot;&lt;name&gt; &lt;regexp&gt;&quot;</span>
+</pre></div>
+</div>
+<p>In our previous example we defined two conditions using regexps applied to log
+lines. The first one will trigger both alarms when the listen queue is full,
+while the second will only invoke 'mailme' when a worker commits harakiri.</p>
+</div>
+<div class="section" id="damnit-this-this-is-the-rawest-thing-i-ve-seen">
+<h2>Damnit, this... this is the rawest thing I've seen...<a class="headerlink" href="#damnit-this-this-is-the-rawest-thing-i-ve-seen" title="제목 주소">¶</a></h2>
+<p>You may be right. But if you throw away your &quot;being a cool programmer with a
+lot of friends and zero money&quot; book for a moment, you will realize just how
+many things you can do with such a simple system.  Want an example?</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">alarm</span> <span class="o">=</span> <span class="s">jabber xmpp:foobar@jabber.xxx;mysecretpassword;admin@jabber.xxx,admin2@jabber.xxx</span>
+<span class="na">log-alarm</span> <span class="o">=</span> <span class="s">jabber ^TERRIBLE ALARM</span>
+</pre></div>
+</div>
+<p>Now in your app you only need to add</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">print</span> <span class="s2">&quot;TERRIBLE ALARM! The world exploded!!!&quot;</span>
+</pre></div>
+</div>
+<p>to send a Jabber message to <code class="docutils literal notranslate"><span class="pre">admin&#64;jabber.xxx</span></code> and <code class="docutils literal notranslate"><span class="pre">admin2&#64;jabber.xxx</span></code>
+without adding any significant overhead to your app (as alarms are triggered by
+one or more threads in the master process, without bothering workers).</p>
+<p>How about another example?</p>
+<p>Check this Rack middleware:</p>
+<div class="highlight-rb notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">UploadCheck</span>
+  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+    <span class="vi">@app</span> <span class="o">=</span> <span class="n">app</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">env</span><span class="o">[</span><span class="s1">&#39;REQUEST_METHOD&#39;</span><span class="o">]</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span> <span class="ow">and</span> <span class="n">env</span><span class="o">[</span><span class="s1">&#39;PATH_INFO&#39;</span><span class="o">]</span> <span class="o">==</span> <span class="s1">&#39;/upload&#39;</span>
+      <span class="nb">puts</span> <span class="s2">&quot;TERRIBLE ALARM! An upload has been made!&quot;</span>
+    <span class="k">end</span>
+    <span class="vi">@app</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="protecting-from-bad-rules">
+<h2>Protecting from bad rules<a class="headerlink" href="#protecting-from-bad-rules" title="제목 주소">¶</a></h2>
+<p>Such a versatile system could be open to a lot of ugly bugs, mainly infinite
+loops. Thus, try to build your regexps carefully. The embedded anti-loop
+subsystem should protect against loglines wrongly generated by alarm plugin.
+This system is not perfect so please double-check your regexps.</p>
+<p>If you are building a plugin, be sure to prepend your log messages with the
+'[uwsgi-alarm' string. These lines will be skipped and directly passed to the
+log subsystem. A convenience API function is available: <code class="docutils literal notranslate"><span class="pre">uwsgi_log_alarm()</span></code>.</p>
+</div>
+<div class="section" id="how-does-log-alarm-work">
+<h2>How does log-alarm work?<a class="headerlink" href="#how-does-log-alarm-work" title="제목 주소">¶</a></h2>
+<p>Enabling log-alarm automatically puts the uWSGI instance in <span class="xref std std-term">log-master
+mode</span>, delegating log writes to the master.  The alarm subsystem is executed by
+the master just before passing the log line to the log plugin. Blocking alarm
+plugins should run in a thread (like the curl and xmpp one), while the simple
+ones (like signal and cmd) may run directly in the master.</p>
+</div>
+<div class="section" id="available-plugins-and-their-syntax">
+<h2>Available plugins and their syntax<a class="headerlink" href="#available-plugins-and-their-syntax" title="제목 주소">¶</a></h2>
+<div class="section" id="cmd">
+<h3>cmd<a class="headerlink" href="#cmd" title="제목 주소">¶</a></h3>
+<p>Run a shell command, passing the log line to its stdin:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cmd</span><span class="p">:</span><span class="o">&lt;</span><span class="n">command</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="signal">
+<h3>signal<a class="headerlink" href="#signal" title="제목 주소">¶</a></h3>
+<p>Raise an uWSGI signal.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">signal</span><span class="p">:[</span><span class="n">signum</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">더 보기</p>
+<p class="last"><a class="reference internal" href="Signals.html"><span class="doc">The uWSGI Signal Framework</span></a></p>
+</div>
+</div>
+<div class="section" id="mule">
+<h3>mule<a class="headerlink" href="#mule" title="제목 주소">¶</a></h3>
+<p>Send the log line to a mule waiting for messages.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mule</span><span class="p">:[</span><span class="n">mule_id</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">더 보기</p>
+<p class="last"><a class="reference internal" href="Mules.html"><span class="doc">uWSGI Mules</span></a></p>
+</div>
+</div>
+<div class="section" id="curl">
+<h3>curl<a class="headerlink" href="#curl" title="제목 주소">¶</a></h3>
+<p>Send the log line to a cURL-able URL. This alarm plugin is not compiled in by default, so if you need to build it just run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">uwsgiconfig</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">plugin</span> <span class="n">plugins</span><span class="o">/</span><span class="n">alarm_curl</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span><span class="p">:</span><span class="o">&lt;</span><span class="n">url</span><span class="o">&gt;</span><span class="p">[;</span><span class="n">opt1</span><span class="o">=</span><span class="n">val1</span><span class="p">;</span><span class="n">opt2</span><span class="o">=</span><span class="n">val2</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">url</span></code> is any standard cURL URL, while the options currently exposed are</p>
+<ul class="simple">
+<li>&quot;auth_pass&quot;</li>
+<li>&quot;auth_user&quot;</li>
+<li>&quot;conn_timeout&quot;</li>
+<li>&quot;mail_from&quot;</li>
+<li>&quot;mail_to&quot;</li>
+<li>&quot;method&quot;</li>
+<li>&quot;ssl&quot;</li>
+<li>&quot;subject&quot;</li>
+<li>&quot;timeout&quot;</li>
+<li>&quot;url&quot;</li>
+<li>&quot;ssl_insecure&quot;</li>
+</ul>
+<p>So, for sending mail via SMTP AUTH:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">plugins</span> <span class="o">=</span> <span class="s">alarm_curl</span>
+<span class="na">alarm</span> <span class="o">=</span> <span class="s">test curl:smtp://mail.example.com;mail_to=admin@example.com;mail_from=uwsgi@example.com;auth_user=uwsgi;auth_pass=secret;subject=alarm from uWSGI !!!</span>
+</pre></div>
+</div>
+<p>Or we can use Gmail to send alarms:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">plugins</span> <span class="o">=</span> <span class="s">alarm_curl</span>
+<span class="na">alarm</span> <span class="o">=</span> <span class="s">gmail curl:smtps://smtp.gmail.com;mail_to=admin@example.com;auth_user=uwsgi@gmail.com;auth_pass=secret;subject=alarm from uWSGI !!!</span>
+</pre></div>
+</div>
+<p>Or to <cite>PUT</cite> the log line to an HTTP server protected with basic authentication:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">plugins</span> <span class="o">=</span> <span class="s">alarm_curl</span>
+<span class="na">alarm</span> <span class="o">=</span> <span class="s">test2 curl:http://192.168.173.6:9191/argh;auth_user=topogigio;auth_pass=foobar</span>
+</pre></div>
+</div>
+<p>Or to <cite>POST</cite> the log line to an HTTPS server with self-generated SSL certificate.</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">plugins</span> <span class="o">=</span> <span class="s">alarm_curl</span>
+<span class="na">alarm</span> <span class="o">=</span> <span class="s">test3 curl:https://192.168.173.6/argh;method=POST;ssl_insecure=true</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="xmpp">
+<h3>xmpp<a class="headerlink" href="#xmpp" title="제목 주소">¶</a></h3>
+<p>Probably the most interesting one of the built-in bunch. You need the <code class="docutils literal notranslate"><span class="pre">libgloox</span></code> package to build the XMPP alarm plugin (on Debian/Ubuntu, <code class="docutils literal notranslate"><span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">gloox-dev</span></code>).</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python uwsgiconfig.py --plugin plugins/alarm_xmpp
+</pre></div>
+</div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>xmpp:&lt;jid&gt;<span class="p">;</span>&lt;password&gt;<span class="p">;</span>&lt;recipients&gt;
+</pre></div>
+</div>
+<p>You can set multiple recipients using ',' as delimiter.</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">plugins</span> <span class="o">=</span> <span class="s">alarm_xmpp</span>
+<span class="na">alarm</span> <span class="o">=</span> <span class="s">jabber xmpp:app@example.it;secret1;foo1@foo.it,foo2@foo.it</span>
+</pre></div>
+</div>
+<p>An even more interesting thing still about the XMPP plugin is that you will see the Jabber account of your app going down when your app dies. :-)</p>
+<p>Some XMPP servers (most notably the OSX Server one) requires you to bind to a resource. You can do thus by appending <code class="docutils literal notranslate"><span class="pre">/resource</span></code> to the JID.</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">plugins</span> <span class="o">=</span> <span class="s">alarm_xmpp</span>
+<span class="na">alarm</span> <span class="o">=</span> <span class="s">jabber xmpp:max@server.local/uWSGI;secret1;foo1@foo.it,foo2@foo.it</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="speech">
+<h3>speech<a class="headerlink" href="#speech" title="제목 주소">¶</a></h3>
+<p>A toy plugin for OSX, used mainly for showing off Objective-C integration with uWSGI.
+It simply uses the OSX speech synthesizer to 'announce' the alarm.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python uwsgiconfig.py --plugin plugins/alarm_speech
+</pre></div>
+</div>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">plugins</span> <span class="o">=</span> <span class="s">alarm_speech</span>
+<span class="na">http-socket</span> <span class="o">=</span> <span class="s">:8080</span>
+<span class="na">alarm</span> <span class="o">=</span> <span class="s">say speech:</span>
+<span class="na">log-alarm</span> <span class="o">=</span> <span class="s">say .*</span>
+</pre></div>
+</div>
+<p>Turn on your speakers, run uWSGI and start listening...</p>
+</div>
+<div class="section" id="airbrake">
+<h3>airbrake<a class="headerlink" href="#airbrake" title="제목 주소">¶</a></h3>
+<p>Starting with 1.9.9 uWSGI includes the <code class="docutils literal notranslate"><span class="pre">--alarm-segfault</span></code> option to raise an
+alarm when uWSGI segfaults.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">airbrake</span></code> plugin can be used to send segfault backtraces to airbrake
+compatible servers. Like Airbrake itself and its open source clone errbit
+(<a class="reference external" href="https://github.com/errbit/errbit">https://github.com/errbit/errbit</a>), Airbrake support is experimental and it
+might not fully work in all cases.</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="na">plugins</span> <span class="o">=</span> <span class="s">airbrake</span>
+<span class="na">alarm</span> <span class="o">=</span> <span class="s">errbit airbrake:http://errbit.domain.com/notifier_api/v2/notices;apikey=APIKEY;subject=uWSGI segfault</span>
+<span class="na">alarm-segfault</span> <span class="o">=</span> <span class="s">errbit</span>
+</pre></div>
+</div>
+<p>Note that alarm-segfault does not require the Airbrake plugin. A backtrace can just as well be sent using any other alarm plugin.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Caching.html" class="btn btn-neutral float-right" title="The uWSGI caching framework" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="articles/WSGIEnvBehaviour.html" class="btn btn-neutral" title="WSGI env behaviour policies" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2012-2016, uWSGI.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'2.0',
+            LANGUAGE:'ko',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/language_data.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          
+          SphinxRtdTheme.Navigation.enableSticky();
+          
+      });
+  </script> 
+
+</body>
+</html>

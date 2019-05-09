@@ -1,0 +1,861 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ko" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ko" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Serializing accept(), AKA Thundering Herd, AKA the Zeeg Problem &mdash; uWSGI 2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="색인" href="../genindex.html" />
+    <link rel="search" title="검색" href="../search.html" />
+    <link rel="next" title="The Art of Graceful Reloading" href="TheArtOfGracefulReloading.html" />
+    <link rel="prev" title="Setting up Graphite on Ubuntu using the Metrics subsystem" href="../tutorials/GraphiteAndMetrics.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> uWSGI
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../WSGIquickstart.html">Quickstart for Python/WSGI applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PSGIquickstart.html">Quickstart for perl/PSGI applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RackQuickstart.html">Quickstart for ruby/Rack applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Snippets.html">Snippets</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Download.html">Getting uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Install.html">Installing uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../BuildSystem.html">The uWSGI build system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Management.html">Managing the uWSGI server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LanguagesAndPlatforms.html">Supported languages and platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SupportedPlatforms.html">Supported Platforms/Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../WebServers.html">Web server integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FAQ.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ThingsToKnow.html">Things to know (best practices and &quot;issues&quot;) READ IT !!!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Configuration.html">Configuring uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FallbackConfig.html">Fallback configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ConfigLogic.html">Configuration logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Options.html">uWSGI Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CustomOptions.html">Defining new options for your instances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ParsingOrder.html">How uWSGI parses config files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Vars.html">uwsgi protocol magic variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Protocol.html">The uwsgi Protocol</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AttachingDaemons.html">Managing external daemons/services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../MasterFIFO.html">The Master FIFO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Inetd.html">Socket activation with inetd/xinetd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Upstart.html">Running uWSGI via Upstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Systemd.html">Systemd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Circus.html">Running uWSGI instances with Circus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Embed.html">Embedding an application in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Logging.html">Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LogFormat.html">Formatting uWSGI requests logs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LogEncoders.html">Log encoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Hooks.html">Hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../WorkerOverride.html">Overriding Workers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ThirdPartyPlugins.html">uWSGI third party plugins</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/CachingCookbook.html">The uWSGI Caching Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/Django_and_nginx.html">Setting up Django and your web server with uWSGI and nginx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/dreamhost.html">Running uWSGI on Dreamhost shared hosting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/heroku_python.html">Running python webapps on Heroku with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/heroku_ruby.html">Running Ruby/Rack webapps on Heroku with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/ReliableFuse.html">Reliably use FUSE filesystems for uWSGI vassals (with Linux)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/DynamicProxying.html">Build a dynamic proxy using RPC and internal routing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/GraphiteAndMetrics.html">Setting up Graphite on Ubuntu using the Metrics subsystem</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Serializing accept(), AKA Thundering Herd, AKA the Zeeg Problem</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#select-poll-kqueue-epoll">select()/poll()/kqueue()/epoll()/...</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#application-servers-vs-webservers">Application Servers VS WebServers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-application-server-developers-solved-it">How application server developers solved it</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#no-problem-so-again-what-we-are-talking-about">No-problem ??? So, again, what we are talking about ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-zeeg-problem-multiple-processes-with-multiple-threads">The Zeeg problem: Multiple processes with multiple threads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-david-solved-it">How David solved it ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#uwsgi-docs-sucks-thunder-lock">uWSGI docs sucks: --thunder-lock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sysv-ipc-semaphores-are-bad-how-you-solved-it">SysV IPC semaphores are bad how you solved it ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#uwsgi-developers-are-fu-ing-cowards">uWSGI developers are fu*!ing cowards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#when-sysv-ipc-semaphores-are-a-better-choice">When SysV IPC semaphores are a better choice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#what-about-other-portable-lock-engines">What about other portable lock engines ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#conclusions">Conclusions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bonus-chapter-using-the-zeeg-approach-in-a-uwsgi-friendly-way">Bonus chapter: using the Zeeg approach in a uWSGI friendly way</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bonus-chapter-2-securing-sysv-ipc-semaphores">Bonus chapter 2: securing SysV IPC semaphores</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#credits">Credits:</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="TheArtOfGracefulReloading.html">The Art of Graceful Reloading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FunWithPerlEyetoyRaspberrypi.html">Fun with Perl, Eyetoy and RaspberryPi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OffloadingWebsocketsAndSSE.html">Offloading Websockets and Server-Sent Events AKA &quot;Combine them with Django safely&quot;</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WSGIEnvBehaviour.html">WSGI env behaviour policies</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../AlarmSubsystem.html">The uWSGI alarm subsystem (from 1.3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Caching.html">The uWSGI caching framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../WebCaching.html">WebCaching framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Cron.html">The uWSGI cron-like interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Fastrouter.html">The uWSGI FastRouter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../InternalRouting.html">uWSGI internal routing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Legion.html">The uWSGI Legion subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Locks.html">Locks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Mules.html">uWSGI Mules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../OffloadSubsystem.html">The uWSGI offloading subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Queue.html">The uWSGI queue framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RPC.html">uWSGI RPC Stack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SharedArea.html">SharedArea -- share memory pages between uWSGI components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Signals.html">The uWSGI Signal Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Spooler.html">The uWSGI Spooler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SubscriptionServer.html">uWSGI Subscription Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../StaticFiles.html">Serving static files with uWSGI (updated to 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SNI.html">SNI - Server Name Identification (virtual hosting for SSL nodes)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GeoIP.html">The GeoIP plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Transformations.html">uWSGI Transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../WebSockets.html">WebSocket support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Metrics.html">The Metrics subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Chunked.html">The Chunked input API</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Cheaper.html">The uWSGI cheaper subsystem -- adaptive process spawning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Emperor.html">The uWSGI Emperor -- multi-app deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Broodlord.html">Auto-scaling with Broodlord mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Zerg.html">Zerg mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../DynamicApps.html">Adding applications dynamically</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SSLScaling.html">Scaling SSL connections (uWSGI 1.9)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Capabilities.html">Setting POSIX Capabilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Cgroups.html">Running uWSGI in a Linux CGroup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../KSM.html">Using Linux KSM in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Namespaces.html">Jailing your apps using Linux Namespaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Namespaces.html#the-old-way-the-namespace-option">The old way: the --namespace option</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FreeBSDJails.html">FreeBSD Jails</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ForkptyRouter.html">The Forkpty Router</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../TunTapRouter.html">The TunTap Router</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Nagios.html">Monitoring uWSGI with Nagios</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SNMP.html">The embedded SNMP server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PushingStats.html">Pushing statistics (from 1.4)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Carbon.html">Integration with Graphite/Carbon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../StatsServer.html">The uWSGI Stats Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Metrics.html">The Metrics subsystem</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Async.html">uWSGI asynchronous/non-blocking modes (updated to uWSGI 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Gevent.html">The Gevent loop engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Tornado.html">The Tornado loop engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../uGreen.html">uGreen -- uWSGI Green Threads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../asyncio.html">The asyncio loop engine (CPython &gt;= 3.4, uWSGI &gt;= 2.0.4)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Apache.html">Apache support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Cherokee.html">Cherokee support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HTTP.html">Native HTTP support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HTTPS.html">HTTPS 지원 (1.3 버전부터)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SPDY.html">The SPDY router (uWSGI 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Lighttpd.html">Lighttpd support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Mongrel2.html">Attaching uWSGI to Mongrel2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Nginx.html">Nginx support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../OpenBSDhttpd.html">Using OpenBSD httpd as proxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../OpenBSDhttpd.html#notes">Notes</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Python.html">Python support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PyPy.html">The PyPy plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PHP.html">Running PHP scripts in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Perl.html">uWSGI Perl support (PSGI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Ruby.html">Ruby support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Lua.html">Using Lua/WSAPI with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../JVM.html">JVM in the uWSGI server (updated to 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Mono.html">The Mono ASP.NET plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CGI.html">Running CGI scripts on uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCCGO.html">The GCCGO plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Symcall.html">The Symcall plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../XSLT.html">The XSLT plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SSI.html">SSI (Server Side Includes) plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../V8.html">uWSGI V8 support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GridFS.html">The GridFS plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GlusterFS.html">The GlusterFS plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Rados.html">The RADOS plugin</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Pty.html">The Pty plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SPNEGO.html">SPNEGO authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LDAP.html">Configuring uWSGI with LDAP</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Erlang.html">Integrating uWSGI with Erlang</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ManagementFlag.html">Management Flags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Go.html">uWSGI Go support (1.4 only)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.18.html">uWSGI 2.0.18</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.17.1.html">uWSGI 2.0.17.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.17.html">uWSGI 2.0.17</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.16.html">uWSGI 2.0.16</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.15.html">uWSGI 2.0.15</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.14.html">uWSGI 2.0.14</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.13.1.html">uWSGI 2.0.13.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.13.html">uWSGI 2.0.13</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.12.html">uWSGI 2.0.12</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.11.2.html">uWSGI 2.0.11.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.11.1.html">uWSGI 2.0.11.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.11.html">uWSGI 2.0.11</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.10.html">uWSGI 2.0.10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.9.html">uWSGI 2.0.9</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.8.html">uWSGI 2.0.8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.7.html">uWSGI 2.0.7</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.6.html">uWSGI 2.0.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.5.html">uWSGI 2.0.5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.4.html">uWSGI 2.0.4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.3.html">uWSGI 2.0.3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.2.html">uWSGI 2.0.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.1.html">uWSGI 2.0.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.html">uWSGI 2.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.21.html">uWSGI 1.9.21</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.20.html">uWSGI 1.9.20</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.19.html">uWSGI 1.9.19</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.18.html">uWSGI 1.9.18</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.17.html">uWSGI 1.9.17</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.16.html">uWSGI 1.9.16</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.15.html">uWSGI 1.9.15</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.14.html">uWSGI 1.9.14</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.13.html">uWSGI 1.9.13</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.12.html">uWSGI 1.9.12</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.11.html">uWSGI 1.9.11</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.10.html">uWSGI 1.9.10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.9.html">uWSGI 1.9.9</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.8.html">uWSGI 1.9.8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.7.html">uWSGI 1.9.7</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.6.html">uWSGI 1.9.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.5.html">uWSGI 1.9.5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.4.html">uWSGI 1.9.4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.3.html">uWSGI 1.9.3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.2.html">uWSGI 1.9.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.1.html">uWSGI 1.9.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.html">uWSGI 1.9</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">uWSGI</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Serializing accept(), AKA Thundering Herd, AKA the Zeeg Problem</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/articles/SerializingAccept.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="serializing-accept-aka-thundering-herd-aka-the-zeeg-problem">
+<h1>Serializing accept(), AKA Thundering Herd, AKA the Zeeg Problem<a class="headerlink" href="#serializing-accept-aka-thundering-herd-aka-the-zeeg-problem" title="제목 주소">¶</a></h1>
+<p>One of the historical problems in the UNIX world is the &quot;thundering herd&quot;.</p>
+<p>What is it?</p>
+<p>Take a process binding to a networking address (it could be <code class="docutils literal notranslate"><span class="pre">AF_INET</span></code>,
+<code class="docutils literal notranslate"><span class="pre">AF_UNIX</span></code> or whatever you want) and then forking itself:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="p">(...)</span>
+<span class="n">bind</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="p">...)</span>
+<span class="n">listen</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="p">...)</span>
+<span class="n">fork</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>After having forked itself a bunch of times, each process will generally start
+blocking on <code class="docutils literal notranslate"><span class="pre">accept()</span></code></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="p">(;;)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">client</span> <span class="o">=</span> <span class="n">accept</span><span class="p">(...);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">client</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="k">continue</span><span class="p">;</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The funny problem is that on older/classic UNIX, <code class="docutils literal notranslate"><span class="pre">accept()</span></code> is woken up in
+each process blocked on it whenever a connection is attempted on the socket.</p>
+<p>Only one of those processes will be able to truly accept the connection, the
+others will get a boring <code class="docutils literal notranslate"><span class="pre">EAGAIN</span></code>.</p>
+<p>This results in a vast number of wasted cpu cycles (the kernel scheduler has to
+give control to all of the sleeping processes waiting on that socket).</p>
+<p>This behaviour (for various reasons) is amplified when instead of processes you
+use threads (so, you have multiple threads blocked on <code class="docutils literal notranslate"><span class="pre">accept()</span></code>).</p>
+<p>The de facto solution was placing a lock before the <code class="docutils literal notranslate"><span class="pre">accept()</span></code> call to serialize
+its usage:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="p">(;;)</span> <span class="p">{</span>
+    <span class="n">lock</span><span class="p">();</span>
+    <span class="kt">int</span> <span class="n">client</span> <span class="o">=</span> <span class="n">accept</span><span class="p">(...);</span>
+    <span class="n">unlock</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">client</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="k">continue</span><span class="p">;</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For threads, dealing with locks is generally easier but for processes you have
+to fight with system-specific solutions or fall back to the venerable SysV ipc
+subsystem (more on this later).</p>
+<p>In modern times, the vast majority of UNIX systems have evolved, and now the
+kernel ensures (more or less) only one process/thread is woken up on a
+connection event.</p>
+<p>Ok, problem solved, what we are talking about?</p>
+<div class="section" id="select-poll-kqueue-epoll">
+<h2>select()/poll()/kqueue()/epoll()/...<a class="headerlink" href="#select-poll-kqueue-epoll" title="제목 주소">¶</a></h2>
+<p>In the pre-1.0 era, uWSGI was a lot simpler (and less interesting) than the
+current form. It did not have the signal framework and it was not able to
+listen to multiple addresses; for this reason its loop engine was only calling
+<code class="docutils literal notranslate"><span class="pre">accept()</span></code> in each process/thread, and thundering herd (thanks to modern
+kernels) was not a problem.</p>
+<p>Evolution has a price, so after a while the standard loop engine of a uWSGI
+process/thread moved from:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="p">(;;)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">client</span> <span class="o">=</span> <span class="n">accept</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="p">...);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">client</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="k">continue</span><span class="p">;</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>to a more complex:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="p">(;;)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">interesting_fd</span> <span class="o">=</span> <span class="n">wait_for_fds</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">fd_need_accept</span><span class="p">(</span><span class="n">interesting_fd</span><span class="p">))</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">client</span> <span class="o">=</span> <span class="n">accept</span><span class="p">(</span><span class="n">interesting_fd</span><span class="p">,</span> <span class="p">...);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">client</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="k">continue</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">fd_is_a_signal</span><span class="p">(</span><span class="n">interesting_fd</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">manage_uwsgi_signal</span><span class="p">(</span><span class="n">interesting_fd</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The problem is now the <code class="docutils literal notranslate"><span class="pre">wait_for_fds()</span></code> example function: it will call
+something like <code class="docutils literal notranslate"><span class="pre">select()</span></code>, <code class="docutils literal notranslate"><span class="pre">poll()</span></code> or the more modern <code class="docutils literal notranslate"><span class="pre">epoll()</span></code> and
+<code class="docutils literal notranslate"><span class="pre">kqueue()</span></code>.</p>
+<p>These kinds of system calls are &quot;monitors&quot; for file descriptors, and they are
+woken up in all of the processes/threads waiting for the same file descriptor.</p>
+<p>Before you start blaming your kernel developers, this is the right approach, as
+the kernel cannot know if you are waiting for those file descriptors to call
+<code class="docutils literal notranslate"><span class="pre">accept()</span></code> or to make something funnier.</p>
+<p>So, welcome again to the thundering herd.</p>
+</div>
+<div class="section" id="application-servers-vs-webservers">
+<h2>Application Servers VS WebServers<a class="headerlink" href="#application-servers-vs-webservers" title="제목 주소">¶</a></h2>
+<p>The popular, battle tested, solid, multiprocess reference webserver is Apache
+HTTPD.</p>
+<p>It survived decades of IT evolutions and it's still one of the most important
+technologies powering the whole Internet.</p>
+<p>Born as multiprocess-only, Apache had to always deal with the thundering herd
+problem and they solved it using SysV ipc semaphores.</p>
+<p>(Note: Apache is really smart about that, when it only needs to wait on a
+single file descriptor, it only calls <code class="docutils literal notranslate"><span class="pre">accept()</span></code> taking advantage of modern
+kernels anti-thundering herd policies)</p>
+<p>(Update: Apache 2.x even allows you to choose which lock technique to use,
+included flock/fcntl for very ancient systems, but on the vast majority of the
+system, when in multiprocess mode it will use the sysv semaphores)</p>
+<p>Even on modern Apache releases, stracing one of its process (bound to multiple
+interfaces) you will see something like that (it is a Linux system):</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">semop</span><span class="p">(...);</span> <span class="c1">// lock</span>
+<span class="n">epoll_wait</span><span class="p">(...);</span>
+<span class="n">accept</span><span class="p">(...);</span>
+<span class="n">semop</span><span class="p">(...);</span> <span class="c1">// unlock</span>
+<span class="p">...</span> <span class="c1">// manage the request</span>
+</pre></div>
+</div>
+<p>the SysV semaphore protect your epoll_wait from thundering herd.</p>
+<p>So, another problem solved, the world is a such a beautiful place... but ....</p>
+<p><strong>SysV IPC is not good for application servers :(*</strong></p>
+<p>The definition of &quot;application server&quot; is pretty generic, in this case we refer
+to one or more process/processes generated by an unprivileged (non-root) user
+binding on one or more network address and running custom, highly
+non-deterministic code.</p>
+<p>Even if you had a minimal/basic knowledge on how SysV IPC works, you will know
+each of its components is a limited resource in the system (and in modern BSDs
+these limits are set to ridiculously low values, PostgreSQL FreeBSD users know
+this problem very well).</p>
+<p>Just run 'ipcs' in your terminal to get a list of the allocated objects in your
+kernel. Yes, in your kernel. SysV ipc objects are persistent resources, they
+need to be removed manually by the user. The same user that could allocate
+hundreds of those objects and fill your limited SysV IPC memory.</p>
+<p>One of the most common problems in the Apache world caused by the SysV ipc
+usage is the leakage when you brutally kill Apache instances (yes, you should
+never do it, but you don't have a choice if you are so brave/fool to host
+unreliable PHP apps in your webserver process).</p>
+<p>To better understand it, spawn Apache and <code class="docutils literal notranslate"><span class="pre">killall</span> <span class="pre">-9</span> <span class="pre">apache2</span></code>. Respawn it
+and run 'ipcs' you will get a new semaphore object every time. Do you see the
+problem? (to Apache gurus: yes I know there are hacky tricks to avoid that,
+but this is the default behaviour)</p>
+<p>Apache is generally a system service, managed by a conscious sysadmin, so
+except few cases you can continue trusting it for more decades, even if it
+decides to use more SysV ipc objects :)</p>
+<p>Your application server, sadly, is managed by different kind of users, from the
+most skilled one to the one who should change job as soon as possible to the
+one with the site cracked by a moron wanting to take control of your server.</p>
+<p>Application servers are not dangerous, users are. And application servers are
+run by users. The world is an ugly place.</p>
+</div>
+<div class="section" id="how-application-server-developers-solved-it">
+<h2>How application server developers solved it<a class="headerlink" href="#how-application-server-developers-solved-it" title="제목 주소">¶</a></h2>
+<p>Fast answer: they generally do not solve/care it</p>
+<p>Note: we are talking about multiprocessing, we have already seen multithreading
+is easy to solve.</p>
+<p>Serving static files or proxying (the main activities of a webserver) is
+generally a fast, non-blocking (very deterministic under various points of view)
+activity. Instead, a web application is way slower and heavier, so, even on
+moderately loaded sites, the amount of sleeping processes is generally low.</p>
+<p>On highly loaded sites you will pray for a free process, and in non-loaded
+sites the thundering herd problem is completely irrelevant (unless you are
+running your site on a 386).</p>
+<p>Given the relatively low number of processes you generally allocate for an
+application server, we can say thundering herd is a no-problem.</p>
+<p>Another approach is dynamic process spawning. If you ensure your application
+server has always the minimum required number of processes running you will
+highly reduce the thundering herd problem. (check the family of --cheaper uWSGI
+options)</p>
+</div>
+<div class="section" id="no-problem-so-again-what-we-are-talking-about">
+<h2>No-problem ??? So, again, what we are talking about ?<a class="headerlink" href="#no-problem-so-again-what-we-are-talking-about" title="제목 주소">¶</a></h2>
+<p>We are talking about &quot;common cases&quot;, and for common cases there are a plethora
+of valid choices (instead of uWSGI, obviously) and the vast majority of
+problems we are talking about are non-existent.</p>
+<p>Since the beginning of the uWSGI project, being developed by a hosting company
+where &quot;common cases&quot; do not exist, we cared a lot about corner-case problems,
+bizarre setups and those problems the vast majority of users never need to care
+about.</p>
+<p>In addition to this, uWSGI supports operational modes only common/available in
+general-purpose webservers like Apache (I have to say Apache is probably the
+only general purpose webserver as it allows basically anything in its process
+space in a relatively safe and solid way), so lot of new problems combined with
+user bad-behaviour arise.</p>
+<p>One of the most challenging development phase of uWSGI was adding
+multithreading. Threads are powerful, but are really hard to manage in the
+right way.</p>
+<p>Threads are way cheaper than processes, so you generally allocate dozens of
+them for your app (remember, not used memory is wasted memory).</p>
+<p>Dozens (or hundreds) of threads waiting for the same set of file descriptors
+bring us back to a thundering herd problem (unless all of your threads are
+constantly used).</p>
+<p>For such a reason when you enable multiple threads in uWSGI a pthread mutex is
+allocated, serializing epoll()/kqueue()/poll()/select()... usage in each
+thread.</p>
+<p>Another problem solved (and strange for uWSGI, without the need of an option ;)</p>
+<p>But...</p>
+</div>
+<div class="section" id="the-zeeg-problem-multiple-processes-with-multiple-threads">
+<h2>The Zeeg problem: Multiple processes with multiple threads<a class="headerlink" href="#the-zeeg-problem-multiple-processes-with-multiple-threads" title="제목 주소">¶</a></h2>
+<p>On June 27, 2013, David Cramer wrote an interesting blog post (you may not
+agree with its conclusions, but it does not matter now, you can continue hating
+uWSGI safely or making funny jokes about its naming choices or the number of
+options).</p>
+<p><a class="reference external" href="http://cramer.io/2013/06/27/serving-python-web-applications">http://cramer.io/2013/06/27/serving-python-web-applications</a></p>
+<p>The problem David faced was such a strong thundering herd that its response
+time was damaged by it (non constant performance was the main result of its
+tests).</p>
+<p>Why did it happen? Wasn't the mutex allocated by uWSGI solving it?</p>
+<p>David is (was) running uWSGI with 10 process and each of them with 10 threads:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>uwsgi --processes <span class="m">10</span> --threads <span class="m">10</span> ...
+</pre></div>
+</div>
+<p>While the mutex protects each thread in a single process to call <code class="docutils literal notranslate"><span class="pre">accept()</span></code>
+on the same request, there is no such mechanism (or better, it is not enabled
+by default, see below) to protect multiple processes from doing it, so given
+the number of threads (100) available for managing requests, it is unlikely
+that a single process is completely blocked (read: with all of its 10 threads
+blocked in a request) so welcome back to the thundering herd.</p>
+</div>
+<div class="section" id="how-david-solved-it">
+<h2>How David solved it ?<a class="headerlink" href="#how-david-solved-it" title="제목 주소">¶</a></h2>
+<p>uWSGI is a controversial piece of software, no shame in that. There are users
+fiercely hating it and others morbidly loving it, but all agree that docs could
+be way better ([OT] it is good when all the people agree on something, but pull
+requests on uwsgi-docs are embarrassingly low and all from the same people....
+come on, help us !!!)</p>
+<p>David used an empirical approach, spotted its problem and decided to solve it
+running independent uwsgi processes bound on different sockets and configured
+nginx to round robin between them.</p>
+<p>It is a very elegant approach, but it has a problem: nginx cannot know if the
+process on which is sending the request has all of its thread busy. It is a
+working but suboptimal solution.</p>
+<p>The best way would be having an inter-process locking (like Apache),
+serializing all of the <code class="docutils literal notranslate"><span class="pre">accept()</span></code> in both threads and processes</p>
+</div>
+<div class="section" id="uwsgi-docs-sucks-thunder-lock">
+<h2>uWSGI docs sucks: --thunder-lock<a class="headerlink" href="#uwsgi-docs-sucks-thunder-lock" title="제목 주소">¶</a></h2>
+<p>Michael Hood (you will find his name in the comments of David's post, too)
+signalled the problem in the uWSGI mailing-list/issue tracker some time ago, he
+even came out with an initial patch that ended with the <code class="docutils literal notranslate"><span class="pre">--thunder-lock</span></code>
+option (this is why open-source is better ;)</p>
+<p><code class="docutils literal notranslate"><span class="pre">--thunder-lock</span></code> is available since uWSGI 1.4.6 but never got documentation (of
+any kind)</p>
+<p>Only the people following the mailing-list (or facing the specific problem)
+know about it.</p>
+</div>
+<div class="section" id="sysv-ipc-semaphores-are-bad-how-you-solved-it">
+<h2>SysV IPC semaphores are bad how you solved it ?<a class="headerlink" href="#sysv-ipc-semaphores-are-bad-how-you-solved-it" title="제목 주소">¶</a></h2>
+<p>Interprocess locking has been an issue since uWSGI 0.0.0.0.0.1, but we solved
+it in the first public release of the project (in 2009).</p>
+<p>We basically checked each operating system capabilities and chose the
+best/fastest ipc locking they could offer, filling our code with dozens of
+#ifdef.</p>
+<p>When you start uWSGI you should see in its logs which &quot;lock engine&quot; has been
+chosen.</p>
+<p>There is support for a lot of them:</p>
+<blockquote>
+<div><ul class="simple">
+<li>pthread mutexes with _PROCESS_SHARED and _ROBUST attributes (modern Linux and Solaris)</li>
+<li>pthread mutexes with _PROCESS_SHARED (older Linux)</li>
+<li>OSX Spinlocks (MacOSX, Darwin)</li>
+<li>Posix semaphores (FreeBSD &gt;= 9)</li>
+<li>Windows mutexes (Windows/Cygwin)</li>
+<li>SysV IPC semaphores (fallback for all the other systems)</li>
+</ul>
+</div></blockquote>
+<p>Their usage is required for uWSGI-specific features like caching, rpc and all
+of those features requiring changing shared memory structures (allocated with
+mmap() + _SHARED)</p>
+<p>Each of these engines is different from the others and dealing with them has
+been a pain and (more important) some of them are not &quot;ROBUST&quot;.</p>
+<p>The &quot;ROBUST&quot; term is pthread-borrowed. If a lock is &quot;robust&quot;, it means if the
+process locking it dies, the lock is released.</p>
+<p>You would expect it from all of the lock engines, but sadly only few of them
+works reliably.</p>
+<p>For this reason the uWSGI master process has to allocate an additional thread
+(the 'deadlock' detector) constantly checking for non-robust unreleased locks
+mapped to dead processes.</p>
+<p>It is a pain, however, anyone will tell you IPC locking is easy should be
+accepted in a JEDI school...</p>
+</div>
+<div class="section" id="uwsgi-developers-are-fu-ing-cowards">
+<h2>uWSGI developers are fu*!ing cowards<a class="headerlink" href="#uwsgi-developers-are-fu-ing-cowards" title="제목 주소">¶</a></h2>
+<p>Both David Cramer and Graham Dumpleton (yes, he is the mod_wsgi author but
+heavily contributed to uWSGI development as well to the other WSGI servers,
+this is another reason why open source is better) asked why <code class="docutils literal notranslate"><span class="pre">--thunder-lock</span></code>
+is not the default when multiprocess + multithread is requested.</p>
+<p>This is a good question with a simple answer: we are cowards who only care
+about money.</p>
+<p>uWSGI is completely open source, but its development is sponsored (in various
+way) by the companies using it and by Unbit.it customers.</p>
+<p>Enabling &quot;risky&quot; features by default for a &quot;common&quot; usage (like
+multiprocess+multithread) is too much for us, and in addition to this, the
+situation (especially on linux) of library/kernel incompatibilities is a real
+pain.</p>
+<p>As an example for having ROBUST pthread mutexes you need a modern kernel with a
+modern glibc, but commonly used distros (like the centos family) have a mix of
+older kernels with newer glibc and the opposite too. This leads to the
+inability to correctly detect which is the best locking engine for a platform,
+and so, when the uwsgiconfig.py script is in doubt it falls back to the safest
+approach (like non-robust pthread mutexes on linux).</p>
+<p>The deadlock-detector should save you from most of the problem, but the
+&quot;should&quot; word is the key. Making a test suite (or even a single unit test) on
+this kind of code is basically impossible (well, at least for me), so we
+cannot be sure all is in the right place (and reporting threading bugs is hard
+for users as well as skilled developer, unless you work on pypy ;)</p>
+<p>Linux pthread robust mutexes are solid, we are &quot;pretty&quot; sure about that, so you
+should be able to enable <code class="docutils literal notranslate"><span class="pre">--thunder-lock</span></code> on modern Linux systems with a
+99.999999% success rates, but we prefer (for now) users consciously enable it</p>
+</div>
+<div class="section" id="when-sysv-ipc-semaphores-are-a-better-choice">
+<h2>When SysV IPC semaphores are a better choice<a class="headerlink" href="#when-sysv-ipc-semaphores-are-a-better-choice" title="제목 주소">¶</a></h2>
+<p>Yes, there are cases on which SysV IPC semaphores gives you better results than
+system-specific features.</p>
+<p>Marcin Deranek of Booking.com has been battle-testing uWSGI for months and
+helped us with fixing corner-case situations even in the locking area.</p>
+<p>He noted system-specific lock-engines tend to favour the kernel scheduler (when
+choosing which process wins the next lock after an unlock) instead of a
+round-robin distribution.</p>
+<p>As for their specific need for an equal distribution of requests among
+processes is better (they use uWSGI with perl, so no threading is in place, but
+they spawn lot of processes) they (currently) choose to use the &quot;ipcsem&quot; lock
+engine with:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>uwsgi --lock-engine ipcsem --thunder-lock --processes <span class="m">100</span> --psgi ....
+</pre></div>
+</div>
+<p>The funny thing (this time) is that you can easily test if the lock is working
+well. Just start blasting the server and you will see in the request logs how
+the reported pid is different each time, while with system-specific locking the
+pids are pretty random with a pretty heavy tendency of favouring the last used
+process.</p>
+<p>Funny enough, the first problem they faced was the ipcsem leakage (when you are
+in emergency, graceful reload/stop is your enemy and kill -9 will be your
+silver bullet)</p>
+<p>To fix it, the --ftok option is available allowing you to give a unique id to
+the semaphore object and to reuse it if it is available from a previous run:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>uwsgi --lock-engine ipcsem --thunder-lock --processes <span class="m">100</span> --ftok /tmp/foobar --psgi ....
+</pre></div>
+</div>
+<p>--ftok takes a file as an argument, it will use it to build the unique id. A
+common pattern is using the pidfile for it</p>
+</div>
+<div class="section" id="what-about-other-portable-lock-engines">
+<h2>What about other portable lock engines ?<a class="headerlink" href="#what-about-other-portable-lock-engines" title="제목 주소">¶</a></h2>
+<p>In addition to &quot;ipcsem&quot;, uWSGI (where available) adds &quot;posixsem&quot; too.</p>
+<p>They are used by default only on FreeBSD &gt;= 9, but are available on Linux too.</p>
+<p>They are not &quot;ROBUST&quot;, but they do not need shared kernel resources, so if you
+trust our deadlock detector they are a pretty-good approach. (Note: Graham
+Dumpleton pointed me to the fact they can be enabled on Apache 2.x too)</p>
+</div>
+<div class="section" id="conclusions">
+<h2>Conclusions<a class="headerlink" href="#conclusions" title="제목 주소">¶</a></h2>
+<p>You can have the best (or the worst) software of the whole universe, but
+without docs it does not exist.</p>
+<p>The Apache team still slam the face of the vast majority of us trying to touch
+their market share :)</p>
+</div>
+<div class="section" id="bonus-chapter-using-the-zeeg-approach-in-a-uwsgi-friendly-way">
+<h2>Bonus chapter: using the Zeeg approach in a uWSGI friendly way<a class="headerlink" href="#bonus-chapter-using-the-zeeg-approach-in-a-uwsgi-friendly-way" title="제목 주소">¶</a></h2>
+<p>I have to admit, I am not a big fan of supervisord. It is a good software
+without doubts, but I consider the Emperor and the --attach-daemon facilities a
+better approach to the deployment problems. In addition to this, if you want to
+have a &quot;scriptable&quot;/&quot;extendable&quot; process supervisor I think Circus
+(<a class="reference external" href="https://circus.readthedocs.io/">https://circus.readthedocs.io/</a>) is a lot more fun and capable (the first thing
+I have done after implementing socket activation in the uWSGI Emperor was
+making a pull request [merged, if you care] for the same feature in Circus).</p>
+<p>Obviously supervisord works and is used by lot of people, but as a heavy uWSGI
+user I tend to abuse its features to accomplish a result.</p>
+<p>The first approach I would use is binding to 10 different ports and mapping
+each of them to a specific process:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">processes</span> <span class="o">=</span> <span class="s">5</span>
+<span class="na">threads</span> <span class="o">=</span> <span class="s">5</span>
+
+<span class="c1">; create 5 sockets</span>
+<span class="na">socket</span> <span class="o">=</span> <span class="s">:9091</span>
+<span class="na">socket</span> <span class="o">=</span> <span class="s">:9092</span>
+<span class="na">socket</span> <span class="o">=</span> <span class="s">:9093</span>
+<span class="na">socket</span> <span class="o">=</span> <span class="s">:9094</span>
+<span class="na">socket</span> <span class="o">=</span> <span class="s">:9095</span>
+
+<span class="c1">; map each socket (zero-indexed) to the specific worker</span>
+<span class="na">map-socket</span> <span class="o">=</span> <span class="s">0:1</span>
+<span class="na">map-socket</span> <span class="o">=</span> <span class="s">1:2</span>
+<span class="na">map-socket</span> <span class="o">=</span> <span class="s">2:3</span>
+<span class="na">map-socket</span> <span class="o">=</span> <span class="s">3:4</span>
+<span class="na">map-socket</span> <span class="o">=</span> <span class="s">4:5</span>
+</pre></div>
+</div>
+<p>Now you have a master monitoring 5 processes, each one bound to a different
+address (no <code class="docutils literal notranslate"><span class="pre">--thunder-lock</span></code> needed)</p>
+<p>For the Emperor fanboys you can make such a template (call it foo.template):</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">processes</span> <span class="o">=</span> <span class="s">1</span>
+<span class="na">threads</span> <span class="o">=</span> <span class="s">10</span>
+<span class="na">socket</span> <span class="o">=</span> <span class="s">:%n</span>
+</pre></div>
+</div>
+<p>Now make a symbolic link for each instance+port you want to spawn:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>ln -s foo.template <span class="m">9091</span>.ini
+ln -s foo.template <span class="m">9092</span>.ini
+ln -s foo.template <span class="m">9093</span>.ini
+ln -s foo.template <span class="m">9094</span>.ini
+ln -s foo.template <span class="m">9095</span>.ini
+ln -s foo.template <span class="m">9096</span>.ini
+</pre></div>
+</div>
+</div>
+<div class="section" id="bonus-chapter-2-securing-sysv-ipc-semaphores">
+<h2>Bonus chapter 2: securing SysV IPC semaphores<a class="headerlink" href="#bonus-chapter-2-securing-sysv-ipc-semaphores" title="제목 주소">¶</a></h2>
+<p>My company hosting platform in heavily based on Linux cgroups and namespaces.</p>
+<p>The first (cgroups) are used to limit/account resource usage, while the second
+(namespaces) are used to give an &quot;isolated&quot; system view to users (like seeing a
+dedicated hostname or root filesystem).</p>
+<p>As we allow users to spawn PostgreSQL instances in their accounts we need to
+limit SysV objects.</p>
+<p>Luckily, modern Linux kernels have a namespace for IPC, so calling
+unshare(CLONE_NEWIPC) will create a whole new set (detached from the others) of
+IPC objects.</p>
+<p>Calling <code class="docutils literal notranslate"><span class="pre">--unshare</span> <span class="pre">ipc</span></code> in customer-dedicated Emperors is a common approach.
+When combined with memory cgroup you will end with a pretty secure setup.</p>
+</div>
+<div class="section" id="credits">
+<h2>Credits:<a class="headerlink" href="#credits" title="제목 주소">¶</a></h2>
+<p>Author: Roberto De Ioris</p>
+<p>Fixed by: Honza Pokorny</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="TheArtOfGracefulReloading.html" class="btn btn-neutral float-right" title="The Art of Graceful Reloading" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../tutorials/GraphiteAndMetrics.html" class="btn btn-neutral" title="Setting up Graphite on Ubuntu using the Metrics subsystem" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2012-2016, uWSGI.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'2.0',
+            LANGUAGE:'ko',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/language_data.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          
+          SphinxRtdTheme.Navigation.enableSticky();
+          
+      });
+  </script> 
+
+</body>
+</html>

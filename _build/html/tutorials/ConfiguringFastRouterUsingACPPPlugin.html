@@ -1,0 +1,635 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ko" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ko" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Configuring FastRouter using a C++ plugin &mdash; uWSGI 2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="색인" href="../genindex.html" />
+    <link rel="search" title="검색" href="../search.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> uWSGI
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../WSGIquickstart.html">Quickstart for Python/WSGI applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PSGIquickstart.html">Quickstart for perl/PSGI applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RackQuickstart.html">Quickstart for ruby/Rack applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Snippets.html">Snippets</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Download.html">Getting uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Install.html">Installing uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../BuildSystem.html">The uWSGI build system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Management.html">Managing the uWSGI server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LanguagesAndPlatforms.html">Supported languages and platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SupportedPlatforms.html">Supported Platforms/Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../WebServers.html">Web server integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FAQ.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ThingsToKnow.html">Things to know (best practices and &quot;issues&quot;) READ IT !!!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Configuration.html">Configuring uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FallbackConfig.html">Fallback configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ConfigLogic.html">Configuration logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Options.html">uWSGI Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CustomOptions.html">Defining new options for your instances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ParsingOrder.html">How uWSGI parses config files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Vars.html">uwsgi protocol magic variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Protocol.html">The uwsgi Protocol</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AttachingDaemons.html">Managing external daemons/services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../MasterFIFO.html">The Master FIFO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Inetd.html">Socket activation with inetd/xinetd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Upstart.html">Running uWSGI via Upstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Systemd.html">Systemd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Circus.html">Running uWSGI instances with Circus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Embed.html">Embedding an application in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Logging.html">Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LogFormat.html">Formatting uWSGI requests logs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LogEncoders.html">Log encoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Hooks.html">Hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../WorkerOverride.html">Overriding Workers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ThirdPartyPlugins.html">uWSGI third party plugins</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="CachingCookbook.html">The uWSGI Caching Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Django_and_nginx.html">Setting up Django and your web server with uWSGI and nginx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dreamhost.html">Running uWSGI on Dreamhost shared hosting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="heroku_python.html">Running python webapps on Heroku with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="heroku_ruby.html">Running Ruby/Rack webapps on Heroku with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ReliableFuse.html">Reliably use FUSE filesystems for uWSGI vassals (with Linux)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DynamicProxying.html">Build a dynamic proxy using RPC and internal routing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GraphiteAndMetrics.html">Setting up Graphite on Ubuntu using the Metrics subsystem</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../articles/SerializingAccept.html">Serializing accept(), AKA Thundering Herd, AKA the Zeeg Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../articles/TheArtOfGracefulReloading.html">The Art of Graceful Reloading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../articles/FunWithPerlEyetoyRaspberrypi.html">Fun with Perl, Eyetoy and RaspberryPi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../articles/OffloadingWebsocketsAndSSE.html">Offloading Websockets and Server-Sent Events AKA &quot;Combine them with Django safely&quot;</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../articles/WSGIEnvBehaviour.html">WSGI env behaviour policies</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../AlarmSubsystem.html">The uWSGI alarm subsystem (from 1.3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Caching.html">The uWSGI caching framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../WebCaching.html">WebCaching framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Cron.html">The uWSGI cron-like interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Fastrouter.html">The uWSGI FastRouter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../InternalRouting.html">uWSGI internal routing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Legion.html">The uWSGI Legion subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Locks.html">Locks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Mules.html">uWSGI Mules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../OffloadSubsystem.html">The uWSGI offloading subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Queue.html">The uWSGI queue framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RPC.html">uWSGI RPC Stack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SharedArea.html">SharedArea -- share memory pages between uWSGI components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Signals.html">The uWSGI Signal Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Spooler.html">The uWSGI Spooler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SubscriptionServer.html">uWSGI Subscription Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../StaticFiles.html">Serving static files with uWSGI (updated to 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SNI.html">SNI - Server Name Identification (virtual hosting for SSL nodes)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GeoIP.html">The GeoIP plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Transformations.html">uWSGI Transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../WebSockets.html">WebSocket support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Metrics.html">The Metrics subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Chunked.html">The Chunked input API</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Cheaper.html">The uWSGI cheaper subsystem -- adaptive process spawning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Emperor.html">The uWSGI Emperor -- multi-app deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Broodlord.html">Auto-scaling with Broodlord mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Zerg.html">Zerg mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../DynamicApps.html">Adding applications dynamically</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SSLScaling.html">Scaling SSL connections (uWSGI 1.9)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Capabilities.html">Setting POSIX Capabilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Cgroups.html">Running uWSGI in a Linux CGroup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../KSM.html">Using Linux KSM in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Namespaces.html">Jailing your apps using Linux Namespaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Namespaces.html#the-old-way-the-namespace-option">The old way: the --namespace option</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FreeBSDJails.html">FreeBSD Jails</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ForkptyRouter.html">The Forkpty Router</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../TunTapRouter.html">The TunTap Router</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Nagios.html">Monitoring uWSGI with Nagios</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SNMP.html">The embedded SNMP server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PushingStats.html">Pushing statistics (from 1.4)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Carbon.html">Integration with Graphite/Carbon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../StatsServer.html">The uWSGI Stats Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Metrics.html">The Metrics subsystem</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Async.html">uWSGI asynchronous/non-blocking modes (updated to uWSGI 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Gevent.html">The Gevent loop engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Tornado.html">The Tornado loop engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../uGreen.html">uGreen -- uWSGI Green Threads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../asyncio.html">The asyncio loop engine (CPython &gt;= 3.4, uWSGI &gt;= 2.0.4)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Apache.html">Apache support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Cherokee.html">Cherokee support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HTTP.html">Native HTTP support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HTTPS.html">HTTPS 지원 (1.3 버전부터)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SPDY.html">The SPDY router (uWSGI 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Lighttpd.html">Lighttpd support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Mongrel2.html">Attaching uWSGI to Mongrel2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Nginx.html">Nginx support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../OpenBSDhttpd.html">Using OpenBSD httpd as proxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../OpenBSDhttpd.html#notes">Notes</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Python.html">Python support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PyPy.html">The PyPy plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PHP.html">Running PHP scripts in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Perl.html">uWSGI Perl support (PSGI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Ruby.html">Ruby support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Lua.html">Using Lua/WSAPI with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../JVM.html">JVM in the uWSGI server (updated to 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Mono.html">The Mono ASP.NET plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CGI.html">Running CGI scripts on uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCCGO.html">The GCCGO plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Symcall.html">The Symcall plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../XSLT.html">The XSLT plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SSI.html">SSI (Server Side Includes) plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../V8.html">uWSGI V8 support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GridFS.html">The GridFS plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GlusterFS.html">The GlusterFS plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Rados.html">The RADOS plugin</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Pty.html">The Pty plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SPNEGO.html">SPNEGO authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LDAP.html">Configuring uWSGI with LDAP</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Erlang.html">Integrating uWSGI with Erlang</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ManagementFlag.html">Management Flags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Go.html">uWSGI Go support (1.4 only)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.18.html">uWSGI 2.0.18</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.17.1.html">uWSGI 2.0.17.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.17.html">uWSGI 2.0.17</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.16.html">uWSGI 2.0.16</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.15.html">uWSGI 2.0.15</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.14.html">uWSGI 2.0.14</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.13.1.html">uWSGI 2.0.13.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.13.html">uWSGI 2.0.13</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.12.html">uWSGI 2.0.12</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.11.2.html">uWSGI 2.0.11.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.11.1.html">uWSGI 2.0.11.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.11.html">uWSGI 2.0.11</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.10.html">uWSGI 2.0.10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.9.html">uWSGI 2.0.9</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.8.html">uWSGI 2.0.8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.7.html">uWSGI 2.0.7</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.6.html">uWSGI 2.0.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.5.html">uWSGI 2.0.5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.4.html">uWSGI 2.0.4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.3.html">uWSGI 2.0.3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.2.html">uWSGI 2.0.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.1.html">uWSGI 2.0.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.html">uWSGI 2.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.21.html">uWSGI 1.9.21</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.20.html">uWSGI 1.9.20</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.19.html">uWSGI 1.9.19</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.18.html">uWSGI 1.9.18</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.17.html">uWSGI 1.9.17</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.16.html">uWSGI 1.9.16</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.15.html">uWSGI 1.9.15</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.14.html">uWSGI 1.9.14</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.13.html">uWSGI 1.9.13</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.12.html">uWSGI 1.9.12</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.11.html">uWSGI 1.9.11</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.10.html">uWSGI 1.9.10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.9.html">uWSGI 1.9.9</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.8.html">uWSGI 1.9.8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.7.html">uWSGI 1.9.7</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.6.html">uWSGI 1.9.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.5.html">uWSGI 1.9.5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.4.html">uWSGI 1.9.4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.3.html">uWSGI 1.9.3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.2.html">uWSGI 1.9.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.1.html">uWSGI 1.9.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.html">uWSGI 1.9</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">uWSGI</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Configuring FastRouter using a C++ plugin</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/tutorials/ConfiguringFastRouterUsingACPPPlugin.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="configuring-fastrouter-using-a-c-plugin">
+<h1>Configuring FastRouter using a C++ plugin<a class="headerlink" href="#configuring-fastrouter-using-a-c-plugin" title="제목 주소">¶</a></h1>
+<div class="section" id="intro">
+<h2>Intro<a class="headerlink" href="#intro" title="제목 주소">¶</a></h2>
+<p>This tutorial assumes that you are familiar with the usage and purpose of the uwsgi fastrouter and you are facing an edge-case (like &quot;Darth Vader wearing a t-shirt with your face&quot;) so you have to use some kind of code-driven &quot;configuration&quot;. The fastrouter documentation page recommends <a class="reference external" href="https://uwsgi-docs.readthedocs.io/en/latest/Fastrouter.html#way-5-fastrouter-use-code-string">the --fastrouter-use-code-string commandline argument of uwsgi</a> to solve such terribly complicated routing problems by executing your own code/logic for each request to decide which gateway to send it to. The official documentation (at the previous link) shows an example where a python script provides the routing logic and the doc states that you can use any uwsgi-supported language to configure the fastrouter (although my uwsgi-2.0.3 seems to have the code_string feature only in its python and ruby plugins if I'm right...). This tutorial shows you how to write and compile a C++ plugin that contains the routing logic for the fastrouter. This document can also serve a partial/basic C++ plugin tutorial.</p>
+<p>To make things a bit more complicated I will do the development of this plugin on windows using a cygwin environment. In case of such a simple plugin this involves only 1-2 extra steps compared to building on linux, I will comment the differences. For production I'm using &quot;original&quot; Debian and Ubuntu distros so my examples work there for sure.</p>
+</div>
+<div class="section" id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="제목 주소">¶</a></h2>
+<ul class="simple">
+<li>A ready-made uwsgi-2.0.3 executable or uwsgi-2.0.3 sources to build from. In case of older uwsgi releases the uwsgi binary-only solution may not be an option as uwsgi doesn't have the --build-plugin commandline argument in older releases.</li>
+<li>gcc and g++ (I use version 4.8.2, and also used 4.6 in a recent project release)</li>
+<li>If you are on windows you need cygwin of course</li>
+</ul>
+</div>
+</div>
+<div class="section" id="plugin-sources-and-build-configs">
+<h1>Plugin sources and build configs<a class="headerlink" href="#plugin-sources-and-build-configs" title="제목 주소">¶</a></h1>
+<p>Create a directory for your plugin somewhere in your filesystem. Note that this directory doesn't have to be inside the extracted uwsgi source directory, put it anywhere. I will refer to this directory as <code class="docutils literal notranslate"><span class="pre">$PLUGIN_DIR</span></code> in this tutorial. The plugin directory will contain the following things:</p>
+<ol class="arabic simple">
+<li>The source code of the plugin.</li>
+<li>An uwsgiplugin.py file that must be located exactly in the <code class="docutils literal notranslate"><span class="pre">$PLUGIN_DIR</span></code> and its name must be exactly uwsgiplugin.py because the uwsgiconfig.py script looks after this file in this directory with this name (its hardcoded). The code in uwsgiplugin.py is executed by uwsgiconfig.py when you build your plugin, you can do fancy configuration things here (like code generation) but often this script just gives some compile flags and source file lists to uwsgiconfig.py.</li>
+<li>Build ini file(s) to feed to uwsgiconfig.py when building our minimal uwsgi executable that is good almost only to run as a fastrouter. Of course you don't need these ini files if you are working with a pre-built uwsgi binary. Note that you can put these ini files anywhere but we need the relative/absolute path of these files when building uwsgi. I put them into the <code class="docutils literal notranslate"><span class="pre">$PLUGIN_DIR</span></code> just because... After building uwsgi we will use it to build and load our plugin that provides the routing logic of our fastrouter. On cygwin we have 2 ini files because we need an extra ini file to build libuwsgi.a (that isn't needed in case of linux builds).</li>
+</ol>
+<p>Here is the structure and contents of my <code class="docutils literal notranslate"><span class="pre">$PLUGIN_DIR</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$PLUGIN_DIR
+    my_router_config.cc
+    uwsgiplugin.py
+    my_uwsgi.ini
+    my_uwsgi_lib.ini (needed only on cygwin)
+</pre></div>
+</div>
+<p><em>my_router_config.cc:</em> The extension is .cc because uwsgiconfig.py doesn't recognise the .cpp extension. In case of .cpp ext (and other unhandled extensions) uwsgiconfig.py appends an additional (default) .c extension and tries to compile the source as C (but it fails as it doesn't find the my_router_config.cc.c source file).</p>
+<div class="code c++ highlight-default notranslate"><div class="highlight"><pre><span></span>#include &quot;uwsgi.h&quot;
+#include &lt;stdlib.h&gt;
+#include &lt;stdio.h&gt;
+
+struct SOptions
+{
+    char* config_file;
+} options;
+
+struct uwsgi_option options_cfg[] =
+{
+    {(char*)&quot;my-router-cfg-file&quot;, required_argument, 0, (char*)&quot;config file for my fastrouter logic&quot;, uwsgi_opt_set_str, &amp;options.config_file, 0},
+    { 0 }
+};
+
+void Deinit()
+{
+    uwsgi_log(&quot;+++++ %s\n&quot;, __FUNCTION__);
+    // TODO: Put your cleanup code here.
+}
+
+int Init()
+{
+    uwsgi_log(&quot;+++++ %s config_file=%s\n&quot;, __FUNCTION__, options.config_file);
+    if (!options.config_file)
+    {
+        uwsgi_log(&quot;The --my-router-cfg-file commandline argument is mandatory!\n&quot;);
+        exit(1);
+    }
+    FILE* f = fopen(options.config_file, &quot;r&quot;);
+    if (!f)
+    {
+        uwsgi_log(&quot;Error opening config file: %s\n&quot;, options.config_file);
+        exit(1);
+    }
+    // TODO: parse options
+    fclose(f);
+    // TODO: init you plugin
+    atexit(Deinit);
+    return UWSGI_OK;
+}
+
+char* CodeString(char *id, char *code, char *function, char *key, uint16_t keylen)
+{
+    uwsgi_log(&quot;+++++ %s id=%s code=%s function=%s key=%.*s\n&quot;, __FUNCTION__, id, code, function, keylen, key);
+    // TODO: Return a pointer to the gateway address string.
+    // The pointer must be valid until the next call to this function.
+    static char addr[] = &quot;127.0.0.1:8001&quot;;
+    return addr;
+}
+
+int Request(struct wsgi_request *wsgi_req)
+{
+    // This dummy function should never be called in the fastrouter...
+    uwsgi_log(&quot;+++++ %s\n&quot;, __FUNCTION__);
+    return -1;
+}
+
+struct SPluginConfig : public uwsgi_plugin
+{
+    SPluginConfig()
+    {
+        memset(this, 0, sizeof(*this));
+        name = &quot;my_router_config&quot;;
+        modifier1 = 251;
+        init = Init;
+        code_string = CodeString;
+        // Plugins with a request function pointer are &quot;request handler plugins&quot; while
+        // the rest of the plugins are &quot;generic plugins&quot;. We install a dummy request
+        // handler function just to force uwsgi to put this plugin into the request
+        // handler plugin table because the --fastrouter-use-code-string commandline
+        // argument that we exploit searches among the request handler plugins.
+        // Again, this request handler function is just a dummy function that should
+        // never be called in the fastrouter...
+        request = Request;
+        // Optional, set this only if you want commandline arguments from uwsgi.
+        options = options_cfg;
+    }
+};
+
+// Note that the name of this exported symbol must be the name of your plugin
+// postfixed with &quot;_plugin&quot; otherwise it doesn&#39;t work. If you build this
+// as an external plugin then the name of the shared object must also be
+// the same (with .so extension) but when you load the external plugin with
+// uwsgi you have to specify only the name of the plugin without the &quot;_plugin&quot;
+// postfix for the --plugin commandline parameter.
+//
+// - plugin name: &quot;my_router_config&quot;
+// - name of the exported symbol that points to the plugin config: &quot;my_router_config_plugin&quot;
+// - name of the shared object file in case of external plugin: &quot;my_router_config_plugin.so&quot;
+// - uwsgi cmdline parameter when loading the external plugin: --plugin my_router_config
+SPluginConfig my_router_config_plugin __attribute__((visibility(&quot;default&quot;)));
+</pre></div>
+</div>
+<p><em>uwsgiplugin.py:</em></p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">NAME</span><span class="o">=</span><span class="s1">&#39;my_router_config&#39;</span>
+
+<span class="n">CFLAGS</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">LDFLAGS</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">LIBS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;-lstdc++&#39;</span><span class="p">]</span>
+<span class="n">GCC_LIST</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;my_router_config.cc&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><em>my_uwsgi.ini:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">uwsgi</span><span class="p">]</span>
+<span class="n">inherit</span> <span class="o">=</span> <span class="n">minimal</span>
+<span class="n">main_plugin</span> <span class="o">=</span> <span class="n">corerouter</span><span class="p">,</span> <span class="n">fastrouter</span>
+</pre></div>
+</div>
+<p><em>my_uwsgi_lib.ini:</em> (needed only on cygwin)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">uwsgi</span><span class="p">]</span>
+<span class="n">inherit</span> <span class="o">=</span> <span class="n">minimal</span>
+<span class="n">main_plugin</span> <span class="o">=</span> <span class="n">corerouter</span><span class="p">,</span> <span class="n">fastrouter</span>
+<span class="n">as_shared_library</span> <span class="o">=</span> <span class="n">true</span>
+</pre></div>
+</div>
+<p>The my_uwsgi_lib.ini file is needed only on cygwin and it is a copy of my_uwsgi.ini with an extra line appended: <code class="docutils literal notranslate"><span class="pre">as_shared_library</span> <span class="pre">=</span> <span class="pre">true</span></code>. You need neither my_uwsgi.ini nor my_uwsgi_lib.ini if you are working with a pre-built new uwsgi binary that supports the --build-plugin commandline parameter but only uwsgi version ~2 and newer have it.</p>
+<div class="section" id="building-uwsgi-or-uwsgi-exe-and-libuwsgi-a-on-cygwin">
+<h2>Building uwsgi (or uwsgi.exe and libuwsgi.a on cygwin)<a class="headerlink" href="#building-uwsgi-or-uwsgi-exe-and-libuwsgi-a-on-cygwin" title="제목 주소">¶</a></h2>
+<p>Of course you can skip this step if you are working with a new uwsgi binary. Otherwise download the uwsgi source (uwsgi-2.0.3.tar.gz in my case) and extract it, then enter the extracted source folder.</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>~$ wget https://projects.unbit.it/downloads/uwsgi-2.0.3.tar.gz
+~$ tar xvf uwsgi-2.0.3.tar.gz
+~$ cd uwsgi-2.0.3
+~/uwsgi-2.0.3$
+</pre></div>
+</div>
+<p>The &quot;build system&quot; of uwsgi is a python script called uwsgiconfig.py and when you run it your shell's current directory must be the extracted uwsgi source dir (where the uwsgiconfig.py is located). From now all commands will be executed in this source directory.</p>
+<p>It is possible to build uwsgi with different configurations and its plugins can be built as either embedded plugins or external shared objects. Building external plugins for newer uwsgi releases can be done anytime and you need only an uwsgi binary and the compilers, there is no need for the uwsgi sources. (On cygwin you also need a libuwsgi.a lib file that can be built with a trick). On cygwin we first build libuwsgi.a but on linux you simply skip this step. Then we have to build the uwsgi binary (uwsgi on linux, uwsgi.exe on cygwin).</p>
+<p>The uwsgiconfig.py script builds uwsgi on multiple threads. For some reason on my cygwin this multithreaded building fails (terminates without any error messages) and I worked this around by setting the CPUCOUNT env var to 1. You may, or may not need this workaround on cygwin... On linux multithreading build works fine. Now let's build the cygwin specific libuwsgi.a library:</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>~/uwsgi-2.0.3$ export CPUCOUNT=1
+~/uwsgi-2.0.3$ python uwsgiconfig.py --build $PLUGIN_DIR/my_uwsgi_lib.ini
+~/uwsgi-2.0.3$ mv uwsgi.exe libuwsgi.a
+</pre></div>
+</div>
+<p>Note that these steps are needed only on cygwin. Now let's build uwsgi:</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>~/uwsgi-2.0.3$ python uwsgiconfig.py --build $PLUGIN_DIR/my_uwsgi.ini
+</pre></div>
+</div>
+<p>The above command produces uwsgi on linux and uwsgi.exe on cygwin. We have used custom ini files to build a minimal uwsgi that serves only as a fastrouter that loads our fastrouter logic plugin. The use of this ini file results in an uwsgi that doesn't have dependencies on libs like ssl, pcre and it includes only the bare minimum set of uwsgi plugins needed for the fastrouter. From now you don't need the uwsgi sources (you can even delete them if you want). The only things we have to keep is the uwsgi binary (and libuwsgi.a on cygwin) because building an external uwsgi plugin can be done by running uwsgi with the --build-plugin parameter and the uwsgi binary has an embedded copies of the uwsgiconfig.py and uwsgi.h files needed for a plugin build.</p>
+</div>
+<div class="section" id="building-our-plugin">
+<h2>Building our plugin:<a class="headerlink" href="#building-our-plugin" title="제목 주소">¶</a></h2>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>~/uwsgi-2.0.3$ ./uwsgi --build-plugin $PLUGIN_DIR
+</pre></div>
+</div>
+<p>Now if you are lucky you have both the uwsgi binary and the my_router_config_plugin.so plugin in the current directory. Building the plugin by executing the uwsgi binary is very useful because this way it automatically uses the same uwsgiconfig.py and uwsgi.h files and the same CFLAGS that were used to build the uwsgi binary itself. Unfortunately older uwsgi releases don't have the --build-plugin commandline parameter and in that case you have to build the plugin with the uwsgiconfig.py script:</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>~/uwsgi-2.0.3$ python uwsgiconfig.py --plugin $PLUGIN_DIR
+</pre></div>
+</div>
+<p>If you have a newer uwsgi that supports the --build-plugin option then I recommend using that to build your plugin.</p>
+</div>
+<div class="section" id="using-the-newly-built-uwsgi-and-the-plugin-as-a-fastrouter">
+<h2>Using the newly built uwsgi and the plugin as a fastrouter<a class="headerlink" href="#using-the-newly-built-uwsgi-and-the-plugin-as-a-fastrouter" title="제목 주소">¶</a></h2>
+<p>I assume that you more or less know about the usage/purpose of uwsgi fastrouter so I only show you how to start and parametrize uwsgi with our newly built plugin:</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>~/uwsgi-2.0.3$ ./uwsgi --master --fastrouter 127.0.0.1:9000 --fastrouter-use-code-string 251:: --plugin my_router_config --my-router-cfg-file my_config.cfg
+</pre></div>
+</div>
+<p>The above command starts the fastrouter that listens on loopback 9000 for incoming requests and the --fastrouter-use-code-string commandline parameter instructs the fastrouter to ask plugin modifer=251 (our plugin) for the target gateway for each incoming request. I think the --plugin and --my-router-cfg-file commandline arguments speak for themselves...</p>
+<p>The extra argument of the --fastrouter-use-code-string is &quot;251::&quot;. This is basically 3 strings separated by two ':' characters but our plugin doesn't need (ignores) the second and third string so I provided there empty strings. If you take a look at the linked Darth Vader example it solves the problem using the python plugin that actually utilizes these strings: <a class="reference external" href="https://uwsgi-docs.readthedocs.io/en/latest/Fastrouter.html#way-5-fastrouter-use-code-string">the --fastrouter-use-code-string commandline argument of uwsgi</a></p>
+<p>Note that I've chosen 251 as the modifier of my plugin because based on my research modifier 1 has a lot to do with <a class="reference external" href="https://uwsgi-docs.readthedocs.io/en/latest/Protocol.html">The uwsgi Protocol</a> and moreover if you take a look at the plugins/example or plugins/cplusplus example plugins in the uwsgi source dir then you will see that those are using modifier1=250 and 251 seems to be a free id. Note that I've also tried 0 as the modifier1 that is the default modifier1 used by uwsgi and its very first plugin: the python plugin. This seems to work and it seems that this registers our plugin with modifier1=0 by &quot;overriding the python plugin&quot; but I wanted to be polite so I've chosen modifier=251.</p>
+</div>
+</div>
+<div class="section" id="programming-the-routing-logic-in-our-plugin">
+<h1>Programming the routing logic in our plugin<a class="headerlink" href="#programming-the-routing-logic-in-our-plugin" title="제목 주소">¶</a></h1>
+<p>We started the fastrouter with the &quot;--fastrouter 127.0.0.1:9000 --fastrouter-use-code-string 251::&quot; commandline arguments so it will be listening on loopback port 9000 for incoming requests and it will ask plugin modifier1=251 (our plugin) for the route for each request. I will use nginx to bomb requests on port 9000 of the fastrouter. Here is the location block from my nginx config:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>location /test {
+    include         uwsgi_params;
+    uwsgi_pass      127.0.0.1:9000;
+    uwsgi_param     UWSGI_FASTROUTER_KEY    $request_uri;
+}
+</pre></div>
+</div>
+<p>So nginx will route all requests coming to url path /test to the fastrouter by setting UWSGI_FASTROUTER_KEY (basically a &quot;cgi variable&quot;) to a user defined string. UWSGI_FASTROUTER_KEY can be anything, you have put something into it that you can use in your plugin to decide where (which gateway) to send the request. In this case I've decided to send the $request_uri to my plugin but you can really put there anything you want. If you don't specify the UWSGI_FASTROUTER_KEY in the nginx config then the fastrouter will use something else instead of it as the fastrouter key (but I think specifying the UWSGI_FASTROUTER_KEY is highly recommended), more on that in the <a class="reference external" href="https://uwsgi-docs.readthedocs.io/en/latest/Fastrouter.html#notes">Notes section of the fastrouter docs</a>.</p>
+<p>With the above fastrouter + nginx config when the fastrouter receives a request from nginx it calls the <code class="docutils literal notranslate"><span class="pre">CodeString()</span></code> function of our plugin to ask for the gateway address to use for that request.</p>
+<div class="code c++ highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">char</span><span class="o">*</span> <span class="n">CodeString</span><span class="p">(</span><span class="n">char</span> <span class="o">*</span><span class="nb">id</span><span class="p">,</span> <span class="n">char</span> <span class="o">*</span><span class="n">code</span><span class="p">,</span> <span class="n">char</span> <span class="o">*</span><span class="n">function</span><span class="p">,</span> <span class="n">char</span> <span class="o">*</span><span class="n">key</span><span class="p">,</span> <span class="n">uint16_t</span> <span class="n">keylen</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>When the fastrouter calls your <code class="docutils literal notranslate"><span class="pre">CodeString()</span></code> function the values of the function parameters are the following:</p>
+<ul class="simple">
+<li>id: &quot;uwsgi_fastrouter&quot;</li>
+<li>code, function: We used the --fastrouter-use-code-string commandline parameter to pass 3 strings to uwsgi: &quot;251&quot;, &quot;&quot;, and &quot;&quot; with the &quot;251::&quot; argument. The code and function parameters are set to the second and third (empty) strings. You can of course specify something else instead of &quot;251::&quot; to pass something else as the code and function parameters.</li>
+<li>key, keylen: Here you receive the value of the UWSGI_FASTROUTER_KEY you specify in nginx. This is basically the useful stuff on which you can base your routing decisions.</li>
+</ul>
+<p>The function must return with a pointer to a string that contains the gateway address, for example: &quot;127.0.0.1:8001&quot;. On that gateway there must be another uwsgi instance listening on an uwsgi protocolled socket. The pointed string must be valid until the next call to the <code class="docutils literal notranslate"><span class="pre">CodeString</span></code> function. This is usually critical only if you are using extra threads in your plugin because otherwise the fastrouter itself is single threaded async stuff.</p>
+</div>
+<div class="section" id="victory">
+<h1>Victory!!!<a class="headerlink" href="#victory" title="제목 주소">¶</a></h1>
+<p>We have reached the end of the tutorial. Now you know how to handle in C/C++ a complex routing problem where Darth Vader wears a t-shirt with your face and you have also learnt how to build a C++ plugin using the uwsgi build system.</p>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2012-2016, uWSGI.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'2.0',
+            LANGUAGE:'ko',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/language_data.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          
+          SphinxRtdTheme.Navigation.enableSticky();
+          
+      });
+  </script> 
+
+</body>
+</html>

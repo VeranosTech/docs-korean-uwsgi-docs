@@ -1,0 +1,676 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ko" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ko" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>The GridFS plugin &mdash; uWSGI 2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="색인" href="genindex.html" />
+    <link rel="search" title="검색" href="search.html" />
+    <link rel="next" title="The GlusterFS plugin" href="GlusterFS.html" />
+    <link rel="prev" title="uWSGI V8 support" href="V8.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> uWSGI
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="WSGIquickstart.html">Quickstart for Python/WSGI applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PSGIquickstart.html">Quickstart for perl/PSGI applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RackQuickstart.html">Quickstart for ruby/Rack applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Snippets.html">Snippets</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Download.html">Getting uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Install.html">Installing uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BuildSystem.html">The uWSGI build system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Management.html">Managing the uWSGI server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LanguagesAndPlatforms.html">Supported languages and platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SupportedPlatforms.html">Supported Platforms/Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WebServers.html">Web server integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FAQ.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ThingsToKnow.html">Things to know (best practices and &quot;issues&quot;) READ IT !!!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Configuration.html">Configuring uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FallbackConfig.html">Fallback configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ConfigLogic.html">Configuration logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Options.html">uWSGI Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CustomOptions.html">Defining new options for your instances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ParsingOrder.html">How uWSGI parses config files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Vars.html">uwsgi protocol magic variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Protocol.html">The uwsgi Protocol</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AttachingDaemons.html">Managing external daemons/services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MasterFIFO.html">The Master FIFO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Inetd.html">Socket activation with inetd/xinetd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Upstart.html">Running uWSGI via Upstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Systemd.html">Systemd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Circus.html">Running uWSGI instances with Circus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Embed.html">Embedding an application in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Logging.html">Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LogFormat.html">Formatting uWSGI requests logs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LogEncoders.html">Log encoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Hooks.html">Hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WorkerOverride.html">Overriding Workers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ThirdPartyPlugins.html">uWSGI third party plugins</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/CachingCookbook.html">The uWSGI Caching Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/Django_and_nginx.html">Setting up Django and your web server with uWSGI and nginx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/dreamhost.html">Running uWSGI on Dreamhost shared hosting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/heroku_python.html">Running python webapps on Heroku with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/heroku_ruby.html">Running Ruby/Rack webapps on Heroku with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/ReliableFuse.html">Reliably use FUSE filesystems for uWSGI vassals (with Linux)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/DynamicProxying.html">Build a dynamic proxy using RPC and internal routing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/GraphiteAndMetrics.html">Setting up Graphite on Ubuntu using the Metrics subsystem</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="articles/SerializingAccept.html">Serializing accept(), AKA Thundering Herd, AKA the Zeeg Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="articles/TheArtOfGracefulReloading.html">The Art of Graceful Reloading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="articles/FunWithPerlEyetoyRaspberrypi.html">Fun with Perl, Eyetoy and RaspberryPi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="articles/OffloadingWebsocketsAndSSE.html">Offloading Websockets and Server-Sent Events AKA &quot;Combine them with Django safely&quot;</a></li>
+<li class="toctree-l1"><a class="reference internal" href="articles/WSGIEnvBehaviour.html">WSGI env behaviour policies</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="AlarmSubsystem.html">The uWSGI alarm subsystem (from 1.3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Caching.html">The uWSGI caching framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WebCaching.html">WebCaching framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cron.html">The uWSGI cron-like interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Fastrouter.html">The uWSGI FastRouter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="InternalRouting.html">uWSGI internal routing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Legion.html">The uWSGI Legion subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Locks.html">Locks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Mules.html">uWSGI Mules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OffloadSubsystem.html">The uWSGI offloading subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Queue.html">The uWSGI queue framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RPC.html">uWSGI RPC Stack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SharedArea.html">SharedArea -- share memory pages between uWSGI components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Signals.html">The uWSGI Signal Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Spooler.html">The uWSGI Spooler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SubscriptionServer.html">uWSGI Subscription Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="StaticFiles.html">Serving static files with uWSGI (updated to 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SNI.html">SNI - Server Name Identification (virtual hosting for SSL nodes)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GeoIP.html">The GeoIP plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Transformations.html">uWSGI Transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WebSockets.html">WebSocket support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Metrics.html">The Metrics subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Chunked.html">The Chunked input API</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Cheaper.html">The uWSGI cheaper subsystem -- adaptive process spawning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Emperor.html">The uWSGI Emperor -- multi-app deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Broodlord.html">Auto-scaling with Broodlord mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Zerg.html">Zerg mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DynamicApps.html">Adding applications dynamically</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SSLScaling.html">Scaling SSL connections (uWSGI 1.9)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Capabilities.html">Setting POSIX Capabilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cgroups.html">Running uWSGI in a Linux CGroup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="KSM.html">Using Linux KSM in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Namespaces.html">Jailing your apps using Linux Namespaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Namespaces.html#the-old-way-the-namespace-option">The old way: the --namespace option</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FreeBSDJails.html">FreeBSD Jails</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ForkptyRouter.html">The Forkpty Router</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TunTapRouter.html">The TunTap Router</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Nagios.html">Monitoring uWSGI with Nagios</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SNMP.html">The embedded SNMP server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PushingStats.html">Pushing statistics (from 1.4)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Carbon.html">Integration with Graphite/Carbon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="StatsServer.html">The uWSGI Stats Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Metrics.html">The Metrics subsystem</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Async.html">uWSGI asynchronous/non-blocking modes (updated to uWSGI 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Gevent.html">The Gevent loop engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tornado.html">The Tornado loop engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uGreen.html">uGreen -- uWSGI Green Threads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="asyncio.html">The asyncio loop engine (CPython &gt;= 3.4, uWSGI &gt;= 2.0.4)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Apache.html">Apache support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cherokee.html">Cherokee support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="HTTP.html">Native HTTP support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="HTTPS.html">HTTPS 지원 (1.3 버전부터)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SPDY.html">The SPDY router (uWSGI 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lighttpd.html">Lighttpd support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Mongrel2.html">Attaching uWSGI to Mongrel2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Nginx.html">Nginx support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OpenBSDhttpd.html">Using OpenBSD httpd as proxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OpenBSDhttpd.html#notes">Notes</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Python.html">Python support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PyPy.html">The PyPy plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PHP.html">Running PHP scripts in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Perl.html">uWSGI Perl support (PSGI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Ruby.html">Ruby support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lua.html">Using Lua/WSAPI with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="JVM.html">JVM in the uWSGI server (updated to 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Mono.html">The Mono ASP.NET plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CGI.html">Running CGI scripts on uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GCCGO.html">The GCCGO plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Symcall.html">The Symcall plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="XSLT.html">The XSLT plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SSI.html">SSI (Server Side Includes) plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="V8.html">uWSGI V8 support</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">The GridFS plugin</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#requirements-and-install">Requirements and install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#standalone-quickstart">Standalone quickstart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-initial-slash-problem">The initial slash problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#multiple-mountpoints-and-servers">Multiple mountpoints (and servers)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#replica-sets">Replica sets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#prefixes">Prefixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mime-types-and-filenames">MIME types and filenames</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#timeouts">Timeouts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#md5-and-etag-headers">MD5 and ETag headers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#multithreading">Multithreading</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#combining-with-nginx">Combining with Nginx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-gridfs-internal-routing-action">The 'gridfs' internal routing action</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#notes">Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="GlusterFS.html">The GlusterFS plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Rados.html">The RADOS plugin</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Pty.html">The Pty plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SPNEGO.html">SPNEGO authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LDAP.html">Configuring uWSGI with LDAP</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Erlang.html">Integrating uWSGI with Erlang</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ManagementFlag.html">Management Flags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Go.html">uWSGI Go support (1.4 only)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.18.html">uWSGI 2.0.18</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.17.1.html">uWSGI 2.0.17.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.17.html">uWSGI 2.0.17</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.16.html">uWSGI 2.0.16</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.15.html">uWSGI 2.0.15</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.14.html">uWSGI 2.0.14</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.13.1.html">uWSGI 2.0.13.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.13.html">uWSGI 2.0.13</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.12.html">uWSGI 2.0.12</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.11.2.html">uWSGI 2.0.11.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.11.1.html">uWSGI 2.0.11.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.11.html">uWSGI 2.0.11</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.10.html">uWSGI 2.0.10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.9.html">uWSGI 2.0.9</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.8.html">uWSGI 2.0.8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.7.html">uWSGI 2.0.7</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.6.html">uWSGI 2.0.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.5.html">uWSGI 2.0.5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.4.html">uWSGI 2.0.4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.3.html">uWSGI 2.0.3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.2.html">uWSGI 2.0.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.1.html">uWSGI 2.0.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.html">uWSGI 2.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.21.html">uWSGI 1.9.21</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.20.html">uWSGI 1.9.20</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.19.html">uWSGI 1.9.19</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.18.html">uWSGI 1.9.18</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.17.html">uWSGI 1.9.17</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.16.html">uWSGI 1.9.16</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.15.html">uWSGI 1.9.15</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.14.html">uWSGI 1.9.14</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.13.html">uWSGI 1.9.13</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.12.html">uWSGI 1.9.12</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.11.html">uWSGI 1.9.11</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.10.html">uWSGI 1.9.10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.9.html">uWSGI 1.9.9</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.8.html">uWSGI 1.9.8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.7.html">uWSGI 1.9.7</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.6.html">uWSGI 1.9.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.5.html">uWSGI 1.9.5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.4.html">uWSGI 1.9.4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.3.html">uWSGI 1.9.3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.2.html">uWSGI 1.9.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.1.html">uWSGI 1.9.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.html">uWSGI 1.9</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">uWSGI</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>The GridFS plugin</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/GridFS.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="the-gridfs-plugin">
+<h1>The GridFS plugin<a class="headerlink" href="#the-gridfs-plugin" title="제목 주소">¶</a></h1>
+<p>Beginning in uWSGI 1.9.5 a &quot;GridFS&quot; plugin is available. It exports both a
+request handler and an internal routing function.  Its official modifier is
+'25'. The routing instruction is &quot;gridfs&quot; The plugin is written in C++.</p>
+<div class="section" id="requirements-and-install">
+<h2>Requirements and install<a class="headerlink" href="#requirements-and-install" title="제목 주소">¶</a></h2>
+<p>To build the plugin you need the <code class="docutils literal notranslate"><span class="pre">libmongoclient</span></code> headers (and a functioning
+C++ compiler). On a Debian-like system you can do the following.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>apt-get install mongodb-dev g++
+</pre></div>
+</div>
+<p>A build profile for gridfs is available:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">UWSGI_PROFILE</span><span class="o">=</span>gridfs make
+</pre></div>
+</div>
+<p>Or you can build it as plugin:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python uwsgiconfig.py --plugin plugins/gridfs
+</pre></div>
+</div>
+<p>For a fast installation of a monolithic build you can use the network
+installer:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>curl http://uwsgi.it/install <span class="p">|</span> bash -s gridfs /tmp/uwsgi
+</pre></div>
+</div>
+<p>This will install a gridfs enabled uwsgi binary.</p>
+</div>
+<div class="section" id="standalone-quickstart">
+<h2>Standalone quickstart<a class="headerlink" href="#standalone-quickstart" title="제목 주소">¶</a></h2>
+<p>This is a standalone config that blindly maps the incoming <code class="docutils literal notranslate"><span class="pre">PATH_INFO</span></code> to
+items in the GridFS db named &quot;test&quot;:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="c1">; you can remove the plugin directive if you are using a uWSGI gridfs monolithic build</span>
+<span class="na">plugin</span> <span class="o">=</span> <span class="s">gridfs</span>
+<span class="c1">; bind to http port 9090</span>
+<span class="na">http-socket</span> <span class="o">=</span> <span class="s">:9090</span>
+<span class="c1">; force the modifier to be the 25th</span>
+<span class="na">http-socket-modifier1</span> <span class="o">=</span> <span class="s">25</span>
+<span class="c1">; map gridfs requests to the &quot;test&quot; db</span>
+<span class="na">gridfs-mount</span> <span class="o">=</span> <span class="s">db=test</span>
+</pre></div>
+</div>
+<p>Assuming you have the myfile.txt file stored in your GridFS as &quot;/myfile.txt&quot;,
+run the following:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>curl -D /dev/stdout http://localhost:9090/myfile.txt
+</pre></div>
+</div>
+<p>and you should be able to get it.</p>
+</div>
+<div class="section" id="the-initial-slash-problem">
+<h2>The initial slash problem<a class="headerlink" href="#the-initial-slash-problem" title="제목 주소">¶</a></h2>
+<p>Generally <code class="docutils literal notranslate"><span class="pre">PATH_INFO</span></code> is prefixed with a '/'. This could cause problems in
+GridFS path resolution if you are not storing the items with absolute path
+names. To counteract this, you can make the <code class="docutils literal notranslate"><span class="pre">gridfs</span></code> plugin to skip the
+initial slash:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="c1">; you can remove the plugin directive if you are using a uWSGI gridfs monolithic build</span>
+<span class="na">plugin</span> <span class="o">=</span> <span class="s">gridfs</span>
+<span class="c1">; bind to http port 9090</span>
+<span class="na">http-socket</span> <span class="o">=</span> <span class="s">:9090</span>
+<span class="c1">; force the modifier to be the 25th</span>
+<span class="na">http-socket-modifier1</span> <span class="o">=</span> <span class="s">25</span>
+<span class="c1">; map gridfs requests to the &quot;test&quot; db</span>
+<span class="na">gridfs-mount</span> <span class="o">=</span> <span class="s">db=test,skip_slash=1</span>
+</pre></div>
+</div>
+<p>Now instead of searching for /myfile.txt it will search for &quot;myfile.txt&quot;.</p>
+</div>
+<div class="section" id="multiple-mountpoints-and-servers">
+<h2>Multiple mountpoints (and servers)<a class="headerlink" href="#multiple-mountpoints-and-servers" title="제목 주소">¶</a></h2>
+<p>You can mount different GridFS databases under different SCRIPT_NAME (or
+UWSGI_APPID). If your web server is able to correctly manage the
+<code class="docutils literal notranslate"><span class="pre">SCRIPT_NAME</span></code> variable you do not need any additional setup (other than
+--gridfs-mount). Otherwise don't forget to add the --manage-script-name option</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="c1">; you can remove the plugin directive if you are using a uWSGI gridfs monolithic build</span>
+<span class="na">plugin</span> <span class="o">=</span> <span class="s">gridfs</span>
+<span class="c1">; bind to http port 9090</span>
+<span class="na">http-socket</span> <span class="o">=</span> <span class="s">:9090</span>
+<span class="c1">; force the modifier to be the 25th</span>
+<span class="na">http-socket-modifier1</span> <span class="o">=</span> <span class="s">25</span>
+<span class="c1">; map gridfs requests to the &quot;test&quot; db</span>
+<span class="na">gridfs-mount</span> <span class="o">=</span> <span class="s">db=test,skip_slash=1</span>
+<span class="c1">; map /foo to db &quot;wolverine&quot; on server 192.168.173.17:4040</span>
+<span class="na">gridfs-mount</span> <span class="o">=</span> <span class="s">mountpoint=/foo,server=192.168.173.17:4040,db=wolverine</span>
+<span class="c1">; map /bar to db &quot;storm&quot; on server 192.168.173.30:4040</span>
+<span class="na">gridfs-mount</span> <span class="o">=</span> <span class="s">mountpoint=/bar,server=192.168.173.30:4040,db=storm</span>
+<span class="c1">; force management of the SCRIPT_NAME variable</span>
+<span class="na">manage-script-name</span> <span class="o">=</span> <span class="s">true</span>
+</pre></div>
+</div>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>curl -D /dev/stdout http://localhost:9090/myfile.txt
+curl -D /dev/stdout http://localhost:9090/foo/myfile.txt
+curl -D /dev/stdout http://localhost:9090/bar/myfile.txt
+</pre></div>
+</div>
+<p>This way each request will map to a different GridFS server.</p>
+</div>
+<div class="section" id="replica-sets">
+<h2>Replica sets<a class="headerlink" href="#replica-sets" title="제목 주소">¶</a></h2>
+<p>If you are using a replica set, you can use it in your uWSGI config with this
+syntax: &lt;replica&gt;server1,server2,serverN...</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">http-socket</span> <span class="o">=</span> <span class="s">:9090</span>
+<span class="na">http-socket-modifier1</span> <span class="o">=</span> <span class="s">25</span>
+<span class="na">gridfs-mount</span> <span class="o">=</span> <span class="s">server=rs0/ubuntu64.local\,raring64.local\,mrspurr-2.local,db=test</span>
+</pre></div>
+</div>
+<p>Pay attention to the backslashes used to escape the server list.</p>
+</div>
+<div class="section" id="prefixes">
+<h2>Prefixes<a class="headerlink" href="#prefixes" title="제목 주소">¶</a></h2>
+<p>As well as removing the initial slash, you may need to prefix each item name:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">http-socket</span> <span class="o">=</span> <span class="s">:9090</span>
+<span class="na">http-socket-modifier1</span> <span class="o">=</span> <span class="s">25</span>
+<span class="na">gridfs-mount</span> <span class="o">=</span> <span class="s">server=rs0/ubuntu64.local\,raring64.local\,mrspurr-2.local,db=test,prefix=/foobar___</span>
+</pre></div>
+</div>
+<p>A request for /test.txt will be mapped to /foobar___/test.txt</p>
+<p>while</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">http-socket</span> <span class="o">=</span> <span class="s">:9090</span>
+<span class="na">http-socket-modifier1</span> <span class="o">=</span> <span class="s">25</span>
+<span class="na">gridfs-mount</span> <span class="o">=</span> <span class="s">server=rs0/ubuntu64.local\,raring64.local\,mrspurr-2.local,db=test,prefix=/foobar___,skip_slash=1</span>
+</pre></div>
+</div>
+<p>will map to /foobar___test.txt</p>
+</div>
+<div class="section" id="mime-types-and-filenames">
+<h2>MIME types and filenames<a class="headerlink" href="#mime-types-and-filenames" title="제목 주소">¶</a></h2>
+<p>By default the MIME type of the file is derived from the filename stored in
+GridFS. This filename might not map to the effectively requested URI or you may
+not want to set a <code class="docutils literal notranslate"><span class="pre">content_type</span></code> for your response. Or you may want to allow
+some other system to set it.  If you want to disable MIME type generation just
+add <code class="docutils literal notranslate"><span class="pre">no_mime=1</span></code> to the mount options.</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">http-socket</span> <span class="o">=</span> <span class="s">:9090</span>
+<span class="na">http-socket-modifier1</span> <span class="o">=</span> <span class="s">25</span>
+<span class="na">gridfs-mount</span> <span class="o">=</span> <span class="s">server=ubuntu64.local,db=test,skip_slash=1,no_mime=1</span>
+</pre></div>
+</div>
+<p>If you want your response to set the filename using the original value (the one
+stored in GridFS) add <code class="docutils literal notranslate"><span class="pre">orig_filename=1</span></code></p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">http-socket</span> <span class="o">=</span> <span class="s">:9090</span>
+<span class="na">http-socket-modifier1</span> <span class="o">=</span> <span class="s">25</span>
+<span class="na">gridfs-mount</span> <span class="o">=</span> <span class="s">server=ubuntu64.local,db=test,skip_slash=1,no_mime=1,orig_filename=1</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="timeouts">
+<h2>Timeouts<a class="headerlink" href="#timeouts" title="제목 주소">¶</a></h2>
+<p>You can set the timeout of the low-level MongoDB operations by adding
+<code class="docutils literal notranslate"><span class="pre">timeout=N</span></code> to the options:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">http-socket</span> <span class="o">=</span> <span class="s">:9090</span>
+<span class="na">http-socket-modifier1</span> <span class="o">=</span> <span class="s">25</span>
+<span class="c1">; set a 3 seconds timeout</span>
+<span class="na">gridfs-mount</span> <span class="o">=</span> <span class="s">server=ubuntu64.local,db=test,skip_slash=1,timeout=3</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="md5-and-etag-headers">
+<h2>MD5 and ETag headers<a class="headerlink" href="#md5-and-etag-headers" title="제목 주소">¶</a></h2>
+<p>GridFS stores an MD5 hash of each file. You can add this info to your response
+headers both as ETag (MD5 in hex format) or Content-MD5 (in Base64).  Use
+<code class="docutils literal notranslate"><span class="pre">etag=1</span></code> for adding ETag header and <code class="docutils literal notranslate"><span class="pre">md5=1</span></code> for adding Content-MD5. There's
+nothing stopping you from adding both headers to the response.</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">http-socket</span> <span class="o">=</span> <span class="s">:9090</span>
+<span class="na">http-socket-modifier1</span> <span class="o">=</span> <span class="s">25</span>
+<span class="c1">; set a 3 seconds timeout</span>
+<span class="na">gridfs-mount</span> <span class="o">=</span> <span class="s">server=ubuntu64.local,db=test,skip_slash=1,timeout=3,etag=1,md5=1</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="multithreading">
+<h2>Multithreading<a class="headerlink" href="#multithreading" title="제목 주소">¶</a></h2>
+<p>The plugin is fully thread-safe, so consider using multiple threads for
+improving concurrency:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">http-socket</span> <span class="o">=</span> <span class="s">:9090</span>
+<span class="na">http-socket-modifier1</span> <span class="o">=</span> <span class="s">25</span>
+<span class="c1">; set a 3 seconds timeout</span>
+<span class="na">gridfs-mount</span> <span class="o">=</span> <span class="s">server=ubuntu64.local,db=test,skip_slash=1,timeout=3,etag=1,md5=1</span>
+<span class="na">master</span> <span class="o">=</span> <span class="s">true</span>
+<span class="na">processes</span> <span class="o">=</span> <span class="s">2</span>
+<span class="na">threads</span> <span class="o">=</span> <span class="s">8</span>
+</pre></div>
+</div>
+<p>This will spawn 2 processes monitored by the master with 8 threads each for a
+total of 16 threads.</p>
+</div>
+<div class="section" id="combining-with-nginx">
+<h2>Combining with Nginx<a class="headerlink" href="#combining-with-nginx" title="제목 주소">¶</a></h2>
+<p>This is not different from the other plugins:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">location</span> <span class="o">/</span> <span class="p">{</span>
+    <span class="n">include</span> <span class="n">uwsgi_params</span><span class="p">;</span>
+    <span class="n">uwsgi_pass</span> <span class="mf">127.0.0.1</span><span class="o">:</span><span class="mi">3031</span><span class="p">;</span>
+    <span class="n">uwsgi_modifier1</span> <span class="mi">25</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Just be sure to set the <code class="docutils literal notranslate"><span class="pre">uwsgi_modifier1</span></code> value to ensure all requests get
+routed to GridFS.</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">socket</span> <span class="o">=</span> <span class="s">127.0.0.1:3031</span>
+<span class="na">gridfs-mount</span> <span class="o">=</span> <span class="s">server=ubuntu64.local,db=test,skip_slash=1,timeout=3,etag=1,md5=1</span>
+<span class="na">master</span> <span class="o">=</span> <span class="s">true</span>
+<span class="na">processes</span> <span class="o">=</span> <span class="s">2</span>
+<span class="na">threads</span> <span class="o">=</span> <span class="s">8</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-gridfs-internal-routing-action">
+<h2>The 'gridfs' internal routing action<a class="headerlink" href="#the-gridfs-internal-routing-action" title="제목 주소">¶</a></h2>
+<p>The plugin exports a 'gridfs' action simply returning an item:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">socket</span> <span class="o">=</span> <span class="s">127.0.0.1:3031</span>
+<span class="na">route</span> <span class="o">=</span> <span class="s">^/foo/(.+).jpg gridfs:server=192.168.173.17,db=test,itemname=$1.jpg</span>
+</pre></div>
+</div>
+<p>The options are the same as the request plugin's, with &quot;itemname&quot; being the
+only addition. It specifies the name of the object in the GridFS db.</p>
+</div>
+<div class="section" id="notes">
+<h2>Notes<a class="headerlink" href="#notes" title="제목 주소">¶</a></h2>
+<ul class="simple">
+<li>If you do not specify a server address, 127.0.0.1:27017 is assumed.</li>
+<li>The use of the plugin in async modes is not officially supported, but may work.</li>
+<li>If you do not get why a request is not serving your GridFS item, consider
+adding the <code class="docutils literal notranslate"><span class="pre">--gridfs-debug</span></code> option. It will print the requested item in uWSGI
+logs.</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="GlusterFS.html" class="btn btn-neutral float-right" title="The GlusterFS plugin" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="V8.html" class="btn btn-neutral" title="uWSGI V8 support" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2012-2016, uWSGI.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'2.0',
+            LANGUAGE:'ko',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/language_data.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          
+          SphinxRtdTheme.Navigation.enableSticky();
+          
+      });
+  </script> 
+
+</body>
+</html>

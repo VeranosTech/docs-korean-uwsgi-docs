@@ -1,0 +1,745 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ko" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ko" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Snippets &mdash; uWSGI 2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="색인" href="genindex.html" />
+    <link rel="search" title="검색" href="search.html" />
+    <link rel="next" title="Getting uWSGI" href="Download.html" />
+    <link rel="prev" title="Quickstart for ruby/Rack applications" href="RackQuickstart.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> uWSGI
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="WSGIquickstart.html">Quickstart for Python/WSGI applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PSGIquickstart.html">Quickstart for perl/PSGI applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RackQuickstart.html">Quickstart for ruby/Rack applications</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Snippets</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#x-sendfile-emulation">X-Sendfile emulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#force-https">Force HTTPS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#python-auto-reloading-development-only">Python Auto-reloading (DEVELOPMENT ONLY!)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#full-stack-cgi-setup">Full-Stack CGI setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#multiple-flask-apps-in-different-mountpoints">Multiple flask apps in different mountpoints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#rbenv-on-osx-should-work-on-other-platforms-too">rbenv on OSX (should work on other platforms too)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#authenticated-websocket-proxy">Authenticated WebSocket Proxy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#selinux-and-uwsgi">SELinux and uWSGI</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Download.html">Getting uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Install.html">Installing uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BuildSystem.html">The uWSGI build system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Management.html">Managing the uWSGI server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LanguagesAndPlatforms.html">Supported languages and platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SupportedPlatforms.html">Supported Platforms/Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WebServers.html">Web server integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FAQ.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ThingsToKnow.html">Things to know (best practices and &quot;issues&quot;) READ IT !!!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Configuration.html">Configuring uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FallbackConfig.html">Fallback configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ConfigLogic.html">Configuration logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Options.html">uWSGI Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CustomOptions.html">Defining new options for your instances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ParsingOrder.html">How uWSGI parses config files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Vars.html">uwsgi protocol magic variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Protocol.html">The uwsgi Protocol</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AttachingDaemons.html">Managing external daemons/services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MasterFIFO.html">The Master FIFO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Inetd.html">Socket activation with inetd/xinetd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Upstart.html">Running uWSGI via Upstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Systemd.html">Systemd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Circus.html">Running uWSGI instances with Circus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Embed.html">Embedding an application in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Logging.html">Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LogFormat.html">Formatting uWSGI requests logs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LogEncoders.html">Log encoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Hooks.html">Hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WorkerOverride.html">Overriding Workers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ThirdPartyPlugins.html">uWSGI third party plugins</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/CachingCookbook.html">The uWSGI Caching Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/Django_and_nginx.html">Setting up Django and your web server with uWSGI and nginx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/dreamhost.html">Running uWSGI on Dreamhost shared hosting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/heroku_python.html">Running python webapps on Heroku with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/heroku_ruby.html">Running Ruby/Rack webapps on Heroku with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/ReliableFuse.html">Reliably use FUSE filesystems for uWSGI vassals (with Linux)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/DynamicProxying.html">Build a dynamic proxy using RPC and internal routing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/GraphiteAndMetrics.html">Setting up Graphite on Ubuntu using the Metrics subsystem</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="articles/SerializingAccept.html">Serializing accept(), AKA Thundering Herd, AKA the Zeeg Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="articles/TheArtOfGracefulReloading.html">The Art of Graceful Reloading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="articles/FunWithPerlEyetoyRaspberrypi.html">Fun with Perl, Eyetoy and RaspberryPi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="articles/OffloadingWebsocketsAndSSE.html">Offloading Websockets and Server-Sent Events AKA &quot;Combine them with Django safely&quot;</a></li>
+<li class="toctree-l1"><a class="reference internal" href="articles/WSGIEnvBehaviour.html">WSGI env behaviour policies</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="AlarmSubsystem.html">The uWSGI alarm subsystem (from 1.3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Caching.html">The uWSGI caching framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WebCaching.html">WebCaching framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cron.html">The uWSGI cron-like interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Fastrouter.html">The uWSGI FastRouter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="InternalRouting.html">uWSGI internal routing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Legion.html">The uWSGI Legion subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Locks.html">Locks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Mules.html">uWSGI Mules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OffloadSubsystem.html">The uWSGI offloading subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Queue.html">The uWSGI queue framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RPC.html">uWSGI RPC Stack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SharedArea.html">SharedArea -- share memory pages between uWSGI components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Signals.html">The uWSGI Signal Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Spooler.html">The uWSGI Spooler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SubscriptionServer.html">uWSGI Subscription Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="StaticFiles.html">Serving static files with uWSGI (updated to 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SNI.html">SNI - Server Name Identification (virtual hosting for SSL nodes)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GeoIP.html">The GeoIP plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Transformations.html">uWSGI Transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WebSockets.html">WebSocket support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Metrics.html">The Metrics subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Chunked.html">The Chunked input API</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Cheaper.html">The uWSGI cheaper subsystem -- adaptive process spawning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Emperor.html">The uWSGI Emperor -- multi-app deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Broodlord.html">Auto-scaling with Broodlord mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Zerg.html">Zerg mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DynamicApps.html">Adding applications dynamically</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SSLScaling.html">Scaling SSL connections (uWSGI 1.9)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Capabilities.html">Setting POSIX Capabilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cgroups.html">Running uWSGI in a Linux CGroup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="KSM.html">Using Linux KSM in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Namespaces.html">Jailing your apps using Linux Namespaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Namespaces.html#the-old-way-the-namespace-option">The old way: the --namespace option</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FreeBSDJails.html">FreeBSD Jails</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ForkptyRouter.html">The Forkpty Router</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TunTapRouter.html">The TunTap Router</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Nagios.html">Monitoring uWSGI with Nagios</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SNMP.html">The embedded SNMP server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PushingStats.html">Pushing statistics (from 1.4)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Carbon.html">Integration with Graphite/Carbon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="StatsServer.html">The uWSGI Stats Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Metrics.html">The Metrics subsystem</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Async.html">uWSGI asynchronous/non-blocking modes (updated to uWSGI 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Gevent.html">The Gevent loop engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tornado.html">The Tornado loop engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uGreen.html">uGreen -- uWSGI Green Threads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="asyncio.html">The asyncio loop engine (CPython &gt;= 3.4, uWSGI &gt;= 2.0.4)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Apache.html">Apache support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cherokee.html">Cherokee support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="HTTP.html">Native HTTP support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="HTTPS.html">HTTPS 지원 (1.3 버전부터)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SPDY.html">The SPDY router (uWSGI 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lighttpd.html">Lighttpd support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Mongrel2.html">Attaching uWSGI to Mongrel2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Nginx.html">Nginx support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OpenBSDhttpd.html">Using OpenBSD httpd as proxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OpenBSDhttpd.html#notes">Notes</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Python.html">Python support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PyPy.html">The PyPy plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PHP.html">Running PHP scripts in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Perl.html">uWSGI Perl support (PSGI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Ruby.html">Ruby support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lua.html">Using Lua/WSAPI with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="JVM.html">JVM in the uWSGI server (updated to 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Mono.html">The Mono ASP.NET plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CGI.html">Running CGI scripts on uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GCCGO.html">The GCCGO plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Symcall.html">The Symcall plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="XSLT.html">The XSLT plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SSI.html">SSI (Server Side Includes) plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="V8.html">uWSGI V8 support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GridFS.html">The GridFS plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GlusterFS.html">The GlusterFS plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Rados.html">The RADOS plugin</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Pty.html">The Pty plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SPNEGO.html">SPNEGO authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LDAP.html">Configuring uWSGI with LDAP</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Erlang.html">Integrating uWSGI with Erlang</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ManagementFlag.html">Management Flags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Go.html">uWSGI Go support (1.4 only)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.18.html">uWSGI 2.0.18</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.17.1.html">uWSGI 2.0.17.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.17.html">uWSGI 2.0.17</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.16.html">uWSGI 2.0.16</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.15.html">uWSGI 2.0.15</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.14.html">uWSGI 2.0.14</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.13.1.html">uWSGI 2.0.13.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.13.html">uWSGI 2.0.13</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.12.html">uWSGI 2.0.12</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.11.2.html">uWSGI 2.0.11.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.11.1.html">uWSGI 2.0.11.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.11.html">uWSGI 2.0.11</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.10.html">uWSGI 2.0.10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.9.html">uWSGI 2.0.9</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.8.html">uWSGI 2.0.8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.7.html">uWSGI 2.0.7</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.6.html">uWSGI 2.0.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.5.html">uWSGI 2.0.5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.4.html">uWSGI 2.0.4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.3.html">uWSGI 2.0.3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.2.html">uWSGI 2.0.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.1.html">uWSGI 2.0.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.html">uWSGI 2.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.21.html">uWSGI 1.9.21</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.20.html">uWSGI 1.9.20</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.19.html">uWSGI 1.9.19</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.18.html">uWSGI 1.9.18</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.17.html">uWSGI 1.9.17</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.16.html">uWSGI 1.9.16</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.15.html">uWSGI 1.9.15</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.14.html">uWSGI 1.9.14</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.13.html">uWSGI 1.9.13</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.12.html">uWSGI 1.9.12</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.11.html">uWSGI 1.9.11</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.10.html">uWSGI 1.9.10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.9.html">uWSGI 1.9.9</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.8.html">uWSGI 1.9.8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.7.html">uWSGI 1.9.7</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.6.html">uWSGI 1.9.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.5.html">uWSGI 1.9.5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.4.html">uWSGI 1.9.4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.3.html">uWSGI 1.9.3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.2.html">uWSGI 1.9.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.1.html">uWSGI 1.9.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.html">uWSGI 1.9</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">uWSGI</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Snippets</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/Snippets.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="snippets">
+<h1>Snippets<a class="headerlink" href="#snippets" title="제목 주소">¶</a></h1>
+<p>This is a collection of some of the most &quot;fun&quot; uses of uWSGI features.</p>
+<div class="section" id="x-sendfile-emulation">
+<h2>X-Sendfile emulation<a class="headerlink" href="#x-sendfile-emulation" title="제목 주소">¶</a></h2>
+<p>Even if your frontend proxy/webserver does not support X-Sendfile (or cannot access your static resources) you can emulate
+it using uWSGI's internal offloading (your process/thread will delegate the actual static file serving to offload threads).</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">...</span>
+<span class="c1">; load router_static plugin (compiled in by default in monolithic profiles)</span>
+<span class="na">plugins</span> <span class="o">=</span> <span class="s">router_static</span>
+<span class="c1">; spawn 2 offload threads</span>
+<span class="na">offload-threads</span> <span class="o">=</span> <span class="s">2</span>
+<span class="c1">; files under /private can be safely served</span>
+<span class="na">static-safe</span> <span class="o">=</span> <span class="s">/private</span>
+<span class="c1">; collect the X-Sendfile response header as X_SENDFILE var</span>
+<span class="na">collect-header</span> <span class="o">=</span> <span class="s">X-Sendfile X_SENDFILE</span>
+<span class="c1">; if X_SENDFILE is not empty, pass its value to the &quot;static&quot; routing action (it will automatically use offloading if available)</span>
+<span class="na">response-route-if-not</span> <span class="o">=</span> <span class="s">empty:${X_SENDFILE} static:${X_SENDFILE}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="force-https">
+<h2>Force HTTPS<a class="headerlink" href="#force-https" title="제목 주소">¶</a></h2>
+<p>This will force HTTPS for the whole site.</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">...</span>
+<span class="c1">; load router_redirect plugin (compiled in by default in monolithic profiles)</span>
+<span class="na">plugins</span> <span class="o">=</span> <span class="s">router_redirect</span>
+<span class="na">route-if-not</span> <span class="o">=</span> <span class="s">equal:${HTTPS};on redirect-permanent:https://${HTTP_HOST}${REQUEST_URI}</span>
+</pre></div>
+</div>
+<p>And this only for <code class="docutils literal notranslate"><span class="pre">/admin</span></code></p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">...</span>
+<span class="c1">; load router_redirect plugin (compiled in by default in monolithic profiles)</span>
+<span class="na">plugins</span> <span class="o">=</span> <span class="s">router_redirect</span>
+<span class="na">route</span> <span class="o">=</span> <span class="s">^/admin goto:https</span>
+<span class="c1">; stop the chain</span>
+<span class="na">route-run</span> <span class="o">=</span> <span class="s">last:</span>
+
+<span class="na">route-label</span> <span class="o">=</span> <span class="s">https</span>
+<span class="na">route-if-not</span> <span class="o">=</span> <span class="s">equal:${HTTPS};on redirect-permanent:https://${HTTP_HOST}${REQUEST_URI}</span>
+</pre></div>
+</div>
+<p>Eventually you may want to send HSTS (HTTP Strict Transport Security) header too.</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">...</span>
+<span class="c1">; load router_redirect plugin (compiled in by default in monolithic profiles)</span>
+<span class="na">plugins</span> <span class="o">=</span> <span class="s">router_redirect</span>
+<span class="na">route-if-not</span> <span class="o">=</span> <span class="s">equal:${HTTPS};on redirect-permanent:https://${HTTP_HOST}${REQUEST_URI}</span>
+<span class="na">route-if</span> <span class="o">=</span> <span class="s">equal:${HTTPS};on addheader:Strict-Transport-Security: max-age=31536000</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="python-auto-reloading-development-only">
+<h2>Python Auto-reloading (DEVELOPMENT ONLY!)<a class="headerlink" href="#python-auto-reloading-development-only" title="제목 주소">¶</a></h2>
+<p>In production you can monitor file/directory changes for triggering reloads (touch-reload, fs-reload...).</p>
+<p>During development having a monitor for all of the loaded/used python modules can be handy. But please use it only during development.</p>
+<p>The check is done by a thread that scans the modules list with the specified frequency:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">...</span>
+<span class="na">py-autoreload</span> <span class="o">=</span> <span class="s">2</span>
+</pre></div>
+</div>
+<p>will check for python modules changes every 2 seconds and eventually restart the instance.</p>
+<p>And again:</p>
+<div class="admonition warning">
+<p class="first admonition-title">경고</p>
+<p class="last">Use this only in development.</p>
+</div>
+</div>
+<div class="section" id="full-stack-cgi-setup">
+<h2>Full-Stack CGI setup<a class="headerlink" href="#full-stack-cgi-setup" title="제목 주소">¶</a></h2>
+<p>This example spawned from a uWSGI mailing list thread.</p>
+<p>We have static files in /var/www and cgis in /var/cgi. Cgi will be accessed using the /cgi-bin
+mountpoint. So /var/cgi/foo.lua will be run on request to /cgi-bin/foo.lua</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">workdir</span> <span class="o">=</span> <span class="s">/var</span>
+<span class="na">ipaddress</span> <span class="o">=</span> <span class="s">0.0.0.0</span>
+
+<span class="c1">; start an http router on port 8080</span>
+<span class="na">http</span> <span class="o">=</span> <span class="s">%(ipaddress):8080</span>
+<span class="c1">; enable the stats server on port 9191</span>
+<span class="na">stats</span> <span class="o">=</span> <span class="s">127.0.0.1:9191</span>
+<span class="c1">; spawn 2 threads in 4 processes (concurrency level: 8)</span>
+<span class="na">processes</span> <span class="o">=</span> <span class="s">4</span>
+<span class="na">threads</span> <span class="o">=</span> <span class="s">2</span>
+<span class="c1">; drop privileges</span>
+<span class="na">uid</span> <span class="o">=</span> <span class="s">nobody</span>
+<span class="na">gid</span> <span class="o">=</span> <span class="s">nogroup</span>
+
+<span class="c1">; serve static files in /var/www</span>
+<span class="na">static-index</span> <span class="o">=</span> <span class="s">index.html</span>
+<span class="na">static-index</span> <span class="o">=</span> <span class="s">index.htm</span>
+<span class="na">check-static</span> <span class="o">=</span> <span class="s">%(workdir)/www</span>
+
+<span class="c1">; skip serving static files ending with .lua</span>
+<span class="na">static-skip-ext</span> <span class="o">=</span> <span class="s">.lua</span>
+
+<span class="c1">; route requests to the CGI plugin</span>
+<span class="na">http-modifier1</span> <span class="o">=</span> <span class="s">9</span>
+<span class="c1">; map /cgi-bin requests to /var/cgi</span>
+<span class="na">cgi</span> <span class="o">=</span> <span class="s">/cgi-bin=%(workdir)/cgi</span>
+<span class="c1">; only .lua script can be executed</span>
+<span class="na">cgi-allowed-ext</span> <span class="o">=</span> <span class="s">.lua</span>
+<span class="c1">; .lua files are executed with the &#39;lua&#39; command (it avoids the need of giving execute permission to files)</span>
+<span class="na">cgi-helper</span> <span class="o">=</span> <span class="s">.lua=lua</span>
+<span class="c1">; search for index.lua if a directory is requested</span>
+<span class="na">cgi-index</span> <span class="o">=</span> <span class="s">index.lua</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="multiple-flask-apps-in-different-mountpoints">
+<h2>Multiple flask apps in different mountpoints<a class="headerlink" href="#multiple-flask-apps-in-different-mountpoints" title="제목 주소">¶</a></h2>
+<p>Let's write three flask apps:</p>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="c1">#app1.py</span>
+<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="nd">@app.route</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">hello</span><span class="p">():</span>
+    <span class="k">return</span> <span class="s2">&quot;Hello World! i am app1&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="c1">#app2.py</span>
+<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="nd">@app.route</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">hello</span><span class="p">():</span>
+    <span class="k">return</span> <span class="s2">&quot;Hello World! i am app2&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="c1">#app3.py</span>
+<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="nd">@app.route</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">hello</span><span class="p">():</span>
+    <span class="k">return</span> <span class="s2">&quot;Hello World! i am app3&quot;</span>
+</pre></div>
+</div>
+<p>each will be mounted respectively in /app1, /app2, /app3</p>
+<p>To mount an application with a specific &quot;key&quot; in uWSGI, you use the --mount option:</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">--mount</span> <span class="pre">&lt;mountpoint&gt;=&lt;app&gt;</span>
+<span class="pre">`</span></code></p>
+<p>in our case we want to mount 3 python apps, each keyed with what will be the WSGI SCRIPT_NAME variable:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">plugin</span> <span class="o">=</span> <span class="s">python</span>
+<span class="na">mount</span> <span class="o">=</span> <span class="s">/app1=app1.py</span>
+<span class="na">mount</span> <span class="o">=</span> <span class="s">/app2=app2.py</span>
+<span class="na">mount</span> <span class="o">=</span> <span class="s">/app3=app3.py</span>
+<span class="c1">; generally flask apps expose the &#39;app&#39; callable instead of &#39;application&#39;</span>
+<span class="na">callable</span> <span class="o">=</span> <span class="s">app</span>
+
+<span class="c1">; tell uWSGI to rewrite PATH_INFO and SCRIPT_NAME according to mount-points</span>
+<span class="na">manage-script-name</span> <span class="o">=</span> <span class="s">true</span>
+
+<span class="c1">; bind to a socket</span>
+<span class="na">socket</span> <span class="o">=</span> <span class="s">/var/run/uwsgi.sock</span>
+</pre></div>
+</div>
+<p>now directly point your webserver.proxy to the instance socket (without doing additional configurations)</p>
+<p>Note: by default every app is loaded in a new python interpreter (that means a pretty-well isolated namespace for each app).
+If you want all of the app to be loaded in the same python vm, use the --single-interpreter option.</p>
+<p>Another note: you may find reference to an obscure &quot;modifier1 30&quot; trick. It is deprecated and extremely ugly. uWSGI is able to rewrite request variables in lot of advanced ways</p>
+<p>Final note: by default, the first loaded app is mounted as the &quot;default one&quot;. That app will be served when no mountpoint matches.</p>
+</div>
+<div class="section" id="rbenv-on-osx-should-work-on-other-platforms-too">
+<h2>rbenv on OSX (should work on other platforms too)<a class="headerlink" href="#rbenv-on-osx-should-work-on-other-platforms-too" title="제목 주소">¶</a></h2>
+<p>install rbenv</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>brew update
+brew install rbenv ruby-build
+</pre></div>
+</div>
+<p>(do not set the magic line in .bash_profile as described in the classic howto, as we want to not clobber the environment, and allow uWSGI to get rid of it)</p>
+<p>get a uWSGI tarball and build the 'nolang' version (it is a monolithic one without language plugins compiled in)</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>wget https://projects.unbit.it/downloads/uwsgi-latest.tar.gz
+tar zxvf uwsgi-latest.tar.gz
+<span class="nb">cd</span> uwsgi-xxx
+make nolang
+</pre></div>
+</div>
+<p>now start installing the ruby versions you need</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>rbenv install <span class="m">1</span>.9.3-p551
+rbenv install <span class="m">2</span>.1.5
+</pre></div>
+</div>
+<p>and install the gems you need (sinatra in this case):</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># set the current ruby env</span>
+rbenv <span class="nb">local</span> <span class="m">1</span>.9.3-p551
+<span class="c1"># get the path of the gem binary</span>
+rbenv which gem
+<span class="c1"># /Users/roberta/.rbenv/versions/1.9.3-p551/bin/gem</span>
+/Users/roberta/.rbenv/versions/1.9.3-p551/bin/gem install sinatra
+<span class="c1"># from the uwsgi sources directory, build the rack plugin for 1.9.3-p551, naming it rack_193_plugin.so</span>
+<span class="c1"># the trick here is changing PATH to find the right ruby binary during the build procedure</span>
+<span class="nv">PATH</span><span class="o">=</span>/Users/roberta/.rbenv/versions/1.9.3-p551/bin:<span class="nv">$PATH</span> ./uwsgi --build-plugin <span class="s2">&quot;plugins/rack rack_193&quot;</span>
+<span class="c1"># set ruby 2.1.5</span>
+rbenv <span class="nb">local</span> <span class="m">2</span>.1.5
+rbenv which gem
+<span class="c1"># /Users/roberta/.rbenv/versions/2.1.5/bin/gem</span>
+/Users/roberta/.rbenv/versions/2.1.5/bin/gem install sinatra
+<span class="nv">PATH</span><span class="o">=</span>/Users/roberta/.rbenv/versions/2.1.5/bin:<span class="nv">$PATH</span> ./uwsgi --build-plugin <span class="s2">&quot;plugins/rack rack_215&quot;</span>
+</pre></div>
+</div>
+<p>now to switch from one ruby to another, just change the plugin:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">plugin</span> <span class="o">=</span> <span class="s">rack_193</span>
+<span class="na">rack</span> <span class="o">=</span> <span class="s">config.ru</span>
+<span class="na">http-socket</span> <span class="o">=</span> <span class="s">:9090</span>
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">plugin</span> <span class="o">=</span> <span class="s">rack_215</span>
+<span class="na">rack</span> <span class="o">=</span> <span class="s">config.ru</span>
+<span class="na">http-socket</span> <span class="o">=</span> <span class="s">:9090</span>
+</pre></div>
+</div>
+<p>ensure plugins are stored in the current working directory, or set the plugins-dir directive or specify them with absolute path like</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">plugin</span> <span class="o">=</span> <span class="s">/foobar/rack_215_plugin.so</span>
+<span class="na">rack</span> <span class="o">=</span> <span class="s">config.ru</span>
+<span class="na">http-socket</span> <span class="o">=</span> <span class="s">:9090</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="authenticated-websocket-proxy">
+<h2>Authenticated WebSocket Proxy<a class="headerlink" href="#authenticated-websocket-proxy" title="제목 주소">¶</a></h2>
+<p>App server identifies websocket traffic, authenticates/authorizes the user using whatever CGI variables against the
+app's own policies/infrastructure, then offloads/proxies the request to a simple kafka-websocket backend.</p>
+<p>First create <code class="docutils literal notranslate"><span class="pre">auth_kafka.py</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+
+<span class="k">def</span> <span class="nf">application</span><span class="p">(</span><span class="n">environ</span><span class="p">,</span> <span class="n">start_response</span><span class="p">):</span>
+    <span class="n">start_response</span><span class="p">(</span><span class="s1">&#39;200 OK&#39;</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;Content-Type&#39;</span><span class="p">,</span> <span class="s1">&#39;text/plain&#39;</span><span class="p">)])</span>
+    <span class="k">return</span> <span class="p">[</span><span class="s1">&#39;It Works!&#39;</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">auth_kafka</span><span class="p">(</span><span class="n">request_uri</span><span class="p">,</span> <span class="n">http_cookie</span><span class="p">,</span> <span class="n">http_authorization</span><span class="p">):</span>
+    <span class="n">pprint</span><span class="p">(</span><span class="nb">locals</span><span class="p">())</span>
+    <span class="k">return</span> <span class="s1">&#39;true&#39;</span>
+
+<span class="kn">import</span> <span class="nn">uwsgi</span>
+<span class="n">uwsgi</span><span class="o">.</span><span class="n">register_rpc</span><span class="p">(</span><span class="s1">&#39;auth_kafka&#39;</span><span class="p">,</span> <span class="n">auth_kafka</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Then create <code class="docutils literal notranslate"><span class="pre">auth_kafka.ini</span></code>:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+
+<span class="c1">; setup</span>
+<span class="na">http-socket</span> <span class="o">=</span> <span class="s">127.0.0.1:8000</span>
+<span class="na">master</span> <span class="o">=</span> <span class="s">true</span>
+<span class="na">module</span> <span class="o">=</span> <span class="s">auth_kafka</span>
+
+<span class="c1">; critical! else worker timeouts apply to proxied websocket connections</span>
+<span class="na">offload-threads</span> <span class="o">=</span> <span class="s">2</span>
+
+<span class="c1">; match websocket protocol</span>
+<span class="na">kafka-ws-upgrade-regex</span> <span class="o">=</span> <span class="s">^[Ww]eb[Ss]ocket$</span>
+
+<span class="c1">; DRY place for websocket check</span>
+<span class="na">is-kafka-ws-request</span> <span class="o">=</span>  <span class="s">regexp:${HTTP_UPGRADE};%(kafka-ws-upgrade-regex)</span>
+
+<span class="c1">; location of the kafka-ws server</span>
+<span class="na">kafka-ws-host</span> <span class="o">=</span> <span class="s">127.0.0.1:7080</span>
+
+<span class="c1">; base endpoint uri for websocket server</span>
+<span class="na">kafka-ws-endpoint-uri</span> <span class="o">=</span> <span class="s">/v2/broker/</span>
+
+<span class="c1">; call auth_kafka(...); if AUTH_KAFKA gets set, request is good!</span>
+<span class="na">route-if</span> <span class="o">=</span> <span class="s">%(is-kafka-ws-request) rpcvar:AUTH_KAFKA auth_kafka ${REQUEST_URI} ${HTTP_COOKIE} ${HTTP_AUTHORIZATION}</span>
+
+<span class="c1">; update request uri to websocket endpoint (rewrite only changes PATH_INFO?)</span>
+<span class="na">route-if-not</span> <span class="o">=</span> <span class="s">empty:${AUTH_KAFKA} seturi:%(kafka-ws-endpoint-uri)?${QUERY_STRING}</span>
+
+<span class="c1">; route the request to our websocket server</span>
+<span class="na">route-if-not</span> <span class="o">=</span> <span class="s">empty:${AUTH_KAFKA} httpdumb:%(kafka-ws-host)</span>
+</pre></div>
+</div>
+<p>Start a &quot;kafka-websocket&quot; server:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nc -l -k -p <span class="m">7080</span>
+</pre></div>
+</div>
+<p>Now go to <code class="docutils literal notranslate"><span class="pre">http://127.0.0.1:8000</span></code> in a web browser! You should see <code class="docutils literal notranslate"><span class="pre">Hello!</span></code>. Open chrome inspector or firebug and type:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">ws</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WebSocket</span><span class="p">(</span><span class="s1">&#39;ws://127.0.0.1:8000/?subscribe=true&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You should see this request proxied to your <code class="docutils literal notranslate"><span class="pre">nc</span></code> command! This pattern allows the internal network to host a more-or-less
+wide-open/generic kafka -&gt; websocket gateway and delegates auth needs to the app server. Using <code class="docutils literal notranslate"><span class="pre">offload-threads</span></code> means
+proxied requests do <em>NOT</em> block workers; using <code class="docutils literal notranslate"><span class="pre">httpdumb</span></code> prevents mangling the request (<code class="docutils literal notranslate"><span class="pre">http</span></code> action forces <code class="docutils literal notranslate"><span class="pre">HTTP/1.0</span></code>)</p>
+</div>
+<div class="section" id="selinux-and-uwsgi">
+<h2>SELinux and uWSGI<a class="headerlink" href="#selinux-and-uwsgi" title="제목 주소">¶</a></h2>
+<p>SELinux allows you to isolate web application processes from each other, and limits each program to its purpose only. The applications can be placed into strongly isolated individual sandboxes, separating them from one another and from the underlying operating system. Since SELinux is implemented within the kernel, applications do not need to be specifically written or modified to work under SELinux. There is an <a class="reference external" href="https://github.com/reinow/sepwebapp">SELinux security policy for web applications</a> at github well suited for uWSGI. This security policy also supports the uWSGI emperor process running in one domain, and each web application's worker processes running in a separate domain, requiring only minimal privileges for the worker processes even if Linux namespaces are used. Of course, there is no requirement for emperor mode, or Linux namespaces, to use SELinux with uWSGI.</p>
+<p>On Linux it is possible to run each vassal with a dedicated view of the filesystems, ipc, uts, networking, pids and uids. Then each vassal can, for example, modify the filesystem layout, networking, and hostname without damaging the main system. With this setup, privileged tasks, like mounting filesystems, setting hostnames, configuring the network, and setting gid and uid of the worker processes can be done before changing the SELinux security context of the vassals' process ensuring that only minimal privileges are required for the worker processes.</p>
+<p>First configure, compile and load the SELinux web application security policy. Then, relabel the application files. Further information on how to configure web application policies can be found in the README.md included in the <a class="reference external" href="https://github.com/reinow/sepwebapp">SELinux security policy for web applications</a>. Finally, in each vassall's configuration file, call the setcon function in libselinux to set the web application's SELinux security context:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">...</span>
+<span class="na">hook-as-user</span> <span class="o">=</span> <span class="s">callret:setcon system_u:system_r:webapp_id_t:s0</span>
+</pre></div>
+</div>
+<p>where id is the identity of the domain. Example, foo is the identity of the webapp_foo_t domain.</p>
+<p>It may be required to load libselinux in the uWSGI address space with the --dlopen option:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="na">/path/to/uwsgi --dlopen /path/to/libselinux.so</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Download.html" class="btn btn-neutral float-right" title="Getting uWSGI" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="RackQuickstart.html" class="btn btn-neutral" title="Quickstart for ruby/Rack applications" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2012-2016, uWSGI.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'2.0',
+            LANGUAGE:'ko',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/language_data.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          
+          SphinxRtdTheme.Navigation.enableSticky();
+          
+      });
+  </script> 
+
+</body>
+</html>

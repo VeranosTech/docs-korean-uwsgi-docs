@@ -1,0 +1,670 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ko" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ko" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>The uWSGI Legion subsystem &mdash; uWSGI 2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="색인" href="genindex.html" />
+    <link rel="search" title="검색" href="search.html" />
+    <link rel="next" title="Locks" href="Locks.html" />
+    <link rel="prev" title="uWSGI internal routing" href="InternalRouting.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> uWSGI
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="WSGIquickstart.html">Quickstart for Python/WSGI applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PSGIquickstart.html">Quickstart for perl/PSGI applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RackQuickstart.html">Quickstart for ruby/Rack applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Snippets.html">Snippets</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Download.html">Getting uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Install.html">Installing uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BuildSystem.html">The uWSGI build system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Management.html">Managing the uWSGI server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LanguagesAndPlatforms.html">Supported languages and platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SupportedPlatforms.html">Supported Platforms/Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WebServers.html">Web server integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FAQ.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ThingsToKnow.html">Things to know (best practices and &quot;issues&quot;) READ IT !!!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Configuration.html">Configuring uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FallbackConfig.html">Fallback configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ConfigLogic.html">Configuration logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Options.html">uWSGI Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CustomOptions.html">Defining new options for your instances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ParsingOrder.html">How uWSGI parses config files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Vars.html">uwsgi protocol magic variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Protocol.html">The uwsgi Protocol</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AttachingDaemons.html">Managing external daemons/services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MasterFIFO.html">The Master FIFO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Inetd.html">Socket activation with inetd/xinetd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Upstart.html">Running uWSGI via Upstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Systemd.html">Systemd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Circus.html">Running uWSGI instances with Circus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Embed.html">Embedding an application in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Logging.html">Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LogFormat.html">Formatting uWSGI requests logs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LogEncoders.html">Log encoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Hooks.html">Hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WorkerOverride.html">Overriding Workers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ThirdPartyPlugins.html">uWSGI third party plugins</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/CachingCookbook.html">The uWSGI Caching Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/Django_and_nginx.html">Setting up Django and your web server with uWSGI and nginx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/dreamhost.html">Running uWSGI on Dreamhost shared hosting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/heroku_python.html">Running python webapps on Heroku with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/heroku_ruby.html">Running Ruby/Rack webapps on Heroku with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/ReliableFuse.html">Reliably use FUSE filesystems for uWSGI vassals (with Linux)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/DynamicProxying.html">Build a dynamic proxy using RPC and internal routing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/GraphiteAndMetrics.html">Setting up Graphite on Ubuntu using the Metrics subsystem</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="articles/SerializingAccept.html">Serializing accept(), AKA Thundering Herd, AKA the Zeeg Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="articles/TheArtOfGracefulReloading.html">The Art of Graceful Reloading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="articles/FunWithPerlEyetoyRaspberrypi.html">Fun with Perl, Eyetoy and RaspberryPi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="articles/OffloadingWebsocketsAndSSE.html">Offloading Websockets and Server-Sent Events AKA &quot;Combine them with Django safely&quot;</a></li>
+<li class="toctree-l1"><a class="reference internal" href="articles/WSGIEnvBehaviour.html">WSGI env behaviour policies</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="AlarmSubsystem.html">The uWSGI alarm subsystem (from 1.3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Caching.html">The uWSGI caching framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WebCaching.html">WebCaching framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cron.html">The uWSGI cron-like interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Fastrouter.html">The uWSGI FastRouter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="InternalRouting.html">uWSGI internal routing</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">The uWSGI Legion subsystem</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#ip-takeover">IP takeover</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#the-quorum">The Quorum</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#choosing-the-lord">Choosing the Lord</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#split-brain">Split brain</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#actions">Actions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#cmd-command"><code class="docutils literal notranslate"><span class="pre">cmd:&lt;command&gt;</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#signal-num"><code class="docutils literal notranslate"><span class="pre">signal:&lt;num&gt;</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#log-msg"><code class="docutils literal notranslate"><span class="pre">log:&lt;msg&gt;</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#multicast-broadcast-and-unicast"><code class="docutils literal notranslate"><span class="pre">Multicast,</span> <span class="pre">broadcast</span> <span class="pre">and</span> <span class="pre">unicast</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiple-legions">Multiple Legions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#security">Security</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tuning-and-clock-skew">Tuning and Clock Skew</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lord-scroll-coming-soon">Lord scroll (coming soon)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#legion-api">Legion API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stats">Stats</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-old-clustering-subsystem">The old clustering subsystem</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Locks.html">Locks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Mules.html">uWSGI Mules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OffloadSubsystem.html">The uWSGI offloading subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Queue.html">The uWSGI queue framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RPC.html">uWSGI RPC Stack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SharedArea.html">SharedArea -- share memory pages between uWSGI components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Signals.html">The uWSGI Signal Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Spooler.html">The uWSGI Spooler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SubscriptionServer.html">uWSGI Subscription Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="StaticFiles.html">Serving static files with uWSGI (updated to 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SNI.html">SNI - Server Name Identification (virtual hosting for SSL nodes)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GeoIP.html">The GeoIP plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Transformations.html">uWSGI Transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WebSockets.html">WebSocket support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Metrics.html">The Metrics subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Chunked.html">The Chunked input API</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Cheaper.html">The uWSGI cheaper subsystem -- adaptive process spawning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Emperor.html">The uWSGI Emperor -- multi-app deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Broodlord.html">Auto-scaling with Broodlord mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Zerg.html">Zerg mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DynamicApps.html">Adding applications dynamically</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SSLScaling.html">Scaling SSL connections (uWSGI 1.9)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Capabilities.html">Setting POSIX Capabilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cgroups.html">Running uWSGI in a Linux CGroup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="KSM.html">Using Linux KSM in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Namespaces.html">Jailing your apps using Linux Namespaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Namespaces.html#the-old-way-the-namespace-option">The old way: the --namespace option</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FreeBSDJails.html">FreeBSD Jails</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ForkptyRouter.html">The Forkpty Router</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TunTapRouter.html">The TunTap Router</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Nagios.html">Monitoring uWSGI with Nagios</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SNMP.html">The embedded SNMP server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PushingStats.html">Pushing statistics (from 1.4)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Carbon.html">Integration with Graphite/Carbon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="StatsServer.html">The uWSGI Stats Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Metrics.html">The Metrics subsystem</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Async.html">uWSGI asynchronous/non-blocking modes (updated to uWSGI 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Gevent.html">The Gevent loop engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tornado.html">The Tornado loop engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uGreen.html">uGreen -- uWSGI Green Threads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="asyncio.html">The asyncio loop engine (CPython &gt;= 3.4, uWSGI &gt;= 2.0.4)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Apache.html">Apache support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cherokee.html">Cherokee support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="HTTP.html">Native HTTP support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="HTTPS.html">HTTPS 지원 (1.3 버전부터)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SPDY.html">The SPDY router (uWSGI 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lighttpd.html">Lighttpd support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Mongrel2.html">Attaching uWSGI to Mongrel2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Nginx.html">Nginx support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OpenBSDhttpd.html">Using OpenBSD httpd as proxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OpenBSDhttpd.html#notes">Notes</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Python.html">Python support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PyPy.html">The PyPy plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PHP.html">Running PHP scripts in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Perl.html">uWSGI Perl support (PSGI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Ruby.html">Ruby support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lua.html">Using Lua/WSAPI with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="JVM.html">JVM in the uWSGI server (updated to 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Mono.html">The Mono ASP.NET plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CGI.html">Running CGI scripts on uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GCCGO.html">The GCCGO plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Symcall.html">The Symcall plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="XSLT.html">The XSLT plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SSI.html">SSI (Server Side Includes) plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="V8.html">uWSGI V8 support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GridFS.html">The GridFS plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GlusterFS.html">The GlusterFS plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Rados.html">The RADOS plugin</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Pty.html">The Pty plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SPNEGO.html">SPNEGO authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LDAP.html">Configuring uWSGI with LDAP</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Erlang.html">Integrating uWSGI with Erlang</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ManagementFlag.html">Management Flags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Go.html">uWSGI Go support (1.4 only)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.18.html">uWSGI 2.0.18</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.17.1.html">uWSGI 2.0.17.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.17.html">uWSGI 2.0.17</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.16.html">uWSGI 2.0.16</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.15.html">uWSGI 2.0.15</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.14.html">uWSGI 2.0.14</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.13.1.html">uWSGI 2.0.13.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.13.html">uWSGI 2.0.13</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.12.html">uWSGI 2.0.12</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.11.2.html">uWSGI 2.0.11.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.11.1.html">uWSGI 2.0.11.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.11.html">uWSGI 2.0.11</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.10.html">uWSGI 2.0.10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.9.html">uWSGI 2.0.9</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.8.html">uWSGI 2.0.8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.7.html">uWSGI 2.0.7</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.6.html">uWSGI 2.0.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.5.html">uWSGI 2.0.5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.4.html">uWSGI 2.0.4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.3.html">uWSGI 2.0.3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.2.html">uWSGI 2.0.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.1.html">uWSGI 2.0.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.html">uWSGI 2.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.21.html">uWSGI 1.9.21</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.20.html">uWSGI 1.9.20</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.19.html">uWSGI 1.9.19</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.18.html">uWSGI 1.9.18</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.17.html">uWSGI 1.9.17</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.16.html">uWSGI 1.9.16</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.15.html">uWSGI 1.9.15</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.14.html">uWSGI 1.9.14</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.13.html">uWSGI 1.9.13</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.12.html">uWSGI 1.9.12</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.11.html">uWSGI 1.9.11</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.10.html">uWSGI 1.9.10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.9.html">uWSGI 1.9.9</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.8.html">uWSGI 1.9.8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.7.html">uWSGI 1.9.7</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.6.html">uWSGI 1.9.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.5.html">uWSGI 1.9.5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.4.html">uWSGI 1.9.4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.3.html">uWSGI 1.9.3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.2.html">uWSGI 1.9.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.1.html">uWSGI 1.9.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.html">uWSGI 1.9</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">uWSGI</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>The uWSGI Legion subsystem</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/Legion.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="the-uwsgi-legion-subsystem">
+<h1>The uWSGI Legion subsystem<a class="headerlink" href="#the-uwsgi-legion-subsystem" title="제목 주소">¶</a></h1>
+<p>As of uWSGI 1.9-dev a new subsystem for clustering has been added: The Legion
+subsystem. A Legion is a group of uWSGI nodes constantly fighting for
+domination. Each node has a valor value (different from the others, if
+possible). The node with the highest valor is the Lord of the Legion (or if
+you like a less gaming nerd, more engineer-friendly term: the master). This
+constant fight generates 7 kinds of events:</p>
+<ol class="arabic simple">
+<li><code class="docutils literal notranslate"><span class="pre">setup</span></code> - when the legion subsystem is started on a node</li>
+<li><code class="docutils literal notranslate"><span class="pre">join</span></code> - the first time quorum is reached, only on the newly joined node</li>
+<li><code class="docutils literal notranslate"><span class="pre">lord</span></code> - when this node becomes the lord</li>
+<li><code class="docutils literal notranslate"><span class="pre">unlord</span></code> - when this node loses the lord title</li>
+<li><code class="docutils literal notranslate"><span class="pre">death</span></code> - when the legion subsystem is shutting down</li>
+<li><code class="docutils literal notranslate"><span class="pre">node-joined</span></code> - when any new node joins our legion</li>
+<li><code class="docutils literal notranslate"><span class="pre">node-left</span></code> - when any node leaves our legion</li>
+</ol>
+<p>You can trigger actions every time such an event rises.</p>
+<p><strong>Note</strong>: <code class="docutils literal notranslate"><span class="pre">openssl</span></code> headers must be installed to build uWSGI with Legion support.</p>
+<div class="section" id="ip-takeover">
+<h2>IP takeover<a class="headerlink" href="#ip-takeover" title="제목 주소">¶</a></h2>
+<p>This is a very common configuration for clustered environments. The IP address
+is a resource that must be owned by only one node. For this example, that node
+is our Lord. If we configure a Legion right (remember, a single uWSGI
+instances can be a member of all of the legions you need) we could easily
+implement IP takeover.</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+
+<span class="na">legion</span> <span class="o">=</span> <span class="s">clusterip 225.1.1.1:4242 98 bf-cbc:hello</span>
+<span class="na">legion-node</span> <span class="o">=</span> <span class="s">clusterip 225.1.1.1:4242</span>
+
+<span class="na">legion-lord</span> <span class="o">=</span> <span class="s">clusterip cmd:ip addr add 192.168.173.111/24 dev eth0</span>
+<span class="na">legion-lord</span> <span class="o">=</span> <span class="s">clusterip cmd:arping -c 3 -S 192.168.173.111 192.168.173.1</span>
+
+<span class="na">legion-setup</span> <span class="o">=</span> <span class="s">clusterip cmd:ip addr del 192.168.173.111/24 dev eth0</span>
+<span class="na">legion-unlord</span> <span class="o">=</span> <span class="s">clusterip cmd:ip addr del 192.168.173.111/24 dev eth0</span>
+<span class="na">legion-death</span> <span class="o">=</span> <span class="s">clusterip cmd:ip addr del 192.168.173.111/24 dev eth0</span>
+</pre></div>
+</div>
+<p>In this example we join a legion named <code class="docutils literal notranslate"><span class="pre">clusterip</span></code>. To receive messages from
+the other nodes we bind on the multicast address 225.1.1.1:4242. The valor of
+this node will be 98 and each message will be encrypted using Blowfish in CBC
+with the shared secret <code class="docutils literal notranslate"><span class="pre">hello</span></code>. The <code class="docutils literal notranslate"><span class="pre">legion-node</span></code> option specifies the
+destination of our announce messages. As we are using multicast we only need to
+specify a single &quot;node&quot;. The last options are the actions to trigger on the
+various states of the cluster. For an IP takeover solution we simply rely on
+the Linux <code class="docutils literal notranslate"><span class="pre">iproute</span></code> commands to set/unset ip addresses and to send an extra
+ARP message to announce the change. Obviously this specific example requires
+root privileges or the <code class="docutils literal notranslate"><span class="pre">CAP_NET_ADMIN</span></code> Linux capability, so be sure to not
+run untrusted applications on the same uWSGI instance managing IP takeover.</p>
+<div class="section" id="the-quorum">
+<h3>The Quorum<a class="headerlink" href="#the-quorum" title="제목 주소">¶</a></h3>
+<p>To choose a Lord each member of the legion has to cast a vote. When all of the
+active members of a legion agree on a Lord, the Lord is elected and the old
+Lord is demoted. Every time a new node joins or leaves a legion the quorum is
+re-computed and logged to the whole cluster.</p>
+</div>
+<div class="section" id="choosing-the-lord">
+<h3>Choosing the Lord<a class="headerlink" href="#choosing-the-lord" title="제목 주소">¶</a></h3>
+<p>Generally the node with the higher valor is chosen as the Lord, but there can
+be cases where multiple nodes have the same valor. When a node is started a
+UUID is assigned to it. If two nodes with same valor are found the one with the
+lexicographically higher UUID wins.</p>
+</div>
+<div class="section" id="split-brain">
+<h3>Split brain<a class="headerlink" href="#split-brain" title="제목 주소">¶</a></h3>
+<p>Even though each member of the Legion has to send a checksum of its internal
+cluster-membership, the system is still vulnerable to the split brain problem.
+If a node loses network connectivity with the cluster, it could believe it is
+the only node available and starts going in Lord mode.</p>
+<p>For many scenarios this is not optimal. If you have more than 2 nodes in a
+legion you may want to consider tuning the quorum level.  The quorum level is
+the amount of votes (as opposed to nodes) needed to elect a lord.
+<code class="docutils literal notranslate"><span class="pre">legion-quorum</span></code> is the option for the job. You can reduce the split brain
+problem asking the Legion subsystem to check for at least 2 votes:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+
+<span class="na">legion</span> <span class="o">=</span> <span class="s">clusterip 225.1.1.1:4242 98 bf-cbc:hello</span>
+<span class="na">legion-node</span> <span class="o">=</span> <span class="s">clusterip 225.1.1.1:4242</span>
+
+<span class="na">legion-quorum</span> <span class="o">=</span> <span class="s">clusterip 2</span>
+
+<span class="na">legion-lord</span> <span class="o">=</span> <span class="s">clusterip cmd:ip addr add 192.168.173.111/24 dev eth0</span>
+<span class="na">legion-lord</span> <span class="o">=</span> <span class="s">clusterip cmd:arping -c 3 -S 192.168.173.111 192.168.173.1</span>
+
+<span class="na">legion-setup</span> <span class="o">=</span> <span class="s">clusterip cmd:ip addr del 192.168.173.111/24 dev eth0</span>
+<span class="na">legion-unlord</span> <span class="o">=</span> <span class="s">clusterip cmd:ip addr del 192.168.173.111/24 dev eth0</span>
+<span class="na">legion-death</span> <span class="o">=</span> <span class="s">clusterip cmd:ip addr del 192.168.173.111/24 dev eth0</span>
+</pre></div>
+</div>
+<p>As of 1.9.7 you can use nodes with valor 0 (concept similar to MongoDB's
+Arbiter Nodes), such nodes will be counted when checking for quorum but may
+never become The Lord.  This is useful when you only need a couple nodes while
+protecting against split-brain.</p>
+</div>
+<div class="section" id="actions">
+<h3>Actions<a class="headerlink" href="#actions" title="제목 주소">¶</a></h3>
+<p>Each one of the four phases of a legion can trigger an action. The actions
+system is modular so you can add new kinds of actions.  Currently the supported
+actions are:</p>
+</div>
+</div>
+<div class="section" id="cmd-command">
+<h2><code class="docutils literal notranslate"><span class="pre">cmd:&lt;command&gt;</span></code><a class="headerlink" href="#cmd-command" title="제목 주소">¶</a></h2>
+<p>Run a shell command.</p>
+</div>
+<div class="section" id="signal-num">
+<h2><code class="docutils literal notranslate"><span class="pre">signal:&lt;num&gt;</span></code><a class="headerlink" href="#signal-num" title="제목 주소">¶</a></h2>
+<p>Raise a uWSGI signal.</p>
+</div>
+<div class="section" id="log-msg">
+<h2><code class="docutils literal notranslate"><span class="pre">log:&lt;msg&gt;</span></code><a class="headerlink" href="#log-msg" title="제목 주소">¶</a></h2>
+<p>Log a message. For example you could combine the log action with the alarm subsystem to have cluster monitoring for free.</p>
+<div class="section" id="multicast-broadcast-and-unicast">
+<h3><code class="docutils literal notranslate"><span class="pre">Multicast,</span> <span class="pre">broadcast</span> <span class="pre">and</span> <span class="pre">unicast</span></code><a class="headerlink" href="#multicast-broadcast-and-unicast" title="제목 주소">¶</a></h3>
+<p>Even if multicast is probably the easiest way to implement clustering it is not
+available in all networks.  If multicast is not an option, you can rely on
+normal IP addresses. Just bind to an address and add all of the legion-node
+options you need:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+
+<span class="na">legion</span> <span class="o">=</span> <span class="s">mycluster 192.168.173.17:4242 98 bf-cbc:hello</span>
+<span class="na">legion-node</span> <span class="o">=</span> <span class="s">mycluster 192.168.173.22:4242</span>
+<span class="na">legion-node</span> <span class="o">=</span> <span class="s">mycluster 192.168.173.30:4242</span>
+<span class="na">legion-node</span> <span class="o">=</span> <span class="s">mycluster 192.168.173.5:4242</span>
+</pre></div>
+</div>
+<p>This is for a cluster of 4 nodes (this node + 3 other nodes)</p>
+</div>
+<div class="section" id="multiple-legions">
+<h3>Multiple Legions<a class="headerlink" href="#multiple-legions" title="제목 주소">¶</a></h3>
+<p>You can join multiple legions in the same instance. Just remember to use
+different addresses (ports in case of multicast) for each legion.</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+
+<span class="na">legion</span> <span class="o">=</span> <span class="s">mycluster 192.168.173.17:4242 98 bf-cbc:hello</span>
+<span class="na">legion-node</span> <span class="o">=</span> <span class="s">mycluster 192.168.173.22:4242</span>
+<span class="na">legion-node</span> <span class="o">=</span> <span class="s">mycluster 192.168.173.30:4242</span>
+<span class="na">legion-node</span> <span class="o">=</span> <span class="s">mycluster 192.168.173.5:4242</span>
+
+<span class="na">legion</span> <span class="o">=</span> <span class="s">mycluster2 225.1.1.1:4243 99 aes-128-cbc:secret</span>
+<span class="na">legion-node</span> <span class="o">=</span> <span class="s">mycluster2 225.1.1.1:4243</span>
+
+<span class="na">legion</span> <span class="o">=</span> <span class="s">anothercluster 225.1.1.1:4244 91 aes-256-cbc:secret2</span>
+<span class="na">legion-node</span> <span class="o">=</span> <span class="s">anothercluster 225.1.1.1:4244</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="security">
+<h3>Security<a class="headerlink" href="#security" title="제목 주소">¶</a></h3>
+<p>Each packet sent by the Legion subsystem is encrypted using a specified cipher,
+a preshared secret, and an optional IV (initialization vector). Depending on
+cipher, the IV may be a required parameter.  To get the list of supported
+ciphers, run <code class="docutils literal notranslate"><span class="pre">openssl</span> <span class="pre">enc</span> <span class="pre">-h</span></code>.</p>
+<div class="admonition important">
+<p class="first admonition-title">중요</p>
+<p class="last">Each node of a Legion has to use the same encryption parameters.</p>
+</div>
+<p>To specify the IV just add another parameter to the <strong>legion</strong> option.</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+
+<span class="na">legion</span> <span class="o">=</span> <span class="s">mycluster 192.168.173.17:4242 98 bf-cbc:hello thisistheiv</span>
+<span class="na">legion-node</span> <span class="o">=</span> <span class="s">mycluster 192.168.173.22:4242</span>
+<span class="na">legion-node</span> <span class="o">=</span> <span class="s">mycluster 192.168.173.30:4242</span>
+<span class="na">legion-node</span> <span class="o">=</span> <span class="s">mycluster 192.168.173.5:4242</span>
+</pre></div>
+</div>
+<p>To reduce the impact of replay-based attacks, packets with a timestamp lower
+than 30 seconds are rejected. This is a tunable parameter. If you have no
+control on the time of all of the nodes you can increase the clock skew
+tolerance.</p>
+</div>
+<div class="section" id="tuning-and-clock-skew">
+<h3>Tuning and Clock Skew<a class="headerlink" href="#tuning-and-clock-skew" title="제목 주소">¶</a></h3>
+<p>Currently there are three parameters you can tune. These tuables affect all
+Legions in the system. The frequency (in seconds) at which each packet is sent
+(<strong>legion-freq &lt;secs&gt;</strong>), the amount of seconds after a node not sending
+packets is considered dead (<strong>legion-tolerance &lt;secs&gt;</strong>), and the amount of
+clock skew between nodes (<strong>legion-skew-tolerance &lt;secs&gt;</strong>). The Legion
+subsystem requires tight time synchronization, so the use of NTP or similar is
+highly recommended.  By default each packet is sent every 3 seconds, a node is
+considered dead after 15 seconds, and a clock skew of 30 seconds is tolerated.
+Decreasing skew tolerance should increase security against replay attacks.</p>
+</div>
+<div class="section" id="lord-scroll-coming-soon">
+<h3>Lord scroll (coming soon)<a class="headerlink" href="#lord-scroll-coming-soon" title="제목 주소">¶</a></h3>
+<p>The Legion subsystem can be used for a variety of purposes ranging from master
+election to node autodiscovery or simple monitoring.  One example is to assign
+a &quot;blob of data&quot; (a scroll) to every node, One use of this is to pass
+reconfiguration parameters to your app, or to log specific messages.  Currently
+the scroll system is being improved upon, so if you have ideas join our mailing
+list or IRC channel.</p>
+</div>
+<div class="section" id="legion-api">
+<h3>Legion API<a class="headerlink" href="#legion-api" title="제목 주소">¶</a></h3>
+<p>You can know if the instance is a lord of a Legion by simply calling</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">uwsgi_legion_i_am_the_lord</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">legion_name</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>It returns 1 if the current instance is the lord for the specified Legion.</p>
+<ul class="simple">
+<li>The Python plugin exposes it as <code class="docutils literal notranslate"><span class="pre">uwsgi.i_am_the_lord(name)</span></code></li>
+<li>The PSGI plugin exposes it as <code class="docutils literal notranslate"><span class="pre">uwsgi::i_am_the_lord(name)</span></code></li>
+<li>The Rack plugin exposes it as <code class="docutils literal notranslate"><span class="pre">UWSGI::i_am_the_lord(name)</span></code></li>
+</ul>
+<p>Obviously more API functions will be added in the future, feel free to expose your ideas.</p>
+</div>
+<div class="section" id="stats">
+<h3>Stats<a class="headerlink" href="#stats" title="제목 주소">¶</a></h3>
+<p>The Legion information is available in the <a class="reference internal" href="StatsServer.html"><span class="doc">The uWSGI Stats Server</span></a>.  Be sure to
+understand the difference between &quot;nodes&quot; and &quot;members&quot;. Nodes are the peer you
+configure with the <strong>legion-node</strong> option while members are the effective nodes
+that joined the cluster.</p>
+</div>
+<div class="section" id="the-old-clustering-subsystem">
+<h3>The old clustering subsystem<a class="headerlink" href="#the-old-clustering-subsystem" title="제목 주소">¶</a></h3>
+<p>During 0.9 development cycle a clustering subsystem (based on multicast) was
+added. It was very raw, unreliable and very probably no-one used it seriously.
+The new method is transforming it in a general API that can use different
+backends.  The Legion subsystem can be one of those backends, as well as
+projects like corosync or the redhat cluster suite.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Locks.html" class="btn btn-neutral float-right" title="Locks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="InternalRouting.html" class="btn btn-neutral" title="uWSGI internal routing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2012-2016, uWSGI.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'2.0',
+            LANGUAGE:'ko',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/language_data.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          
+          SphinxRtdTheme.Navigation.enableSticky();
+          
+      });
+  </script> 
+
+</body>
+</html>

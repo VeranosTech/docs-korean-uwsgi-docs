@@ -1,0 +1,580 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ko" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ko" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>The uWSGI Signal Framework &mdash; uWSGI 2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="색인" href="genindex.html" />
+    <link rel="search" title="검색" href="search.html" />
+    <link rel="next" title="The uWSGI Spooler" href="Spooler.html" />
+    <link rel="prev" title="SharedArea -- share memory pages between uWSGI components" href="SharedArea.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> uWSGI
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="WSGIquickstart.html">Quickstart for Python/WSGI applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PSGIquickstart.html">Quickstart for perl/PSGI applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RackQuickstart.html">Quickstart for ruby/Rack applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Snippets.html">Snippets</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Download.html">Getting uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Install.html">Installing uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BuildSystem.html">The uWSGI build system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Management.html">Managing the uWSGI server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LanguagesAndPlatforms.html">Supported languages and platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SupportedPlatforms.html">Supported Platforms/Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WebServers.html">Web server integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FAQ.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ThingsToKnow.html">Things to know (best practices and &quot;issues&quot;) READ IT !!!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Configuration.html">Configuring uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FallbackConfig.html">Fallback configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ConfigLogic.html">Configuration logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Options.html">uWSGI Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CustomOptions.html">Defining new options for your instances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ParsingOrder.html">How uWSGI parses config files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Vars.html">uwsgi protocol magic variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Protocol.html">The uwsgi Protocol</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AttachingDaemons.html">Managing external daemons/services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MasterFIFO.html">The Master FIFO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Inetd.html">Socket activation with inetd/xinetd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Upstart.html">Running uWSGI via Upstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Systemd.html">Systemd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Circus.html">Running uWSGI instances with Circus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Embed.html">Embedding an application in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Logging.html">Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LogFormat.html">Formatting uWSGI requests logs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LogEncoders.html">Log encoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Hooks.html">Hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WorkerOverride.html">Overriding Workers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ThirdPartyPlugins.html">uWSGI third party plugins</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/CachingCookbook.html">The uWSGI Caching Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/Django_and_nginx.html">Setting up Django and your web server with uWSGI and nginx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/dreamhost.html">Running uWSGI on Dreamhost shared hosting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/heroku_python.html">Running python webapps on Heroku with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/heroku_ruby.html">Running Ruby/Rack webapps on Heroku with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/ReliableFuse.html">Reliably use FUSE filesystems for uWSGI vassals (with Linux)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/DynamicProxying.html">Build a dynamic proxy using RPC and internal routing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/GraphiteAndMetrics.html">Setting up Graphite on Ubuntu using the Metrics subsystem</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="articles/SerializingAccept.html">Serializing accept(), AKA Thundering Herd, AKA the Zeeg Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="articles/TheArtOfGracefulReloading.html">The Art of Graceful Reloading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="articles/FunWithPerlEyetoyRaspberrypi.html">Fun with Perl, Eyetoy and RaspberryPi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="articles/OffloadingWebsocketsAndSSE.html">Offloading Websockets and Server-Sent Events AKA &quot;Combine them with Django safely&quot;</a></li>
+<li class="toctree-l1"><a class="reference internal" href="articles/WSGIEnvBehaviour.html">WSGI env behaviour policies</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="AlarmSubsystem.html">The uWSGI alarm subsystem (from 1.3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Caching.html">The uWSGI caching framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WebCaching.html">WebCaching framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cron.html">The uWSGI cron-like interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Fastrouter.html">The uWSGI FastRouter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="InternalRouting.html">uWSGI internal routing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Legion.html">The uWSGI Legion subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Locks.html">Locks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Mules.html">uWSGI Mules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OffloadSubsystem.html">The uWSGI offloading subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Queue.html">The uWSGI queue framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RPC.html">uWSGI RPC Stack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SharedArea.html">SharedArea -- share memory pages between uWSGI components</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">The uWSGI Signal Framework</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#the-signals-table">The Signals table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#defining-signal-handlers">Defining signal handlers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#signals-targets">Signals targets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#raising-signals">Raising signals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#external-events">External events</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#filesystem-modifications">Filesystem modifications</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#timers">Timers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#signal-wait-and-signal-received">signal_wait and signal_received</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#todo-known-issues">Todo/Known Issues</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Spooler.html">The uWSGI Spooler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SubscriptionServer.html">uWSGI Subscription Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="StaticFiles.html">Serving static files with uWSGI (updated to 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SNI.html">SNI - Server Name Identification (virtual hosting for SSL nodes)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GeoIP.html">The GeoIP plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Transformations.html">uWSGI Transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WebSockets.html">WebSocket support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Metrics.html">The Metrics subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Chunked.html">The Chunked input API</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Cheaper.html">The uWSGI cheaper subsystem -- adaptive process spawning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Emperor.html">The uWSGI Emperor -- multi-app deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Broodlord.html">Auto-scaling with Broodlord mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Zerg.html">Zerg mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DynamicApps.html">Adding applications dynamically</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SSLScaling.html">Scaling SSL connections (uWSGI 1.9)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Capabilities.html">Setting POSIX Capabilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cgroups.html">Running uWSGI in a Linux CGroup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="KSM.html">Using Linux KSM in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Namespaces.html">Jailing your apps using Linux Namespaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Namespaces.html#the-old-way-the-namespace-option">The old way: the --namespace option</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FreeBSDJails.html">FreeBSD Jails</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ForkptyRouter.html">The Forkpty Router</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TunTapRouter.html">The TunTap Router</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Nagios.html">Monitoring uWSGI with Nagios</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SNMP.html">The embedded SNMP server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PushingStats.html">Pushing statistics (from 1.4)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Carbon.html">Integration with Graphite/Carbon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="StatsServer.html">The uWSGI Stats Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Metrics.html">The Metrics subsystem</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Async.html">uWSGI asynchronous/non-blocking modes (updated to uWSGI 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Gevent.html">The Gevent loop engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tornado.html">The Tornado loop engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uGreen.html">uGreen -- uWSGI Green Threads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="asyncio.html">The asyncio loop engine (CPython &gt;= 3.4, uWSGI &gt;= 2.0.4)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Apache.html">Apache support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cherokee.html">Cherokee support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="HTTP.html">Native HTTP support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="HTTPS.html">HTTPS 지원 (1.3 버전부터)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SPDY.html">The SPDY router (uWSGI 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lighttpd.html">Lighttpd support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Mongrel2.html">Attaching uWSGI to Mongrel2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Nginx.html">Nginx support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OpenBSDhttpd.html">Using OpenBSD httpd as proxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OpenBSDhttpd.html#notes">Notes</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Python.html">Python support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PyPy.html">The PyPy plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PHP.html">Running PHP scripts in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Perl.html">uWSGI Perl support (PSGI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Ruby.html">Ruby support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lua.html">Using Lua/WSAPI with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="JVM.html">JVM in the uWSGI server (updated to 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Mono.html">The Mono ASP.NET plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CGI.html">Running CGI scripts on uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GCCGO.html">The GCCGO plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Symcall.html">The Symcall plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="XSLT.html">The XSLT plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SSI.html">SSI (Server Side Includes) plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="V8.html">uWSGI V8 support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GridFS.html">The GridFS plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GlusterFS.html">The GlusterFS plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Rados.html">The RADOS plugin</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Pty.html">The Pty plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SPNEGO.html">SPNEGO authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LDAP.html">Configuring uWSGI with LDAP</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Erlang.html">Integrating uWSGI with Erlang</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ManagementFlag.html">Management Flags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Go.html">uWSGI Go support (1.4 only)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.18.html">uWSGI 2.0.18</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.17.1.html">uWSGI 2.0.17.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.17.html">uWSGI 2.0.17</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.16.html">uWSGI 2.0.16</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.15.html">uWSGI 2.0.15</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.14.html">uWSGI 2.0.14</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.13.1.html">uWSGI 2.0.13.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.13.html">uWSGI 2.0.13</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.12.html">uWSGI 2.0.12</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.11.2.html">uWSGI 2.0.11.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.11.1.html">uWSGI 2.0.11.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.11.html">uWSGI 2.0.11</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.10.html">uWSGI 2.0.10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.9.html">uWSGI 2.0.9</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.8.html">uWSGI 2.0.8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.7.html">uWSGI 2.0.7</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.6.html">uWSGI 2.0.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.5.html">uWSGI 2.0.5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.4.html">uWSGI 2.0.4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.3.html">uWSGI 2.0.3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.2.html">uWSGI 2.0.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.1.html">uWSGI 2.0.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.html">uWSGI 2.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.21.html">uWSGI 1.9.21</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.20.html">uWSGI 1.9.20</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.19.html">uWSGI 1.9.19</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.18.html">uWSGI 1.9.18</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.17.html">uWSGI 1.9.17</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.16.html">uWSGI 1.9.16</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.15.html">uWSGI 1.9.15</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.14.html">uWSGI 1.9.14</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.13.html">uWSGI 1.9.13</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.12.html">uWSGI 1.9.12</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.11.html">uWSGI 1.9.11</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.10.html">uWSGI 1.9.10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.9.html">uWSGI 1.9.9</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.8.html">uWSGI 1.9.8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.7.html">uWSGI 1.9.7</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.6.html">uWSGI 1.9.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.5.html">uWSGI 1.9.5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.4.html">uWSGI 1.9.4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.3.html">uWSGI 1.9.3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.2.html">uWSGI 1.9.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.1.html">uWSGI 1.9.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.html">uWSGI 1.9</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">uWSGI</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>The uWSGI Signal Framework</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/Signals.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="the-uwsgi-signal-framework">
+<h1>The uWSGI Signal Framework<a class="headerlink" href="#the-uwsgi-signal-framework" title="제목 주소">¶</a></h1>
+<div class="admonition warning">
+<p class="first admonition-title">경고</p>
+<p class="last">Raw usage of uwsgi signals is for advanced users only. You should see <a class="reference internal" href="PythonDecorators.html"><span class="doc">uWSGI API - Python decorators</span></a> for a more elegant abstraction.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">주석</p>
+<p class="last">uWSGI Signals have _nothing_ in common with UNIX/Posix signals (if you are looking for those, <a class="reference internal" href="Management.html"><span class="doc">Managing the uWSGI server</span></a> is your page).</p>
+</div>
+<p>Over time, your uWSGI stack is growing, you add spoolers, more processes, more plugins, whatever. The more features you add the more you need all of these components to speak to each other.</p>
+<p>Another important task for today's rich/advanced web apps is to respond to different events. An event could be a file modification, a new cluster node popping up, another one (sadly) dying, a timer having elapsed... whatever you can imagine.</p>
+<p>Communication and event management are all managed by the same subsystem -- the uWSGI signal framework.</p>
+<p>uWSGI signals are managed with sockets, so they are <em>fully reliable</em>. When you send an uWSGI signal, you can be sure that it will be delivered.</p>
+<div class="section" id="the-signals-table">
+<h2>The Signals table<a class="headerlink" href="#the-signals-table" title="제목 주소">¶</a></h2>
+<p>Signals are simple <em>1 byte</em> messages that are routed by the master process to workers and spoolers.</p>
+<p>When a worker receives a signal it searches the signals table for the corresponding handler to execute.</p>
+<p>The signal table is shared by all workers (and protected against race conditions by a shared lock).</p>
+<p>Every uWSGI process (mainly the master though) can write into it to set signal handlers and recipient processes.</p>
+<div class="admonition warning">
+<p class="first admonition-title">경고</p>
+<p class="last">Always pay attention to who will run the signal handler. It must have access to the handler itself.
+This means that if you define a new function in <code class="docutils literal notranslate"><span class="pre">worker1</span></code> and register it as a signal handler, only <code class="docutils literal notranslate"><span class="pre">worker1</span></code> can run it.
+The best way to register signals is defining them in the master, so (thanks to <code class="docutils literal notranslate"><span class="pre">fork()</span></code>) all workers see them.</p>
+</div>
+</div>
+<div class="section" id="defining-signal-handlers">
+<h2>Defining signal handlers<a class="headerlink" href="#defining-signal-handlers" title="제목 주소">¶</a></h2>
+<p>To manage the signals table the uWSGI API exposes one simple function, <a class="reference internal" href="PythonModule.html#uwsgi.register_signal" title="uwsgi.register_signal"><code class="xref py py-meth docutils literal notranslate"><span class="pre">uwsgi.register_signal()</span></code></a>.</p>
+<p>These are two simple examples of defining signal table items, in Python and Lua.</p>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">uwsgi</span>
+
+<span class="k">def</span> <span class="nf">hello_signal</span><span class="p">(</span><span class="n">num</span><span class="p">):</span>
+    <span class="k">print</span> <span class="s2">&quot;i am the signal </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">num</span>
+
+<span class="k">def</span> <span class="nf">hello_signal2</span><span class="p">(</span><span class="n">num</span><span class="p">):</span>
+    <span class="k">print</span> <span class="s2">&quot;Hi, i am the signal </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">num</span>
+
+<span class="c1"># define 2 signal table items (30 and 22)</span>
+<span class="n">uwsgi</span><span class="o">.</span><span class="n">register_signal</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="s2">&quot;worker&quot;</span><span class="p">,</span> <span class="n">hello_signal</span><span class="p">)</span>
+<span class="n">uwsgi</span><span class="o">.</span><span class="n">register_signal</span><span class="p">(</span><span class="mi">22</span><span class="p">,</span> <span class="s2">&quot;workers&quot;</span><span class="p">,</span> <span class="n">hello_signal2</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">function</span> <span class="nf">hello_signal</span><span class="p">(</span><span class="n">sig</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;i am Lua, received signal &quot;</span> <span class="o">..</span> <span class="n">sig</span> <span class="o">..</span><span class="p">)</span>
+<span class="kr">end</span>
+
+<span class="o">#</span> <span class="n">define</span> <span class="n">a</span> <span class="n">single</span> <span class="n">signal</span> <span class="n">table</span> <span class="n">item</span> <span class="p">(</span><span class="n">signal</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">uwsgi</span><span class="p">.</span><span class="n">register_signal</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;worker&quot;</span><span class="p">,</span> <span class="n">hello_signal</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="signals-targets">
+<h2>Signals targets<a class="headerlink" href="#signals-targets" title="제목 주소">¶</a></h2>
+<p>The third argument of uwsgi.register_signal is the 'signal target'.</p>
+<p>It instructs the system about 'who' must run the handler. By default the target is 'worker' that means 'the first available worker'. The following targets are available:</p>
+<ul class="simple">
+<li>workerN (run the signal handler only on worker N)</li>
+<li>worker/worker0 (the default one, run the signal handler on the first available worker)</li>
+<li>workers (run the signal handler on all the workers)</li>
+<li>active-workers (run the signal handlers on all the active [non-cheaped] workers)</li>
+<li>spooler (run the signal on the first available spooler)</li>
+<li>mules (run the signal handler on all of the mules)</li>
+<li>muleN (run the signal handler on mule N)</li>
+<li>mule/mule0 (run the signal handler on the first available mule)</li>
+<li>farmN/farm_XXX (run the signal handler in the mule farm N or named XXX)</li>
+</ul>
+</div>
+<div class="section" id="raising-signals">
+<h2>Raising signals<a class="headerlink" href="#raising-signals" title="제목 주소">¶</a></h2>
+<p>Signals may be raised using <a class="reference internal" href="PythonModule.html#uwsgi.signal" title="uwsgi.signal"><code class="xref py py-meth docutils literal notranslate"><span class="pre">uwsgi.signal()</span></code></a>. When you send a signal, it is copied into the master's queue. The master will then check the signal table and dispatch the messages.</p>
+</div>
+<div class="section" id="external-events">
+<h2>External events<a class="headerlink" href="#external-events" title="제목 주소">¶</a></h2>
+<p>The most useful feature of uWSGI signals is that they can be used to announce external events.</p>
+<p>At the time of writing the available external events are</p>
+<ul class="simple">
+<li>filesystem modifications</li>
+<li>timers/rb_timers</li>
+<li>cron</li>
+</ul>
+<p>Other events are exposed via plugins, like <a class="reference external" href="https://github.com/unbit/uwsgi-pgnotify">https://github.com/unbit/uwsgi-pgnotify</a> raising signal whenever a postgres notification channel is ready.</p>
+<div class="section" id="filesystem-modifications">
+<h3>Filesystem modifications<a class="headerlink" href="#filesystem-modifications" title="제목 주소">¶</a></h3>
+<p>To map a specific file/directory modification event to a signal you can use <a class="reference internal" href="PythonModule.html#uwsgi.add_file_monitor" title="uwsgi.add_file_monitor"><code class="xref py py-meth docutils literal notranslate"><span class="pre">uwsgi.add_file_monitor()</span></code></a>.</p>
+<p>An example:</p>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">uwsgi</span>
+
+<span class="k">def</span> <span class="nf">hello_file</span><span class="p">(</span><span class="n">num</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s2">&quot;/tmp has been modified !!!&quot;</span>
+
+<span class="n">uwsgi</span><span class="o">.</span><span class="n">register_signal</span><span class="p">(</span><span class="mi">17</span><span class="p">,</span> <span class="s2">&quot;worker&quot;</span><span class="p">,</span> <span class="n">hello_file</span><span class="p">)</span>
+<span class="n">uwsgi</span><span class="o">.</span><span class="n">add_file_monitor</span><span class="p">(</span><span class="mi">17</span><span class="p">,</span> <span class="s2">&quot;/tmp&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>From now on, every time <code class="docutils literal notranslate"><span class="pre">/tmp</span></code> is modified, signal 17 will be raised and <code class="docutils literal notranslate"><span class="pre">hello_file</span></code> will be run by the first available worker.</p>
+</div>
+<div class="section" id="timers">
+<h3>Timers<a class="headerlink" href="#timers" title="제목 주소">¶</a></h3>
+<p>Timers are another useful feature in web programming -- for instance to clear sessions and shopping carts and what-have-you.</p>
+<p>Timers are implemented using kernel facilities (most notably kqueue on BSD systems and timerfd() on modern Linux kernels). uWSGI also contains support for rb_timers, timers implemented in user space using red-black trees.</p>
+<p>To register a timer, use <a class="reference internal" href="PythonModule.html#uwsgi.add_timer" title="uwsgi.add_timer"><code class="xref py py-meth docutils literal notranslate"><span class="pre">uwsgi.add_timer()</span></code></a>. To register an rb_timer, use <a class="reference internal" href="PythonModule.html#uwsgi.add_rb_timer" title="uwsgi.add_rb_timer"><code class="xref py py-meth docutils literal notranslate"><span class="pre">uwsgi.add_rb_timer()</span></code></a>.</p>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">uwsgi</span>
+
+<span class="k">def</span> <span class="nf">hello_timer</span><span class="p">(</span><span class="n">num</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s2">&quot;2 seconds elapsed, signal </span><span class="si">%d</span><span class="s2"> raised&quot;</span> <span class="o">%</span> <span class="n">num</span>
+
+<span class="k">def</span> <span class="nf">oneshot_timer</span><span class="p">(</span><span class="n">num</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s2">&quot;40 seconds elapsed, signal </span><span class="si">%d</span><span class="s2"> raised. You will never see me again.&quot;</span> <span class="o">%</span> <span class="n">num</span>
+
+
+<span class="n">uwsgi</span><span class="o">.</span><span class="n">register_signal</span><span class="p">(</span><span class="mi">26</span><span class="p">,</span> <span class="s2">&quot;worker&quot;</span><span class="p">,</span> <span class="n">hello_timer</span><span class="p">)</span>
+<span class="n">uwsgi</span><span class="o">.</span><span class="n">register_signal</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">oneshot_timer</span><span class="p">)</span>
+
+<span class="n">uwsgi</span><span class="o">.</span><span class="n">add_timer</span><span class="p">(</span><span class="mi">26</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="c1"># never-ending timer every 2 seconds</span>
+<span class="n">uwsgi</span><span class="o">.</span><span class="n">add_rb_timer</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># one shot rb timer after 40 seconds</span>
+</pre></div>
+</div>
+<p>Signal 26 will be raised every 2 seconds and handled by the first available worker.
+Signal 30 will be raised after 40 seconds and executed only once.</p>
+</div>
+</div>
+<div class="section" id="signal-wait-and-signal-received">
+<h2>signal_wait and signal_received<a class="headerlink" href="#signal-wait-and-signal-received" title="제목 주소">¶</a></h2>
+<p>Unregistered signals (those without an handler associated) will be routed to the first available worker to use the <a class="reference internal" href="PythonModule.html#uwsgi.signal_wait" title="uwsgi.signal_wait"><code class="xref py py-meth docutils literal notranslate"><span class="pre">uwsgi.signal_wait()</span></code></a> function.</p>
+<div class="highlight-xxx notranslate"><div class="highlight"><pre><span></span>uwsgi.signal_wait()
+signum = uwsgi.signal_received()
+</pre></div>
+</div>
+<p>You can combine external events (file monitors, timers...) with this technique to implement event-based apps. A good example is a chat server where every core waits for text sent by users.</p>
+<p>You can also wait for specific (even registered) signals by passing a signal number to <code class="docutils literal notranslate"><span class="pre">signal_wait</span></code>.</p>
+</div>
+<div class="section" id="todo-known-issues">
+<h2>Todo/Known Issues<a class="headerlink" href="#todo-known-issues" title="제목 주소">¶</a></h2>
+<ul class="simple">
+<li>Signal table entry cannot be removed (this will be fixed soon)</li>
+<li>Iterations work only with rb_timers</li>
+<li>uwsgi.signal_wait() does not work in async mode (will be fixed)</li>
+<li>Add iterations to file monitoring (to allow one-shot event as timers)</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Spooler.html" class="btn btn-neutral float-right" title="The uWSGI Spooler" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="SharedArea.html" class="btn btn-neutral" title="SharedArea -- share memory pages between uWSGI components" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2012-2016, uWSGI.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'2.0',
+            LANGUAGE:'ko',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/language_data.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          
+          SphinxRtdTheme.Navigation.enableSticky();
+          
+      });
+  </script> 
+
+</body>
+</html>

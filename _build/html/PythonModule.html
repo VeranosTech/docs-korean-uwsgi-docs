@@ -1,0 +1,1626 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ko" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ko" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>The uwsgi Python module &mdash; uWSGI 2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="색인" href="genindex.html" />
+    <link rel="search" title="검색" href="search.html" />
+    <link rel="next" title="uWSGI API - Python decorators" href="PythonDecorators.html" />
+    <link rel="prev" title="Python support" href="Python.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> uWSGI
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="WSGIquickstart.html">Quickstart for Python/WSGI applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PSGIquickstart.html">Quickstart for perl/PSGI applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RackQuickstart.html">Quickstart for ruby/Rack applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Snippets.html">Snippets</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Download.html">Getting uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Install.html">Installing uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BuildSystem.html">The uWSGI build system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Management.html">Managing the uWSGI server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LanguagesAndPlatforms.html">Supported languages and platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SupportedPlatforms.html">Supported Platforms/Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WebServers.html">Web server integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FAQ.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ThingsToKnow.html">Things to know (best practices and &quot;issues&quot;) READ IT !!!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Configuration.html">Configuring uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FallbackConfig.html">Fallback configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ConfigLogic.html">Configuration logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Options.html">uWSGI Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CustomOptions.html">Defining new options for your instances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ParsingOrder.html">How uWSGI parses config files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Vars.html">uwsgi protocol magic variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Protocol.html">The uwsgi Protocol</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AttachingDaemons.html">Managing external daemons/services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MasterFIFO.html">The Master FIFO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Inetd.html">Socket activation with inetd/xinetd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Upstart.html">Running uWSGI via Upstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Systemd.html">Systemd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Circus.html">Running uWSGI instances with Circus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Embed.html">Embedding an application in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Logging.html">Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LogFormat.html">Formatting uWSGI requests logs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LogEncoders.html">Log encoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Hooks.html">Hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WorkerOverride.html">Overriding Workers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ThirdPartyPlugins.html">uWSGI third party plugins</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/CachingCookbook.html">The uWSGI Caching Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/Django_and_nginx.html">Setting up Django and your web server with uWSGI and nginx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/dreamhost.html">Running uWSGI on Dreamhost shared hosting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/heroku_python.html">Running python webapps on Heroku with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/heroku_ruby.html">Running Ruby/Rack webapps on Heroku with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/ReliableFuse.html">Reliably use FUSE filesystems for uWSGI vassals (with Linux)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/DynamicProxying.html">Build a dynamic proxy using RPC and internal routing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/GraphiteAndMetrics.html">Setting up Graphite on Ubuntu using the Metrics subsystem</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="articles/SerializingAccept.html">Serializing accept(), AKA Thundering Herd, AKA the Zeeg Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="articles/TheArtOfGracefulReloading.html">The Art of Graceful Reloading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="articles/FunWithPerlEyetoyRaspberrypi.html">Fun with Perl, Eyetoy and RaspberryPi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="articles/OffloadingWebsocketsAndSSE.html">Offloading Websockets and Server-Sent Events AKA &quot;Combine them with Django safely&quot;</a></li>
+<li class="toctree-l1"><a class="reference internal" href="articles/WSGIEnvBehaviour.html">WSGI env behaviour policies</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="AlarmSubsystem.html">The uWSGI alarm subsystem (from 1.3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Caching.html">The uWSGI caching framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WebCaching.html">WebCaching framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cron.html">The uWSGI cron-like interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Fastrouter.html">The uWSGI FastRouter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="InternalRouting.html">uWSGI internal routing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Legion.html">The uWSGI Legion subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Locks.html">Locks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Mules.html">uWSGI Mules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OffloadSubsystem.html">The uWSGI offloading subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Queue.html">The uWSGI queue framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RPC.html">uWSGI RPC Stack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SharedArea.html">SharedArea -- share memory pages between uWSGI components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Signals.html">The uWSGI Signal Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Spooler.html">The uWSGI Spooler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SubscriptionServer.html">uWSGI Subscription Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="StaticFiles.html">Serving static files with uWSGI (updated to 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SNI.html">SNI - Server Name Identification (virtual hosting for SSL nodes)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GeoIP.html">The GeoIP plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Transformations.html">uWSGI Transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WebSockets.html">WebSocket support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Metrics.html">The Metrics subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Chunked.html">The Chunked input API</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Cheaper.html">The uWSGI cheaper subsystem -- adaptive process spawning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Emperor.html">The uWSGI Emperor -- multi-app deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Broodlord.html">Auto-scaling with Broodlord mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Zerg.html">Zerg mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DynamicApps.html">Adding applications dynamically</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SSLScaling.html">Scaling SSL connections (uWSGI 1.9)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Capabilities.html">Setting POSIX Capabilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cgroups.html">Running uWSGI in a Linux CGroup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="KSM.html">Using Linux KSM in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Namespaces.html">Jailing your apps using Linux Namespaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Namespaces.html#the-old-way-the-namespace-option">The old way: the --namespace option</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FreeBSDJails.html">FreeBSD Jails</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ForkptyRouter.html">The Forkpty Router</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TunTapRouter.html">The TunTap Router</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Nagios.html">Monitoring uWSGI with Nagios</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SNMP.html">The embedded SNMP server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PushingStats.html">Pushing statistics (from 1.4)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Carbon.html">Integration with Graphite/Carbon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="StatsServer.html">The uWSGI Stats Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Metrics.html">The Metrics subsystem</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Async.html">uWSGI asynchronous/non-blocking modes (updated to uWSGI 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Gevent.html">The Gevent loop engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tornado.html">The Tornado loop engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uGreen.html">uGreen -- uWSGI Green Threads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="asyncio.html">The asyncio loop engine (CPython &gt;= 3.4, uWSGI &gt;= 2.0.4)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Apache.html">Apache support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cherokee.html">Cherokee support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="HTTP.html">Native HTTP support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="HTTPS.html">HTTPS 지원 (1.3 버전부터)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SPDY.html">The SPDY router (uWSGI 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lighttpd.html">Lighttpd support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Mongrel2.html">Attaching uWSGI to Mongrel2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Nginx.html">Nginx support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OpenBSDhttpd.html">Using OpenBSD httpd as proxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OpenBSDhttpd.html#notes">Notes</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="Python.html">Python support</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">The uwsgi Python module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-uwsgi">Module-level globals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cache-functions">Cache functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#queue-functions">Queue functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#snmp-functions">SNMP functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spooler-functions">Spooler functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#advanced-methods">Advanced methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#async-functions">Async functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sharedarea-functions">SharedArea functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#erlang-functions">Erlang functions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PythonDecorators.html">uWSGI API - Python decorators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PythonPump.html">Pump support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tracebacker.html">Python Tracebacker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PythonModuleAlias.html">Aliasing Python modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Python.html#application-dictionary">Application dictionary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Python.html#virtualenv-support">Virtualenv support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Python.html#python-3">Python 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Python.html#paste-support">Paste support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Python.html#pecan-support">Pecan support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Python.html#using-the-django-uwsgi-django-app">Using the django-uwsgi Django app</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PyPy.html">The PyPy plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PHP.html">Running PHP scripts in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Perl.html">uWSGI Perl support (PSGI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Ruby.html">Ruby support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lua.html">Using Lua/WSAPI with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="JVM.html">JVM in the uWSGI server (updated to 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Mono.html">The Mono ASP.NET plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CGI.html">Running CGI scripts on uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GCCGO.html">The GCCGO plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Symcall.html">The Symcall plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="XSLT.html">The XSLT plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SSI.html">SSI (Server Side Includes) plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="V8.html">uWSGI V8 support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GridFS.html">The GridFS plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GlusterFS.html">The GlusterFS plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Rados.html">The RADOS plugin</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Pty.html">The Pty plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SPNEGO.html">SPNEGO authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LDAP.html">Configuring uWSGI with LDAP</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Erlang.html">Integrating uWSGI with Erlang</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ManagementFlag.html">Management Flags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Go.html">uWSGI Go support (1.4 only)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.18.html">uWSGI 2.0.18</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.17.1.html">uWSGI 2.0.17.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.17.html">uWSGI 2.0.17</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.16.html">uWSGI 2.0.16</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.15.html">uWSGI 2.0.15</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.14.html">uWSGI 2.0.14</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.13.1.html">uWSGI 2.0.13.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.13.html">uWSGI 2.0.13</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.12.html">uWSGI 2.0.12</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.11.2.html">uWSGI 2.0.11.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.11.1.html">uWSGI 2.0.11.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.11.html">uWSGI 2.0.11</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.10.html">uWSGI 2.0.10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.9.html">uWSGI 2.0.9</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.8.html">uWSGI 2.0.8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.7.html">uWSGI 2.0.7</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.6.html">uWSGI 2.0.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.5.html">uWSGI 2.0.5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.4.html">uWSGI 2.0.4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.3.html">uWSGI 2.0.3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.2.html">uWSGI 2.0.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.1.html">uWSGI 2.0.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.html">uWSGI 2.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.21.html">uWSGI 1.9.21</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.20.html">uWSGI 1.9.20</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.19.html">uWSGI 1.9.19</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.18.html">uWSGI 1.9.18</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.17.html">uWSGI 1.9.17</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.16.html">uWSGI 1.9.16</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.15.html">uWSGI 1.9.15</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.14.html">uWSGI 1.9.14</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.13.html">uWSGI 1.9.13</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.12.html">uWSGI 1.9.12</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.11.html">uWSGI 1.9.11</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.10.html">uWSGI 1.9.10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.9.html">uWSGI 1.9.9</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.8.html">uWSGI 1.9.8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.7.html">uWSGI 1.9.7</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.6.html">uWSGI 1.9.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.5.html">uWSGI 1.9.5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.4.html">uWSGI 1.9.4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.3.html">uWSGI 1.9.3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.2.html">uWSGI 1.9.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.1.html">uWSGI 1.9.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.html">uWSGI 1.9</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">uWSGI</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="Python.html">Python support</a> &raquo;</li>
+        
+      <li>The uwsgi Python module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/PythonModule.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="the-uwsgi-python-module">
+<h1>The uwsgi Python module<a class="headerlink" href="#the-uwsgi-python-module" title="제목 주소">¶</a></h1>
+<p>The uWSGI server automagically adds a <code class="docutils literal notranslate"><span class="pre">uwsgi</span></code> module into your Python apps.</p>
+<p>This is useful for configuring the uWSGI server, use its internal functions and get statistics. Also useful for detecting whether you're actually running under uWSGI; if you attempt to <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">uwsgi</span></code> and receive an ImportError you're not running under uWSGI.</p>
+<div class="admonition note">
+<p class="first admonition-title">주석</p>
+<p class="last">Many of these functions are currently woefully undocumented.</p>
+</div>
+<div class="section" id="module-uwsgi">
+<span id="module-level-globals"></span><h2>Module-level globals<a class="headerlink" href="#module-uwsgi" title="제목 주소">¶</a></h2>
+<dl class="data">
+<dt id="uwsgi.numproc">
+<code class="descclassname">uwsgi.</code><code class="descname">numproc</code><a class="headerlink" href="#uwsgi.numproc" title="정의 주소">¶</a></dt>
+<dd><p>The number of processes/workers currently running.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="uwsgi.buffer_size">
+<code class="descclassname">uwsgi.</code><code class="descname">buffer_size</code><a class="headerlink" href="#uwsgi.buffer_size" title="정의 주소">¶</a></dt>
+<dd><p>The current configured buffer size in bytes.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="uwsgi.started_on">
+<code class="descclassname">uwsgi.</code><code class="descname">started_on</code><span class="sig-paren">(</span><em>int</em><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.started_on" title="정의 주소">¶</a></dt>
+<dd><p>The Unix timestamp of uWSGI's startup.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="uwsgi.fastfuncs">
+<code class="descclassname">uwsgi.</code><code class="descname">fastfuncs</code><a class="headerlink" href="#uwsgi.fastfuncs" title="정의 주소">¶</a></dt>
+<dd><p>This is the dictionary used to define <span class="xref std std-doc">FastFuncs</span>.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="uwsgi.applist">
+<code class="descclassname">uwsgi.</code><code class="descname">applist</code><a class="headerlink" href="#uwsgi.applist" title="정의 주소">¶</a></dt>
+<dd><p>This is the list of applications currently configured.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="uwsgi.applications">
+<code class="descclassname">uwsgi.</code><code class="descname">applications</code><a class="headerlink" href="#uwsgi.applications" title="정의 주소">¶</a></dt>
+<dd><p>This is the dynamic applications dictionary.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">더 보기</p>
+<p class="last"><a class="reference internal" href="Python.html#pythonappdict"><span class="std std-ref">Application dictionary</span></a></p>
+</div>
+</dd></dl>
+
+<dl class="data">
+<dt id="uwsgi.message_manager_marshal">
+<code class="descclassname">uwsgi.</code><code class="descname">message_manager_marshal</code><a class="headerlink" href="#uwsgi.message_manager_marshal" title="정의 주소">¶</a></dt>
+<dd><p>The callable to run when the uWSGI server receives a marshalled message.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="uwsgi.magic_table">
+<code class="descclassname">uwsgi.</code><code class="descname">magic_table</code><a class="headerlink" href="#uwsgi.magic_table" title="정의 주소">¶</a></dt>
+<dd><p>The magic table of configuration placeholders.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="uwsgi.opt">
+<code class="descclassname">uwsgi.</code><code class="descname">opt</code><a class="headerlink" href="#uwsgi.opt" title="정의 주소">¶</a></dt>
+<dd><p>The current configuration options, including any custom placeholders.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="cache-functions">
+<h2>Cache functions<a class="headerlink" href="#cache-functions" title="제목 주소">¶</a></h2>
+<dl class="function">
+<dt id="uwsgi.cache_get">
+<code class="descclassname">uwsgi.</code><code class="descname">cache_get</code><span class="sig-paren">(</span><em>key</em><span class="optional">[</span>, <em>cache_name</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.cache_get" title="정의 주소">¶</a></dt>
+<dd><p>Get a value from the cache.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">매개 변수:</th><td class="field-body"><ul class="first last simple">
+<li><strong>key</strong> -- The cache key to read.</li>
+<li><strong>cache_name</strong> -- The name of the cache in multiple cache mode (can be in the form <a class="reference external" href="mailto:name&#37;&#52;&#48;address">name<span>&#64;</span>address</a>). Optional.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.cache_set">
+<code class="descclassname">uwsgi.</code><code class="descname">cache_set</code><span class="sig-paren">(</span><em>key</em>, <em>value</em><span class="optional">[</span>, <em>expire</em>, <em>cache_name</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.cache_set" title="정의 주소">¶</a></dt>
+<dd><p>Set a value in the cache. If the key is already set but not expired, it doesn't set anything.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">매개 변수:</th><td class="field-body"><ul class="first last simple">
+<li><strong>key</strong> -- The cache key to write.</li>
+<li><strong>value</strong> -- The cache value to write.</li>
+<li><strong>expire</strong> -- Expiry time of the value, in seconds.</li>
+<li><strong>cache_name</strong> -- The name of the cache in multiple cache mode (can be in the form <a class="reference external" href="mailto:name&#37;&#52;&#48;address">name<span>&#64;</span>address</a>). Optional.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.cache_update">
+<code class="descclassname">uwsgi.</code><code class="descname">cache_update</code><span class="sig-paren">(</span><em>key</em>, <em>value</em><span class="optional">[</span>, <em>expire</em>, <em>cache_name</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.cache_update" title="정의 주소">¶</a></dt>
+<dd><p>Update a value in the cache. This always sets the key, whether it was already set before or not and whether it has expired or not.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">매개 변수:</th><td class="field-body"><ul class="first last simple">
+<li><strong>key</strong> -- The cache key to write.</li>
+<li><strong>value</strong> -- The cache value to write.</li>
+<li><strong>expire</strong> -- Expiry time of the value, in seconds.</li>
+<li><strong>cache_name</strong> -- The name of the cache in multiple cache mode (can be in the form <a class="reference external" href="mailto:name&#37;&#52;&#48;address">name<span>&#64;</span>address</a>). Optional.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.cache_del">
+<code class="descclassname">uwsgi.</code><code class="descname">cache_del</code><span class="sig-paren">(</span><em>key</em><span class="optional">[</span>, <em>cache_name</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.cache_del" title="정의 주소">¶</a></dt>
+<dd><p>Delete the given cached value from the cache.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">매개 변수:</th><td class="field-body"><ul class="first last simple">
+<li><strong>key</strong> -- The cache key to delete.</li>
+<li><strong>cache_name</strong> -- The name of the cache in multiple cache mode (can be in the form <a class="reference external" href="mailto:name&#37;&#52;&#48;address">name<span>&#64;</span>address</a>). Optional.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.cache_exists">
+<code class="descclassname">uwsgi.</code><code class="descname">cache_exists</code><span class="sig-paren">(</span><em>key</em><span class="optional">[</span>, <em>cache_name</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.cache_exists" title="정의 주소">¶</a></dt>
+<dd><p>Quickly check whether there is a value in the cache associated with the given key.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">매개 변수:</th><td class="field-body"><ul class="first last simple">
+<li><strong>key</strong> -- The cache key to check.</li>
+<li><strong>cache_name</strong> -- The name of the cache in multiple cache mode (can be in the form <a class="reference external" href="mailto:name&#37;&#52;&#48;address">name<span>&#64;</span>address</a>). Optional.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.cache_clear">
+<code class="descclassname">uwsgi.</code><code class="descname">cache_clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.cache_clear" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="queue-functions">
+<h2>Queue functions<a class="headerlink" href="#queue-functions" title="제목 주소">¶</a></h2>
+<dl class="function">
+<dt id="uwsgi.queue_get">
+<code class="descclassname">uwsgi.</code><code class="descname">queue_get</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.queue_get" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.queue_set">
+<code class="descclassname">uwsgi.</code><code class="descname">queue_set</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.queue_set" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.queue_last">
+<code class="descclassname">uwsgi.</code><code class="descname">queue_last</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.queue_last" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.queue_push">
+<code class="descclassname">uwsgi.</code><code class="descname">queue_push</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.queue_push" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.queue_pull">
+<code class="descclassname">uwsgi.</code><code class="descname">queue_pull</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.queue_pull" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.queue_pop">
+<code class="descclassname">uwsgi.</code><code class="descname">queue_pop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.queue_pop" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.queue_slot">
+<code class="descclassname">uwsgi.</code><code class="descname">queue_slot</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.queue_slot" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.queue_pull_slot">
+<code class="descclassname">uwsgi.</code><code class="descname">queue_pull_slot</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.queue_pull_slot" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="snmp-functions">
+<h2>SNMP functions<a class="headerlink" href="#snmp-functions" title="제목 주소">¶</a></h2>
+<dl class="function">
+<dt id="uwsgi.snmp_set_community">
+<code class="descclassname">uwsgi.</code><code class="descname">snmp_set_community</code><span class="sig-paren">(</span><em>str</em><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.snmp_set_community" title="정의 주소">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">매개 변수:</th><td class="field-body"><strong>str</strong> -- The string containing the new community value.</td>
+</tr>
+</tbody>
+</table>
+<p>Sets the SNMP community string.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.snmp_set_counter32">
+<code class="descclassname">uwsgi.</code><code class="descname">snmp_set_counter32</code><span class="sig-paren">(</span><em>oidnum</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.snmp_set_counter32" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.snmp_set_counter64">
+<code class="descclassname">uwsgi.</code><code class="descname">snmp_set_counter64</code><span class="sig-paren">(</span><em>oidnum</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.snmp_set_counter64" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.snmp_set_gauge">
+<code class="descclassname">uwsgi.</code><code class="descname">snmp_set_gauge</code><span class="sig-paren">(</span><em>oidnum</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.snmp_set_gauge" title="정의 주소">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">매개 변수:</th><td class="field-body"><ul class="first last simple">
+<li><strong>oidnum</strong> -- An integer containing the oid number target.</li>
+<li><strong>value</strong> -- An integer containing the new value of the counter or gauge.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Sets the counter or gauge to a specific value.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.snmp_incr_counter32">
+<code class="descclassname">uwsgi.</code><code class="descname">snmp_incr_counter32</code><span class="sig-paren">(</span><em>oidnum</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.snmp_incr_counter32" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.snmp_incr_counter64">
+<code class="descclassname">uwsgi.</code><code class="descname">snmp_incr_counter64</code><span class="sig-paren">(</span><em>oidnum</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.snmp_incr_counter64" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.snmp_incr_gauge">
+<code class="descclassname">uwsgi.</code><code class="descname">snmp_incr_gauge</code><span class="sig-paren">(</span><em>oidnum</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.snmp_incr_gauge" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.snmp_decr_counter32">
+<code class="descclassname">uwsgi.</code><code class="descname">snmp_decr_counter32</code><span class="sig-paren">(</span><em>oidnum</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.snmp_decr_counter32" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.snmp_decr_counter64">
+<code class="descclassname">uwsgi.</code><code class="descname">snmp_decr_counter64</code><span class="sig-paren">(</span><em>oidnum</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.snmp_decr_counter64" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.snmp_decr_gauge">
+<code class="descclassname">uwsgi.</code><code class="descname">snmp_decr_gauge</code><span class="sig-paren">(</span><em>oidnum</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.snmp_decr_gauge" title="정의 주소">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">매개 변수:</th><td class="field-body"><ul class="first last simple">
+<li><strong>oidnum</strong> -- An integer containing the oid number target.</li>
+<li><strong>value</strong> -- An integer containing the amount to increase or decrease the counter or gauge. If not specified the default is 1.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Increases or decreases the counter or gauge by a specific amount.</p>
+<div class="admonition note">
+<p class="first admonition-title">주석</p>
+<p class="last">uWSGI OID tree starts at 1.3.6.1.4.1.35156.17</p>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="spooler-functions">
+<h2>Spooler functions<a class="headerlink" href="#spooler-functions" title="제목 주소">¶</a></h2>
+<dl class="function">
+<dt id="uwsgi.send_to_spooler">
+<code class="descclassname">uwsgi.</code><code class="descname">send_to_spooler</code><span class="sig-paren">(</span><em>message_dict=None</em>, <em>spooler=None</em>, <em>priority=None</em>, <em>at=None</em>, <em>body=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.send_to_spooler" title="정의 주소">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">매개 변수:</th><td class="field-body"><ul class="first last simple">
+<li><strong>message_dict</strong> -- The message (string keys, string values) to spool. Either this, or <a href="#id1"><span class="problematic" id="id2">**</span></a>kwargs may be set.</li>
+<li><strong>spooler</strong> -- The spooler (id or directory) to use.</li>
+<li><strong>priority</strong> -- The priority of the message. Larger = less important.</li>
+<li><strong>at</strong> -- The minimum UNIX timestamp at which this message should be processed.</li>
+<li><strong>body</strong> -- A binary (bytestring) body to add to the message, in addition to the message dictionary itself. Its value will be available in the key <code class="docutils literal notranslate"><span class="pre">body</span></code> in the message.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Send data to the <a class="reference internal" href="Spooler.html"><span class="doc">The uWSGI Spooler</span></a>. Also known as <cite>spool()</cite>.</p>
+<div class="admonition note">
+<p class="first admonition-title">주석</p>
+<p class="last">Any of the keyword arguments may also be passed in the message dictionary. This means they're reserved words, in a way...</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.set_spooler_frequency">
+<code class="descclassname">uwsgi.</code><code class="descname">set_spooler_frequency</code><span class="sig-paren">(</span><em>seconds</em><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.set_spooler_frequency" title="정의 주소">¶</a></dt>
+<dd><p>Set how often the spooler runs.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.spooler_jobs">
+<code class="descclassname">uwsgi.</code><code class="descname">spooler_jobs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.spooler_jobs" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.spooler_pid">
+<code class="descclassname">uwsgi.</code><code class="descname">spooler_pid</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.spooler_pid" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.spooler_get_task">
+<code class="descclassname">uwsgi.</code><code class="descname">spooler_get_task</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.spooler_get_task" title="정의 주소">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">매개 변수:</th><td class="field-body"><strong>path</strong> -- The relative or absolute path to the task to read</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="advanced-methods">
+<h2>Advanced methods<a class="headerlink" href="#advanced-methods" title="제목 주소">¶</a></h2>
+<dl class="function">
+<dt id="uwsgi.send_message">
+<code class="descclassname">uwsgi.</code><code class="descname">send_message</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.send_message" title="정의 주소">¶</a></dt>
+<dd><p>Send a generic message using <a class="reference internal" href="Protocol.html"><span class="doc">The uwsgi Protocol</span></a>.</p>
+<div class="admonition note">
+<p class="first admonition-title">주석</p>
+<p class="last">Until version <cite>2f970ce58543278c851ff30e52758fd6d6e69fdc</cite> this function was called <code class="docutils literal notranslate"><span class="pre">send_uwsgi_message()</span></code>.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.route">
+<code class="descclassname">uwsgi.</code><code class="descname">route</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.route" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.send_multi_message">
+<code class="descclassname">uwsgi.</code><code class="descname">send_multi_message</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.send_multi_message" title="정의 주소">¶</a></dt>
+<dd><p>Send a generic message to multiple recipients using <a class="reference internal" href="Protocol.html"><span class="doc">The uwsgi Protocol</span></a>.</p>
+<div class="admonition note">
+<p class="first admonition-title">주석</p>
+<p class="last">Until version <cite>2f970ce58543278c851ff30e52758fd6d6e69fdc</cite> this function was called <code class="docutils literal notranslate"><span class="pre">send_multi_uwsgi_message()</span></code>.</p>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">더 보기</p>
+<p class="last"><span class="xref std std-doc">Clustering</span> for examples</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.accepting">
+<code class="descclassname">uwsgi.</code><code class="descname">accepting</code><span class="sig-paren">(</span><em>accepting=True</em><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.accepting" title="정의 주소">¶</a></dt>
+<dd><p>Set the accepting flag of the current worker to the value. This is
+required when using <a href="#id3"><span class="problematic" id="id4">`Overriding Workers`_</span></a> and touch-chain-reload at
+the same time.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">더 보기</p>
+<p class="last"><a class="reference internal" href="WorkerOverride.html"><span class="doc">Overriding Workers</span></a></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.reload">
+<code class="descclassname">uwsgi.</code><code class="descname">reload</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.reload" title="정의 주소">¶</a></dt>
+<dd><p>Gracefully reload the uWSGI server stack.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">더 보기</p>
+<p class="last"><span class="xref std std-doc">Reload</span></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.stop">
+<code class="descclassname">uwsgi.</code><code class="descname">stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.stop" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.workers">
+<code class="descclassname">uwsgi.</code><code class="descname">workers</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; dict<a class="headerlink" href="#uwsgi.workers" title="정의 주소">¶</a></dt>
+<dd><p>Get a statistics dictionary of all the workers for the current server. A dictionary is returned.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.masterpid">
+<code class="descclassname">uwsgi.</code><code class="descname">masterpid</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#uwsgi.masterpid" title="정의 주소">¶</a></dt>
+<dd><p>Return the process identifier (PID) of the uWSGI master process.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.total_requests">
+<code class="descclassname">uwsgi.</code><code class="descname">total_requests</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#uwsgi.total_requests" title="정의 주소">¶</a></dt>
+<dd><p>Returns the total number of requests managed so far by the pool of uWSGI workers.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.get_option">
+<code class="descclassname">uwsgi.</code><code class="descname">get_option</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.get_option" title="정의 주소">¶</a></dt>
+<dd><p>Also available as <cite>getoption()</cite>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.set_option">
+<code class="descclassname">uwsgi.</code><code class="descname">set_option</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.set_option" title="정의 주소">¶</a></dt>
+<dd><p>Also available as <cite>setoption()</cite>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.sorry_i_need_to_block">
+<code class="descclassname">uwsgi.</code><code class="descname">sorry_i_need_to_block</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.sorry_i_need_to_block" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.request_id">
+<code class="descclassname">uwsgi.</code><code class="descname">request_id</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.request_id" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.worker_id">
+<code class="descclassname">uwsgi.</code><code class="descname">worker_id</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.worker_id" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.mule_id">
+<code class="descclassname">uwsgi.</code><code class="descname">mule_id</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.mule_id" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.log">
+<code class="descclassname">uwsgi.</code><code class="descname">log</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.log" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.log_this_request">
+<code class="descclassname">uwsgi.</code><code class="descname">log_this_request</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.log_this_request" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.set_logvar">
+<code class="descclassname">uwsgi.</code><code class="descname">set_logvar</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.set_logvar" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.get_logvar">
+<code class="descclassname">uwsgi.</code><code class="descname">get_logvar</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.get_logvar" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.disconnect">
+<code class="descclassname">uwsgi.</code><code class="descname">disconnect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.disconnect" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.grunt">
+<code class="descclassname">uwsgi.</code><code class="descname">grunt</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.grunt" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.lock">
+<code class="descclassname">uwsgi.</code><code class="descname">lock</code><span class="sig-paren">(</span><em>locknum=0</em><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.lock" title="정의 주소">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">매개 변수:</th><td class="field-body"><strong>locknum</strong> -- The lock number to lock. Lock 0 is always available.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.is_locked">
+<code class="descclassname">uwsgi.</code><code class="descname">is_locked</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.is_locked" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.unlock">
+<code class="descclassname">uwsgi.</code><code class="descname">unlock</code><span class="sig-paren">(</span><em>locknum=0</em><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.unlock" title="정의 주소">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">매개 변수:</th><td class="field-body"><strong>locknum</strong> -- The lock number to unlock. Lock 0 is always available.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.cl">
+<code class="descclassname">uwsgi.</code><code class="descname">cl</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.cl" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.setprocname">
+<code class="descclassname">uwsgi.</code><code class="descname">setprocname</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.setprocname" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.listen_queue">
+<code class="descclassname">uwsgi.</code><code class="descname">listen_queue</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.listen_queue" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.register_signal">
+<code class="descclassname">uwsgi.</code><code class="descname">register_signal</code><span class="sig-paren">(</span><em>num</em>, <em>who</em>, <em>function</em><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.register_signal" title="정의 주소">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">매개 변수:</th><td class="field-body"><ul class="first last simple">
+<li><strong>num</strong> -- the signal number to configure</li>
+<li><strong>who</strong> -- <p>a magic string that will set which process/processes receive the signal.</p>
+<ul>
+<li><code class="docutils literal notranslate"><span class="pre">worker</span></code>/<code class="docutils literal notranslate"><span class="pre">worker0</span></code> will send the signal to the first available worker. This is the default if you specify an empty string.</li>
+<li><code class="docutils literal notranslate"><span class="pre">workers</span></code> will send the signal to every worker.</li>
+<li><code class="docutils literal notranslate"><span class="pre">workerN</span></code> (N &gt; 0) will send the signal to worker N.</li>
+<li><code class="docutils literal notranslate"><span class="pre">mule</span></code>/<code class="docutils literal notranslate"><span class="pre">mule0</span></code> will send the signal to the first available mule. (See <a class="reference internal" href="Mules.html"><span class="doc">uWSGI Mules</span></a>)</li>
+<li><code class="docutils literal notranslate"><span class="pre">mules</span></code> will send the signal to all mules</li>
+<li><code class="docutils literal notranslate"><span class="pre">muleN</span></code> (N &gt; 0) will send the signal to mule N.</li>
+<li><code class="docutils literal notranslate"><span class="pre">cluster</span></code> will send the signal to all the nodes in the cluster. Warning: not implemented.</li>
+<li><code class="docutils literal notranslate"><span class="pre">subscribed</span></code> will send the signal to all subscribed nodes. Warning: not implemented.</li>
+<li><code class="docutils literal notranslate"><span class="pre">spooler</span></code> will send the signal to the spooler.</li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">cluster</span></code> and <code class="docutils literal notranslate"><span class="pre">subscribed</span></code> are special, as they will send the signal to the master of all cluster/subscribed nodes. The other nodes will have to define a local handler though, to avoid a terrible signal storm loop.</p>
+</li>
+<li><strong>function</strong> -- A callable that takes a single numeric argument.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.signal">
+<code class="descclassname">uwsgi.</code><code class="descname">signal</code><span class="sig-paren">(</span><em>num</em><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.signal" title="정의 주소">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">매개 변수:</th><td class="field-body"><strong>num</strong> -- the signal number to raise</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.signal_wait">
+<code class="descclassname">uwsgi.</code><code class="descname">signal_wait</code><span class="sig-paren">(</span><span class="optional">[</span><em>signum</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.signal_wait" title="정의 주소">¶</a></dt>
+<dd><p>Block the process/thread/async core until a signal is received. Use <code class="docutils literal notranslate"><span class="pre">signal_received</span></code> to get the number of the signal received.
+If a registered handler handles a signal, <code class="docutils literal notranslate"><span class="pre">signal_wait</span></code> will be interrupted and the actual handler will handle the signal.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">매개 변수:</th><td class="field-body"><strong>signum</strong> -- Optional - the signal to wait for</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.signal_registered">
+<code class="descclassname">uwsgi.</code><code class="descname">signal_registered</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.signal_registered" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.signal_received">
+<code class="descclassname">uwsgi.</code><code class="descname">signal_received</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.signal_received" title="정의 주소">¶</a></dt>
+<dd><p>Get the number of the last signal received. Used in conjunction with <code class="docutils literal notranslate"><span class="pre">signal_wait</span></code>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.add_file_monitor">
+<code class="descclassname">uwsgi.</code><code class="descname">add_file_monitor</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.add_file_monitor" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.add_timer">
+<code class="descclassname">uwsgi.</code><code class="descname">add_timer</code><span class="sig-paren">(</span><em>signum</em>, <em>seconds</em><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.add_timer" title="정의 주소">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">매개 변수:</th><td class="field-body"><ul class="first last simple">
+<li><strong>signum</strong> -- The signal number to raise.</li>
+<li><strong>seconds</strong> -- The interval at which to raise the signal.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.add_probe">
+<code class="descclassname">uwsgi.</code><code class="descname">add_probe</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.add_probe" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.add_rb_timer">
+<code class="descclassname">uwsgi.</code><code class="descname">add_rb_timer</code><span class="sig-paren">(</span><em>signum</em>, <em>seconds</em><span class="optional">[</span>, <em>iterations=0</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.add_rb_timer" title="정의 주소">¶</a></dt>
+<dd><p>Add an user-space (red-black tree backed) timer.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">매개 변수:</th><td class="field-body"><ul class="first last simple">
+<li><strong>signum</strong> -- The signal number to raise.</li>
+<li><strong>seconds</strong> -- The interval at which to raise the signal.</li>
+<li><strong>iterations</strong> -- How many times to raise the signal. 0 (the default) means infinity.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.add_cron">
+<code class="descclassname">uwsgi.</code><code class="descname">add_cron</code><span class="sig-paren">(</span><em>signal</em>, <em>minute</em>, <em>hour</em>, <em>day</em>, <em>month</em>, <em>weekday</em><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.add_cron" title="정의 주소">¶</a></dt>
+<dd><p>For the time parameters, you may use the syntax <code class="docutils literal notranslate"><span class="pre">-n</span></code> to denote &quot;every n&quot;. For instance <code class="docutils literal notranslate"><span class="pre">hour=-2</span></code> would declare the signal to be sent every other hour.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">매개 변수:</th><td class="field-body"><ul class="first last simple">
+<li><strong>signal</strong> -- The signal number to raise.</li>
+<li><strong>minute</strong> -- The minute on which to run this event.</li>
+<li><strong>hour</strong> -- The hour on which to run this event.</li>
+<li><strong>day</strong> -- The day on which to run this event. This is &quot;OR&quot;ed with <code class="docutils literal notranslate"><span class="pre">weekday</span></code>.</li>
+<li><strong>month</strong> -- The month on which to run this event.</li>
+<li><strong>weekday</strong> -- The weekday on which to run this event. This is &quot;OR&quot;ed with <code class="docutils literal notranslate"><span class="pre">day</span></code>. (In accordance with the POSIX standard, 0 is Sunday, 6 is Monday)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.register_rpc">
+<code class="descclassname">uwsgi.</code><code class="descname">register_rpc</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.register_rpc" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.rpc">
+<code class="descclassname">uwsgi.</code><code class="descname">rpc</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.rpc" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.rpc_list">
+<code class="descclassname">uwsgi.</code><code class="descname">rpc_list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.rpc_list" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.call">
+<code class="descclassname">uwsgi.</code><code class="descname">call</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.call" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.sendfile">
+<code class="descclassname">uwsgi.</code><code class="descname">sendfile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.sendfile" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.set_warning_message">
+<code class="descclassname">uwsgi.</code><code class="descname">set_warning_message</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.set_warning_message" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.mem">
+<code class="descclassname">uwsgi.</code><code class="descname">mem</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.mem" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.has_hook">
+<code class="descclassname">uwsgi.</code><code class="descname">has_hook</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.has_hook" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.logsize">
+<code class="descclassname">uwsgi.</code><code class="descname">logsize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.logsize" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.send_multicast_message">
+<code class="descclassname">uwsgi.</code><code class="descname">send_multicast_message</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.send_multicast_message" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.cluster_nodes">
+<code class="descclassname">uwsgi.</code><code class="descname">cluster_nodes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.cluster_nodes" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.cluster_node_name">
+<code class="descclassname">uwsgi.</code><code class="descname">cluster_node_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.cluster_node_name" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.cluster">
+<code class="descclassname">uwsgi.</code><code class="descname">cluster</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.cluster" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.cluster_best_node">
+<code class="descclassname">uwsgi.</code><code class="descname">cluster_best_node</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.cluster_best_node" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.connect">
+<code class="descclassname">uwsgi.</code><code class="descname">connect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.connect" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.connection_fd">
+<code class="descclassname">uwsgi.</code><code class="descname">connection_fd</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.connection_fd" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.is_connected">
+<code class="descclassname">uwsgi.</code><code class="descname">is_connected</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.is_connected" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.send">
+<code class="descclassname">uwsgi.</code><code class="descname">send</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.send" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.recv">
+<code class="descclassname">uwsgi.</code><code class="descname">recv</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.recv" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.recv_block">
+<code class="descclassname">uwsgi.</code><code class="descname">recv_block</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.recv_block" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.recv_frame">
+<code class="descclassname">uwsgi.</code><code class="descname">recv_frame</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.recv_frame" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.close">
+<code class="descclassname">uwsgi.</code><code class="descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.close" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.i_am_the_spooler">
+<code class="descclassname">uwsgi.</code><code class="descname">i_am_the_spooler</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.i_am_the_spooler" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.fcgi">
+<code class="descclassname">uwsgi.</code><code class="descname">fcgi</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.fcgi" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.parsefile">
+<code class="descclassname">uwsgi.</code><code class="descname">parsefile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.parsefile" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.embedded_data">
+<code class="descclassname">uwsgi.</code><code class="descname">embedded_data</code><span class="sig-paren">(</span><em>symbol_name</em><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.embedded_data" title="정의 주소">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">매개 변수:</th><td class="field-body"><strong>string</strong> -- The symbol name to extract.</td>
+</tr>
+</tbody>
+</table>
+<p>Extracts a symbol from the uWSGI binary image.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">더 보기</p>
+<p class="last"><a class="reference internal" href="Embed.html"><span class="doc">Embedding an application in uWSGI</span></a></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.extract">
+<code class="descclassname">uwsgi.</code><code class="descname">extract</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.extract" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.mule_msg">
+<code class="descclassname">uwsgi.</code><code class="descname">mule_msg</code><span class="sig-paren">(</span><em>string</em><span class="optional">[</span>, <em>id</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.mule_msg" title="정의 주소">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">매개 변수:</th><td class="field-body"><ul class="first last simple">
+<li><strong>string</strong> -- The bytestring message to send.</li>
+<li><strong>id</strong> -- Optional - the mule ID to receive the message. If you do not specify an ID, the message will go to the first available programmed mule.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Send a message to a mule.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.farm_msg">
+<code class="descclassname">uwsgi.</code><code class="descname">farm_msg</code><span class="sig-paren">(</span><em>farm_name</em>, <em>string</em><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.farm_msg" title="정의 주소">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">매개 변수:</th><td class="field-body"><ul class="first last simple">
+<li><strong>farm_name</strong> -- The name of the farm to send the message to.</li>
+<li><strong>string</strong> -- The bytestring message to send.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Send a message to a mule farm.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.mule_get_msg">
+<code class="descclassname">uwsgi.</code><code class="descname">mule_get_msg</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.mule_get_msg" title="정의 주소">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">반환:</th><td class="field-body">A mule message, once one is received.</td>
+</tr>
+</tbody>
+</table>
+<p>Block until a mule message is received and return it. This can be called from multiple threads in the same programmed mule.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.farm_get_msg">
+<code class="descclassname">uwsgi.</code><code class="descname">farm_get_msg</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.farm_get_msg" title="정의 주소">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">반환:</th><td class="field-body">A mule message, once one is received.</td>
+</tr>
+</tbody>
+</table>
+<p>Block until a mule message is received and return it. Only messages sent to the mule's configured farm will be received. This can be called from multiple threads in the same programmed mule.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.in_farm">
+<code class="descclassname">uwsgi.</code><code class="descname">in_farm</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.in_farm" title="정의 주소">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">반환:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">True</span></code> if the mule is a member of a farm, <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">반환 형식:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+<p>Indicate whether the mule is a member of a farm.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.ready">
+<code class="descclassname">uwsgi.</code><code class="descname">ready</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.ready" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.set_user_harakiri">
+<code class="descclassname">uwsgi.</code><code class="descname">set_user_harakiri</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.set_user_harakiri" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="async-functions">
+<h2>Async functions<a class="headerlink" href="#async-functions" title="제목 주소">¶</a></h2>
+<dl class="function">
+<dt id="uwsgi.async_sleep">
+<code class="descclassname">uwsgi.</code><code class="descname">async_sleep</code><span class="sig-paren">(</span><em>seconds</em><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.async_sleep" title="정의 주소">¶</a></dt>
+<dd><p>Suspend handling the current request for <code class="docutils literal notranslate"><span class="pre">seconds</span></code> seconds and pass control to the next async core.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">매개 변수:</th><td class="field-body"><strong>seconds</strong> -- Sleep time, in seconds.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.async_connect">
+<code class="descclassname">uwsgi.</code><code class="descname">async_connect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.async_connect" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.async_send_message">
+<code class="descclassname">uwsgi.</code><code class="descname">async_send_message</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.async_send_message" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.green_schedule">
+<code class="descclassname">uwsgi.</code><code class="descname">green_schedule</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.green_schedule" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.suspend">
+<code class="descclassname">uwsgi.</code><code class="descname">suspend</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.suspend" title="정의 주소">¶</a></dt>
+<dd><p>Suspend handling the current request and pass control to the next async core clamoring for attention.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.wait_fd_read">
+<code class="descclassname">uwsgi.</code><code class="descname">wait_fd_read</code><span class="sig-paren">(</span><em>fd</em><span class="optional">[</span>, <em>timeout</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.wait_fd_read" title="정의 주소">¶</a></dt>
+<dd><p>Suspend handling the current request until there is something to be read on file descriptor <code class="docutils literal notranslate"><span class="pre">fd</span></code>.
+May be called several times before yielding/suspending to add more file descriptors to the set to be watched.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">매개 변수:</th><td class="field-body"><ul class="first last simple">
+<li><strong>fd</strong> -- File descriptor number.</li>
+<li><strong>timeout</strong> -- Optional timeout (infinite if omitted).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.wait_fd_write">
+<code class="descclassname">uwsgi.</code><code class="descname">wait_fd_write</code><span class="sig-paren">(</span><em>fd</em><span class="optional">[</span>, <em>timeout</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.wait_fd_write" title="정의 주소">¶</a></dt>
+<dd><p>Suspend handling the current request until there is nothing more to be written on file descriptor <code class="docutils literal notranslate"><span class="pre">fd</span></code>.
+May be called several times to add more file descriptors to the set to be watched.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">매개 변수:</th><td class="field-body"><ul class="first last simple">
+<li><strong>fd</strong> -- File descriptor number.</li>
+<li><strong>timeout</strong> -- Optional timeout (infinite if omitted).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="sharedarea-functions">
+<span id="sharedareaapi"></span><h2>SharedArea functions<a class="headerlink" href="#sharedarea-functions" title="제목 주소">¶</a></h2>
+<div class="admonition seealso">
+<p class="first admonition-title">더 보기</p>
+<p class="last"><a class="reference internal" href="SharedArea.html"><span class="doc">SharedArea -- share memory pages between uWSGI components</span></a></p>
+</div>
+<dl class="function">
+<dt id="uwsgi.sharedarea_read">
+<code class="descclassname">uwsgi.</code><code class="descname">sharedarea_read</code><span class="sig-paren">(</span><em>pos</em>, <em>len</em><span class="sig-paren">)</span> &#x2192; bytes<a class="headerlink" href="#uwsgi.sharedarea_read" title="정의 주소">¶</a></dt>
+<dd><p>Read a byte string from the uWSGI <a class="reference internal" href="SharedArea.html"><span class="doc">SharedArea -- share memory pages between uWSGI components</span></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">매개 변수:</th><td class="field-body"><ul class="first simple">
+<li><strong>pos</strong> -- Starting position to read from.</li>
+<li><strong>len</strong> -- Number of bytes to read.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">반환:</th><td class="field-body"><p class="first last">Bytes read, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if the shared area is not enabled or the read request is invalid.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.sharedarea_write">
+<code class="descclassname">uwsgi.</code><code class="descname">sharedarea_write</code><span class="sig-paren">(</span><em>pos</em>, <em>str</em><span class="sig-paren">)</span> &#x2192; long<a class="headerlink" href="#uwsgi.sharedarea_write" title="정의 주소">¶</a></dt>
+<dd><p>Write a byte string into the uWSGI <a class="reference internal" href="SharedArea.html"><span class="doc">SharedArea -- share memory pages between uWSGI components</span></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">매개 변수:</th><td class="field-body"><ul class="first simple">
+<li><strong>pos</strong> -- Starting position to write to.</li>
+<li><strong>str</strong> -- Bytestring to write.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">반환:</th><td class="field-body"><p class="first last">Number of bytes written, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if the shared area is not enabled or the write could not be fully finished.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.sharedarea_readbyte">
+<code class="descclassname">uwsgi.</code><code class="descname">sharedarea_readbyte</code><span class="sig-paren">(</span><em>pos</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#uwsgi.sharedarea_readbyte" title="정의 주소">¶</a></dt>
+<dd><p>Read a single byte from the uWSGI <a class="reference internal" href="SharedArea.html"><span class="doc">SharedArea -- share memory pages between uWSGI components</span></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">매개 변수:</th><td class="field-body"><strong>pos</strong> -- The position to read from.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">반환:</th><td class="field-body">Bytes read, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if the shared area is not enabled or the read request is invalid.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.sharedarea_writebyte">
+<code class="descclassname">uwsgi.</code><code class="descname">sharedarea_writebyte</code><span class="sig-paren">(</span><em>pos</em>, <em>val</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#uwsgi.sharedarea_writebyte" title="정의 주소">¶</a></dt>
+<dd><p>Write a single byte into the uWSGI <a class="reference internal" href="SharedArea.html"><span class="doc">SharedArea -- share memory pages between uWSGI components</span></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">매개 변수:</th><td class="field-body"><ul class="first simple">
+<li><strong>pos</strong> -- The position to write the value to.</li>
+<li><strong>val</strong> (<em>integer</em>) -- The value to write.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">반환:</th><td class="field-body"><p class="first last">The byte written, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if the shared area is not enabled or the write request is invalid.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.sharedarea_readlong">
+<code class="descclassname">uwsgi.</code><code class="descname">sharedarea_readlong</code><span class="sig-paren">(</span><em>pos</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#uwsgi.sharedarea_readlong" title="정의 주소">¶</a></dt>
+<dd><p>Read a 64-bit (8-byte) long from the uWSGI <a class="reference internal" href="SharedArea.html"><span class="doc">SharedArea -- share memory pages between uWSGI components</span></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">매개 변수:</th><td class="field-body"><strong>pos</strong> -- The position to read from.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">반환:</th><td class="field-body">The value read, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if the shared area is not enabled or the read request is invalid.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.sharedarea_writelong">
+<code class="descclassname">uwsgi.</code><code class="descname">sharedarea_writelong</code><span class="sig-paren">(</span><em>pos</em>, <em>val</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#uwsgi.sharedarea_writelong" title="정의 주소">¶</a></dt>
+<dd><p>Write a 64-bit (8-byte) long into the uWSGI <a class="reference internal" href="SharedArea.html"><span class="doc">SharedArea -- share memory pages between uWSGI components</span></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">매개 변수:</th><td class="field-body"><ul class="first simple">
+<li><strong>pos</strong> -- The position to write the value to.</li>
+<li><strong>val</strong> (<em>long</em>) -- The value to write.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">반환:</th><td class="field-body"><p class="first last">The value written, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if the shared area is not enabled or the write request is invalid.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.sharedarea_inclong">
+<code class="descclassname">uwsgi.</code><code class="descname">sharedarea_inclong</code><span class="sig-paren">(</span><em>pos</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#uwsgi.sharedarea_inclong" title="정의 주소">¶</a></dt>
+<dd><p>Atomically increment a 64-bit long value in the uWSGI <a class="reference internal" href="SharedArea.html"><span class="doc">SharedArea -- share memory pages between uWSGI components</span></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">매개 변수:</th><td class="field-body"><strong>pos</strong> -- The position of the value.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">반환:</th><td class="field-body">The new value at the given position, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if the shared area is not enabled or the read request is invalid.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="erlang-functions">
+<h2>Erlang functions<a class="headerlink" href="#erlang-functions" title="제목 주소">¶</a></h2>
+<dl class="function">
+<dt id="uwsgi.erlang_send_message">
+<code class="descclassname">uwsgi.</code><code class="descname">erlang_send_message</code><span class="sig-paren">(</span><em>node</em>, <em>process_name</em>, <em>message</em><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.erlang_send_message" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.erlang_register_process">
+<code class="descclassname">uwsgi.</code><code class="descname">erlang_register_process</code><span class="sig-paren">(</span><em>process_name</em>, <em>callable</em><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.erlang_register_process" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.erlang_recv_message">
+<code class="descclassname">uwsgi.</code><code class="descname">erlang_recv_message</code><span class="sig-paren">(</span><em>node</em><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.erlang_recv_message" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.erlang_connect">
+<code class="descclassname">uwsgi.</code><code class="descname">erlang_connect</code><span class="sig-paren">(</span><em>address</em><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.erlang_connect" title="정의 주소">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">반환:</th><td class="field-body">File descriptor or -1 on error</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="uwsgi.erlang_rpc">
+<code class="descclassname">uwsgi.</code><code class="descname">erlang_rpc</code><span class="sig-paren">(</span><em>node</em>, <em>module</em>, <em>function</em>, <em>argument</em><span class="sig-paren">)</span><a class="headerlink" href="#uwsgi.erlang_rpc" title="정의 주소">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="PythonDecorators.html" class="btn btn-neutral float-right" title="uWSGI API - Python decorators" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Python.html" class="btn btn-neutral" title="Python support" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2012-2016, uWSGI.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'2.0',
+            LANGUAGE:'ko',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/language_data.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          
+          SphinxRtdTheme.Navigation.enableSticky();
+          
+      });
+  </script> 
+
+</body>
+</html>

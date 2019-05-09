@@ -1,0 +1,903 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ko" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ko" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>The uWSGI Caching Cookbook &mdash; uWSGI 2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="색인" href="../genindex.html" />
+    <link rel="search" title="검색" href="../search.html" />
+    <link rel="next" title="Setting up Django and your web server with uWSGI and nginx" href="Django_and_nginx.html" />
+    <link rel="prev" title="uWSGI third party plugins" href="../ThirdPartyPlugins.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> uWSGI
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../WSGIquickstart.html">Quickstart for Python/WSGI applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PSGIquickstart.html">Quickstart for perl/PSGI applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RackQuickstart.html">Quickstart for ruby/Rack applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Snippets.html">Snippets</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Download.html">Getting uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Install.html">Installing uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../BuildSystem.html">The uWSGI build system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Management.html">Managing the uWSGI server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LanguagesAndPlatforms.html">Supported languages and platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SupportedPlatforms.html">Supported Platforms/Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../WebServers.html">Web server integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FAQ.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ThingsToKnow.html">Things to know (best practices and &quot;issues&quot;) READ IT !!!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Configuration.html">Configuring uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FallbackConfig.html">Fallback configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ConfigLogic.html">Configuration logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Options.html">uWSGI Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CustomOptions.html">Defining new options for your instances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ParsingOrder.html">How uWSGI parses config files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Vars.html">uwsgi protocol magic variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Protocol.html">The uwsgi Protocol</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AttachingDaemons.html">Managing external daemons/services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../MasterFIFO.html">The Master FIFO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Inetd.html">Socket activation with inetd/xinetd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Upstart.html">Running uWSGI via Upstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Systemd.html">Systemd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Circus.html">Running uWSGI instances with Circus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Embed.html">Embedding an application in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Logging.html">Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LogFormat.html">Formatting uWSGI requests logs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LogEncoders.html">Log encoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Hooks.html">Hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../WorkerOverride.html">Overriding Workers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ThirdPartyPlugins.html">uWSGI third party plugins</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">The uWSGI Caching Cookbook</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#let-s-start">Let's start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-first-recipe">The first recipe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cache-them-all">Cache them all !!!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#multiple-caches">Multiple caches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#being-more-aggressive-the-expires-http-header">Being more aggressive, the Expires HTTP header</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#monitoring-caches">Monitoring Caches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#storing-gzip-variant-of-an-object">Storing GZIP variant of an object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#storing-static-files-in-the-cache-for-fast-serving">Storing static files in the cache for fast serving</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#caching-for-authenticated-users">Caching for authenticated users</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#caching-to-files">Caching to files</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Django_and_nginx.html">Setting up Django and your web server with uWSGI and nginx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dreamhost.html">Running uWSGI on Dreamhost shared hosting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="heroku_python.html">Running python webapps on Heroku with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="heroku_ruby.html">Running Ruby/Rack webapps on Heroku with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ReliableFuse.html">Reliably use FUSE filesystems for uWSGI vassals (with Linux)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DynamicProxying.html">Build a dynamic proxy using RPC and internal routing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GraphiteAndMetrics.html">Setting up Graphite on Ubuntu using the Metrics subsystem</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../articles/SerializingAccept.html">Serializing accept(), AKA Thundering Herd, AKA the Zeeg Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../articles/TheArtOfGracefulReloading.html">The Art of Graceful Reloading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../articles/FunWithPerlEyetoyRaspberrypi.html">Fun with Perl, Eyetoy and RaspberryPi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../articles/OffloadingWebsocketsAndSSE.html">Offloading Websockets and Server-Sent Events AKA &quot;Combine them with Django safely&quot;</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../articles/WSGIEnvBehaviour.html">WSGI env behaviour policies</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../AlarmSubsystem.html">The uWSGI alarm subsystem (from 1.3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Caching.html">The uWSGI caching framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../WebCaching.html">WebCaching framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Cron.html">The uWSGI cron-like interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Fastrouter.html">The uWSGI FastRouter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../InternalRouting.html">uWSGI internal routing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Legion.html">The uWSGI Legion subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Locks.html">Locks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Mules.html">uWSGI Mules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../OffloadSubsystem.html">The uWSGI offloading subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Queue.html">The uWSGI queue framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RPC.html">uWSGI RPC Stack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SharedArea.html">SharedArea -- share memory pages between uWSGI components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Signals.html">The uWSGI Signal Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Spooler.html">The uWSGI Spooler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SubscriptionServer.html">uWSGI Subscription Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../StaticFiles.html">Serving static files with uWSGI (updated to 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SNI.html">SNI - Server Name Identification (virtual hosting for SSL nodes)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GeoIP.html">The GeoIP plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Transformations.html">uWSGI Transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../WebSockets.html">WebSocket support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Metrics.html">The Metrics subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Chunked.html">The Chunked input API</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Cheaper.html">The uWSGI cheaper subsystem -- adaptive process spawning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Emperor.html">The uWSGI Emperor -- multi-app deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Broodlord.html">Auto-scaling with Broodlord mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Zerg.html">Zerg mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../DynamicApps.html">Adding applications dynamically</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SSLScaling.html">Scaling SSL connections (uWSGI 1.9)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Capabilities.html">Setting POSIX Capabilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Cgroups.html">Running uWSGI in a Linux CGroup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../KSM.html">Using Linux KSM in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Namespaces.html">Jailing your apps using Linux Namespaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Namespaces.html#the-old-way-the-namespace-option">The old way: the --namespace option</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FreeBSDJails.html">FreeBSD Jails</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ForkptyRouter.html">The Forkpty Router</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../TunTapRouter.html">The TunTap Router</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Nagios.html">Monitoring uWSGI with Nagios</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SNMP.html">The embedded SNMP server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PushingStats.html">Pushing statistics (from 1.4)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Carbon.html">Integration with Graphite/Carbon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../StatsServer.html">The uWSGI Stats Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Metrics.html">The Metrics subsystem</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Async.html">uWSGI asynchronous/non-blocking modes (updated to uWSGI 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Gevent.html">The Gevent loop engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Tornado.html">The Tornado loop engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../uGreen.html">uGreen -- uWSGI Green Threads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../asyncio.html">The asyncio loop engine (CPython &gt;= 3.4, uWSGI &gt;= 2.0.4)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Apache.html">Apache support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Cherokee.html">Cherokee support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HTTP.html">Native HTTP support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HTTPS.html">HTTPS 지원 (1.3 버전부터)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SPDY.html">The SPDY router (uWSGI 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Lighttpd.html">Lighttpd support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Mongrel2.html">Attaching uWSGI to Mongrel2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Nginx.html">Nginx support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../OpenBSDhttpd.html">Using OpenBSD httpd as proxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../OpenBSDhttpd.html#notes">Notes</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Python.html">Python support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PyPy.html">The PyPy plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PHP.html">Running PHP scripts in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Perl.html">uWSGI Perl support (PSGI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Ruby.html">Ruby support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Lua.html">Using Lua/WSAPI with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../JVM.html">JVM in the uWSGI server (updated to 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Mono.html">The Mono ASP.NET plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CGI.html">Running CGI scripts on uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCCGO.html">The GCCGO plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Symcall.html">The Symcall plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../XSLT.html">The XSLT plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SSI.html">SSI (Server Side Includes) plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../V8.html">uWSGI V8 support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GridFS.html">The GridFS plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GlusterFS.html">The GlusterFS plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Rados.html">The RADOS plugin</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Pty.html">The Pty plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SPNEGO.html">SPNEGO authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LDAP.html">Configuring uWSGI with LDAP</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Erlang.html">Integrating uWSGI with Erlang</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ManagementFlag.html">Management Flags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Go.html">uWSGI Go support (1.4 only)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.18.html">uWSGI 2.0.18</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.17.1.html">uWSGI 2.0.17.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.17.html">uWSGI 2.0.17</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.16.html">uWSGI 2.0.16</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.15.html">uWSGI 2.0.15</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.14.html">uWSGI 2.0.14</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.13.1.html">uWSGI 2.0.13.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.13.html">uWSGI 2.0.13</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.12.html">uWSGI 2.0.12</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.11.2.html">uWSGI 2.0.11.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.11.1.html">uWSGI 2.0.11.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.11.html">uWSGI 2.0.11</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.10.html">uWSGI 2.0.10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.9.html">uWSGI 2.0.9</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.8.html">uWSGI 2.0.8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.7.html">uWSGI 2.0.7</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.6.html">uWSGI 2.0.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.5.html">uWSGI 2.0.5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.4.html">uWSGI 2.0.4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.3.html">uWSGI 2.0.3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.2.html">uWSGI 2.0.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.1.html">uWSGI 2.0.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.html">uWSGI 2.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.21.html">uWSGI 1.9.21</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.20.html">uWSGI 1.9.20</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.19.html">uWSGI 1.9.19</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.18.html">uWSGI 1.9.18</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.17.html">uWSGI 1.9.17</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.16.html">uWSGI 1.9.16</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.15.html">uWSGI 1.9.15</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.14.html">uWSGI 1.9.14</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.13.html">uWSGI 1.9.13</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.12.html">uWSGI 1.9.12</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.11.html">uWSGI 1.9.11</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.10.html">uWSGI 1.9.10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.9.html">uWSGI 1.9.9</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.8.html">uWSGI 1.9.8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.7.html">uWSGI 1.9.7</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.6.html">uWSGI 1.9.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.5.html">uWSGI 1.9.5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.4.html">uWSGI 1.9.4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.3.html">uWSGI 1.9.3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.2.html">uWSGI 1.9.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.1.html">uWSGI 1.9.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.html">uWSGI 1.9</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">uWSGI</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>The uWSGI Caching Cookbook</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/tutorials/CachingCookbook.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="the-uwsgi-caching-cookbook">
+<h1>The uWSGI Caching Cookbook<a class="headerlink" href="#the-uwsgi-caching-cookbook" title="제목 주소">¶</a></h1>
+<p>This is a cookbook of various caching techniques using <a class="reference internal" href="../InternalRouting.html"><span class="doc">uWSGI internal routing</span></a>, <a class="reference internal" href="../Caching.html"><span class="doc">The uWSGI caching framework</span></a> and <a class="reference internal" href="../Transformations.html"><span class="doc">uWSGI Transformations</span></a></p>
+<p>The examples assume a modular uWSGI build. You can ignore the 'plugins' option, if you are using a monolithic build.</p>
+<p>Recipes are tested over uWSGI 1.9.7. Older versions may not work.</p>
+<div class="section" id="let-s-start">
+<h2>Let's start<a class="headerlink" href="#let-s-start" title="제목 주소">¶</a></h2>
+<p>This is a simple perl/PSGI Dancer app we deploy on an http-socket with 4 processes.</p>
+<div class="highlight-pl notranslate"><div class="highlight"><pre><span></span><span class="k">use</span> <span class="nn">Dancer</span><span class="p">;</span>
+
+<span class="n">get</span> <span class="s">&#39;/&#39;</span> <span class="o">=&gt;</span> <span class="k">sub</span> <span class="p">{</span>
+        <span class="s">&quot;Hello World!&quot;</span>
+<span class="p">};</span>
+
+<span class="n">dance</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>This is the uWSGI config. Pay attention to the log-micros directive. The objective of uWSGI in-memory caching is generating a response
+in less than 1 millisecond (yes, this is true), so we want to get the response time logging in microseconds (thousandths of a millisecond).</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="c1">; load the PSGI plugin as the default one</span>
+<span class="na">plugins</span> <span class="o">=</span> <span class="s">0:psgi</span>
+<span class="c1">; load the Dancer app</span>
+<span class="na">psgi</span> <span class="o">=</span> <span class="s">myapp.pl</span>
+<span class="c1">; enable the master process</span>
+<span class="na">master</span> <span class="o">=</span> <span class="s">true</span>
+<span class="c1">; spawn 4 processes</span>
+<span class="na">processes</span> <span class="o">=</span> <span class="s">4</span>
+<span class="c1">; bind an http socket to port 9090</span>
+<span class="na">http-socket</span> <span class="o">=</span> <span class="s">:9090</span>
+<span class="c1">; log response time with microseconds resolution</span>
+<span class="na">log-micros</span> <span class="o">=</span> <span class="s">true</span>
+</pre></div>
+</div>
+<p>Run the uWSGI instance in your terminal and just make a bunch of requests to it.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>curl -D /dev/stdout http://localhost:9090/
+</pre></div>
+</div>
+<p>If all goes well you should see something similar in your uWSGI logs:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>pid: <span class="m">26586</span><span class="p">|</span>app: <span class="m">0</span><span class="p">|</span>req: <span class="m">1</span>/1<span class="o">]</span> <span class="m">192</span>.168.173.14 <span class="o">()</span> <span class="o">{</span><span class="m">24</span> vars in <span class="m">327</span> bytes<span class="o">}</span> <span class="o">[</span>Wed Apr <span class="m">17</span> <span class="m">09</span>:06:58 <span class="m">2013</span><span class="o">]</span> GET / <span class="o">=</span>&gt; generated <span class="m">12</span> bytes in <span class="m">3497</span> micros <span class="o">(</span>HTTP/1.1 <span class="m">200</span><span class="o">)</span> <span class="m">4</span> headers in <span class="m">126</span> bytes <span class="o">(</span><span class="m">0</span> switches on core <span class="m">0</span><span class="o">)</span>
+<span class="o">[</span>pid: <span class="m">26586</span><span class="p">|</span>app: <span class="m">0</span><span class="p">|</span>req: <span class="m">2</span>/2<span class="o">]</span> <span class="m">192</span>.168.173.14 <span class="o">()</span> <span class="o">{</span><span class="m">24</span> vars in <span class="m">327</span> bytes<span class="o">}</span> <span class="o">[</span>Wed Apr <span class="m">17</span> <span class="m">09</span>:07:14 <span class="m">2013</span><span class="o">]</span> GET / <span class="o">=</span>&gt; generated <span class="m">12</span> bytes in <span class="m">1134</span> micros <span class="o">(</span>HTTP/1.1 <span class="m">200</span><span class="o">)</span> <span class="m">4</span> headers in <span class="m">126</span> bytes <span class="o">(</span><span class="m">0</span> switches on core <span class="m">0</span><span class="o">)</span>
+<span class="o">[</span>pid: <span class="m">26586</span><span class="p">|</span>app: <span class="m">0</span><span class="p">|</span>req: <span class="m">3</span>/3<span class="o">]</span> <span class="m">192</span>.168.173.14 <span class="o">()</span> <span class="o">{</span><span class="m">24</span> vars in <span class="m">327</span> bytes<span class="o">}</span> <span class="o">[</span>Wed Apr <span class="m">17</span> <span class="m">09</span>:07:16 <span class="m">2013</span><span class="o">]</span> GET / <span class="o">=</span>&gt; generated <span class="m">12</span> bytes in <span class="m">1249</span> micros <span class="o">(</span>HTTP/1.1 <span class="m">200</span><span class="o">)</span> <span class="m">4</span> headers in <span class="m">126</span> bytes <span class="o">(</span><span class="m">0</span> switches on core <span class="m">0</span><span class="o">)</span>
+<span class="o">[</span>pid: <span class="m">26586</span><span class="p">|</span>app: <span class="m">0</span><span class="p">|</span>req: <span class="m">4</span>/4<span class="o">]</span> <span class="m">192</span>.168.173.14 <span class="o">()</span> <span class="o">{</span><span class="m">24</span> vars in <span class="m">327</span> bytes<span class="o">}</span> <span class="o">[</span>Wed Apr <span class="m">17</span> <span class="m">09</span>:07:17 <span class="m">2013</span><span class="o">]</span> GET / <span class="o">=</span>&gt; generated <span class="m">12</span> bytes in <span class="m">953</span> micros <span class="o">(</span>HTTP/1.1 <span class="m">200</span><span class="o">)</span> <span class="m">4</span> headers in <span class="m">126</span> bytes <span class="o">(</span><span class="m">0</span> switches on core <span class="m">0</span><span class="o">)</span>
+<span class="o">[</span>pid: <span class="m">26586</span><span class="p">|</span>app: <span class="m">0</span><span class="p">|</span>req: <span class="m">5</span>/5<span class="o">]</span> <span class="m">192</span>.168.173.14 <span class="o">()</span> <span class="o">{</span><span class="m">24</span> vars in <span class="m">327</span> bytes<span class="o">}</span> <span class="o">[</span>Wed Apr <span class="m">17</span> <span class="m">09</span>:07:18 <span class="m">2013</span><span class="o">]</span> GET / <span class="o">=</span>&gt; generated <span class="m">12</span> bytes in <span class="m">1016</span> micros <span class="o">(</span>HTTP/1.1 <span class="m">200</span><span class="o">)</span> <span class="m">4</span> headers in <span class="m">126</span> bytes <span class="o">(</span><span class="m">0</span> switches on core <span class="m">0</span><span class="o">)</span>
+</pre></div>
+</div>
+<p>while cURL will return:</p>
+<div class="highlight-txt notranslate"><div class="highlight"><pre><span></span>HTTP/1.1 200 OK
+Server: Perl Dancer 1.3112
+Content-Length: 12
+Content-Type: text/html
+X-Powered-By: Perl Dancer 1.3112
+
+Hello World!
+</pre></div>
+</div>
+<p>The first request on a process took about 3 milliseconds (this is normal as lot of code is executed for the first request), but the following run in about 1 millisecond.</p>
+<p>Now we want to store the response in the uWSGI cache.</p>
+</div>
+<div class="section" id="the-first-recipe">
+<h2>The first recipe<a class="headerlink" href="#the-first-recipe" title="제목 주소">¶</a></h2>
+<p>We first create a uWSGI cache named 'mycache' with 100 slots of 64 KiB each (new options are at the end of the config) and for each request for '/' we search in it for a specific item named 'myhome'.</p>
+<p>This time we load the <code class="docutils literal notranslate"><span class="pre">router_cache</span></code> plugin too (though it is built-in by default in monolithic servers).</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="c1">; load the PSGI plugin as the default one</span>
+<span class="na">plugins</span> <span class="o">=</span> <span class="s">0:psgi,router_cache</span>
+<span class="c1">; load the Dancer app</span>
+<span class="na">psgi</span> <span class="o">=</span> <span class="s">myapp.pl</span>
+<span class="c1">; enable the master process</span>
+<span class="na">master</span> <span class="o">=</span> <span class="s">true</span>
+<span class="c1">; spawn 4 processes</span>
+<span class="na">processes</span> <span class="o">=</span> <span class="s">4</span>
+<span class="c1">; bind an http socket to port 9090</span>
+<span class="na">http-socket</span> <span class="o">=</span> <span class="s">:9090</span>
+<span class="c1">; log response time with microseconds resolution</span>
+<span class="na">log-micros</span> <span class="o">=</span> <span class="s">true</span>
+
+<span class="c1">; create a cache with 100 items (default size per-item is 64k)</span>
+<span class="na">cache2</span> <span class="o">=</span> <span class="s">name=mycache,items=100</span>
+<span class="c1">; at each request for / check for a &#39;myhome&#39; item in the &#39;mycache&#39; cache</span>
+<span class="c1">; &#39;route&#39; apply a regexp to the PATH_INFO request var</span>
+<span class="na">route</span> <span class="o">=</span> <span class="s">^/$ cache:key=myhome,name=mycache</span>
+</pre></div>
+</div>
+<p>Restart uWSGI and re-run the previous test with cURL. Sadly nothing will change. Why?</p>
+<p>Because you did not instruct uWSGI to store the plugin response in the cache. You need to use the <code class="docutils literal notranslate"><span class="pre">cachestore</span></code> routing action...</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="c1">; load the PSGI plugin as the default one</span>
+<span class="na">plugins</span> <span class="o">=</span> <span class="s">0:psgi,router_cache</span>
+<span class="c1">; load the Dancer app</span>
+<span class="na">psgi</span> <span class="o">=</span> <span class="s">myapp.pl</span>
+<span class="c1">; enable the master process</span>
+<span class="na">master</span> <span class="o">=</span> <span class="s">true</span>
+<span class="c1">; spawn 4 processes</span>
+<span class="na">processes</span> <span class="o">=</span> <span class="s">4</span>
+<span class="c1">; bind an http socket to port 9090</span>
+<span class="na">http-socket</span> <span class="o">=</span> <span class="s">:9090</span>
+<span class="c1">; log response time with microseconds resolution</span>
+<span class="na">log-micros</span> <span class="o">=</span> <span class="s">true</span>
+
+<span class="c1">; create a cache with 100 items (default size per-item is 64k)</span>
+<span class="na">cache2</span> <span class="o">=</span> <span class="s">name=mycache,items=100</span>
+<span class="c1">; at each request for / check for a &#39;myhome&#39; item in the &#39;mycache&#39; cache</span>
+<span class="c1">; &#39;route&#39; apply a regexp to the PATH_INFO request var</span>
+<span class="na">route</span> <span class="o">=</span> <span class="s">^/$ cache:key=myhome,name=mycache</span>
+<span class="c1">; store each successful request (200 http status code) for &#39;/&#39; in the &#39;myhome&#39; item</span>
+<span class="na">route</span> <span class="o">=</span> <span class="s">^/$ cachestore:key=myhome,name=mycache</span>
+</pre></div>
+</div>
+<p>Now re-run the test, and you should see requests going down to a range of 100-300 microseconds. The gain depends on various factors, but you should gain at least 60% in response time.</p>
+<p>The log line reports -1 as the app id:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>pid: <span class="m">26703</span><span class="p">|</span>app: -1<span class="p">|</span>req: -1/2<span class="o">]</span> <span class="m">192</span>.168.173.14 <span class="o">()</span> <span class="o">{</span><span class="m">24</span> vars in <span class="m">327</span> bytes<span class="o">}</span> <span class="o">[</span>Wed Apr <span class="m">17</span> <span class="m">09</span>:24:52 <span class="m">2013</span><span class="o">]</span> GET / <span class="o">=</span>&gt; generated <span class="m">12</span> bytes in <span class="m">122</span> micros <span class="o">(</span>HTTP/1.1 <span class="m">200</span><span class="o">)</span> <span class="m">2</span> headers in <span class="m">64</span> bytes <span class="o">(</span><span class="m">0</span> switches on core <span class="m">0</span><span class="o">)</span>
+</pre></div>
+</div>
+<p>This is because when a response is served from the cache your app/plugin is not touched (in this case, no perl call is involved).</p>
+<p>You will note less headers too:</p>
+<div class="highlight-txt notranslate"><div class="highlight"><pre><span></span>HTTP/1.1 200 OK
+Content-Type: text/html
+Content-Length: 12
+
+Hello World!
+</pre></div>
+</div>
+<p>This is because only the body of a response is cached. By default the generated response is set as text/html but you can change it
+or let the MIME type engine do the work for you (see later).</p>
+</div>
+<div class="section" id="cache-them-all">
+<h2>Cache them all !!!<a class="headerlink" href="#cache-them-all" title="제목 주소">¶</a></h2>
+<p>We want to cache all of our requests. Some of them returns images and css, while the others are always text/html</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="c1">; load the PSGI plugin as the default one</span>
+<span class="na">plugins</span> <span class="o">=</span> <span class="s">0:psgi,router_cache</span>
+<span class="c1">; load the Dancer app</span>
+<span class="na">psgi</span> <span class="o">=</span> <span class="s">myapp.pl</span>
+<span class="c1">; enable the master process</span>
+<span class="na">master</span> <span class="o">=</span> <span class="s">true</span>
+<span class="c1">; spawn 4 processes</span>
+<span class="na">processes</span> <span class="o">=</span> <span class="s">4</span>
+<span class="c1">; bind an http socket to port 9090</span>
+<span class="na">http-socket</span> <span class="o">=</span> <span class="s">:9090</span>
+<span class="c1">; log response time with microseconds resolution</span>
+<span class="na">log-micros</span> <span class="o">=</span> <span class="s">true</span>
+
+<span class="c1">; create a cache with 100 items (default size per-item is 64k)</span>
+<span class="na">cache2</span> <span class="o">=</span> <span class="s">name=mycache,items=100</span>
+<span class="c1">; load the mime types engine</span>
+<span class="na">mime-file</span> <span class="o">=</span> <span class="s">/etc/mime.types</span>
+
+<span class="c1">; at each request starting with /img check it in the cache (use mime types engine for the content type)</span>
+<span class="na">route</span> <span class="o">=</span> <span class="s">^/img/(.+) cache:key=/img/$1,name=mycache,mime=1</span>
+
+<span class="c1">; at each request ending with .css check it in the cache</span>
+<span class="na">route</span> <span class="o">=</span> <span class="s">\.css$ cache:key=${REQUEST_URI},name=mycache,content_type=text/css</span>
+
+<span class="c1">; fallback to text/html all of the others request</span>
+<span class="na">route</span> <span class="o">=</span> <span class="s">.* cache:key=${REQUEST_URI},name=mycache</span>
+<span class="c1">; store each successful request (200 http status code) in the &#39;mycache&#39; cache using the REQUEST_URI as key</span>
+<span class="na">route</span> <span class="o">=</span> <span class="s">.* cachestore:key=${REQUEST_URI},name=mycache</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="multiple-caches">
+<h2>Multiple caches<a class="headerlink" href="#multiple-caches" title="제목 주소">¶</a></h2>
+<p>You may want/need to store items in different caches. We can change the previous recipe to use three different caches
+for images, css and html responses.</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="c1">; load the PSGI plugin as the default one</span>
+<span class="na">plugins</span> <span class="o">=</span> <span class="s">0:psgi,router_cache</span>
+<span class="c1">; load the Dancer app</span>
+<span class="na">psgi</span> <span class="o">=</span> <span class="s">myapp.pl</span>
+<span class="c1">; enable the master process</span>
+<span class="na">master</span> <span class="o">=</span> <span class="s">true</span>
+<span class="c1">; spawn 4 processes</span>
+<span class="na">processes</span> <span class="o">=</span> <span class="s">4</span>
+<span class="c1">; bind an http socket to port 9090</span>
+<span class="na">http-socket</span> <span class="o">=</span> <span class="s">:9090</span>
+<span class="c1">; log response time with microseconds resolution</span>
+<span class="na">log-micros</span> <span class="o">=</span> <span class="s">true</span>
+
+<span class="c1">; create a cache with 100 items (default size per-item is 64k)</span>
+<span class="na">cache2</span> <span class="o">=</span> <span class="s">name=mycache,items=100</span>
+
+<span class="c1">; create a cache for images with dynamic size (images can be big, so do not waste memory)</span>
+<span class="na">cache2</span> <span class="o">=</span> <span class="s">name=images,items=20,bitmap=1,blocks=100</span>
+
+<span class="c1">; a cache for css (20k per-item is more than enough)</span>
+<span class="na">cache2</span> <span class="o">=</span> <span class="s">name=stylesheets,items=30,blocksize=20000</span>
+
+<span class="c1">; load the mime types engine</span>
+<span class="na">mime-file</span> <span class="o">=</span> <span class="s">/etc/mime.types</span>
+
+<span class="c1">; at each request starting with /img check it in the &#39;images&#39; cache (use mime types engine for the content type)</span>
+<span class="na">route</span> <span class="o">=</span> <span class="s">^/img/(.+) cache:key=/img/$1,name=images,mime=1</span>
+
+<span class="c1">; at each request ending with .css check it in the &#39;stylesheets&#39; cache</span>
+<span class="na">route</span> <span class="o">=</span> <span class="s">\.css$ cache:key=${REQUEST_URI},name=stylesheets,content_type=text/css</span>
+
+<span class="c1">; fallback to text/html all of the others request</span>
+<span class="na">route</span> <span class="o">=</span> <span class="s">.* cache:key=${REQUEST_URI},name=mycache</span>
+
+<span class="c1">; store each successful request (200 http status code) in the &#39;mycache&#39; cache using the REQUEST_URI as key</span>
+<span class="na">route</span> <span class="o">=</span> <span class="s">.* cachestore:key=${REQUEST_URI},name=mycache</span>
+<span class="c1">; store images and stylesheets in the corresponding caches</span>
+<span class="na">route</span> <span class="o">=</span> <span class="s">^/img/ cachestore:key=${REQUEST_URI},name=images</span>
+<span class="na">route</span> <span class="o">=</span> <span class="s">^/css/ cachestore:key=${REQUEST_URI},name=stylesheets</span>
+</pre></div>
+</div>
+<p>Important, every matched 'cachestore' will overwrite the previous one. So we are adding .* as the first rule.</p>
+</div>
+<div class="section" id="being-more-aggressive-the-expires-http-header">
+<h2>Being more aggressive, the Expires HTTP header<a class="headerlink" href="#being-more-aggressive-the-expires-http-header" title="제목 주소">¶</a></h2>
+<p>You can set an expiration for each cache item. If an item has an expire, it will be translated to HTTP Expires headers.
+This means that once you have sent a cache item to the browser, it will not request it until it expires!</p>
+<p>We use the previous recipe simply adding different expires to the items.</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="c1">; load the PSGI plugin as the default one</span>
+<span class="na">plugins</span> <span class="o">=</span> <span class="s">0:psgi,router_cache</span>
+<span class="c1">; load the Dancer app</span>
+<span class="na">psgi</span> <span class="o">=</span> <span class="s">myapp.pl</span>
+<span class="c1">; enable the master process</span>
+<span class="na">master</span> <span class="o">=</span> <span class="s">true</span>
+<span class="c1">; spawn 4 processes</span>
+<span class="na">processes</span> <span class="o">=</span> <span class="s">4</span>
+<span class="c1">; bind an http socket to port 9090</span>
+<span class="na">http-socket</span> <span class="o">=</span> <span class="s">:9090</span>
+<span class="c1">; log response time with microseconds resolution</span>
+<span class="na">log-micros</span> <span class="o">=</span> <span class="s">true</span>
+
+<span class="c1">; create a cache with 100 items (default size per-item is 64k)</span>
+<span class="na">cache2</span> <span class="o">=</span> <span class="s">name=mycache,items=100</span>
+
+<span class="c1">; create a cache for images with dynamic size (images can be big, so do not waste memory)</span>
+<span class="na">cache2</span> <span class="o">=</span> <span class="s">name=images,items=20,bitmap=1,blocks=100</span>
+
+<span class="c1">; a cache for css (20k per-item is more than enough)</span>
+<span class="na">cache2</span> <span class="o">=</span> <span class="s">name=stylesheets,items=30,blocksize=20000</span>
+
+<span class="c1">; load the mime types engine</span>
+<span class="na">mime-file</span> <span class="o">=</span> <span class="s">/etc/mime.types</span>
+
+<span class="c1">; at each request starting with /img check it in the &#39;images&#39; cache (use mime types engine for the content type)</span>
+<span class="na">route</span> <span class="o">=</span> <span class="s">^/img/(.+) cache:key=/img/$1,name=images,mime=1</span>
+
+<span class="c1">; at each request ending with .css check it in the &#39;stylesheets&#39; cache</span>
+<span class="na">route</span> <span class="o">=</span> <span class="s">\.css$ cache:key=${REQUEST_URI},name=stylesheets,content_type=text/css</span>
+
+<span class="c1">; fallback to text/html all of the others request</span>
+<span class="na">route</span> <span class="o">=</span> <span class="s">.* cache:key=${REQUEST_URI},name=mycache</span>
+
+<span class="c1">; store each successful request (200 http status code) in the &#39;mycache&#39; cache using the REQUEST_URI as key</span>
+<span class="na">route</span> <span class="o">=</span> <span class="s">.* cachestore:key=${REQUEST_URI},name=mycache,expires=60</span>
+<span class="c1">; store images and stylesheets in the corresponding caches</span>
+<span class="na">route</span> <span class="o">=</span> <span class="s">^/img/ cachestore:key=${REQUEST_URI},name=images,expires=3600</span>
+<span class="na">route</span> <span class="o">=</span> <span class="s">^/css/ cachestore:key=${REQUEST_URI},name=stylesheets,expires=3600</span>
+</pre></div>
+</div>
+<p>images and stylesheets are cached for 1 hour, while html response are cached for 1 minute</p>
+</div>
+<div class="section" id="monitoring-caches">
+<h2>Monitoring Caches<a class="headerlink" href="#monitoring-caches" title="제목 주소">¶</a></h2>
+<p>The stats server exposes cache information.</p>
+<p>There is an ncurses-based tool (<a class="reference external" href="https://pypi.python.org/pypi/uwsgicachetop">https://pypi.python.org/pypi/uwsgicachetop</a>) using that information.</p>
+</div>
+<div class="section" id="storing-gzip-variant-of-an-object">
+<h2>Storing GZIP variant of an object<a class="headerlink" href="#storing-gzip-variant-of-an-object" title="제목 주소">¶</a></h2>
+<p>Back to the first recipe. We may want to store two copies of a response. The &quot;clean&quot; one and a gzipped one for clients supporting gzip encoding.</p>
+<p>To enable the gzip copy you only need to choose a name for the item and pass it as the 'gzip' option of the cachestore action.</p>
+<p>Then check for HTTP_ACCEPT_ENCODING request header. If it contains the 'gzip' word you can send it the gzip variant.</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="c1">; load the PSGI plugin as the default one</span>
+<span class="na">plugins</span> <span class="o">=</span> <span class="s">0:psgi,router_cache</span>
+<span class="c1">; load the Dancer app</span>
+<span class="na">psgi</span> <span class="o">=</span> <span class="s">myapp.pl</span>
+<span class="c1">; enable the master process</span>
+<span class="na">master</span> <span class="o">=</span> <span class="s">true</span>
+<span class="c1">; spawn 4 processes</span>
+<span class="na">processes</span> <span class="o">=</span> <span class="s">4</span>
+<span class="c1">; bind an http socket to port 9090</span>
+<span class="na">http-socket</span> <span class="o">=</span> <span class="s">:9090</span>
+<span class="c1">; log response time with microseconds resolution</span>
+<span class="na">log-micros</span> <span class="o">=</span> <span class="s">true</span>
+
+<span class="c1">; create a cache with 100 items (default size per-item is 64k)</span>
+<span class="na">cache2</span> <span class="o">=</span> <span class="s">name=mycache,items=100</span>
+<span class="c1">; if the client support GZIP give it the gzip body</span>
+<span class="na">route-if</span> <span class="o">=</span> <span class="s">contains:${HTTP_ACCEPT_ENCODING};gzip cache:key=gzipped_myhome,name=mycache,content_encoding=gzip</span>
+<span class="c1">; else give it the clear version</span>
+<span class="na">route</span> <span class="o">=</span> <span class="s">^/$ cache:key=myhome,name=mycache</span>
+
+<span class="c1">; store each successful request (200 http status code) for &#39;/&#39; in the &#39;myhome&#39; item in gzip too</span>
+<span class="na">route</span> <span class="o">=</span> <span class="s">^/$ cachestore:key=myhome,gzip=gzipped_myhome,name=mycache</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="storing-static-files-in-the-cache-for-fast-serving">
+<h2>Storing static files in the cache for fast serving<a class="headerlink" href="#storing-static-files-in-the-cache-for-fast-serving" title="제목 주소">¶</a></h2>
+<p>You can populate a uWSGI cache on server startup with static files for fast serving them. The option --load-file-in-cache is the right tool for the job</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">plugins</span> <span class="o">=</span> <span class="s">0:notfound,router_cache</span>
+<span class="na">http-socket</span> <span class="o">=</span> <span class="s">:9090</span>
+<span class="na">cache2</span> <span class="o">=</span> <span class="s">name=files,bitmap=1,items=1000,blocksize=10000,blocks=2000</span>
+<span class="na">load-file-in-cache</span> <span class="o">=</span> <span class="s">files /usr/share/doc/socat/index.html</span>
+<span class="na">route-run</span> <span class="o">=</span> <span class="s">cache:key=${REQUEST_URI},name=files</span>
+</pre></div>
+</div>
+<p>You can specify all of the --load-file-in-cache directive you need but a better approach would be</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">plugins</span> <span class="o">=</span> <span class="s">router_cache</span>
+<span class="na">http-socket</span> <span class="o">=</span> <span class="s">:9090</span>
+<span class="na">cache2</span> <span class="o">=</span> <span class="s">name=files,bitmap=1,items=1000,blocksize=10000,blocks=2000</span>
+<span class="na">for-glob</span> <span class="o">=</span> <span class="s">/usr/share/doc/socat/*.html</span>
+<span class="s">   load-file-in-cache = files %(_)</span>
+<span class="na">endfor</span> <span class="o">=</span>
+<span class="na">route-run</span> <span class="o">=</span> <span class="s">cache:key=${REQUEST_URI},name=files</span>
+</pre></div>
+</div>
+<p>this will store all of the html files in /usr/share/doc/socat.</p>
+<p>Items are stored with the path as the key.</p>
+<p>When a non-existent item is requested the connection is closed and you should get an ugly</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>-- unavailable modifier requested: <span class="m">0</span> --
+</pre></div>
+</div>
+<p>This is because the internal routing system failed to manage the request, and no request plugin is available to manage the request.</p>
+<p>You can build a better infrastructure using the simple 'notfound' plugin (it will always return a 404)</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">plugins</span> <span class="o">=</span> <span class="s">0:notfound,router_cache</span>
+<span class="na">http-socket</span> <span class="o">=</span> <span class="s">:9090</span>
+<span class="na">cache2</span> <span class="o">=</span> <span class="s">name=files,bitmap=1,items=1000,blocksize=10000,blocks=2000</span>
+<span class="na">for-glob</span> <span class="o">=</span> <span class="s">/usr/share/doc/socat/*.html</span>
+<span class="s">   load-file-in-cache = files %(_)</span>
+<span class="na">endfor</span> <span class="o">=</span>
+<span class="na">route-run</span> <span class="o">=</span> <span class="s">cache:key=${REQUEST_URI},name=files</span>
+</pre></div>
+</div>
+<p>You can store file in the cache as gzip too using --load-file-in-cache-gzip</p>
+<p>This option does not allow to set the name of the cache item, so to support client iwith and without gzip support we can use 2 different caches</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">plugins</span> <span class="o">=</span> <span class="s">0:notfound,router_cache</span>
+<span class="na">http-socket</span> <span class="o">=</span> <span class="s">:9090</span>
+<span class="na">cache2</span> <span class="o">=</span> <span class="s">name=files,bitmap=1,items=1000,blocksize=10000,blocks=2000</span>
+<span class="na">cache2</span> <span class="o">=</span> <span class="s">name=compressedfiles,bitmap=1,items=1000,blocksize=10000,blocks=2000</span>
+<span class="na">for-glob</span> <span class="o">=</span> <span class="s">/usr/share/doc/socat/*.html</span>
+<span class="s">   load-file-in-cache = files %(_)</span>
+<span class="s">   load-file-in-cache-gzip = compressedfiles %(_)</span>
+<span class="na">endfor</span> <span class="o">=</span>
+<span class="c1">; take the item from the compressed cache</span>
+<span class="na">route-if</span> <span class="o">=</span> <span class="s">contains:${HTTP_ACCEPT_ENCODING};gzip cache:key=${REQUEST_URI},name=compressedfiles,content_encoding=gzip</span>
+<span class="c1">; fallback to the uncompressed one</span>
+<span class="na">route-run</span> <span class="o">=</span> <span class="s">cache:key=${REQUEST_URI},name=files</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="caching-for-authenticated-users">
+<h2>Caching for authenticated users<a class="headerlink" href="#caching-for-authenticated-users" title="제목 주소">¶</a></h2>
+<p>If you authenticate users with http basic auth, you can differentiate caching for each one using the ${REMOTE_USER} request variable:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="c1">; load the PSGI plugin as the default one</span>
+<span class="na">plugins</span> <span class="o">=</span> <span class="s">0:psgi,router_cache</span>
+<span class="c1">; load the Dancer app</span>
+<span class="na">psgi</span> <span class="o">=</span> <span class="s">myapp.pl</span>
+<span class="c1">; enable the master process</span>
+<span class="na">master</span> <span class="o">=</span> <span class="s">true</span>
+<span class="c1">; spawn 4 processes</span>
+<span class="na">processes</span> <span class="o">=</span> <span class="s">4</span>
+<span class="c1">; bind an http socket to port 9090</span>
+<span class="na">http-socket</span> <span class="o">=</span> <span class="s">:9090</span>
+<span class="c1">; log response time with microseconds resolution</span>
+<span class="na">log-micros</span> <span class="o">=</span> <span class="s">true</span>
+
+<span class="c1">; create a cache with 100 items (default size per-item is 64k)</span>
+<span class="na">cache2</span> <span class="o">=</span> <span class="s">name=mycache,items=100</span>
+<span class="c1">; check if the user is authenticated</span>
+<span class="na">route-if-not</span> <span class="o">=</span> <span class="s">empty:${REMOTE_USER} goto:cacheme</span>
+<span class="na">route-run</span> <span class="o">=</span> <span class="s">break:</span>
+
+<span class="c1">; the following rules are executed only if REMOTE_USER is defined</span>
+<span class="na">route-label</span> <span class="o">=</span> <span class="s">cacheme</span>
+<span class="na">route</span> <span class="o">=</span> <span class="s">^/$ cache:key=myhome_for_${REMOTE_USER},name=mycache</span>
+<span class="c1">; store each successful request (200 http status code) for &#39;/&#39;</span>
+<span class="na">route</span> <span class="o">=</span> <span class="s">^/$ cachestore:key=myhome_for_${REMOTE_USER},name=mycache</span>
+</pre></div>
+</div>
+<p>Cookie-based authentication is generally more complex, but the vast majority of time a session id is passed as a cookie.</p>
+<p>You may want to use this session_id as the key</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="c1">; load the PHP plugin as the default one</span>
+<span class="na">plugins</span> <span class="o">=</span> <span class="s">0:php,router_cache</span>
+<span class="c1">; enable the master process</span>
+<span class="na">master</span> <span class="o">=</span> <span class="s">true</span>
+<span class="c1">; spawn 4 processes</span>
+<span class="na">processes</span> <span class="o">=</span> <span class="s">4</span>
+<span class="c1">; bind an http socket to port 9090</span>
+<span class="na">http-socket</span> <span class="o">=</span> <span class="s">:9090</span>
+<span class="c1">; log response time with microseconds resolution</span>
+<span class="na">log-micros</span> <span class="o">=</span> <span class="s">true</span>
+
+<span class="c1">; create a cache with 100 items (default size per-item is 64k)</span>
+<span class="na">cache2</span> <span class="o">=</span> <span class="s">name=mycache,items=100</span>
+<span class="c1">; check if the user is authenticated</span>
+<span class="na">route-if-not</span> <span class="o">=</span> <span class="s">empty:${cookie[PHPSESSID]} goto:cacheme</span>
+<span class="na">route-run</span> <span class="o">=</span> <span class="s">break:</span>
+
+<span class="c1">; the following rules are executed only if the PHPSESSID cookie is defined</span>
+<span class="na">route-label</span> <span class="o">=</span> <span class="s">cacheme</span>
+<span class="na">route</span> <span class="o">=</span> <span class="s">^/$ cache:key=myhome_for_${cookie[PHPSESSID]},name=mycache</span>
+<span class="c1">; store each successful request (200 http status code) for &#39;/&#39;</span>
+<span class="na">route</span> <span class="o">=</span> <span class="s">^/$ cachestore:key=myhome_for_${cookie[PHPSESSID]},name=mycache</span>
+</pre></div>
+</div>
+<p>Obviously a malicious user could build a fake session id and could potentially fill your cache. You should always check
+the session id. There is no single solution, but a good example for file-based php session is the following one:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="c1">; load the PHP plugin as the default one</span>
+<span class="na">plugins</span> <span class="o">=</span> <span class="s">0:php,router_cache</span>
+<span class="c1">; enable the master process</span>
+<span class="na">master</span> <span class="o">=</span> <span class="s">true</span>
+<span class="c1">; spawn 4 processes</span>
+<span class="na">processes</span> <span class="o">=</span> <span class="s">4</span>
+<span class="c1">; bind an http socket to port 9090</span>
+<span class="na">http-socket</span> <span class="o">=</span> <span class="s">:9090</span>
+<span class="c1">; log response time with microseconds resolution</span>
+<span class="na">log-micros</span> <span class="o">=</span> <span class="s">true</span>
+
+<span class="c1">; create a cache with 100 items (default size per-item is 64k)</span>
+<span class="na">cache2</span> <span class="o">=</span> <span class="s">name=mycache,items=100</span>
+<span class="c1">; check if the user is authenticated</span>
+<span class="na">route-if-not</span> <span class="o">=</span> <span class="s">empty:${cookie[PHPSESSID]} goto:cacheme</span>
+<span class="na">route-run</span> <span class="o">=</span> <span class="s">break:</span>
+
+<span class="c1">; the following rules are executed only if the PHPSESSID cookie is defined</span>
+<span class="na">route-label</span> <span class="o">=</span> <span class="s">cacheme</span>
+<span class="c1">; stop if the session file does not exist</span>
+<span class="na">route-if-not</span> <span class="o">=</span> <span class="s">isfile:/var/lib/php5/sessions/sess_${cookie[PHPSESSID]} break:</span>
+<span class="na">route</span> <span class="o">=</span> <span class="s">^/$ cache:key=myhome_for_${cookie[PHPSESSID]},name=mycache</span>
+<span class="c1">; store each successful request (200 http status code) for &#39;/&#39;</span>
+<span class="na">route</span> <span class="o">=</span> <span class="s">^/$ cachestore:key=myhome_for_${cookie[PHPSESSID]},name=mycache</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="caching-to-files">
+<h2>Caching to files<a class="headerlink" href="#caching-to-files" title="제목 주소">¶</a></h2>
+<p>Sometimes, instead of caching in memory you want to store static files.</p>
+<p>The transformation_tofile plugin allows you to store responses in files:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="c1">; load the PHP plugin as the default one</span>
+<span class="na">plugins</span> <span class="o">=</span> <span class="s">0:psgi,transformation_tofile,router_static</span>
+<span class="c1">; load the Dancer app</span>
+<span class="na">psgi</span> <span class="o">=</span> <span class="s">myapp.pl</span>
+<span class="c1">; enable the master process</span>
+<span class="na">master</span> <span class="o">=</span> <span class="s">true</span>
+<span class="c1">; spawn 4 processes</span>
+<span class="na">processes</span> <span class="o">=</span> <span class="s">4</span>
+<span class="c1">; bind an http socket to port 9090</span>
+<span class="na">http-socket</span> <span class="o">=</span> <span class="s">:9090</span>
+<span class="c1">; log response time with microseconds resolution</span>
+<span class="na">log-micros</span> <span class="o">=</span> <span class="s">true</span>
+
+<span class="c1">; check if a file exists</span>
+<span class="na">route-if</span> <span class="o">=</span> <span class="s">isfile:/var/www/cache/${hex[PATH_INFO]}.html static:/var/www/cache/${hex[PATH_INFO]}.html</span>
+<span class="c1">; otherwise store the response in it</span>
+<span class="na">route-run</span> <span class="o">=</span> <span class="s">tofile:/var/www/cache/${hex[PATH_INFO]}.html</span>
+</pre></div>
+</div>
+<p>the hex[] routing var take a request variable content and encode it in hexadecimal. As PATH_INFO tend to contains / it is a better approach than storing
+full path names (or using other encoding scheme like base64 that can include slashes too)</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Django_and_nginx.html" class="btn btn-neutral float-right" title="Setting up Django and your web server with uWSGI and nginx" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../ThirdPartyPlugins.html" class="btn btn-neutral" title="uWSGI third party plugins" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2012-2016, uWSGI.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'2.0',
+            LANGUAGE:'ko',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/language_data.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          
+          SphinxRtdTheme.Navigation.enableSticky();
+          
+      });
+  </script> 
+
+</body>
+</html>

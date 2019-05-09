@@ -1,0 +1,972 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ko" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ko" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>The Art of Graceful Reloading &mdash; uWSGI 2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="색인" href="../genindex.html" />
+    <link rel="search" title="검색" href="../search.html" />
+    <link rel="next" title="Fun with Perl, Eyetoy and RaspberryPi" href="FunWithPerlEyetoyRaspberrypi.html" />
+    <link rel="prev" title="Serializing accept(), AKA Thundering Herd, AKA the Zeeg Problem" href="SerializingAccept.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> uWSGI
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../WSGIquickstart.html">Quickstart for Python/WSGI applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PSGIquickstart.html">Quickstart for perl/PSGI applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RackQuickstart.html">Quickstart for ruby/Rack applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Snippets.html">Snippets</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Download.html">Getting uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Install.html">Installing uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../BuildSystem.html">The uWSGI build system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Management.html">Managing the uWSGI server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LanguagesAndPlatforms.html">Supported languages and platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SupportedPlatforms.html">Supported Platforms/Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../WebServers.html">Web server integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FAQ.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ThingsToKnow.html">Things to know (best practices and &quot;issues&quot;) READ IT !!!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Configuration.html">Configuring uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FallbackConfig.html">Fallback configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ConfigLogic.html">Configuration logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Options.html">uWSGI Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CustomOptions.html">Defining new options for your instances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ParsingOrder.html">How uWSGI parses config files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Vars.html">uwsgi protocol magic variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Protocol.html">The uwsgi Protocol</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AttachingDaemons.html">Managing external daemons/services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../MasterFIFO.html">The Master FIFO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Inetd.html">Socket activation with inetd/xinetd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Upstart.html">Running uWSGI via Upstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Systemd.html">Systemd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Circus.html">Running uWSGI instances with Circus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Embed.html">Embedding an application in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Logging.html">Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LogFormat.html">Formatting uWSGI requests logs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LogEncoders.html">Log encoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Hooks.html">Hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../WorkerOverride.html">Overriding Workers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ThirdPartyPlugins.html">uWSGI third party plugins</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/CachingCookbook.html">The uWSGI Caching Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/Django_and_nginx.html">Setting up Django and your web server with uWSGI and nginx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/dreamhost.html">Running uWSGI on Dreamhost shared hosting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/heroku_python.html">Running python webapps on Heroku with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/heroku_ruby.html">Running Ruby/Rack webapps on Heroku with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/ReliableFuse.html">Reliably use FUSE filesystems for uWSGI vassals (with Linux)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/DynamicProxying.html">Build a dynamic proxy using RPC and internal routing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/GraphiteAndMetrics.html">Setting up Graphite on Ubuntu using the Metrics subsystem</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="SerializingAccept.html">Serializing accept(), AKA Thundering Herd, AKA the Zeeg Problem</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">The Art of Graceful Reloading</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#what-is-a-graceful-reload">What is a &quot;graceful reload&quot;?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#things-go-wrong">Things go wrong</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-listen-queue">The listen queue</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#proxy-timeouts">Proxy timeouts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#waiting-instead-of-errors-is-good-no-errors-and-no-waiting-is-even-better">Waiting instead of errors is good, no errors and no waiting is even better</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#preforking-vs-lazy-apps-vs-lazy">Preforking VS lazy-apps VS lazy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#standard-default-boring-graceful-reload-aka-sighup">Standard (default/boring) graceful reload (aka <code class="docutils literal notranslate"><span class="pre">SIGHUP</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#workers-reloading-in-lazy-apps-mode">Workers reloading in lazy-apps mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#chain-reloading-lazy-apps">Chain reloading (lazy apps)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#zerg-mode">Zerg mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-zerg-dance-pausing-instances">The Zerg Dance: Pausing instances</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#so-reuseport-linux-3-9-and-bsds"><code class="docutils literal notranslate"><span class="pre">SO_REUSEPORT</span></code> (Linux &gt;= 3.9 and BSDs)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-black-art-for-rich-and-brave-people-master-forking">The Black Art (for rich and brave people): master forking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#subscription-system">Subscription system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inconsistent-states">Inconsistent states</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fighting-inconsistent-states-with-the-emperor">Fighting inconsistent states with the Emperor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dealing-with-ultra-lazy-apps-like-django">Dealing with ultra-lazy apps (like Django)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#finally-do-not-blindly-copy-paste">Finally: Do not blindly copy &amp; paste!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="FunWithPerlEyetoyRaspberrypi.html">Fun with Perl, Eyetoy and RaspberryPi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OffloadingWebsocketsAndSSE.html">Offloading Websockets and Server-Sent Events AKA &quot;Combine them with Django safely&quot;</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WSGIEnvBehaviour.html">WSGI env behaviour policies</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../AlarmSubsystem.html">The uWSGI alarm subsystem (from 1.3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Caching.html">The uWSGI caching framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../WebCaching.html">WebCaching framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Cron.html">The uWSGI cron-like interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Fastrouter.html">The uWSGI FastRouter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../InternalRouting.html">uWSGI internal routing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Legion.html">The uWSGI Legion subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Locks.html">Locks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Mules.html">uWSGI Mules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../OffloadSubsystem.html">The uWSGI offloading subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Queue.html">The uWSGI queue framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RPC.html">uWSGI RPC Stack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SharedArea.html">SharedArea -- share memory pages between uWSGI components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Signals.html">The uWSGI Signal Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Spooler.html">The uWSGI Spooler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SubscriptionServer.html">uWSGI Subscription Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../StaticFiles.html">Serving static files with uWSGI (updated to 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SNI.html">SNI - Server Name Identification (virtual hosting for SSL nodes)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GeoIP.html">The GeoIP plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Transformations.html">uWSGI Transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../WebSockets.html">WebSocket support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Metrics.html">The Metrics subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Chunked.html">The Chunked input API</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Cheaper.html">The uWSGI cheaper subsystem -- adaptive process spawning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Emperor.html">The uWSGI Emperor -- multi-app deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Broodlord.html">Auto-scaling with Broodlord mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Zerg.html">Zerg mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../DynamicApps.html">Adding applications dynamically</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SSLScaling.html">Scaling SSL connections (uWSGI 1.9)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Capabilities.html">Setting POSIX Capabilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Cgroups.html">Running uWSGI in a Linux CGroup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../KSM.html">Using Linux KSM in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Namespaces.html">Jailing your apps using Linux Namespaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Namespaces.html#the-old-way-the-namespace-option">The old way: the --namespace option</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FreeBSDJails.html">FreeBSD Jails</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ForkptyRouter.html">The Forkpty Router</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../TunTapRouter.html">The TunTap Router</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Nagios.html">Monitoring uWSGI with Nagios</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SNMP.html">The embedded SNMP server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PushingStats.html">Pushing statistics (from 1.4)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Carbon.html">Integration with Graphite/Carbon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../StatsServer.html">The uWSGI Stats Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Metrics.html">The Metrics subsystem</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Async.html">uWSGI asynchronous/non-blocking modes (updated to uWSGI 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Gevent.html">The Gevent loop engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Tornado.html">The Tornado loop engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../uGreen.html">uGreen -- uWSGI Green Threads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../asyncio.html">The asyncio loop engine (CPython &gt;= 3.4, uWSGI &gt;= 2.0.4)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Apache.html">Apache support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Cherokee.html">Cherokee support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HTTP.html">Native HTTP support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HTTPS.html">HTTPS 지원 (1.3 버전부터)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SPDY.html">The SPDY router (uWSGI 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Lighttpd.html">Lighttpd support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Mongrel2.html">Attaching uWSGI to Mongrel2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Nginx.html">Nginx support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../OpenBSDhttpd.html">Using OpenBSD httpd as proxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../OpenBSDhttpd.html#notes">Notes</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Python.html">Python support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PyPy.html">The PyPy plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PHP.html">Running PHP scripts in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Perl.html">uWSGI Perl support (PSGI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Ruby.html">Ruby support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Lua.html">Using Lua/WSAPI with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../JVM.html">JVM in the uWSGI server (updated to 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Mono.html">The Mono ASP.NET plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CGI.html">Running CGI scripts on uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCCGO.html">The GCCGO plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Symcall.html">The Symcall plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../XSLT.html">The XSLT plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SSI.html">SSI (Server Side Includes) plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../V8.html">uWSGI V8 support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GridFS.html">The GridFS plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GlusterFS.html">The GlusterFS plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Rados.html">The RADOS plugin</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Pty.html">The Pty plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SPNEGO.html">SPNEGO authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LDAP.html">Configuring uWSGI with LDAP</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Erlang.html">Integrating uWSGI with Erlang</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ManagementFlag.html">Management Flags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Go.html">uWSGI Go support (1.4 only)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.18.html">uWSGI 2.0.18</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.17.1.html">uWSGI 2.0.17.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.17.html">uWSGI 2.0.17</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.16.html">uWSGI 2.0.16</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.15.html">uWSGI 2.0.15</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.14.html">uWSGI 2.0.14</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.13.1.html">uWSGI 2.0.13.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.13.html">uWSGI 2.0.13</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.12.html">uWSGI 2.0.12</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.11.2.html">uWSGI 2.0.11.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.11.1.html">uWSGI 2.0.11.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.11.html">uWSGI 2.0.11</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.10.html">uWSGI 2.0.10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.9.html">uWSGI 2.0.9</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.8.html">uWSGI 2.0.8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.7.html">uWSGI 2.0.7</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.6.html">uWSGI 2.0.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.5.html">uWSGI 2.0.5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.4.html">uWSGI 2.0.4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.3.html">uWSGI 2.0.3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.2.html">uWSGI 2.0.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.1.html">uWSGI 2.0.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.html">uWSGI 2.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.21.html">uWSGI 1.9.21</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.20.html">uWSGI 1.9.20</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.19.html">uWSGI 1.9.19</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.18.html">uWSGI 1.9.18</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.17.html">uWSGI 1.9.17</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.16.html">uWSGI 1.9.16</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.15.html">uWSGI 1.9.15</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.14.html">uWSGI 1.9.14</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.13.html">uWSGI 1.9.13</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.12.html">uWSGI 1.9.12</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.11.html">uWSGI 1.9.11</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.10.html">uWSGI 1.9.10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.9.html">uWSGI 1.9.9</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.8.html">uWSGI 1.9.8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.7.html">uWSGI 1.9.7</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.6.html">uWSGI 1.9.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.5.html">uWSGI 1.9.5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.4.html">uWSGI 1.9.4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.3.html">uWSGI 1.9.3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.2.html">uWSGI 1.9.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.1.html">uWSGI 1.9.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.html">uWSGI 1.9</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">uWSGI</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>The Art of Graceful Reloading</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/articles/TheArtOfGracefulReloading.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="the-art-of-graceful-reloading">
+<h1>The Art of Graceful Reloading<a class="headerlink" href="#the-art-of-graceful-reloading" title="제목 주소">¶</a></h1>
+<p>Author: Roberto De Ioris</p>
+<p>The following article is language-agnostic, and albeit uWSGI-specific, some of
+its initial considerations apply to other application servers and platforms
+too.</p>
+<p>All of the described techniques assume a modern (&gt;= 1.4) uWSGI release with
+the master process enabled.</p>
+<div class="section" id="what-is-a-graceful-reload">
+<h2>What is a &quot;graceful reload&quot;?<a class="headerlink" href="#what-is-a-graceful-reload" title="제목 주소">¶</a></h2>
+<p>During the life-cycle of your webapp you will reload it hundreds of times.</p>
+<p>You need reloading for code updates, you need reloading for changes in the
+uWSGI configuration, you need reloading to reset the state of your app.</p>
+<p>Basically, reloading is one of the most simple, frequent and <strong>dangerous</strong>
+operation you do every time.</p>
+<p>So, why &quot;graceful&quot;?</p>
+<p>Take a traditional (and highly suggested) architecture: a proxy/load balancer
+(like nginx) forwards requests to one or more uWSGI daemons listening on various
+addresses.</p>
+<p>If you manage your reloads as &quot;stop the instance, start the instance&quot;, the time
+slice between two phases will result in a brutal disservice for your customers.</p>
+<p>The main trick for avoiding it is: not closing the file descriptors mapped to
+the uWSGI daemon addresses and abusing the Unix <code class="docutils literal notranslate"><span class="pre">fork()</span></code> behaviour (read:
+file descriptors are inherited by default) to <code class="docutils literal notranslate"><span class="pre">exec()</span></code> the <code class="docutils literal notranslate"><span class="pre">uwsgi</span></code> binary
+again.</p>
+<p>The result is your proxy enqueuing requests to the socket until the latter
+will be able to <code class="docutils literal notranslate"><span class="pre">accept()</span></code> them again, with the user/customer only seeing
+a little slowdown in the first response (the time required for the app to be
+fully loaded again).</p>
+<p>Another important step of graceful reload is to avoid destroying workers/threads
+that are still managing requests. Obviously requests could be stuck, so you
+should have a timeout for running workers (in uWSGI it is called the
+&quot;worker's mercy&quot; and it has a default value of 60 seconds).</p>
+<p>These kind of tricks are pretty easy to accomplish and basically all of the
+modern servers/application servers do it (more or less).</p>
+<p>But, as always, the world is an ugly place and lot of problems arise, and the
+&quot;inherited sockets&quot; approach is often not enough.</p>
+</div>
+<div class="section" id="things-go-wrong">
+<h2>Things go wrong<a class="headerlink" href="#things-go-wrong" title="제목 주소">¶</a></h2>
+<p>We have seen that holding the uWSGI sockets alive allows the proxy webserver
+to enqueue requests without spitting out errors to the clients. This is true
+only if your app restarts fast, and, sadly, this may not always happen.</p>
+<p>Frameworks like Ruby on Rails or Zope start up really slow by default, your
+app could start up slowly by itself, or your machine could be so overloaded that
+every process spawn (<code class="docutils literal notranslate"><span class="pre">fork()</span></code>) takes ages.</p>
+<p>In addition to this, your site could be so famous that even if your app restarts
+in a couple of seconds, the queue of your sockets could be filled up forcing the
+proxy server to raise an error.</p>
+<p>Do not forget, your workers/threads that are still running requests could block
+the reload (for various reasons) for more seconds than your proxy server could
+tolerate.</p>
+<p>Finally, you could have made an application error in your just-committed code,
+so uWSGI will not start, or will start sending wrong things or errors...</p>
+<p>Reloads (brutal or graceful) can easily fail.</p>
+</div>
+<div class="section" id="the-listen-queue">
+<h2>The listen queue<a class="headerlink" href="#the-listen-queue" title="제목 주소">¶</a></h2>
+<p>Let's start with the dream of every webapp developer: <em>success</em>.</p>
+<p>Your app is visited by thousands of clients and you obviously make money with
+it. Unfortunately, it is a very complex app and requires 10 seconds to warm up.</p>
+<p>During graceful reloads, you expect new clients to wait 10 seconds (best case)
+to start seeing contents, but, unfortunately, you have hundreds of concurrent
+requests, so first 100 customers will wait during the server warm-up, while
+the others will get an error from the proxy.</p>
+<p>This happens because the default size of uWSGI's listen queue is 100 slots.
+Before you ask, it is an average value chosen by the maximum value allowed
+by default by your kernel.</p>
+<p>Each operating system has a default limit (Linux has 128, for example), so
+before increasing it you need to increase your kernel limit too.</p>
+<p>So, once your kernel is ready, you can increase the listen queue to the
+maximum number of users you expect to enqueue during a reload.</p>
+<p>To increase the listen queue you use the <code class="docutils literal notranslate"><span class="pre">--listen</span> <span class="pre">&lt;n&gt;</span></code> option where
+<code class="docutils literal notranslate"><span class="pre">&lt;n&gt;</span></code> is the maximum number of slots.</p>
+<p>To raise kernel limits, you should check your OS docs. Some examples:</p>
+<ul class="simple">
+<li>sysctl <code class="docutils literal notranslate"><span class="pre">kern.ipc.somaxconn</span></code> on FreeBSD</li>
+<li><code class="docutils literal notranslate"><span class="pre">/proc/sys/net/core/somaxconn</span></code> on Linux.</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">주석</p>
+<p class="last">This is only one of the reasons to tune the listen queue, but do not blindly
+set it to huge values as a way to increase availability.</p>
+</div>
+</div>
+<div class="section" id="proxy-timeouts">
+<h2>Proxy timeouts<a class="headerlink" href="#proxy-timeouts" title="제목 주소">¶</a></h2>
+<p>This is another thing you need to check if your reloads take a lot of time.</p>
+<p>Generally, proxies allow you to set two timeouts:</p>
+<dl class="docutils">
+<dt>connect</dt>
+<dd>Maximum amount of time the proxy will wait for a successful connection.</dd>
+<dt>read</dt>
+<dd>Maximum amount of time the server will be able to wait for data before
+giving up.</dd>
+</dl>
+<p>When tuning the reloads, only the &quot;connection&quot; timeout matters. This timeout
+enters the game in the time slice between uWSGI's bind to an interface (or
+inheritance of it) and the call to <code class="docutils literal notranslate"><span class="pre">accept()</span></code>.</p>
+</div>
+<div class="section" id="waiting-instead-of-errors-is-good-no-errors-and-no-waiting-is-even-better">
+<h2>Waiting instead of errors is good, no errors and no waiting is even better<a class="headerlink" href="#waiting-instead-of-errors-is-good-no-errors-and-no-waiting-is-even-better" title="제목 주소">¶</a></h2>
+<p>This is the focus of this article. We have seen how to increase the tolerance
+of your proxy during application server reloading. The customers will wait
+instead of getting scary errors, but we all want to make money, so why force
+them to wait?</p>
+<p><em>We want zero-downtime and zero-wait.</em></p>
+</div>
+<div class="section" id="preforking-vs-lazy-apps-vs-lazy">
+<h2>Preforking VS lazy-apps VS lazy<a class="headerlink" href="#preforking-vs-lazy-apps-vs-lazy" title="제목 주소">¶</a></h2>
+<p>This is one of the controversial choices of the uWSGI project.</p>
+<p>By default uWSGI loads the whole application in the first process and after
+the app is loaded it does <code class="docutils literal notranslate"><span class="pre">fork()</span></code> itself multiple times.
+This is the common Unix pattern, it may highly reduce the memory usage of your
+app, allows lot of funny tricks and on some languages may bring you a lot of
+headaches.</p>
+<p>Albeit its name, uWSGI was born as a Perl application server (it was not called
+uWSGI and it was not open source), and in the Perl world preforking is
+generally the blessed way.</p>
+<p>This is not true for a lot of other languages, platforms and frameworks, so
+before starting dealing with uWSGI you should choose how to manage <code class="docutils literal notranslate"><span class="pre">fork()</span></code>
+in your stack.</p>
+<p>Seeing it from the &quot;graceful reloading&quot; point of view, preforking extremely
+speeds up things: your app is loaded only one time, and spawning additional
+workers will be really fast. Avoiding disk access for each worker of your
+stack will decrease startup times, especially for frameworks or languages
+doing a lot of disk access to find modules.</p>
+<p>Unfortunately, the preforking approach forces you to reload the whole stack
+whenever you make code changes instead of reloading only the workers.</p>
+<p>In addition to this, your app could need preforking, or could completely
+crash due to it because of the way it has been developed.</p>
+<p>lazy-apps mode instead loads your application one time per worker. It will
+require about O(n) time to load it (where n is the number of workers),
+will very probably consume more memory, but will run in a more consistent
+and clean environment.</p>
+<p>Remember: lazy-apps is different from lazy, the first one only instructs
+uWSGI to load the application one time per worker, while the second is
+more invasive (and generally discouraged) as it changes a lot of internal
+defaults.</p>
+<p>The following approaches will show you how to accomplish zero-downtime/wait
+reloads in both preforking and lazy modes.</p>
+<div class="admonition note">
+<p class="first admonition-title">주석</p>
+<p class="last">Each approach has pros and cons, choose carefully.</p>
+</div>
+</div>
+<div class="section" id="standard-default-boring-graceful-reload-aka-sighup">
+<h2>Standard (default/boring) graceful reload (aka <code class="docutils literal notranslate"><span class="pre">SIGHUP</span></code>)<a class="headerlink" href="#standard-default-boring-graceful-reload-aka-sighup" title="제목 주소">¶</a></h2>
+<p>To trigger it, you can:</p>
+<ul class="simple">
+<li>send <code class="docutils literal notranslate"><span class="pre">SIGHUP</span></code> to the master</li>
+<li>write <code class="docutils literal notranslate"><span class="pre">r</span></code> to <a class="reference internal" href="../MasterFIFO.html"><span class="doc">The Master FIFO</span></a></li>
+<li>use <code class="docutils literal notranslate"><span class="pre">--touch-reload</span></code> option</li>
+<li>call <code class="docutils literal notranslate"><span class="pre">uwsgi.reload()</span></code> API.</li>
+</ul>
+<p>In preforking and lazy-apps mode, it will:</p>
+<ol class="arabic simple">
+<li>Wait for running workers.</li>
+<li>Close all of the file descriptors except the ones mapped to sockets.</li>
+<li>Call <code class="docutils literal notranslate"><span class="pre">exec()</span></code> on itself.</li>
+</ol>
+<p>In lazy mode, it will:</p>
+<ol class="arabic simple">
+<li>Wait for running workers.</li>
+<li>Restart all of them (this means you cannot change uWSGI options during
+this kind of reload).</li>
+</ol>
+<div class="admonition warning">
+<p class="first admonition-title">경고</p>
+<p class="last">lazy is discouraged!</p>
+</div>
+<p>Pros:</p>
+<ul class="simple">
+<li>easy to manage</li>
+<li>no corner-case problems</li>
+<li>no inconsistent states</li>
+<li>basically full reset of the instance.</li>
+</ul>
+<p>Cons:</p>
+<ul class="simple">
+<li>the ones we seen before</li>
+<li>listen queue filling up</li>
+<li>stuck workers</li>
+<li>potentially long waiting times.</li>
+</ul>
+</div>
+<div class="section" id="workers-reloading-in-lazy-apps-mode">
+<h2>Workers reloading in lazy-apps mode<a class="headerlink" href="#workers-reloading-in-lazy-apps-mode" title="제목 주소">¶</a></h2>
+<p>Requires <code class="docutils literal notranslate"><span class="pre">--lazy-apps</span></code> option.</p>
+<p>To trigger it:</p>
+<ul class="simple">
+<li>write <code class="docutils literal notranslate"><span class="pre">w</span></code> to <a class="reference internal" href="../MasterFIFO.html"><span class="doc">The Master FIFO</span></a></li>
+<li>use <code class="docutils literal notranslate"><span class="pre">--touch-workers-reload</span></code> option.</li>
+</ul>
+<p>It will wait for running workers and then restart each of them.</p>
+<p>Pros:</p>
+<ul class="simple">
+<li>avoids restarting the whole instance.</li>
+</ul>
+<p>Cons:</p>
+<ul class="simple">
+<li>no user-experience improvements over standard graceful reload, it is
+only a shortcut for situation when code updates do not imply instance
+reconfiguration.</li>
+</ul>
+</div>
+<div class="section" id="chain-reloading-lazy-apps">
+<h2>Chain reloading (lazy apps)<a class="headerlink" href="#chain-reloading-lazy-apps" title="제목 주소">¶</a></h2>
+<p>Requires <code class="docutils literal notranslate"><span class="pre">--lazy-apps</span></code> option.</p>
+<p>To trigger it:</p>
+<ul class="simple">
+<li>write <code class="docutils literal notranslate"><span class="pre">c</span></code> to <a class="reference internal" href="../MasterFIFO.html"><span class="doc">The Master FIFO</span></a></li>
+<li>use <code class="docutils literal notranslate"><span class="pre">--touch-chain-reload</span></code> option.</li>
+</ul>
+<p>This is the first approach that improves user experience. When triggered,
+it will restart one worker at time, and the following worker is not reloaded
+until the previous one is ready to accept new requests.</p>
+<p>Pros:</p>
+<ul class="simple">
+<li>potentially highly reduces waiting time for clients</li>
+<li>reduces the load of the machine during reloads (no multiple processes loading
+the same code).</li>
+</ul>
+<p>Cons:</p>
+<ul class="simple">
+<li>only useful for code updates</li>
+<li>you need a good amount of workers to get a better user experience.</li>
+</ul>
+</div>
+<div class="section" id="zerg-mode">
+<h2>Zerg mode<a class="headerlink" href="#zerg-mode" title="제목 주소">¶</a></h2>
+<p>Requires a zerg server or a zerg pool.</p>
+<p>To trigger it, run the instance in zerg mode.</p>
+<p>This is the first approach that uses multiple instances of the same application
+to increase user experience.</p>
+<p>Zerg mode works by making use of the venerable &quot;fd passing over Unix sockets&quot;
+technique.</p>
+<p>Basically, an external process (the zerg server/pool) binds to the various
+sockets required by your app. Your uWSGI instance, instead of binding by
+itself, asks the zerg server/pool to pass it the file descriptor. This means
+multiple unrelated instances can ask for the same file descriptors and work
+together.</p>
+<p>Zerg mode was born to improve auto-scalability, but soon became one of the most
+loved approaches for zero-downtime reloading.</p>
+<p>Now, examples.</p>
+<p>Spawn a zerg pool exposing <code class="docutils literal notranslate"><span class="pre">127.0.0.1:3031</span></code> to the Unix socket
+<code class="docutils literal notranslate"><span class="pre">/var/run/pool1</span></code>:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">master</span> <span class="o">=</span> <span class="s">true</span>
+<span class="na">zerg-pool</span> <span class="o">=</span> <span class="s">/var/run/pool1:127.0.0.1:3031</span>
+</pre></div>
+</div>
+<p>Now spawn one or more instances attached to the zerg pool:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="c1">; this will give access to 127.0.0.1:3031 to the instance</span>
+<span class="na">zerg</span> <span class="o">=</span> <span class="s">/var/run/pool1</span>
+</pre></div>
+</div>
+<p>When you want to make update of code or options, just spawn a new instance
+attached to the zerg, and shut down the old one when the new one is ready to
+accept requests.</p>
+<p>The so-called &quot;zerg dance&quot; is a trick for automation of this kind of reload.
+There are various ways to accomplish it, the objective is to automatically
+&quot;pause&quot; or &quot;destroy&quot; the old instance when the new one is fully ready and able
+to accept requests. More on this below.</p>
+<p>Pros:</p>
+<ul class="simple">
+<li>potentially the silver bullet</li>
+<li>allows instances with different options to cooperate for the same app.</li>
+</ul>
+<p>Cons:</p>
+<ul class="simple">
+<li>requires an additional process</li>
+<li>can be hard to master</li>
+<li>reload requires copy of the whole uWSGI stack.</li>
+</ul>
+</div>
+<div class="section" id="the-zerg-dance-pausing-instances">
+<h2>The Zerg Dance: Pausing instances<a class="headerlink" href="#the-zerg-dance-pausing-instances" title="제목 주소">¶</a></h2>
+<p>We all make mistakes, sysadmins must improve their skill of fast disaster
+recovery. Focusing on avoiding them is a waste of time. Unfortunately, we
+are all humans.</p>
+<p>Rolling back deployments could be your life-safer.</p>
+<p>We have seen how zerg mode allows us to have multiple instances asking on
+the same socket. In the previous section we used it to spawn a new instance
+working together with the old one. Now, instead of shutting down the old
+instance, why not &quot;pause&quot; it? A paused instance is like the standby mode
+of your TV. It consumes very few resources, but you can bring it back very
+quickly.</p>
+<p>&quot;Zerg Dance&quot; is the battle-name for the procedure of continuous swapping of
+instances during reloads. Every reload results in a &quot;sleeping&quot; instance and
+a running one. Following reloads destroy the old sleeping instance and
+transform the old running to the sleeping one and so on.</p>
+<p>There are literally dozens of ways to accomplish the &quot;Zerg Dance&quot;, the fact
+that you can easily use scripts in your reloading procedures makes this
+approach extremely powerful and customizable.</p>
+<p>Here we will see the one that requires zero scripting, it could be the less
+versatile (and requires at least uWSGI 1.9.21), but should be a good starting
+point for the improvements.</p>
+<p><a class="reference internal" href="../MasterFIFO.html"><span class="doc">The Master FIFO</span></a> is the best way to manage instances instead of relying
+on Unix signals. Basically, you write single-char commands to govern the
+instance.</p>
+<p>The funny thing about the Master FIFOs is that you can have many of them
+configured for your instance and swap one with another very easily.</p>
+<p>An example will clarify things.</p>
+<p>We spawn an instance with 3 Master FIFOs: new (the default one), running
+and sleeping:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="c1">; fifo &#39;0&#39;</span>
+<span class="na">master-fifo</span> <span class="o">=</span> <span class="s">/var/run/new.fifo</span>
+<span class="c1">; fifo &#39;1&#39;</span>
+<span class="na">master-fifo</span> <span class="o">=</span> <span class="s">/var/run/running.fifo</span>
+<span class="c1">; fifo &#39;2&#39;</span>
+<span class="na">master-fifo</span> <span class="o">=</span> <span class="s">/var/run/sleeping.fifo</span>
+<span class="c1">; attach to zerg</span>
+<span class="na">zerg</span> <span class="o">=</span> <span class="s">/var/run/pool1</span>
+<span class="c1">; other options ...</span>
+</pre></div>
+</div>
+<p>By default the &quot;new&quot; one will be active (read: will be able to process
+commands).</p>
+<p>Now we want to spawn a new instance, that once is ready to accept requests will
+put the old one in sleeping mode. To do it, we will use uWSGI's advanced hooks.
+Hooks allow you to &quot;make things&quot; at various phases of uWSGI's life cycle.
+When the new instance is ready, we want to force the old instance to start
+working on the sleeping FIFO and be in &quot;pause&quot; mode:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="c1">; fifo &#39;0&#39;</span>
+<span class="na">master-fifo</span> <span class="o">=</span> <span class="s">/var/run/new.fifo</span>
+<span class="c1">; fifo &#39;1&#39;</span>
+<span class="na">master-fifo</span> <span class="o">=</span> <span class="s">/var/run/running.fifo</span>
+<span class="c1">; fifo &#39;2&#39;</span>
+<span class="na">master-fifo</span> <span class="o">=</span> <span class="s">/var/run/sleeping.fifo</span>
+<span class="c1">; attach to zerg</span>
+<span class="na">zerg</span> <span class="o">=</span> <span class="s">/var/run/pool1</span>
+
+<span class="c1">; hooks</span>
+
+<span class="c1">; destroy the currently sleeping instance</span>
+<span class="na">if-exists</span> <span class="o">=</span> <span class="s">/var/run/sleeping.fifo</span>
+<span class="s">  hook-accepting1-once = writefifo:/var/run/sleeping.fifo Q</span>
+<span class="na">endif</span> <span class="o">=</span>
+<span class="c1">; force the currently running instance to became sleeping (slot 2) and place it in pause mode</span>
+<span class="na">if-exists</span> <span class="o">=</span> <span class="s">/var/run/running.fifo</span>
+<span class="s">  hook-accepting1-once = writefifo:/var/run/running.fifo 2p</span>
+<span class="na">endif</span> <span class="o">=</span>
+<span class="c1">; force this instance to became the running one (slot 1)</span>
+<span class="na">hook-accepting1-once</span> <span class="o">=</span> <span class="s">writefifo:/var/run/new.fifo 1</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">hook-accepting1-once</span></code> phase is run one time per instance soon after the
+first worker is ready to accept requests.
+The <code class="docutils literal notranslate"><span class="pre">writefifo</span></code> command allows writing to FIFOs  without failing if the
+other peers are not connected (this is different from a simple <code class="docutils literal notranslate"><span class="pre">write</span></code>
+command that would fail or completely block when dealing with bad FIFOs).</p>
+<div class="admonition note">
+<p class="first admonition-title">주석</p>
+<p>Both features have been added only in uWSGI 1.9.21, with older releases you can
+use the <code class="docutils literal notranslate"><span class="pre">--hook-post-app</span></code> option instead of <code class="docutils literal notranslate"><span class="pre">--hook-accepting1-once</span></code>, but
+you will lose the &quot;once&quot; feature, so it will work reliably only in preforking
+mode.</p>
+<p class="last">Instead of <code class="docutils literal notranslate"><span class="pre">writefifo</span></code> you can use the shell variant:
+<code class="docutils literal notranslate"><span class="pre">exec:echo</span> <span class="pre">&lt;string&gt;</span> <span class="pre">&gt;</span> <span class="pre">&lt;fifo&gt;</span></code>.</p>
+</div>
+<p>Now start running instances with the same config files over and over again.
+If all goes well, you should always end with two instances, one sleeping and
+one running.</p>
+<p>Finally, if you want to bring back a sleeping instance, just do:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># destroy the running instance</span>
+<span class="nb">echo</span> Q &gt; /var/run/running.fifo
+
+<span class="c1"># unpause the sleeping instance and set it as the running one</span>
+<span class="nb">echo</span> p1 &gt; /var/run/sleeping.fifo
+</pre></div>
+</div>
+<p>Pros:</p>
+<ul class="simple">
+<li>truly zero-downtime reload.</li>
+</ul>
+<p>Cons:</p>
+<ul class="simple">
+<li>requires high-level uWSGI and Unix skills.</li>
+</ul>
+</div>
+<div class="section" id="so-reuseport-linux-3-9-and-bsds">
+<h2><code class="docutils literal notranslate"><span class="pre">SO_REUSEPORT</span></code> (Linux &gt;= 3.9 and BSDs)<a class="headerlink" href="#so-reuseport-linux-3-9-and-bsds" title="제목 주소">¶</a></h2>
+<p>On recent Linux kernels and modern BSDs you may try <code class="docutils literal notranslate"><span class="pre">--reuse-port</span></code> option.
+This option allows multiple unrelated instances to bind on the same network
+address. You may see it as a kernel-level zerg mode. Basically, all of the Zerg
+approaches can be followed.</p>
+<p>Once you add <code class="docutils literal notranslate"><span class="pre">--reuse-port</span></code> to you instance, all of the sockets will have
+the <code class="docutils literal notranslate"><span class="pre">SO_REUSEPORT</span></code> flag set.</p>
+<p>Pros:</p>
+<ul class="simple">
+<li>similar to zerg mode, could be even easier to manage.</li>
+</ul>
+<p>Cons:</p>
+<ul class="simple">
+<li>requires kernel support</li>
+<li>could lead to inconsistent states</li>
+<li>you lose ability to use TCP addresses as a way to avoid incidental multiple
+instances running.</li>
+</ul>
+</div>
+<div class="section" id="the-black-art-for-rich-and-brave-people-master-forking">
+<h2>The Black Art (for rich and brave people): master forking<a class="headerlink" href="#the-black-art-for-rich-and-brave-people-master-forking" title="제목 주소">¶</a></h2>
+<p>To trigger it, write <code class="docutils literal notranslate"><span class="pre">f</span></code> to <a class="reference internal" href="../MasterFIFO.html"><span class="doc">The Master FIFO</span></a>.</p>
+<p>This is the most dangerous of the ways to reload, but once mastered, it could
+lead to pretty cool results.</p>
+<p>The approach is: call <code class="docutils literal notranslate"><span class="pre">fork()</span></code> in the master, close all of the file
+descriptors except the socket-related ones, and <code class="docutils literal notranslate"><span class="pre">exec()</span></code> a new uWSGI
+instance.</p>
+<p>You will end with two specular uWSGI instances working on the same set of
+sockets.</p>
+<p>The scary thing about it is how easy (just write a single char to the master
+FIFO) is to trigger it...</p>
+<p>With a bit of mastery you can implement the zerg dance on top of it.</p>
+<p>Pros:</p>
+<ul class="simple">
+<li>does not require kernel support nor an additional process</li>
+<li>pretty fast.</li>
+</ul>
+<p>Cons:</p>
+<ul class="simple">
+<li>a whole copy for each reload</li>
+<li>inconstent states all over the place (pidfiles, logging, etc.: the master
+FIFO commands could help fix them).</li>
+</ul>
+</div>
+<div class="section" id="subscription-system">
+<h2>Subscription system<a class="headerlink" href="#subscription-system" title="제목 주소">¶</a></h2>
+<p>This is probably the best approach when you can count on multiple servers.
+You add the &quot;fastrouter&quot; between your proxy server (e.g., nginx) and your
+instances.</p>
+<p>Instances will &quot;subscribe&quot; to the fastrouter that will pass requests
+from proxy server (nginx) to them while load balancing and constantly
+monitoring all of them.</p>
+<p>Subscriptions are simple UDP packets that instruct the fastrouter which
+domain maps to which instance or instances.</p>
+<p>As you can subscribe, you can unsubscribe too, and this is where the magic
+happens:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">subscribe-to</span> <span class="o">=</span> <span class="s">192.168.0.1:4040:unbit.it</span>
+<span class="na">unsubscribe-on-graceful-reload</span> <span class="o">=</span> <span class="s">true</span>
+<span class="c1">; all of the required options ...</span>
+</pre></div>
+</div>
+<p>Adding <code class="docutils literal notranslate"><span class="pre">unsubscribe-on-graceful-reload</span></code> will force the instance to send an
+&quot;unsubscribe&quot; packet to the fastrouter, so until it will not be back no request
+will be sent to it.</p>
+<p>Pros:</p>
+<ul class="simple">
+<li>low-cost zero-downtime</li>
+<li>a KISS approach (<em>finally</em>).</li>
+</ul>
+<p>Cons:</p>
+<ul class="simple">
+<li>requires a subscription server (like the fastrouter) that introduces overhead
+(even if we are talking about microseconds).</li>
+</ul>
+</div>
+<div class="section" id="inconsistent-states">
+<h2>Inconsistent states<a class="headerlink" href="#inconsistent-states" title="제목 주소">¶</a></h2>
+<p>Sadly, most of the approaches involving copies of the whole instance (like
+Zerg Dance or master forking) lead to inconsistent states.</p>
+<p>Take, for example, an instance writing pidfiles: when starting a copy of it,
+that pidfile will be overwritten.</p>
+<p>If you carefully plan your configurations, you can avoid inconsistent states,
+but thanks to <a class="reference internal" href="../MasterFIFO.html"><span class="doc">The Master FIFO</span></a> you can manage some of them (read: the most
+common ones):</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">l</span></code> command will reopen logfiles</li>
+<li><code class="docutils literal notranslate"><span class="pre">P</span></code> command will update all of the instance pidfiles.</li>
+</ul>
+</div>
+<div class="section" id="fighting-inconsistent-states-with-the-emperor">
+<h2>Fighting inconsistent states with the Emperor<a class="headerlink" href="#fighting-inconsistent-states-with-the-emperor" title="제목 주소">¶</a></h2>
+<p>If you manage your instances with the <a class="reference internal" href="../Emperor.html"><span class="doc">Emperor</span></a>, you can
+use its features to avoid (or reduce number of) inconsistent states.</p>
+<p>Giving each instance a different symbolic link name will allow you to map
+files (like pidfiles or logs) to different paths:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">logto</span> <span class="o">=</span> <span class="s">/var/log/%n.log</span>
+<span class="na">safe-pidfile</span> <span class="o">=</span> <span class="s">/var/run/%n.pid</span>
+<span class="c1">; and so on ...</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">safe-pidfile</span></code> option works similar to <code class="docutils literal notranslate"><span class="pre">pidfile</span></code> but performs the write
+a little later in the loading process. This avoids overwriting the value when
+app loading fails, with the consequent loss of a valid PID number.</p>
+</div>
+<div class="section" id="dealing-with-ultra-lazy-apps-like-django">
+<h2>Dealing with ultra-lazy apps (like Django)<a class="headerlink" href="#dealing-with-ultra-lazy-apps-like-django" title="제목 주소">¶</a></h2>
+<p>Some applications or frameworks (like Django) may load the vast majority of
+their code only at the first request. This means that customer will continue
+to experience slowdowns during reload even when using things like zerg mode
+or similar.</p>
+<p>This problem is hard to solve (impossible?) in the application server itself,
+so you should find a way to force your app to load itself ASAP. A good trick
+(read: works with Django) is to call the entry-point function (like the WSGI
+callable) in the app itself:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">application</span><span class="p">(</span><span class="n">environ</span><span class="p">,</span> <span class="n">sr</span><span class="p">):</span>
+    <span class="n">sr</span><span class="p">(</span><span class="s1">&#39;200 OK&#39;</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;Content-Type&#39;</span><span class="p">,</span> <span class="s1">&#39;text/plain&#39;</span><span class="p">)])</span>
+    <span class="k">yield</span> <span class="s2">&quot;Hello&quot;</span>
+
+<span class="n">application</span><span class="p">({},</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="bp">None</span><span class="p">)</span>  <span class="c1"># call the entry-point function</span>
+</pre></div>
+</div>
+<p>You may need to pass CGI vars to the environ to make a true request: it depends
+on the WSGI app.</p>
+</div>
+<div class="section" id="finally-do-not-blindly-copy-paste">
+<h2>Finally: Do not blindly copy &amp; paste!<a class="headerlink" href="#finally-do-not-blindly-copy-paste" title="제목 주소">¶</a></h2>
+<p>Please, turn on your brain and try to adapt shown configs to your needs, or
+invent new ones.</p>
+<p>Each app and system is different from the others.</p>
+<p>Experiment before making a choice.</p>
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="제목 주소">¶</a></h2>
+<p><a class="reference internal" href="../MasterFIFO.html"><span class="doc">The Master FIFO</span></a></p>
+<p><a class="reference internal" href="../Hooks.html"><span class="doc">Hooks</span></a></p>
+<p><a class="reference internal" href="../Zerg.html"><span class="doc">Zerg mode</span></a></p>
+<p><a class="reference internal" href="../Fastrouter.html"><span class="doc">The uWSGI FastRouter</span></a></p>
+<p><a class="reference internal" href="../SubscriptionServer.html"><span class="doc">uWSGI Subscription Server</span></a></p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="FunWithPerlEyetoyRaspberrypi.html" class="btn btn-neutral float-right" title="Fun with Perl, Eyetoy and RaspberryPi" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="SerializingAccept.html" class="btn btn-neutral" title="Serializing accept(), AKA Thundering Herd, AKA the Zeeg Problem" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2012-2016, uWSGI.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'2.0',
+            LANGUAGE:'ko',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/language_data.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          
+          SphinxRtdTheme.Navigation.enableSticky();
+          
+      });
+  </script> 
+
+</body>
+</html>

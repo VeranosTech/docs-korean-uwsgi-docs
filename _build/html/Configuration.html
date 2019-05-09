@@ -1,0 +1,885 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ko" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ko" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Configuring uWSGI &mdash; uWSGI 2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="색인" href="genindex.html" />
+    <link rel="search" title="검색" href="search.html" />
+    <link rel="next" title="Fallback configuration" href="FallbackConfig.html" />
+    <link rel="prev" title="Things to know (best practices and &#34;issues&#34;) READ IT !!!" href="ThingsToKnow.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> uWSGI
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="WSGIquickstart.html">Quickstart for Python/WSGI applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PSGIquickstart.html">Quickstart for perl/PSGI applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RackQuickstart.html">Quickstart for ruby/Rack applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Snippets.html">Snippets</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Download.html">Getting uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Install.html">Installing uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BuildSystem.html">The uWSGI build system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Management.html">Managing the uWSGI server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LanguagesAndPlatforms.html">Supported languages and platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SupportedPlatforms.html">Supported Platforms/Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WebServers.html">Web server integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FAQ.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ThingsToKnow.html">Things to know (best practices and &quot;issues&quot;) READ IT !!!</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Configuring uWSGI</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#loading-configuration-files">Loading configuration files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#magic-variables">Magic variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#placeholders">Placeholders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#placeholders-math-from-uwsgi-1-9-20-dev">Placeholders math (from uWSGI 1.9.20-dev)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-magic">The '&#64;' magic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#command-line-arguments">Command line arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ini-files">INI files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#xml-files">XML files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#json-files">JSON files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#yaml-files">YAML files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sqlite-configuration">SQLite configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ldap-configuration">LDAP configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="FallbackConfig.html">Fallback configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ConfigLogic.html">Configuration logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Options.html">uWSGI Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CustomOptions.html">Defining new options for your instances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ParsingOrder.html">How uWSGI parses config files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Vars.html">uwsgi protocol magic variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Protocol.html">The uwsgi Protocol</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AttachingDaemons.html">Managing external daemons/services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MasterFIFO.html">The Master FIFO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Inetd.html">Socket activation with inetd/xinetd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Upstart.html">Running uWSGI via Upstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Systemd.html">Systemd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Circus.html">Running uWSGI instances with Circus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Embed.html">Embedding an application in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Logging.html">Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LogFormat.html">Formatting uWSGI requests logs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LogEncoders.html">Log encoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Hooks.html">Hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WorkerOverride.html">Overriding Workers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ThirdPartyPlugins.html">uWSGI third party plugins</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/CachingCookbook.html">The uWSGI Caching Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/Django_and_nginx.html">Setting up Django and your web server with uWSGI and nginx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/dreamhost.html">Running uWSGI on Dreamhost shared hosting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/heroku_python.html">Running python webapps on Heroku with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/heroku_ruby.html">Running Ruby/Rack webapps on Heroku with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/ReliableFuse.html">Reliably use FUSE filesystems for uWSGI vassals (with Linux)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/DynamicProxying.html">Build a dynamic proxy using RPC and internal routing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/GraphiteAndMetrics.html">Setting up Graphite on Ubuntu using the Metrics subsystem</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="articles/SerializingAccept.html">Serializing accept(), AKA Thundering Herd, AKA the Zeeg Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="articles/TheArtOfGracefulReloading.html">The Art of Graceful Reloading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="articles/FunWithPerlEyetoyRaspberrypi.html">Fun with Perl, Eyetoy and RaspberryPi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="articles/OffloadingWebsocketsAndSSE.html">Offloading Websockets and Server-Sent Events AKA &quot;Combine them with Django safely&quot;</a></li>
+<li class="toctree-l1"><a class="reference internal" href="articles/WSGIEnvBehaviour.html">WSGI env behaviour policies</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="AlarmSubsystem.html">The uWSGI alarm subsystem (from 1.3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Caching.html">The uWSGI caching framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WebCaching.html">WebCaching framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cron.html">The uWSGI cron-like interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Fastrouter.html">The uWSGI FastRouter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="InternalRouting.html">uWSGI internal routing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Legion.html">The uWSGI Legion subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Locks.html">Locks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Mules.html">uWSGI Mules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OffloadSubsystem.html">The uWSGI offloading subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Queue.html">The uWSGI queue framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RPC.html">uWSGI RPC Stack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SharedArea.html">SharedArea -- share memory pages between uWSGI components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Signals.html">The uWSGI Signal Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Spooler.html">The uWSGI Spooler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SubscriptionServer.html">uWSGI Subscription Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="StaticFiles.html">Serving static files with uWSGI (updated to 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SNI.html">SNI - Server Name Identification (virtual hosting for SSL nodes)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GeoIP.html">The GeoIP plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Transformations.html">uWSGI Transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WebSockets.html">WebSocket support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Metrics.html">The Metrics subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Chunked.html">The Chunked input API</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Cheaper.html">The uWSGI cheaper subsystem -- adaptive process spawning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Emperor.html">The uWSGI Emperor -- multi-app deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Broodlord.html">Auto-scaling with Broodlord mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Zerg.html">Zerg mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DynamicApps.html">Adding applications dynamically</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SSLScaling.html">Scaling SSL connections (uWSGI 1.9)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Capabilities.html">Setting POSIX Capabilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cgroups.html">Running uWSGI in a Linux CGroup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="KSM.html">Using Linux KSM in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Namespaces.html">Jailing your apps using Linux Namespaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Namespaces.html#the-old-way-the-namespace-option">The old way: the --namespace option</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FreeBSDJails.html">FreeBSD Jails</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ForkptyRouter.html">The Forkpty Router</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TunTapRouter.html">The TunTap Router</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Nagios.html">Monitoring uWSGI with Nagios</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SNMP.html">The embedded SNMP server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PushingStats.html">Pushing statistics (from 1.4)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Carbon.html">Integration with Graphite/Carbon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="StatsServer.html">The uWSGI Stats Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Metrics.html">The Metrics subsystem</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Async.html">uWSGI asynchronous/non-blocking modes (updated to uWSGI 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Gevent.html">The Gevent loop engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tornado.html">The Tornado loop engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uGreen.html">uGreen -- uWSGI Green Threads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="asyncio.html">The asyncio loop engine (CPython &gt;= 3.4, uWSGI &gt;= 2.0.4)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Apache.html">Apache support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cherokee.html">Cherokee support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="HTTP.html">Native HTTP support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="HTTPS.html">HTTPS 지원 (1.3 버전부터)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SPDY.html">The SPDY router (uWSGI 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lighttpd.html">Lighttpd support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Mongrel2.html">Attaching uWSGI to Mongrel2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Nginx.html">Nginx support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OpenBSDhttpd.html">Using OpenBSD httpd as proxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OpenBSDhttpd.html#notes">Notes</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Python.html">Python support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PyPy.html">The PyPy plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PHP.html">Running PHP scripts in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Perl.html">uWSGI Perl support (PSGI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Ruby.html">Ruby support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lua.html">Using Lua/WSAPI with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="JVM.html">JVM in the uWSGI server (updated to 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Mono.html">The Mono ASP.NET plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CGI.html">Running CGI scripts on uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GCCGO.html">The GCCGO plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Symcall.html">The Symcall plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="XSLT.html">The XSLT plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SSI.html">SSI (Server Side Includes) plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="V8.html">uWSGI V8 support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GridFS.html">The GridFS plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GlusterFS.html">The GlusterFS plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Rados.html">The RADOS plugin</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Pty.html">The Pty plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SPNEGO.html">SPNEGO authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LDAP.html">Configuring uWSGI with LDAP</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Erlang.html">Integrating uWSGI with Erlang</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ManagementFlag.html">Management Flags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Go.html">uWSGI Go support (1.4 only)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.18.html">uWSGI 2.0.18</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.17.1.html">uWSGI 2.0.17.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.17.html">uWSGI 2.0.17</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.16.html">uWSGI 2.0.16</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.15.html">uWSGI 2.0.15</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.14.html">uWSGI 2.0.14</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.13.1.html">uWSGI 2.0.13.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.13.html">uWSGI 2.0.13</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.12.html">uWSGI 2.0.12</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.11.2.html">uWSGI 2.0.11.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.11.1.html">uWSGI 2.0.11.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.11.html">uWSGI 2.0.11</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.10.html">uWSGI 2.0.10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.9.html">uWSGI 2.0.9</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.8.html">uWSGI 2.0.8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.7.html">uWSGI 2.0.7</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.6.html">uWSGI 2.0.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.5.html">uWSGI 2.0.5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.4.html">uWSGI 2.0.4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.3.html">uWSGI 2.0.3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.2.html">uWSGI 2.0.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.1.html">uWSGI 2.0.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.html">uWSGI 2.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.21.html">uWSGI 1.9.21</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.20.html">uWSGI 1.9.20</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.19.html">uWSGI 1.9.19</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.18.html">uWSGI 1.9.18</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.17.html">uWSGI 1.9.17</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.16.html">uWSGI 1.9.16</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.15.html">uWSGI 1.9.15</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.14.html">uWSGI 1.9.14</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.13.html">uWSGI 1.9.13</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.12.html">uWSGI 1.9.12</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.11.html">uWSGI 1.9.11</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.10.html">uWSGI 1.9.10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.9.html">uWSGI 1.9.9</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.8.html">uWSGI 1.9.8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.7.html">uWSGI 1.9.7</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.6.html">uWSGI 1.9.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.5.html">uWSGI 1.9.5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.4.html">uWSGI 1.9.4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.3.html">uWSGI 1.9.3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.2.html">uWSGI 1.9.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.1.html">uWSGI 1.9.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.html">uWSGI 1.9</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">uWSGI</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Configuring uWSGI</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/Configuration.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="configuring-uwsgi">
+<h1>Configuring uWSGI<a class="headerlink" href="#configuring-uwsgi" title="제목 주소">¶</a></h1>
+<p>uWSGI can be configured using several different methods. All configuration methods may be mixed and matched in the same invocation of uWSGI.</p>
+<div class="admonition note">
+<p class="first admonition-title">주석</p>
+<p class="last">Some of the configuration methods may require a specific plugin (ie. sqlite and ldap).</p>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">더 보기</p>
+<p class="last"><a class="reference internal" href="ConfigLogic.html"><span class="doc">Configuration logic</span></a></p>
+</div>
+<p>The configuration system is unified, so each command line option maps 1:1 with entries in the config files.</p>
+<p>Example:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>uwsgi --http-socket :9090 --psgi myapp.pl
+</pre></div>
+</div>
+<p>can be written as</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">http-socket</span> <span class="o">=</span> <span class="s">:9090</span>
+<span class="na">psgi</span> <span class="o">=</span> <span class="s">myapp.pl</span>
+</pre></div>
+</div>
+<div class="section" id="loading-configuration-files">
+<span id="loadingconfig"></span><h2>Loading configuration files<a class="headerlink" href="#loading-configuration-files" title="제목 주소">¶</a></h2>
+<p>uWSGI supports loading configuration files over several methods other than simple disk files:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">uwsgi</span> <span class="o">--</span><span class="n">ini</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">uwsgi</span><span class="o">.</span><span class="n">it</span><span class="o">/</span><span class="n">configs</span><span class="o">/</span><span class="n">myapp</span><span class="o">.</span><span class="n">ini</span> <span class="c1"># HTTP</span>
+<span class="n">uwsgi</span> <span class="o">--</span><span class="n">xml</span> <span class="o">-</span> <span class="c1"># standard input</span>
+<span class="n">uwsgi</span> <span class="o">--</span><span class="n">yaml</span> <span class="n">fd</span><span class="p">:</span><span class="o">//</span><span class="mi">0</span> <span class="c1"># file descriptor</span>
+<span class="n">uwsgi</span> <span class="o">--</span><span class="n">json</span> <span class="s1">&#39;exec://nc 192.168.11.2:33000&#39;</span> <span class="c1"># arbitrary executable</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">주석</p>
+<p class="last">More esoteric file sources, such as the <a class="reference internal" href="Emperor.html"><span class="doc">Emperor</span></a>, embedded
+configuration (in two flavors), dynamic library symbols and ELF sections
+could also be used.</p>
+</div>
+</div>
+<div class="section" id="magic-variables">
+<span id="magicvars"></span><h2>Magic variables<a class="headerlink" href="#magic-variables" title="제목 주소">¶</a></h2>
+<p>uWSGI configuration files can include &quot;magic&quot; variables, prefixed with a
+percent sign.  Currently the following magic variables (you can access them in
+Python via <a class="reference internal" href="PythonModule.html#uwsgi.magic_table" title="uwsgi.magic_table"><code class="xref py py-data docutils literal notranslate"><span class="pre">uwsgi.magic_table</span></code></a>) are defined.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="8%" />
+<col width="92%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>%v</td>
+<td>the vassals directory (pwd)</td>
+</tr>
+<tr class="row-even"><td>%V</td>
+<td>the uWSGI version</td>
+</tr>
+<tr class="row-odd"><td>%h</td>
+<td>the hostname</td>
+</tr>
+<tr class="row-even"><td>%o</td>
+<td>the original config filename, as specified on the command line</td>
+</tr>
+<tr class="row-odd"><td>%O</td>
+<td>same as %o but refer to the first non-template config file
+(version 1.9.18)</td>
+</tr>
+<tr class="row-even"><td>%p</td>
+<td>the absolute path of the configuration file</td>
+</tr>
+<tr class="row-odd"><td>%P</td>
+<td>same as %p but refer to the first non-template config file
+(version 1.9.18)</td>
+</tr>
+<tr class="row-even"><td>%s</td>
+<td>the filename of the configuration file</td>
+</tr>
+<tr class="row-odd"><td>%S</td>
+<td>same as %s but refer to the first non-template config file
+(version 1.9.18)</td>
+</tr>
+<tr class="row-even"><td>%d</td>
+<td>the absolute path of the directory containing the configuration file</td>
+</tr>
+<tr class="row-odd"><td>%D</td>
+<td>same as %d but refer to the first non-template config file
+(version 1.9.18)</td>
+</tr>
+<tr class="row-even"><td>%e</td>
+<td>the extension of the configuration file</td>
+</tr>
+<tr class="row-odd"><td>%E</td>
+<td>same as %e but refer to the first non-template config file
+(version 1.9.18)</td>
+</tr>
+<tr class="row-even"><td>%n</td>
+<td>the filename without extension</td>
+</tr>
+<tr class="row-odd"><td>%N</td>
+<td>same as %n but refer to the first non-template config file
+(version 1.9.18)</td>
+</tr>
+<tr class="row-even"><td>%c</td>
+<td>the name of the directory containing the config file (version 1.3+)</td>
+</tr>
+<tr class="row-odd"><td>%C</td>
+<td>same as %c but refer to the first non-template config file
+(version 1.9.18)</td>
+</tr>
+<tr class="row-even"><td>%t</td>
+<td>unix time (in seconds, gathered at instance startup) (version 1.9.20-dev+)</td>
+</tr>
+<tr class="row-odd"><td>%T</td>
+<td>unix time (in microseconds, gathered at instance startup) (version 1.9.20-dev+)</td>
+</tr>
+<tr class="row-even"><td>%x</td>
+<td>the current section identifier, eg. <cite>config.ini:section</cite> (version 1.9-dev+)</td>
+</tr>
+<tr class="row-odd"><td>%X</td>
+<td>same as %x but refer to the first non-template config file
+(version 1.9.18)</td>
+</tr>
+<tr class="row-even"><td>%i</td>
+<td>inode number of the file (version 2.0.1)</td>
+</tr>
+<tr class="row-odd"><td>%I</td>
+<td>same as %i but refer to the first non-template config file</td>
+</tr>
+<tr class="row-even"><td>%0..%9</td>
+<td>a specific component of the full path of the directory containing the config file (version 1.3+)</td>
+</tr>
+<tr class="row-odd"><td>%[</td>
+<td>ANSI escape &quot;\033&quot; (useful for printing colors)</td>
+</tr>
+<tr class="row-even"><td>%k</td>
+<td>detected cpu cores (version 1.9.20-dev+)</td>
+</tr>
+<tr class="row-odd"><td>%u</td>
+<td>uid of the user running the process (version 2.0)</td>
+</tr>
+<tr class="row-even"><td>%U</td>
+<td>username (if available, otherwise fallback to uid) of the user running the process (version 2.0)</td>
+</tr>
+<tr class="row-odd"><td>%g</td>
+<td>gid of the user running the process (version 2.0)</td>
+</tr>
+<tr class="row-even"><td>%G</td>
+<td>group name (if available, otherwise fallback to gid) of the user running the process (version 2.0)</td>
+</tr>
+<tr class="row-odd"><td>%j</td>
+<td>HEX representation of the djb33x hash of the full config path</td>
+</tr>
+<tr class="row-even"><td>%J</td>
+<td>same as %j but refer to the first non-template config file</td>
+</tr>
+</tbody>
+</table>
+<p>Note that most of these refer to the file they appear in, even if that
+file is included from another file.</p>
+<p>An exception are most of the uppercase versions, which refer to the
+first non-template config file loaded. This means the first config file
+not loaded through <code class="docutils literal notranslate"><span class="pre">--include</span></code> or <code class="docutils literal notranslate"><span class="pre">--inherit</span></code>, but through for
+example <code class="docutils literal notranslate"><span class="pre">--ini</span></code>, <code class="docutils literal notranslate"><span class="pre">--yaml</span></code> or <code class="docutils literal notranslate"><span class="pre">--config</span></code>. These are intended to use
+with the emperor, to refer to the actual vassal config file instead of
+templates included with <code class="docutils literal notranslate"><span class="pre">--vassals-include</span></code> or <code class="docutils literal notranslate"><span class="pre">--vassals-inherit</span></code>.</p>
+<p>For example, here's <code class="file docutils literal notranslate"><span class="pre">funnyapp.ini</span></code>.</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">socket</span> <span class="o">=</span> <span class="s">/tmp/%n.sock</span>
+<span class="na">module</span> <span class="o">=</span> <span class="s">werkzeug.testapp:test_app</span>
+<span class="na">processes</span> <span class="o">=</span> <span class="s">4</span>
+<span class="na">master</span> <span class="o">=</span> <span class="s">1</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">%n</span></code> will be replaced with the name of the config file, without extension, so the result in this case will be</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">socket</span> <span class="o">=</span> <span class="s">/tmp/funnyapp.sock</span>
+<span class="na">module</span> <span class="o">=</span> <span class="s">werkzeug.testapp:test_app</span>
+<span class="na">processes</span> <span class="o">=</span> <span class="s">4</span>
+<span class="na">master</span> <span class="o">=</span> <span class="s">1</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="placeholders">
+<span id="id1"></span><h2>Placeholders<a class="headerlink" href="#placeholders" title="제목 주소">¶</a></h2>
+<p>Placeholders are custom magic variables defined during configuration time by
+setting a new configuration variable of your own devising.</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="c1">; These are placeholders...</span>
+<span class="na">my_funny_domain</span> <span class="o">=</span> <span class="s">uwsgi.it</span>
+<span class="na">set-ph</span> <span class="o">=</span> <span class="s">max_customer_address_space=64</span>
+<span class="na">set-placeholder</span> <span class="o">=</span> <span class="s">customers_base_dir=/var/www</span>
+<span class="c1">; And these aren&#39;t.</span>
+<span class="na">socket</span> <span class="o">=</span> <span class="s">/tmp/sockets/%(my_funny_domain).sock</span>
+<span class="na">chdir</span> <span class="o">=</span> <span class="s">%(customers_base_dir)/%(my_funny_domain)</span>
+<span class="na">limit-as</span> <span class="o">=</span> <span class="s">%(max_customer_address_space)</span>
+</pre></div>
+</div>
+<p>Placeholders can be assigned directly, or using the <code class="docutils literal notranslate"><span class="pre">set-placeholder</span></code>
+/ <code class="docutils literal notranslate"><span class="pre">set-ph</span></code> option. These latter options can be useful to:</p>
+<ul class="simple">
+<li>Make it more explicit that you're setting placeholders instead of
+regular options.</li>
+<li>Set options on the commandline, since unknown options like
+<code class="docutils literal notranslate"><span class="pre">--foo=bar</span></code> are rejected but <code class="docutils literal notranslate"><span class="pre">--set-placeholder</span> <span class="pre">foo=bar</span></code> is ok.</li>
+<li>Set placeholders when strict mode is enabled.</li>
+</ul>
+<p>Placeholders are accessible, like any uWSGI option, in your application code
+via <a class="reference internal" href="PythonModule.html#uwsgi.opt" title="uwsgi.opt"><code class="xref py py-data docutils literal notranslate"><span class="pre">uwsgi.opt</span></code></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">uwsgi</span>
+<span class="k">print</span> <span class="n">uwsgi</span><span class="o">.</span><span class="n">opt</span><span class="p">[</span><span class="s1">&#39;customers_base_dir&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>This feature can be (ab)used to reduce the number of configuration files
+required by your application.</p>
+<p>Similarly, contents of environment variables and external text files can
+be included using the <cite>$(ENV_VAR)</cite> and <cite>&#64;(file_name)</cite> syntax. See also
+<a class="reference internal" href="ParsingOrder.html"><span class="doc">How uWSGI parses config files</span></a>.</p>
+</div>
+<div class="section" id="placeholders-math-from-uwsgi-1-9-20-dev">
+<h2>Placeholders math (from uWSGI 1.9.20-dev)<a class="headerlink" href="#placeholders-math-from-uwsgi-1-9-20-dev" title="제목 주소">¶</a></h2>
+<p>You can apply math formulas to placeholders using this special syntax:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">foo</span> <span class="o">=</span> <span class="s">17</span>
+<span class="na">bar</span> <span class="o">=</span> <span class="s">30</span>
+<span class="c1">; total will be 50</span>
+<span class="na">total</span> <span class="o">=</span> <span class="s">%(foo + bar + 3)</span>
+</pre></div>
+</div>
+<p>Remember to not miss spaces between operations.</p>
+<p>Operations are executed in a pipeline (not in common math style):</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">foo</span> <span class="o">=</span> <span class="s">17</span>
+<span class="na">bar</span> <span class="o">=</span> <span class="s">30</span>
+<span class="na">total</span> <span class="o">=</span> <span class="s">%(foo + bar + 3 * 2)</span>
+</pre></div>
+</div>
+<p>'total' will be evaluated as 100:</p>
+<blockquote>
+<div>(((foo + bar) + 3) * 2)</div></blockquote>
+<p>Incremental and decremental shortcuts are available</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">foo</span> <span class="o">=</span> <span class="s">29</span>
+<span class="c1">; remember the space !!!</span>
+<span class="na">bar</span> <span class="o">=</span> <span class="s">%(foo ++)</span>
+</pre></div>
+</div>
+<p>bar will be 30</p>
+<p>If you do not specify an operation between two items, 'string concatenation' is assumed:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">foo</span> <span class="o">=</span> <span class="s">2</span>
+<span class="na">bar</span> <span class="o">=</span> <span class="s">9</span>
+<span class="c1">; remember the space !!!</span>
+<span class="na">bar</span> <span class="o">=</span> <span class="s">%(foo bar ++)</span>
+</pre></div>
+</div>
+<p>the first two items will be evaluated as '29' (not 11 as no math operation has been specified)</p>
+</div>
+<div class="section" id="the-magic">
+<h2>The '&#64;' magic<a class="headerlink" href="#the-magic" title="제목 주소">¶</a></h2>
+<p>We have already seen we can use the form &#64;(filename) to include the contents of a file</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">foo</span> <span class="o">=</span> <span class="s">@(/tmp/foobar)</span>
+</pre></div>
+</div>
+<p>the truth is that '&#64;' can read from all of the supported uwsgi schemes</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="c1">; read from a symbol</span>
+<span class="na">foo</span> <span class="o">=</span> <span class="s">@(sym://uwsgi_funny_function)</span>
+<span class="c1">; read from binary appended data</span>
+<span class="na">bar</span> <span class="o">=</span> <span class="s">@(data://0)</span>
+<span class="c1">; read from http</span>
+<span class="na">test</span> <span class="o">=</span> <span class="s">@(http://example.com/hello)</span>
+<span class="c1">; read from a file descriptor</span>
+<span class="na">content</span> <span class="o">=</span> <span class="s">@(fd://3)</span>
+<span class="c1">; read from a process stdout</span>
+<span class="na">body</span> <span class="o">=</span> <span class="s">@(exec://foo.pl)</span>
+<span class="c1">; call a function returning a char *</span>
+<span class="na">characters</span> <span class="o">=</span> <span class="s">@(call://uwsgi_func)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="command-line-arguments">
+<h2>Command line arguments<a class="headerlink" href="#command-line-arguments" title="제목 주소">¶</a></h2>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">uwsgi</span> <span class="o">--</span><span class="n">socket</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">uwsgi</span><span class="o">.</span><span class="n">sock</span> <span class="o">--</span><span class="n">socket</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">8000</span> <span class="o">--</span><span class="n">master</span> <span class="o">--</span><span class="n">workers</span> <span class="mi">3</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="environment-variables">
+<span id="configenv"></span><h2>Environment variables<a class="headerlink" href="#environment-variables" title="제목 주소">¶</a></h2>
+<p>When passed as environment variables, options are capitalized and prefixed with
+<cite>UWSGI_</cite>, and dashes are substituted with underscores.</p>
+<div class="admonition note">
+<p class="first admonition-title">주석</p>
+<p class="last">Several values for the same configuration variable are not supported with
+this method.</p>
+</div>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">UWSGI_SOCKET</span><span class="o">=</span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span> <span class="n">UWSGI_MASTER</span><span class="o">=</span><span class="mi">1</span> <span class="n">UWSGI_WORKERS</span><span class="o">=</span><span class="mi">3</span> <span class="n">uwsgi</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ini-files">
+<h2>INI files<a class="headerlink" href="#ini-files" title="제목 주소">¶</a></h2>
+<p>.INI files are a standard de-facto configuration format used by many
+applications. It consists of <code class="docutils literal notranslate"><span class="pre">[section]</span></code>s and <code class="docutils literal notranslate"><span class="pre">key=value</span></code> pairs.</p>
+<p>An example uWSGI INI configuration:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">socket</span> <span class="o">=</span> <span class="s">/tmp/uwsgi.sock</span>
+<span class="na">socket</span> <span class="o">=</span> <span class="s">127.0.0.1:8000</span>
+<span class="na">workers</span> <span class="o">=</span> <span class="s">3</span>
+<span class="na">master</span> <span class="o">=</span> <span class="s">true</span>
+</pre></div>
+</div>
+<p>By default, uWSGI uses the <code class="docutils literal notranslate"><span class="pre">[uwsgi]</span></code> section, but you can specify another
+section name while loading the INI file with the syntax <code class="docutils literal notranslate"><span class="pre">filename:section</span></code>,
+that is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">uwsgi</span> <span class="o">--</span><span class="n">ini</span> <span class="n">myconf</span><span class="o">.</span><span class="n">ini</span><span class="p">:</span><span class="n">app1</span>
+</pre></div>
+</div>
+<p>Alternatively, you can load another section from the same file by
+omitting the filename and specifying just the section name. Note that
+technically, this loads the named section from the last .ini file loaded
+instead of the current one, so be careful when including other files.</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="c1"># This will load the app1 section below</span>
+<span class="na">ini</span> <span class="o">=</span> <span class="s">:app1</span>
+<span class="c1"># This will load the defaults.ini file</span>
+<span class="na">ini</span> <span class="o">=</span> <span class="s">defaults.ini</span>
+<span class="c1"># This will load the app2 section from the defaults.ini file!</span>
+<span class="na">ini</span> <span class="o">=</span> <span class="s">:app2</span>
+
+<span class="k">[app1]</span>
+<span class="na">plugin</span> <span class="o">=</span> <span class="s">rack</span>
+
+<span class="k">[app2]</span>
+<span class="na">plugin</span> <span class="o">=</span> <span class="s">php</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Whitespace is insignificant within lines.</li>
+<li>Lines starting with a semicolon (<code class="docutils literal notranslate"><span class="pre">;</span></code>) or a hash/octothorpe (<code class="docutils literal notranslate"><span class="pre">#</span></code>) are ignored as comments.</li>
+<li>Boolean values may be set without the value part. Simply <code class="docutils literal notranslate"><span class="pre">master</span></code> is thus equivalent to <code class="docutils literal notranslate"><span class="pre">master=true</span></code>. This may not be compatible with other INI parsers such as <code class="docutils literal notranslate"><span class="pre">paste.deploy</span></code>.</li>
+<li>For convenience, uWSGI recognizes bare <code class="docutils literal notranslate"><span class="pre">.ini</span></code> arguments specially, so the invocation <code class="docutils literal notranslate"><span class="pre">uwsgi</span> <span class="pre">myconf.ini</span></code>  is equal to <code class="docutils literal notranslate"><span class="pre">uwsgi</span> <span class="pre">--ini</span> <span class="pre">myconf.ini</span></code>.</li>
+</ul>
+</div>
+<div class="section" id="xml-files">
+<h2>XML files<a class="headerlink" href="#xml-files" title="제목 주소">¶</a></h2>
+<p>The root node should be <code class="docutils literal notranslate"><span class="pre">&lt;uwsgi&gt;</span></code> and option values text nodes.</p>
+<p>An example:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;uwsgi&gt;</span>
+  <span class="nt">&lt;socket&gt;</span>/tmp/uwsgi.sock<span class="nt">&lt;/socket&gt;</span>
+  <span class="nt">&lt;socket&gt;</span>127.0.0.1:8000<span class="nt">&lt;/socket&gt;</span>
+  <span class="nt">&lt;master/&gt;</span>
+  <span class="nt">&lt;workers&gt;</span>3<span class="nt">&lt;/workers&gt;</span>
+<span class="nt">&lt;/uwsgi&gt;</span>
+</pre></div>
+</div>
+<p>You can also have multiple <code class="docutils literal notranslate"><span class="pre">&lt;uwsgi&gt;</span></code> stanzas in your file, marked with
+different <code class="docutils literal notranslate"><span class="pre">id</span></code> attributes. To choose the stanza to use, specify its id after
+the filename in the <code class="docutils literal notranslate"><span class="pre">xml</span></code> option, using a colon as a separator.  When using
+this <cite>id</cite> mode, the root node of the file may be anything you like. This will
+allow you to embed <code class="docutils literal notranslate"><span class="pre">uwsgi</span></code> configuration nodes in other XML files.</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;i-love-xml&gt;</span>
+  <span class="nt">&lt;uwsgi</span> <span class="na">id=</span><span class="s">&quot;turbogears&quot;</span><span class="nt">&gt;&lt;socket&gt;</span>/tmp/tg.sock<span class="nt">&lt;/socket&gt;&lt;/uwsgi&gt;</span>
+  <span class="nt">&lt;uwsgi</span> <span class="na">id=</span><span class="s">&quot;django&quot;</span><span class="nt">&gt;&lt;socket&gt;</span>/tmp/django.sock<span class="nt">&lt;/socket&gt;&lt;/uwsgi&gt;</span>
+<span class="nt">&lt;/i-love-xml&gt;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Boolean values may be set without a text value.</li>
+<li>For convenience, uWSGI recognizes bare <code class="docutils literal notranslate"><span class="pre">.xml</span></code> arguments specially, so the invocation <code class="docutils literal notranslate"><span class="pre">uwsgi</span> <span class="pre">myconf.xml</span></code>  is equal to <code class="docutils literal notranslate"><span class="pre">uwsgi</span> <span class="pre">--xml</span> <span class="pre">myconf.xml</span></code>.</li>
+</ul>
+</div>
+<div class="section" id="json-files">
+<h2>JSON files<a class="headerlink" href="#json-files" title="제목 주소">¶</a></h2>
+<p>The JSON file should represent an object with one key-value pair, the key being
+<cite>&quot;uwsgi&quot;</cite> and the value an object of configuration variables. Native JSON
+lists, booleans and numbers are supported.</p>
+<p>An example:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="nt">&quot;uwsgi&quot;</span><span class="p">:</span> <span class="p">{</span>
+  <span class="nt">&quot;socket&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;/tmp/uwsgi.sock&quot;</span><span class="p">,</span> <span class="s2">&quot;127.0.0.1:8000&quot;</span><span class="p">],</span>
+  <span class="nt">&quot;master&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nt">&quot;workers&quot;</span><span class="p">:</span> <span class="mi">3</span>
+<span class="p">}}</span>
+</pre></div>
+</div>
+<p>Again, a named section can be loaded using a colon after the filename.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="nt">&quot;app1&quot;</span><span class="p">:</span> <span class="p">{</span>
+  <span class="nt">&quot;plugin&quot;</span><span class="p">:</span> <span class="s2">&quot;rack&quot;</span>
+<span class="p">},</span> <span class="nt">&quot;app2&quot;</span><span class="p">:</span> <span class="p">{</span>
+  <span class="nt">&quot;plugin&quot;</span><span class="p">:</span> <span class="s2">&quot;php&quot;</span>
+<span class="p">}}</span>
+</pre></div>
+</div>
+<p>And then load this using:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">uwsgi</span> <span class="o">--</span><span class="n">json</span> <span class="n">myconf</span><span class="o">.</span><span class="n">json</span><span class="p">:</span><span class="n">app2</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">주석</p>
+<p>The <a class="reference external" href="http://www.digip.org/jansson/">Jansson</a> library is required during uWSGI build time to enable JSON
+support.  By default the presence of the library will be auto-detected and
+JSON support will be automatically enabled, but you can force JSON support
+to be enabled or disabled by editing your build configuration.</p>
+<div class="last admonition seealso">
+<p class="first admonition-title">더 보기</p>
+<p class="last"><a class="reference internal" href="Install.html"><span class="doc">Installing uWSGI</span></a></p>
+</div>
+</div>
+</div>
+<div class="section" id="yaml-files">
+<h2>YAML files<a class="headerlink" href="#yaml-files" title="제목 주소">¶</a></h2>
+<p>The root element should be <cite>uwsgi</cite>. Boolean options may be set as <cite>true</cite> or <cite>1</cite>.</p>
+<p>An example:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">uwsgi</span><span class="p">:</span>
+  <span class="nt">socket</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/tmp/uwsgi.sock</span>
+  <span class="nt">socket</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">127.0.0.1:8000</span>
+  <span class="nt">master</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+  <span class="nt">workers</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3</span>
+</pre></div>
+</div>
+<p>Again, a named section can be loaded using a colon after the filename.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">app1</span><span class="p">:</span>
+  <span class="nt">plugin</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rack</span>
+<span class="nt">app2</span><span class="p">:</span>
+  <span class="nt">plugin</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">php</span>
+</pre></div>
+</div>
+<p>And then load this using:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">uwsgi</span> <span class="o">--</span><span class="n">yaml</span> <span class="n">myconf</span><span class="o">.</span><span class="n">yaml</span><span class="p">:</span><span class="n">app2</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="sqlite-configuration">
+<h2>SQLite configuration<a class="headerlink" href="#sqlite-configuration" title="제목 주소">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">주석</p>
+<p class="last">Under construction.</p>
+</div>
+</div>
+<div class="section" id="ldap-configuration">
+<h2>LDAP configuration<a class="headerlink" href="#ldap-configuration" title="제목 주소">¶</a></h2>
+<p>LDAP is a flexible way to centralize configuration of large clusters of uWSGI
+servers. Configuring it is a complex topic. See <a class="reference internal" href="LDAP.html"><span class="doc">Configuring uWSGI with LDAP</span></a> for more
+information.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="FallbackConfig.html" class="btn btn-neutral float-right" title="Fallback configuration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="ThingsToKnow.html" class="btn btn-neutral" title="Things to know (best practices and &#34;issues&#34;) READ IT !!!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2012-2016, uWSGI.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'2.0',
+            LANGUAGE:'ko',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/language_data.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          
+          SphinxRtdTheme.Navigation.enableSticky();
+          
+      });
+  </script> 
+
+</body>
+</html>

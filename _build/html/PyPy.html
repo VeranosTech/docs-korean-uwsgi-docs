@@ -1,0 +1,612 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ko" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ko" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>The PyPy plugin &mdash; uWSGI 2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="색인" href="genindex.html" />
+    <link rel="search" title="검색" href="search.html" />
+    <link rel="next" title="Running PHP scripts in uWSGI" href="PHP.html" />
+    <link rel="prev" title="Aliasing Python modules" href="PythonModuleAlias.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> uWSGI
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="WSGIquickstart.html">Quickstart for Python/WSGI applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PSGIquickstart.html">Quickstart for perl/PSGI applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RackQuickstart.html">Quickstart for ruby/Rack applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Snippets.html">Snippets</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Download.html">Getting uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Install.html">Installing uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BuildSystem.html">The uWSGI build system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Management.html">Managing the uWSGI server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LanguagesAndPlatforms.html">Supported languages and platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SupportedPlatforms.html">Supported Platforms/Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WebServers.html">Web server integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FAQ.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ThingsToKnow.html">Things to know (best practices and &quot;issues&quot;) READ IT !!!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Configuration.html">Configuring uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FallbackConfig.html">Fallback configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ConfigLogic.html">Configuration logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Options.html">uWSGI Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CustomOptions.html">Defining new options for your instances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ParsingOrder.html">How uWSGI parses config files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Vars.html">uwsgi protocol magic variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Protocol.html">The uwsgi Protocol</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AttachingDaemons.html">Managing external daemons/services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MasterFIFO.html">The Master FIFO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Inetd.html">Socket activation with inetd/xinetd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Upstart.html">Running uWSGI via Upstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Systemd.html">Systemd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Circus.html">Running uWSGI instances with Circus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Embed.html">Embedding an application in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Logging.html">Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LogFormat.html">Formatting uWSGI requests logs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LogEncoders.html">Log encoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Hooks.html">Hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WorkerOverride.html">Overriding Workers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ThirdPartyPlugins.html">uWSGI third party plugins</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/CachingCookbook.html">The uWSGI Caching Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/Django_and_nginx.html">Setting up Django and your web server with uWSGI and nginx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/dreamhost.html">Running uWSGI on Dreamhost shared hosting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/heroku_python.html">Running python webapps on Heroku with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/heroku_ruby.html">Running Ruby/Rack webapps on Heroku with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/ReliableFuse.html">Reliably use FUSE filesystems for uWSGI vassals (with Linux)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/DynamicProxying.html">Build a dynamic proxy using RPC and internal routing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/GraphiteAndMetrics.html">Setting up Graphite on Ubuntu using the Metrics subsystem</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="articles/SerializingAccept.html">Serializing accept(), AKA Thundering Herd, AKA the Zeeg Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="articles/TheArtOfGracefulReloading.html">The Art of Graceful Reloading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="articles/FunWithPerlEyetoyRaspberrypi.html">Fun with Perl, Eyetoy and RaspberryPi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="articles/OffloadingWebsocketsAndSSE.html">Offloading Websockets and Server-Sent Events AKA &quot;Combine them with Django safely&quot;</a></li>
+<li class="toctree-l1"><a class="reference internal" href="articles/WSGIEnvBehaviour.html">WSGI env behaviour policies</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="AlarmSubsystem.html">The uWSGI alarm subsystem (from 1.3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Caching.html">The uWSGI caching framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WebCaching.html">WebCaching framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cron.html">The uWSGI cron-like interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Fastrouter.html">The uWSGI FastRouter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="InternalRouting.html">uWSGI internal routing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Legion.html">The uWSGI Legion subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Locks.html">Locks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Mules.html">uWSGI Mules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OffloadSubsystem.html">The uWSGI offloading subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Queue.html">The uWSGI queue framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RPC.html">uWSGI RPC Stack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SharedArea.html">SharedArea -- share memory pages between uWSGI components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Signals.html">The uWSGI Signal Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Spooler.html">The uWSGI Spooler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SubscriptionServer.html">uWSGI Subscription Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="StaticFiles.html">Serving static files with uWSGI (updated to 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SNI.html">SNI - Server Name Identification (virtual hosting for SSL nodes)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GeoIP.html">The GeoIP plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Transformations.html">uWSGI Transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WebSockets.html">WebSocket support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Metrics.html">The Metrics subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Chunked.html">The Chunked input API</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Cheaper.html">The uWSGI cheaper subsystem -- adaptive process spawning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Emperor.html">The uWSGI Emperor -- multi-app deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Broodlord.html">Auto-scaling with Broodlord mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Zerg.html">Zerg mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DynamicApps.html">Adding applications dynamically</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SSLScaling.html">Scaling SSL connections (uWSGI 1.9)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Capabilities.html">Setting POSIX Capabilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cgroups.html">Running uWSGI in a Linux CGroup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="KSM.html">Using Linux KSM in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Namespaces.html">Jailing your apps using Linux Namespaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Namespaces.html#the-old-way-the-namespace-option">The old way: the --namespace option</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FreeBSDJails.html">FreeBSD Jails</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ForkptyRouter.html">The Forkpty Router</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TunTapRouter.html">The TunTap Router</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Nagios.html">Monitoring uWSGI with Nagios</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SNMP.html">The embedded SNMP server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PushingStats.html">Pushing statistics (from 1.4)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Carbon.html">Integration with Graphite/Carbon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="StatsServer.html">The uWSGI Stats Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Metrics.html">The Metrics subsystem</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Async.html">uWSGI asynchronous/non-blocking modes (updated to uWSGI 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Gevent.html">The Gevent loop engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tornado.html">The Tornado loop engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uGreen.html">uGreen -- uWSGI Green Threads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="asyncio.html">The asyncio loop engine (CPython &gt;= 3.4, uWSGI &gt;= 2.0.4)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Apache.html">Apache support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cherokee.html">Cherokee support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="HTTP.html">Native HTTP support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="HTTPS.html">HTTPS 지원 (1.3 버전부터)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SPDY.html">The SPDY router (uWSGI 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lighttpd.html">Lighttpd support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Mongrel2.html">Attaching uWSGI to Mongrel2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Nginx.html">Nginx support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OpenBSDhttpd.html">Using OpenBSD httpd as proxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OpenBSDhttpd.html#notes">Notes</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Python.html">Python support</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">The PyPy plugin</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install-uwsgi-with-pypy-support">Install uWSGI with PyPy support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-pypy-home">The PyPy home</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-pypy-setup-file">The PyPy setup file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#wsgi-support">WSGI support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#rpc-support">RPC support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ipython-trick">IPython trick</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#uwsgi-api-status">uWSGI API status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#options">Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#notes">Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PHP.html">Running PHP scripts in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Perl.html">uWSGI Perl support (PSGI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Ruby.html">Ruby support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lua.html">Using Lua/WSAPI with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="JVM.html">JVM in the uWSGI server (updated to 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Mono.html">The Mono ASP.NET plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CGI.html">Running CGI scripts on uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GCCGO.html">The GCCGO plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Symcall.html">The Symcall plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="XSLT.html">The XSLT plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SSI.html">SSI (Server Side Includes) plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="V8.html">uWSGI V8 support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GridFS.html">The GridFS plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GlusterFS.html">The GlusterFS plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Rados.html">The RADOS plugin</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Pty.html">The Pty plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SPNEGO.html">SPNEGO authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LDAP.html">Configuring uWSGI with LDAP</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Erlang.html">Integrating uWSGI with Erlang</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ManagementFlag.html">Management Flags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Go.html">uWSGI Go support (1.4 only)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.18.html">uWSGI 2.0.18</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.17.1.html">uWSGI 2.0.17.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.17.html">uWSGI 2.0.17</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.16.html">uWSGI 2.0.16</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.15.html">uWSGI 2.0.15</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.14.html">uWSGI 2.0.14</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.13.1.html">uWSGI 2.0.13.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.13.html">uWSGI 2.0.13</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.12.html">uWSGI 2.0.12</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.11.2.html">uWSGI 2.0.11.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.11.1.html">uWSGI 2.0.11.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.11.html">uWSGI 2.0.11</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.10.html">uWSGI 2.0.10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.9.html">uWSGI 2.0.9</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.8.html">uWSGI 2.0.8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.7.html">uWSGI 2.0.7</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.6.html">uWSGI 2.0.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.5.html">uWSGI 2.0.5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.4.html">uWSGI 2.0.4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.3.html">uWSGI 2.0.3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.2.html">uWSGI 2.0.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.1.html">uWSGI 2.0.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.html">uWSGI 2.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.21.html">uWSGI 1.9.21</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.20.html">uWSGI 1.9.20</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.19.html">uWSGI 1.9.19</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.18.html">uWSGI 1.9.18</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.17.html">uWSGI 1.9.17</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.16.html">uWSGI 1.9.16</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.15.html">uWSGI 1.9.15</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.14.html">uWSGI 1.9.14</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.13.html">uWSGI 1.9.13</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.12.html">uWSGI 1.9.12</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.11.html">uWSGI 1.9.11</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.10.html">uWSGI 1.9.10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.9.html">uWSGI 1.9.9</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.8.html">uWSGI 1.9.8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.7.html">uWSGI 1.9.7</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.6.html">uWSGI 1.9.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.5.html">uWSGI 1.9.5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.4.html">uWSGI 1.9.4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.3.html">uWSGI 1.9.3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.2.html">uWSGI 1.9.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.1.html">uWSGI 1.9.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.html">uWSGI 1.9</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">uWSGI</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>The PyPy plugin</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/PyPy.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="the-pypy-plugin">
+<h1>The PyPy plugin<a class="headerlink" href="#the-pypy-plugin" title="제목 주소">¶</a></h1>
+<p>Requires uWSGI &gt;= 2.0.9</p>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="제목 주소">¶</a></h2>
+<p>Idea/Design: Maciej Fijalkowski</p>
+<p>Contributors: Alex Gaynor, Armin Rigo</p>
+<p>A new PyPy plugin based on cffi is available since uWSGI 1.9.11. The old slow cpyext-based one has been removed from the tree.</p>
+<p>The plugin is currently supported only on Linux systems. Following releases will support other platforms as well.</p>
+<p>The plugin loads <code class="docutils literal notranslate"><span class="pre">libpypy-c.so</span></code> on startup, sets the home of the PyPy installation and executes a special Python module
+implementing the plugin logic. So yes, most of the plugin is implemented in Python, and theoretically this approach will allow
+writing uWSGI plugins directly in Python in addition to C, C++ and Objective-C.</p>
+<p>As of December 2014 all of the required patches to PyPy have been merged, so you can get an official nightly build (or a stable version released after december 2014)
+and use it with uWSGI.</p>
+</div>
+<div class="section" id="install-uwsgi-with-pypy-support">
+<h2>Install uWSGI with PyPy support<a class="headerlink" href="#install-uwsgi-with-pypy-support" title="제목 주소">¶</a></h2>
+<p>As always with uWSGI, you have different ways to install uWSGI based on your needs.</p>
+<p>If you have installed pip in your PyPy home, you can run</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip install uwsgi
+</pre></div>
+</div>
+<p>The uwsgi setup.py file will recognize the PyPy environment and will build a PyPy-only uWSGI binary.</p>
+<p>In the same way, you can execute the setup.py supplied in uWSGI sources:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pypy setup.py install
+</pre></div>
+</div>
+<p>(this two approaches will hardcode the pypy home in the uWSGI binary, so you will not need to set pypy-home in your options)</p>
+<p>Or you can compile manually:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">UWSGI_PROFILE</span><span class="o">=</span>pypy make
+</pre></div>
+</div>
+<p>Or you can use the network installer:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>curl https://uwsgi.it/install <span class="p">|</span> bash -s pypy /tmp/uwsgi
+</pre></div>
+</div>
+<p>This will build a uWSGI + PyPy binary in <code class="docutils literal notranslate"><span class="pre">/tmp/uwsgi</span></code>.</p>
+<p>Or you can build PyPy support as a plugin.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>uwsgi --build-plugin plugins/pypy
+</pre></div>
+</div>
+<p>or (old-style)</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python uwsgiconfig.py --plugin plugins/pypy
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-pypy-home">
+<h2>The PyPy home<a class="headerlink" href="#the-pypy-home" title="제목 주소">¶</a></h2>
+<p>The uWSGI Python plugin (more exactly the CPython plugin) works by linking in <code class="docutils literal notranslate"><span class="pre">libpython</span></code>. That means you need to rebuild the plugin for every different version of Python. The PyPy plugin is different, as libpypy-c is loaded on startup and its symbols are resolved at runtime. This allows you to migrate to a different PyPy version on the fly.</p>
+<p>The &quot;downside&quot; of this approach is that you need to inform uWSGI where your PyPy installation is at runtime (unless you installed uwsgi via pip or with the setup.py script, in such a case the home will be found automatically)</p>
+<p>Supposing your PyPy is in <code class="docutils literal notranslate"><span class="pre">/opt/pypy</span></code> you can start uWSGI with:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>uwsgi --http-socket :9090 --pypy-home /opt/pypy
+</pre></div>
+</div>
+<p>With this command line uWSGI will search for <code class="docutils literal notranslate"><span class="pre">/opt/pypy/bin/libpypy-c.so</span></code> and if found, it will set that path as the PyPy home.</p>
+<p>If your <code class="docutils literal notranslate"><span class="pre">libpypy-c.so</span></code> is outside of the PyPy home (and in a directory not reachable by the dynamic linker), you can use the <a href="#id1"><span class="problematic" id="id2">``</span></a>--pypy-lib``option.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>uwsgi --http-socket :9090 --pypy-home /opt/pypy --pypy-lib /opt/libs/libpypy-c.so
+</pre></div>
+</div>
+<p>With this approach you are able to use the library from a specific PyPy build and the home from another one.</p>
+<div class="admonition note">
+<p class="first admonition-title">주석</p>
+<p class="last">Remember to prefix --pypy-lib with ./ if you want to point to a .so file in your current directory!</p>
+</div>
+</div>
+<div class="section" id="the-pypy-setup-file">
+<h2>The PyPy setup file<a class="headerlink" href="#the-pypy-setup-file" title="제목 주소">¶</a></h2>
+<p>As said before, most of the uWSGI PyPy plugin is written in Python. This code is loaded at runtime, and you can also customize it.</p>
+<p>Yes, this does mean you can change the way the plugin works without rebuilding uWSGI.</p>
+<p>A default version of the <code class="docutils literal notranslate"><span class="pre">pypy_setup.py</span></code> file is embedded in the uWSGI binary, and it is automatically loaded on startup.</p>
+<p>If you want to change it, just pass another filename via the <code class="docutils literal notranslate"><span class="pre">--pypy-setup</span></code> option.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>uwsgi --http-socket :9090 --pypy-home /opt/pypy --pypy-lib /opt/libs/libpypy-c.so --pypy-setup /home/foobar/foo.py
+</pre></div>
+</div>
+<p>This Python module implements uWSGI hooks and the virtual <code class="docutils literal notranslate"><span class="pre">uwsgi</span></code> python module for accessing the uWSGI API from your apps.</p>
+<p>If you want to retrieve the contents of the embedded pypy_setup.py file you can read it from the binary symbols with the <code class="docutils literal notranslate"><span class="pre">print-sym</span></code> convenience option.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>uwsgi --print-sym uwsgi_pypy_setup
+</pre></div>
+</div>
+</div>
+<div class="section" id="wsgi-support">
+<h2>WSGI support<a class="headerlink" href="#wsgi-support" title="제목 주소">¶</a></h2>
+<p>The plugin implements PEP 333 and PEP 3333. You can load both WSGI modules and <code class="docutils literal notranslate"><span class="pre">mod_wsgi</span></code> style <code class="docutils literal notranslate"><span class="pre">.wsgi</span></code> files.</p>
+<p>To load a WSGI module (it must be in your Python path):</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>uwsgi --http-socket :9090 --pypy-home /opt/pypy --pypy-wsgi myapp
+</pre></div>
+</div>
+<p>To load a WSGI file:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>uwsgi --http-socket :9090 --pypy-home /opt/pypy --pypy-wsgi-file /var/www/myapp/myapp.wsgi
+</pre></div>
+</div>
+</div>
+<div class="section" id="rpc-support">
+<h2>RPC support<a class="headerlink" href="#rpc-support" title="제목 주소">¶</a></h2>
+<p>You can register RPC functions using the <a class="reference internal" href="PythonModule.html#uwsgi.register_rpc" title="uwsgi.register_rpc"><code class="xref py py-func docutils literal notranslate"><span class="pre">uwsgi.register_rpc()</span></code></a> API function, like you would with the vanilla Python plugin.</p>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">uwsgi</span>
+
+<span class="k">def</span> <span class="nf">hello</span><span class="p">():</span>
+    <span class="k">return</span> <span class="s2">&quot;Hello World&quot;</span>
+
+<span class="n">uwsgi</span><span class="o">.</span><span class="n">register_rpc</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="n">hello</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To call RPC functions, both <a class="reference internal" href="PythonModule.html#uwsgi.rpc" title="uwsgi.rpc"><code class="xref py py-func docutils literal notranslate"><span class="pre">uwsgi.rpc()</span></code></a> and <a class="reference internal" href="PythonModule.html#uwsgi.call" title="uwsgi.call"><code class="xref py py-func docutils literal notranslate"><span class="pre">uwsgi.call()</span></code></a> are available.</p>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">uwsgi</span>
+
+<span class="n">uwsgi</span><span class="o">.</span><span class="n">rpc</span><span class="p">(</span><span class="s1">&#39;192.168.173.100:3031&#39;</span><span class="p">,</span> <span class="s1">&#39;myfunc&#39;</span><span class="p">,</span> <span class="s1">&#39;myarg&#39;</span><span class="p">)</span>
+<span class="n">uwsgi</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s1">&#39;myfunc&#39;</span><span class="p">,</span> <span class="s1">&#39;myarg&#39;</span><span class="p">)</span>
+<span class="n">uwsgi</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s1">&#39;myfunc@192.168.173.100:3031&#39;</span><span class="p">,</span> <span class="s1">&#39;myarg&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Integration (with local RPC) has been tested between PyPy and PyPy, PyPy and JVM, and PyPy and Lua. All of these worked flawlessly... so that means you can call Java functions from PyPy.</p>
+</div>
+<div class="section" id="ipython-trick">
+<h2>IPython trick<a class="headerlink" href="#ipython-trick" title="제목 주소">¶</a></h2>
+<p>Having a runtime shell for making tests is very nice to have. You can use IPython for this.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>uwsgi --socket :3031 --pypy-home /opt/pypy --pypy-eval <span class="s2">&quot;import IPython; IPython.embed()&quot;</span> --honour-stdin
+</pre></div>
+</div>
+</div>
+<div class="section" id="uwsgi-api-status">
+<h2>uWSGI API status<a class="headerlink" href="#uwsgi-api-status" title="제목 주소">¶</a></h2>
+<p>The following API functions, hooks and attributes are supported as of 20130526.</p>
+<ul class="simple">
+<li><a class="reference internal" href="PythonModule.html#uwsgi.opt" title="uwsgi.opt"><code class="xref py py-data docutils literal notranslate"><span class="pre">uwsgi.opt</span></code></a></li>
+<li><code class="xref py py-data docutils literal notranslate"><span class="pre">uwsgi.post_fork_hook</span></code></li>
+<li><a class="reference internal" href="PythonModule.html#uwsgi.add_cron" title="uwsgi.add_cron"><code class="xref py py-func docutils literal notranslate"><span class="pre">uwsgi.add_cron()</span></code></a></li>
+<li><a class="reference internal" href="PythonModule.html#uwsgi.setprocname" title="uwsgi.setprocname"><code class="xref py py-func docutils literal notranslate"><span class="pre">uwsgi.setprocname()</span></code></a></li>
+<li><code class="xref py py-func docutils literal notranslate"><span class="pre">uwsgi.alarm()</span></code></li>
+<li><a class="reference internal" href="PythonModule.html#uwsgi.signal_registered" title="uwsgi.signal_registered"><code class="xref py py-func docutils literal notranslate"><span class="pre">uwsgi.signal_registered()</span></code></a></li>
+<li><a class="reference internal" href="PythonModule.html#uwsgi.mule_id" title="uwsgi.mule_id"><code class="xref py py-func docutils literal notranslate"><span class="pre">uwsgi.mule_id()</span></code></a></li>
+<li><a class="reference internal" href="PythonModule.html#uwsgi.worker_id" title="uwsgi.worker_id"><code class="xref py py-func docutils literal notranslate"><span class="pre">uwsgi.worker_id()</span></code></a></li>
+<li><a class="reference internal" href="PythonModule.html#uwsgi.masterpid" title="uwsgi.masterpid"><code class="xref py py-func docutils literal notranslate"><span class="pre">uwsgi.masterpid()</span></code></a></li>
+<li><a class="reference internal" href="PythonModule.html#uwsgi.lock" title="uwsgi.lock"><code class="xref py py-func docutils literal notranslate"><span class="pre">uwsgi.lock()</span></code></a></li>
+<li><a class="reference internal" href="PythonModule.html#uwsgi.unlock" title="uwsgi.unlock"><code class="xref py py-func docutils literal notranslate"><span class="pre">uwsgi.unlock()</span></code></a></li>
+<li><a class="reference internal" href="PythonModule.html#uwsgi.add_file_monitor" title="uwsgi.add_file_monitor"><code class="xref py py-func docutils literal notranslate"><span class="pre">uwsgi.add_file_monitor()</span></code></a></li>
+<li><a class="reference internal" href="PythonModule.html#uwsgi.add_timer" title="uwsgi.add_timer"><code class="xref py py-func docutils literal notranslate"><span class="pre">uwsgi.add_timer()</span></code></a></li>
+<li><a class="reference internal" href="PythonModule.html#uwsgi.add_rb_timer" title="uwsgi.add_rb_timer"><code class="xref py py-func docutils literal notranslate"><span class="pre">uwsgi.add_rb_timer()</span></code></a></li>
+<li><a class="reference internal" href="PythonModule.html#uwsgi.cache_get" title="uwsgi.cache_get"><code class="xref py py-func docutils literal notranslate"><span class="pre">uwsgi.cache_get()</span></code></a></li>
+<li><a class="reference internal" href="PythonModule.html#uwsgi.cache_set" title="uwsgi.cache_set"><code class="xref py py-func docutils literal notranslate"><span class="pre">uwsgi.cache_set()</span></code></a></li>
+<li><a class="reference internal" href="PythonModule.html#uwsgi.cache_update" title="uwsgi.cache_update"><code class="xref py py-func docutils literal notranslate"><span class="pre">uwsgi.cache_update()</span></code></a></li>
+<li><a class="reference internal" href="PythonModule.html#uwsgi.cache_del" title="uwsgi.cache_del"><code class="xref py py-func docutils literal notranslate"><span class="pre">uwsgi.cache_del()</span></code></a></li>
+<li><a class="reference internal" href="PythonModule.html#uwsgi.signal" title="uwsgi.signal"><code class="xref py py-func docutils literal notranslate"><span class="pre">uwsgi.signal()</span></code></a></li>
+<li><a class="reference internal" href="PythonModule.html#uwsgi.call" title="uwsgi.call"><code class="xref py py-func docutils literal notranslate"><span class="pre">uwsgi.call()</span></code></a></li>
+<li><a class="reference internal" href="PythonModule.html#uwsgi.rpc" title="uwsgi.rpc"><code class="xref py py-func docutils literal notranslate"><span class="pre">uwsgi.rpc()</span></code></a></li>
+<li><a class="reference internal" href="PythonModule.html#uwsgi.register_rpc" title="uwsgi.register_rpc"><code class="xref py py-func docutils literal notranslate"><span class="pre">uwsgi.register_rpc()</span></code></a></li>
+<li><a class="reference internal" href="PythonModule.html#uwsgi.register_signal" title="uwsgi.register_signal"><code class="xref py py-func docutils literal notranslate"><span class="pre">uwsgi.register_signal()</span></code></a></li>
+</ul>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="제목 주소">¶</a></h2>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">pypy-lib</span></code> - load the specified libpypy-s.so</li>
+<li><code class="docutils literal notranslate"><span class="pre">pypy-setup</span></code> - load the specified pypy_setup script file</li>
+<li><code class="docutils literal notranslate"><span class="pre">pypy-home</span></code> - set the pypy home</li>
+<li><code class="docutils literal notranslate"><span class="pre">pypy-wsgi</span></code> - load a WSGI module</li>
+<li><code class="docutils literal notranslate"><span class="pre">pypy-wsgi-file</span></code> - load a mod_wsgi compatible .wsgi file</li>
+<li><code class="docutils literal notranslate"><span class="pre">pypy-eval</span></code> - execute the specified string before <code class="docutils literal notranslate"><span class="pre">fork()</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">pypy-eval-post-fork</span></code> - execute the specified string after each <code class="docutils literal notranslate"><span class="pre">fork()</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">pypy-exec</span></code> - execute the specified python script before <code class="docutils literal notranslate"><span class="pre">fork()</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">pypy-exec-post-fork</span></code> - execute the specified python script after each <code class="docutils literal notranslate"><span class="pre">fork()</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">pypy-pp/pypy-python-path/pypy-pythonpath</span></code> - add the specified item to the pythonpath</li>
+<li><code class="docutils literal notranslate"><span class="pre">pypy-paste</span></code> - load a paste.deploy .ini configuration</li>
+<li><code class="docutils literal notranslate"><span class="pre">pypy-ini-paste</span></code> - load a paste.deploy .ini configuration and use its [uwsgi] section</li>
+</ul>
+</div>
+<div class="section" id="notes">
+<h2>Notes<a class="headerlink" href="#notes" title="제목 주소">¶</a></h2>
+<ul class="simple">
+<li>Mixing libpython with libpypy-c is explicitly forbidden. A check in the pypy plugin prevents you from doing such a hellish thing.</li>
+<li>The PyPy plugin is generally somewhat more &quot;orthodox&quot; from a Python programmer point of view, while the CPython one may be a little blasphemous in many areas. We have been able to make that choice as we do not need backward compatibility with older uWSGI releases.</li>
+<li>The uWSGI API is still incomplete.</li>
+<li>The WSGI loader does not update the uWSGI internal application list, so things like <code class="docutils literal notranslate"><span class="pre">--need-app</span></code> will not work. The server will report &quot;dynamic mode&quot; on startup even if the app has been successfully loaded. This will be fixed soon.</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="PHP.html" class="btn btn-neutral float-right" title="Running PHP scripts in uWSGI" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="PythonModuleAlias.html" class="btn btn-neutral" title="Aliasing Python modules" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2012-2016, uWSGI.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'2.0',
+            LANGUAGE:'ko',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/language_data.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          
+          SphinxRtdTheme.Navigation.enableSticky();
+          
+      });
+  </script> 
+
+</body>
+</html>

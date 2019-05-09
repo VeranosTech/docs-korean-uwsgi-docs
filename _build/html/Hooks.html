@@ -1,0 +1,567 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ko" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ko" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Hooks &mdash; uWSGI 2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="색인" href="genindex.html" />
+    <link rel="search" title="검색" href="search.html" />
+    <link rel="next" title="Overriding Workers" href="WorkerOverride.html" />
+    <link rel="prev" title="Log encoders" href="LogEncoders.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> uWSGI
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="WSGIquickstart.html">Quickstart for Python/WSGI applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PSGIquickstart.html">Quickstart for perl/PSGI applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RackQuickstart.html">Quickstart for ruby/Rack applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Snippets.html">Snippets</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Download.html">Getting uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Install.html">Installing uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BuildSystem.html">The uWSGI build system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Management.html">Managing the uWSGI server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LanguagesAndPlatforms.html">Supported languages and platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SupportedPlatforms.html">Supported Platforms/Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WebServers.html">Web server integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FAQ.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ThingsToKnow.html">Things to know (best practices and &quot;issues&quot;) READ IT !!!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Configuration.html">Configuring uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FallbackConfig.html">Fallback configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ConfigLogic.html">Configuration logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Options.html">uWSGI Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CustomOptions.html">Defining new options for your instances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ParsingOrder.html">How uWSGI parses config files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Vars.html">uwsgi protocol magic variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Protocol.html">The uwsgi Protocol</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AttachingDaemons.html">Managing external daemons/services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MasterFIFO.html">The Master FIFO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Inetd.html">Socket activation with inetd/xinetd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Upstart.html">Running uWSGI via Upstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Systemd.html">Systemd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Circus.html">Running uWSGI instances with Circus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Embed.html">Embedding an application in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Logging.html">Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LogFormat.html">Formatting uWSGI requests logs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LogEncoders.html">Log encoders</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Hooks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#the-hookable-uwsgi-phases">The &quot;hookable&quot; uWSGI phases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-hardcoded-hooks">The &quot;hardcoded&quot; hooks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#mount-mount-filesystems"><code class="docutils literal notranslate"><span class="pre">mount</span></code> -- mount filesystems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#umount-unmount-filesystems"><code class="docutils literal notranslate"><span class="pre">umount</span></code> -- unmount filesystems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#exec-run-shell-commands"><code class="docutils literal notranslate"><span class="pre">exec</span></code> run shell commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#call-call-functions-in-the-current-process-address-space"><code class="docutils literal notranslate"><span class="pre">call</span></code> call functions in the current process address space</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#attaching-hardcoded-hooks">Attaching &quot;hardcoded&quot; hooks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-advanced-hooks">The &quot;advanced&quot; hooks</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="WorkerOverride.html">Overriding Workers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ThirdPartyPlugins.html">uWSGI third party plugins</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/CachingCookbook.html">The uWSGI Caching Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/Django_and_nginx.html">Setting up Django and your web server with uWSGI and nginx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/dreamhost.html">Running uWSGI on Dreamhost shared hosting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/heroku_python.html">Running python webapps on Heroku with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/heroku_ruby.html">Running Ruby/Rack webapps on Heroku with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/ReliableFuse.html">Reliably use FUSE filesystems for uWSGI vassals (with Linux)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/DynamicProxying.html">Build a dynamic proxy using RPC and internal routing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/GraphiteAndMetrics.html">Setting up Graphite on Ubuntu using the Metrics subsystem</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="articles/SerializingAccept.html">Serializing accept(), AKA Thundering Herd, AKA the Zeeg Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="articles/TheArtOfGracefulReloading.html">The Art of Graceful Reloading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="articles/FunWithPerlEyetoyRaspberrypi.html">Fun with Perl, Eyetoy and RaspberryPi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="articles/OffloadingWebsocketsAndSSE.html">Offloading Websockets and Server-Sent Events AKA &quot;Combine them with Django safely&quot;</a></li>
+<li class="toctree-l1"><a class="reference internal" href="articles/WSGIEnvBehaviour.html">WSGI env behaviour policies</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="AlarmSubsystem.html">The uWSGI alarm subsystem (from 1.3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Caching.html">The uWSGI caching framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WebCaching.html">WebCaching framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cron.html">The uWSGI cron-like interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Fastrouter.html">The uWSGI FastRouter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="InternalRouting.html">uWSGI internal routing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Legion.html">The uWSGI Legion subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Locks.html">Locks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Mules.html">uWSGI Mules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OffloadSubsystem.html">The uWSGI offloading subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Queue.html">The uWSGI queue framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RPC.html">uWSGI RPC Stack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SharedArea.html">SharedArea -- share memory pages between uWSGI components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Signals.html">The uWSGI Signal Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Spooler.html">The uWSGI Spooler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SubscriptionServer.html">uWSGI Subscription Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="StaticFiles.html">Serving static files with uWSGI (updated to 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SNI.html">SNI - Server Name Identification (virtual hosting for SSL nodes)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GeoIP.html">The GeoIP plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Transformations.html">uWSGI Transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WebSockets.html">WebSocket support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Metrics.html">The Metrics subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Chunked.html">The Chunked input API</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Cheaper.html">The uWSGI cheaper subsystem -- adaptive process spawning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Emperor.html">The uWSGI Emperor -- multi-app deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Broodlord.html">Auto-scaling with Broodlord mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Zerg.html">Zerg mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DynamicApps.html">Adding applications dynamically</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SSLScaling.html">Scaling SSL connections (uWSGI 1.9)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Capabilities.html">Setting POSIX Capabilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cgroups.html">Running uWSGI in a Linux CGroup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="KSM.html">Using Linux KSM in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Namespaces.html">Jailing your apps using Linux Namespaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Namespaces.html#the-old-way-the-namespace-option">The old way: the --namespace option</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FreeBSDJails.html">FreeBSD Jails</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ForkptyRouter.html">The Forkpty Router</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TunTapRouter.html">The TunTap Router</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Nagios.html">Monitoring uWSGI with Nagios</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SNMP.html">The embedded SNMP server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PushingStats.html">Pushing statistics (from 1.4)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Carbon.html">Integration with Graphite/Carbon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="StatsServer.html">The uWSGI Stats Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Metrics.html">The Metrics subsystem</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Async.html">uWSGI asynchronous/non-blocking modes (updated to uWSGI 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Gevent.html">The Gevent loop engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tornado.html">The Tornado loop engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uGreen.html">uGreen -- uWSGI Green Threads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="asyncio.html">The asyncio loop engine (CPython &gt;= 3.4, uWSGI &gt;= 2.0.4)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Apache.html">Apache support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cherokee.html">Cherokee support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="HTTP.html">Native HTTP support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="HTTPS.html">HTTPS 지원 (1.3 버전부터)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SPDY.html">The SPDY router (uWSGI 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lighttpd.html">Lighttpd support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Mongrel2.html">Attaching uWSGI to Mongrel2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Nginx.html">Nginx support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OpenBSDhttpd.html">Using OpenBSD httpd as proxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OpenBSDhttpd.html#notes">Notes</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Python.html">Python support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PyPy.html">The PyPy plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PHP.html">Running PHP scripts in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Perl.html">uWSGI Perl support (PSGI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Ruby.html">Ruby support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lua.html">Using Lua/WSAPI with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="JVM.html">JVM in the uWSGI server (updated to 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Mono.html">The Mono ASP.NET plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CGI.html">Running CGI scripts on uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GCCGO.html">The GCCGO plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Symcall.html">The Symcall plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="XSLT.html">The XSLT plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SSI.html">SSI (Server Side Includes) plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="V8.html">uWSGI V8 support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GridFS.html">The GridFS plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GlusterFS.html">The GlusterFS plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Rados.html">The RADOS plugin</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Pty.html">The Pty plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SPNEGO.html">SPNEGO authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LDAP.html">Configuring uWSGI with LDAP</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Erlang.html">Integrating uWSGI with Erlang</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ManagementFlag.html">Management Flags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Go.html">uWSGI Go support (1.4 only)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.18.html">uWSGI 2.0.18</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.17.1.html">uWSGI 2.0.17.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.17.html">uWSGI 2.0.17</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.16.html">uWSGI 2.0.16</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.15.html">uWSGI 2.0.15</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.14.html">uWSGI 2.0.14</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.13.1.html">uWSGI 2.0.13.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.13.html">uWSGI 2.0.13</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.12.html">uWSGI 2.0.12</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.11.2.html">uWSGI 2.0.11.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.11.1.html">uWSGI 2.0.11.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.11.html">uWSGI 2.0.11</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.10.html">uWSGI 2.0.10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.9.html">uWSGI 2.0.9</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.8.html">uWSGI 2.0.8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.7.html">uWSGI 2.0.7</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.6.html">uWSGI 2.0.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.5.html">uWSGI 2.0.5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.4.html">uWSGI 2.0.4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.3.html">uWSGI 2.0.3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.2.html">uWSGI 2.0.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.1.html">uWSGI 2.0.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-2.0.html">uWSGI 2.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.21.html">uWSGI 1.9.21</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.20.html">uWSGI 1.9.20</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.19.html">uWSGI 1.9.19</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.18.html">uWSGI 1.9.18</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.17.html">uWSGI 1.9.17</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.16.html">uWSGI 1.9.16</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.15.html">uWSGI 1.9.15</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.14.html">uWSGI 1.9.14</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.13.html">uWSGI 1.9.13</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.12.html">uWSGI 1.9.12</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.11.html">uWSGI 1.9.11</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.10.html">uWSGI 1.9.10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.9.html">uWSGI 1.9.9</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.8.html">uWSGI 1.9.8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.7.html">uWSGI 1.9.7</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.6.html">uWSGI 1.9.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.5.html">uWSGI 1.9.5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.4.html">uWSGI 1.9.4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.3.html">uWSGI 1.9.3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.2.html">uWSGI 1.9.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.1.html">uWSGI 1.9.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog-1.9.html">uWSGI 1.9</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">uWSGI</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Hooks</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/Hooks.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="hooks">
+<h1>Hooks<a class="headerlink" href="#hooks" title="제목 주소">¶</a></h1>
+<p>(updated to uWSGI 1.9.16)</p>
+<p>uWSGI's main directive is being &quot;modular&quot;. The vast majority of its features are exposed as plugins, both to allow users to optimize
+their build and to encourage developers to extend it.</p>
+<p>Writing plugins can be an annoying task, especially if you only need to change/implement a single function.</p>
+<p>For simple tasks, uWSGI exposes an hook API you can abuse to modify uWSGI's internal behaviors.</p>
+<div class="section" id="the-hookable-uwsgi-phases">
+<h2>The &quot;hookable&quot; uWSGI phases<a class="headerlink" href="#the-hookable-uwsgi-phases" title="제목 주소">¶</a></h2>
+<p>Before being ready to manage requests, uWSGI goes through various &quot;phases&quot;. You can attach one or more &quot;hooks&quot; to these phases.</p>
+<p>Each phase can be &quot;fatal&quot;, if so, a failing hook will mean failing of the whole uWSGI instance (generally calling <code class="docutils literal notranslate"><span class="pre">exit(1)</span></code>).</p>
+<p>Currently (September 2013) the following phases are available:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">asap</span></code> run directly after configuration file has been parsed, before anything else is done. it is fatal.</li>
+<li><code class="docutils literal notranslate"><span class="pre">pre-jail</span></code> run before any attempt to drop privileges or put the process in some form of jail. it is fatal.</li>
+<li><code class="docutils literal notranslate"><span class="pre">post-jail</span></code> run soon after any jailing, but before privileges drop. If jailing requires fork(), the parent process run this phase. it is fatal.</li>
+<li><code class="docutils literal notranslate"><span class="pre">in-jail</span></code> run soon after jayling, but after post-jail. If jailing requires fork(), the chidlren run this phase. it is fatal.</li>
+<li><code class="docutils literal notranslate"><span class="pre">as-root</span></code> run soon before privileges drop (last chance to run something as root). it is fatal.</li>
+<li><code class="docutils literal notranslate"><span class="pre">as-user</span></code> run soon after privileges drop. it is fatal.</li>
+<li><code class="docutils literal notranslate"><span class="pre">pre-app</span></code> run before applications loading. it is fatal.</li>
+<li><code class="docutils literal notranslate"><span class="pre">post-app</span></code> run after applications loading. it is fatal.</li>
+<li><code class="docutils literal notranslate"><span class="pre">accepting</span></code> run before the each worker starts accepting requests (available from uWSGI 1.9.21).</li>
+<li><code class="docutils literal notranslate"><span class="pre">accepting1</span></code> run before the first worker starts accepting requests (available from uWSGI 1.9.21).</li>
+<li><code class="docutils literal notranslate"><span class="pre">accepting-once</span></code> run before the each worker starts accepting requests (available from uWSGI 1.9.21, runs one time per instance).</li>
+<li><code class="docutils literal notranslate"><span class="pre">accepting1-once</span></code> run before the first worker starts accepting requests (available from uWSGI 1.9.21, runs one time per instance).</li>
+<li><code class="docutils literal notranslate"><span class="pre">as-user-atexit</span></code> run before shutdown of the instance. it is non-fatal.</li>
+<li><code class="docutils literal notranslate"><span class="pre">as-emperor</span></code> run soon after the spawn of a vassal in the Emperor process. it is non-fatal.</li>
+<li><code class="docutils literal notranslate"><span class="pre">as-vassal</span></code> run in the vassal before executing the uwsgi binary. it is fatal.</li>
+</ul>
+</div>
+<div class="section" id="the-hardcoded-hooks">
+<h2>The &quot;hardcoded&quot; hooks<a class="headerlink" href="#the-hardcoded-hooks" title="제목 주소">¶</a></h2>
+<p>As said before, the purpose of the hook subsystem is to allow attaching &quot;hooks&quot; to the various uWSGI phases.</p>
+<p>There are two kind of hooks. The simple ones are the so-called &quot;hardcoded&quot; ones. They expose common patterns at the cost of versatility.</p>
+<p>Currently (September 2013) the following &quot;hardcoded&quot; hooks are available (they run in the order they are shown below):</p>
+<div class="section" id="mount-mount-filesystems">
+<h3><code class="docutils literal notranslate"><span class="pre">mount</span></code> -- mount filesystems<a class="headerlink" href="#mount-mount-filesystems" title="제목 주소">¶</a></h3>
+<p>Arguments: &lt;filesystem&gt; &lt;src&gt; &lt;mountpoint&gt; [flags]</p>
+<p>The exposed flags are the ones available for the operating system. As an example on Linux you will options like bind, recursive, readonly etc.</p>
+</div>
+<div class="section" id="umount-unmount-filesystems">
+<h3><code class="docutils literal notranslate"><span class="pre">umount</span></code> -- unmount filesystems<a class="headerlink" href="#umount-unmount-filesystems" title="제목 주소">¶</a></h3>
+<p>Arguments: &lt;mountpoint&gt; [flags]</p>
+</div>
+<div class="section" id="exec-run-shell-commands">
+<h3><code class="docutils literal notranslate"><span class="pre">exec</span></code> run shell commands<a class="headerlink" href="#exec-run-shell-commands" title="제목 주소">¶</a></h3>
+<p>Arguments: &lt;command&gt; [args...]</p>
+<p>Run the command under <code class="docutils literal notranslate"><span class="pre">/bin/sh</span></code>.</p>
+<p>If for some reason you do not want to use <code class="docutils literal notranslate"><span class="pre">/bin/sh</span></code> as the running shell, you can override it with the <code class="docutils literal notranslate"><span class="pre">--binsh</span></code> option. You can specify multiple <code class="docutils literal notranslate"><span class="pre">--binsh</span></code> options -- they will be tried until one valid shell is found.</p>
+</div>
+<div class="section" id="call-call-functions-in-the-current-process-address-space">
+<h3><code class="docutils literal notranslate"><span class="pre">call</span></code> call functions in the current process address space<a class="headerlink" href="#call-call-functions-in-the-current-process-address-space" title="제목 주소">¶</a></h3>
+<p>Arguments: &lt;symbol&gt; [args...]</p>
+<p>Generally the arguments are ignored (the only exceptions are the emperor/vassal phases, see below) as the system expects to call the symbol without arguments.</p>
+<p><code class="docutils literal notranslate"><span class="pre">&lt;symbol&gt;</span></code> can be any symbol currently available in the process's address space.</p>
+<p>This allows some interesting tricks when combined with the <code class="docutils literal notranslate"><span class="pre">--dlopen</span></code> uWSGI option:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// foo.c</span>
+<span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="kt">void</span> <span class="nf">foo_hello</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;I am the foo_hello function called by a hook!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Build this as a shared library:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>gcc -o foo.so -shared -fPIC foo.c
+</pre></div>
+</div>
+<p>and load it into the uWSGI symbol table.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>uwsgi --dlopen ./foo.so ...
+</pre></div>
+</div>
+<p>From now on, the &quot;foo_hello&quot; symbol is available in the uWSGI symbol table, ready to be called by the 'call' hooks.</p>
+<div class="admonition warning">
+<p class="first admonition-title">경고</p>
+<p class="last">As --dlopen is a wrapper for the <code class="docutils literal notranslate"><span class="pre">dlopen()</span></code> function, beware of absolute paths and library search paths. If you do not want headaches, use always absolute paths when dealing with shared libraries.</p>
+</div>
+</div>
+</div>
+<div class="section" id="attaching-hardcoded-hooks">
+<h2>Attaching &quot;hardcoded&quot; hooks<a class="headerlink" href="#attaching-hardcoded-hooks" title="제목 주소">¶</a></h2>
+<p>Each hardcoded hook exposes a set of options for each phase (with some exceptions).</p>
+<p>Each option is composed by the name of the hook and its phase, so to run a command in the <code class="docutils literal notranslate"><span class="pre">as-root</span></code> phase you will use <code class="docutils literal notranslate"><span class="pre">--exec-as-root</span></code>, or <code class="docutils literal notranslate"><span class="pre">--exec-as-user</span></code> for the <code class="docutils literal notranslate"><span class="pre">as-user</span></code> phase.</p>
+<p>Remember, you can attach all of the hooks you need to a hook-phase pair.</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">...</span>
+<span class="na">exec-as-root</span> <span class="o">=</span> <span class="s">cat /proc/cpuinfo</span>
+<span class="na">exec-as-root</span> <span class="o">=</span> <span class="s">echo 1 &gt; /proc/sys/net/ipv4/ip_forward</span>
+
+<span class="na">exec-as-user</span> <span class="o">=</span> <span class="s">ls /tmp</span>
+<span class="na">exec-as-user-at-exit</span> <span class="o">=</span> <span class="s">rm /tmp/foobar</span>
+
+<span class="na">dlopen</span> <span class="o">=</span> <span class="s">./foo.so</span>
+<span class="na">call-as-user</span> <span class="o">=</span> <span class="s">foo_hello</span>
+<span class="na">...</span>
+</pre></div>
+</div>
+<p>The only exception to the rule are the <cite>as-emperor</cite> and <cite>as-vassal</cite> phases. For various reasons they expose a bunch of handy variants -- see below.</p>
+</div>
+<div class="section" id="the-advanced-hooks">
+<h2>The &quot;advanced&quot; hooks<a class="headerlink" href="#the-advanced-hooks" title="제목 주소">¶</a></h2>
+<p>A problem that limits their versatility (a big no-no in the uWSGI state of mind) with hardcoded hooks, is that you cannot control the order of the whole chain (as each phase executes each hooks grouped by type). If you want more control, &quot;advanced&quot; hooks are the best choice.</p>
+<p>Each phase has a single chain in which you specify the hook the call and which handler.</p>
+<p>Handlers specify how to run hooks. New handlers can be registered by plugins.</p>
+<p>Currently the handlers exposed by the core are:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">exec</span></code> - same as the 'exec' hardcoded options</li>
+<li><code class="docutils literal notranslate"><span class="pre">call</span></code> - call the specified symbol ignoring return value</li>
+<li><code class="docutils literal notranslate"><span class="pre">callret</span></code> - call the specified symbol expecting an int return. anything != 0 means failure</li>
+<li><code class="docutils literal notranslate"><span class="pre">callint</span></code> - call the specified symbol parsing the argument as an int</li>
+<li><code class="docutils literal notranslate"><span class="pre">callintret</span></code> - call the specified symbol parsing the argument as an int and expecting an int return.</li>
+<li><code class="docutils literal notranslate"><span class="pre">mount</span></code> - same as 'mount' hardcoded options</li>
+<li><code class="docutils literal notranslate"><span class="pre">umount</span></code> - same as 'umount' hardcoded options</li>
+<li><code class="docutils literal notranslate"><span class="pre">cd</span></code> - convenience handler, same as <code class="docutils literal notranslate"><span class="pre">call:chdir</span> <span class="pre">&lt;directory&gt;</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">exit</span></code> - convenience handler, same as <code class="docutils literal notranslate"><span class="pre">callint:exit</span> <span class="pre">[num]</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">print</span></code> - convenience handler, same as calling the <code class="docutils literal notranslate"><span class="pre">uwsgi_log</span></code> symbol</li>
+<li><code class="docutils literal notranslate"><span class="pre">write</span></code> - (from uWSGI 1.9.21), write a string to the specified file using write:&lt;file&gt; &lt;string&gt;</li>
+<li><code class="docutils literal notranslate"><span class="pre">writefifo</span></code> - (from uWSGI 1.9.21), write a string to the specified FIFO using writefifo:&lt;file&gt; &lt;string&gt;</li>
+<li><code class="docutils literal notranslate"><span class="pre">unlink</span></code> - (from uWSGI 1.9.21), unlink the specified file</li>
+</ul>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">...</span>
+<span class="na">hook-as-root</span> <span class="o">=</span> <span class="s">mount:proc none /proc</span>
+<span class="na">hook-as-root</span> <span class="o">=</span> <span class="s">exec:cat /proc/self/mounts</span>
+<span class="na">hook-pre-app</span> <span class="o">=</span> <span class="s">callint:putenv PATH=bin:$(PATH)</span>
+<span class="na">hook-post-app</span> <span class="o">=</span> <span class="s">call:uwsgi_log application has been loaded</span>
+<span class="na">hook-as-user-atexit</span> <span class="o">=</span> <span class="s">print:goodbye cruel world</span>
+<span class="na">...</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="WorkerOverride.html" class="btn btn-neutral float-right" title="Overriding Workers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="LogEncoders.html" class="btn btn-neutral" title="Log encoders" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2012-2016, uWSGI.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'2.0',
+            LANGUAGE:'ko',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/language_data.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          
+          SphinxRtdTheme.Navigation.enableSticky();
+          
+      });
+  </script> 
+
+</body>
+</html>

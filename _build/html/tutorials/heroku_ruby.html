@@ -1,0 +1,626 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ko" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ko" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Running Ruby/Rack webapps on Heroku with uWSGI &mdash; uWSGI 2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="색인" href="../genindex.html" />
+    <link rel="search" title="검색" href="../search.html" />
+    <link rel="next" title="Reliably use FUSE filesystems for uWSGI vassals (with Linux)" href="ReliableFuse.html" />
+    <link rel="prev" title="Running python webapps on Heroku with uWSGI" href="heroku_python.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> uWSGI
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../WSGIquickstart.html">Quickstart for Python/WSGI applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PSGIquickstart.html">Quickstart for perl/PSGI applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RackQuickstart.html">Quickstart for ruby/Rack applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Snippets.html">Snippets</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Download.html">Getting uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Install.html">Installing uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../BuildSystem.html">The uWSGI build system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Management.html">Managing the uWSGI server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LanguagesAndPlatforms.html">Supported languages and platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SupportedPlatforms.html">Supported Platforms/Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../WebServers.html">Web server integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FAQ.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ThingsToKnow.html">Things to know (best practices and &quot;issues&quot;) READ IT !!!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Configuration.html">Configuring uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FallbackConfig.html">Fallback configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ConfigLogic.html">Configuration logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Options.html">uWSGI Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CustomOptions.html">Defining new options for your instances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ParsingOrder.html">How uWSGI parses config files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Vars.html">uwsgi protocol magic variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Protocol.html">The uwsgi Protocol</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AttachingDaemons.html">Managing external daemons/services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../MasterFIFO.html">The Master FIFO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Inetd.html">Socket activation with inetd/xinetd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Upstart.html">Running uWSGI via Upstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Systemd.html">Systemd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Circus.html">Running uWSGI instances with Circus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Embed.html">Embedding an application in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Logging.html">Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LogFormat.html">Formatting uWSGI requests logs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LogEncoders.html">Log encoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Hooks.html">Hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../WorkerOverride.html">Overriding Workers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ThirdPartyPlugins.html">uWSGI third party plugins</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="CachingCookbook.html">The uWSGI Caching Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Django_and_nginx.html">Setting up Django and your web server with uWSGI and nginx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dreamhost.html">Running uWSGI on Dreamhost shared hosting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="heroku_python.html">Running python webapps on Heroku with uWSGI</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Running Ruby/Rack webapps on Heroku with uWSGI</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#preparing-the-environment-a-sinatra-application">Preparing the environment (a Sinatra application)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-the-uwsgi-config-file">Creating the uWSGI config file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#deploying-to-heroku">Deploying to heroku</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fork-for-dummies">fork() for dummies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-ruby-gc">The ruby GC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#concurrency">Concurrency</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#harakiri">Harakiri</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#static-files">Static files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#adaptive-process-spawning">Adaptive process spawning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#logging">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#alarms">Alarms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-spooler">The Spooler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mules">Mules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#signals-timers-filemonitors-crons">Signals (timers, filemonitors, crons...)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#external-daemons">External daemons</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ReliableFuse.html">Reliably use FUSE filesystems for uWSGI vassals (with Linux)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DynamicProxying.html">Build a dynamic proxy using RPC and internal routing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GraphiteAndMetrics.html">Setting up Graphite on Ubuntu using the Metrics subsystem</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../articles/SerializingAccept.html">Serializing accept(), AKA Thundering Herd, AKA the Zeeg Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../articles/TheArtOfGracefulReloading.html">The Art of Graceful Reloading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../articles/FunWithPerlEyetoyRaspberrypi.html">Fun with Perl, Eyetoy and RaspberryPi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../articles/OffloadingWebsocketsAndSSE.html">Offloading Websockets and Server-Sent Events AKA &quot;Combine them with Django safely&quot;</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../articles/WSGIEnvBehaviour.html">WSGI env behaviour policies</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../AlarmSubsystem.html">The uWSGI alarm subsystem (from 1.3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Caching.html">The uWSGI caching framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../WebCaching.html">WebCaching framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Cron.html">The uWSGI cron-like interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Fastrouter.html">The uWSGI FastRouter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../InternalRouting.html">uWSGI internal routing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Legion.html">The uWSGI Legion subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Locks.html">Locks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Mules.html">uWSGI Mules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../OffloadSubsystem.html">The uWSGI offloading subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Queue.html">The uWSGI queue framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RPC.html">uWSGI RPC Stack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SharedArea.html">SharedArea -- share memory pages between uWSGI components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Signals.html">The uWSGI Signal Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Spooler.html">The uWSGI Spooler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SubscriptionServer.html">uWSGI Subscription Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../StaticFiles.html">Serving static files with uWSGI (updated to 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SNI.html">SNI - Server Name Identification (virtual hosting for SSL nodes)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GeoIP.html">The GeoIP plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Transformations.html">uWSGI Transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../WebSockets.html">WebSocket support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Metrics.html">The Metrics subsystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Chunked.html">The Chunked input API</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Cheaper.html">The uWSGI cheaper subsystem -- adaptive process spawning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Emperor.html">The uWSGI Emperor -- multi-app deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Broodlord.html">Auto-scaling with Broodlord mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Zerg.html">Zerg mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../DynamicApps.html">Adding applications dynamically</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SSLScaling.html">Scaling SSL connections (uWSGI 1.9)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Capabilities.html">Setting POSIX Capabilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Cgroups.html">Running uWSGI in a Linux CGroup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../KSM.html">Using Linux KSM in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Namespaces.html">Jailing your apps using Linux Namespaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Namespaces.html#the-old-way-the-namespace-option">The old way: the --namespace option</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FreeBSDJails.html">FreeBSD Jails</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ForkptyRouter.html">The Forkpty Router</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../TunTapRouter.html">The TunTap Router</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Nagios.html">Monitoring uWSGI with Nagios</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SNMP.html">The embedded SNMP server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PushingStats.html">Pushing statistics (from 1.4)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Carbon.html">Integration with Graphite/Carbon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../StatsServer.html">The uWSGI Stats Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Metrics.html">The Metrics subsystem</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Async.html">uWSGI asynchronous/non-blocking modes (updated to uWSGI 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Gevent.html">The Gevent loop engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Tornado.html">The Tornado loop engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../uGreen.html">uGreen -- uWSGI Green Threads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../asyncio.html">The asyncio loop engine (CPython &gt;= 3.4, uWSGI &gt;= 2.0.4)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Apache.html">Apache support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Cherokee.html">Cherokee support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HTTP.html">Native HTTP support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HTTPS.html">HTTPS 지원 (1.3 버전부터)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SPDY.html">The SPDY router (uWSGI 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Lighttpd.html">Lighttpd support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Mongrel2.html">Attaching uWSGI to Mongrel2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Nginx.html">Nginx support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../OpenBSDhttpd.html">Using OpenBSD httpd as proxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../OpenBSDhttpd.html#notes">Notes</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Python.html">Python support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PyPy.html">The PyPy plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PHP.html">Running PHP scripts in uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Perl.html">uWSGI Perl support (PSGI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Ruby.html">Ruby support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Lua.html">Using Lua/WSAPI with uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../JVM.html">JVM in the uWSGI server (updated to 1.9)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Mono.html">The Mono ASP.NET plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CGI.html">Running CGI scripts on uWSGI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCCGO.html">The GCCGO plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Symcall.html">The Symcall plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../XSLT.html">The XSLT plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SSI.html">SSI (Server Side Includes) plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../V8.html">uWSGI V8 support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GridFS.html">The GridFS plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GlusterFS.html">The GlusterFS plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Rados.html">The RADOS plugin</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Pty.html">The Pty plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SPNEGO.html">SPNEGO authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LDAP.html">Configuring uWSGI with LDAP</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Erlang.html">Integrating uWSGI with Erlang</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ManagementFlag.html">Management Flags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Go.html">uWSGI Go support (1.4 only)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.18.html">uWSGI 2.0.18</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.17.1.html">uWSGI 2.0.17.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.17.html">uWSGI 2.0.17</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.16.html">uWSGI 2.0.16</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.15.html">uWSGI 2.0.15</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.14.html">uWSGI 2.0.14</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.13.1.html">uWSGI 2.0.13.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.13.html">uWSGI 2.0.13</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.12.html">uWSGI 2.0.12</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.11.2.html">uWSGI 2.0.11.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.11.1.html">uWSGI 2.0.11.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.11.html">uWSGI 2.0.11</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.10.html">uWSGI 2.0.10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.9.html">uWSGI 2.0.9</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.8.html">uWSGI 2.0.8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.7.html">uWSGI 2.0.7</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.6.html">uWSGI 2.0.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.5.html">uWSGI 2.0.5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.4.html">uWSGI 2.0.4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.3.html">uWSGI 2.0.3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.2.html">uWSGI 2.0.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.1.html">uWSGI 2.0.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-2.0.html">uWSGI 2.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.21.html">uWSGI 1.9.21</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.20.html">uWSGI 1.9.20</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.19.html">uWSGI 1.9.19</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.18.html">uWSGI 1.9.18</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.17.html">uWSGI 1.9.17</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.16.html">uWSGI 1.9.16</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.15.html">uWSGI 1.9.15</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.14.html">uWSGI 1.9.14</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.13.html">uWSGI 1.9.13</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.12.html">uWSGI 1.9.12</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.11.html">uWSGI 1.9.11</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.10.html">uWSGI 1.9.10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.9.html">uWSGI 1.9.9</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.8.html">uWSGI 1.9.8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.7.html">uWSGI 1.9.7</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.6.html">uWSGI 1.9.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.5.html">uWSGI 1.9.5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.4.html">uWSGI 1.9.4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.3.html">uWSGI 1.9.3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.2.html">uWSGI 1.9.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.1.html">uWSGI 1.9.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Changelog-1.9.html">uWSGI 1.9</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">uWSGI</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Running Ruby/Rack webapps on Heroku with uWSGI</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/tutorials/heroku_ruby.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="running-ruby-rack-webapps-on-heroku-with-uwsgi">
+<h1>Running Ruby/Rack webapps on Heroku with uWSGI<a class="headerlink" href="#running-ruby-rack-webapps-on-heroku-with-uwsgi" title="제목 주소">¶</a></h1>
+<p>Prerequisites: a Heroku account (on the cedar platform), git (on the local system) and the heroku toolbelt (or the old/deprecated heroku gem)</p>
+<p>Note: you need a uWSGI version &gt;= 1.4.8 to correctly run ruby/rack apps. Older versions may work, but are not supported.</p>
+<div class="section" id="preparing-the-environment-a-sinatra-application">
+<h2>Preparing the environment (a Sinatra application)<a class="headerlink" href="#preparing-the-environment-a-sinatra-application" title="제목 주소">¶</a></h2>
+<p>On your local system prepare the structure for your sinatra application</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>mkdir uwsgi-heroku
+<span class="nb">cd</span> uwsgi-heroku
+git init .
+heroku create --stack cedar
+</pre></div>
+</div>
+<p>the last command will create a new heroku application (you can check it on the web dashboard).</p>
+<p>Next step is creating our Gemfile (this file contains the gem required by the application)</p>
+<div class="highlight-rb notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="s1">&#39;https://rubygems.org&#39;</span>
+
+<span class="n">gem</span> <span class="s2">&quot;uwsgi&quot;</span>
+<span class="n">gem</span> <span class="s2">&quot;sinatra&quot;</span>
+</pre></div>
+</div>
+<p>we now need to run <code class="docutils literal notranslate"><span class="pre">bundle</span> <span class="pre">install</span></code> to create the Gemfile.lock file</p>
+<p>let's track the two with git:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git add Gemfile
+git add Gemfile.lock
+</pre></div>
+</div>
+<p>Finally create a config.ru file containing the Sinatra sample app</p>
+<div class="highlight-rb notranslate"><div class="highlight"><pre><span></span><span class="nb">require</span> <span class="s1">&#39;sinatra&#39;</span>
+
+<span class="n">get</span> <span class="s1">&#39;/hi&#39;</span> <span class="k">do</span>
+  <span class="k">return</span> <span class="s2">&quot;ciao&quot;</span>
+<span class="k">end</span>
+
+<span class="n">run</span> <span class="no">Sinatra</span><span class="o">::</span><span class="no">Application</span>
+</pre></div>
+</div>
+<p>and track it</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git add config.ru
+</pre></div>
+</div>
+</div>
+<div class="section" id="creating-the-uwsgi-config-file">
+<h2>Creating the uWSGI config file<a class="headerlink" href="#creating-the-uwsgi-config-file" title="제목 주소">¶</a></h2>
+<p>We are now ready to create the uWSGI configuration (we will use the .ini format in a file called uwsgi.ini).</p>
+<p>The minimal setup for heroku is the following (check the comments in the file for an explanation)</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="c1">; bind to the heroku required port</span>
+<span class="na">http-socket</span> <span class="o">=</span> <span class="s">:$(PORT)</span>
+<span class="c1">; force the usage of the ruby/rack plugin for every request (7 is the official numbero for ruby/rack)</span>
+<span class="na">http-socket-modifier1</span> <span class="o">=</span> <span class="s">7</span>
+<span class="c1">; load the bundler subsystem</span>
+<span class="na">rbrequire</span> <span class="o">=</span> <span class="s">bundler/setup</span>
+<span class="c1">; load the application</span>
+<span class="na">rack</span> <span class="o">=</span> <span class="s">config.ru</span>
+<span class="c1">; when the app receives the TERM signal let&#39;s destroy it (instead of brutal reloading)</span>
+<span class="na">die-on-term</span> <span class="o">=</span> <span class="s">true</span>
+</pre></div>
+</div>
+<p>but a better setup will be</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="c1">; bind to the heroku required port</span>
+<span class="na">http-socket</span> <span class="o">=</span> <span class="s">:$(PORT)</span>
+<span class="c1">; force the usage of the ruby/rack plugin for every request (7 is the official numbero for ruby/rack)</span>
+<span class="na">http-socket-modifier1</span> <span class="o">=</span> <span class="s">7</span>
+<span class="c1">; load the bundler subsystem</span>
+<span class="na">rbrequire</span> <span class="o">=</span> <span class="s">bundler/setup</span>
+<span class="c1">; load the application</span>
+<span class="na">rack</span> <span class="o">=</span> <span class="s">config.ru</span>
+<span class="c1">; when the app receives the TERM signal let&#39;s destroy it (instead of brutal reloading)</span>
+<span class="na">die-on-term</span> <span class="o">=</span> <span class="s">true</span>
+<span class="c1">; enable the master process</span>
+<span class="na">master</span> <span class="o">=</span> <span class="s">true</span>
+<span class="c1">; spawn 4 processes to increase concurrency</span>
+<span class="na">processes</span> <span class="o">=</span> <span class="s">4</span>
+<span class="c1">; report memory usage after each request</span>
+<span class="na">memory-report</span> <span class="o">=</span> <span class="s">true</span>
+<span class="c1">; reload if the rss memory is higher than 100M</span>
+<span class="na">reload-on-rss</span> <span class="o">=</span> <span class="s">100</span>
+</pre></div>
+</div>
+<p>Let's track it</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git add uwsgi.ini
+</pre></div>
+</div>
+</div>
+<div class="section" id="deploying-to-heroku">
+<h2>Deploying to heroku<a class="headerlink" href="#deploying-to-heroku" title="제목 주소">¶</a></h2>
+<p>We need to create the last file (required by Heroku). It is the Procfile, that instruct the Heroku system on which process to start for a web application.</p>
+<p>We want to spawn uwsgi (installed as a gem via bundler) using the uwsgi.ini config file</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>web: bundle <span class="nb">exec</span> uwsgi uwsgi.ini
+</pre></div>
+</div>
+<p>track it</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git add Procfile
+</pre></div>
+</div>
+<p>And let's commit all:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git commit -a -m <span class="s2">&quot;first attempt&quot;</span>
+</pre></div>
+</div>
+<p>And push to heroku:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git push heroku master
+</pre></div>
+</div>
+<p>If all goes well, you will see your page under your app url on the /hi path</p>
+<p>Remember to run <code class="docutils literal notranslate"><span class="pre">heroku</span> <span class="pre">logs</span></code> to check if all is ok.</p>
+</div>
+<div class="section" id="fork-for-dummies">
+<h2>fork() for dummies<a class="headerlink" href="#fork-for-dummies" title="제목 주소">¶</a></h2>
+<p>uWSGI allows you to choose how to abuse the fork() syscall in your app.</p>
+<p>By default the approach is loading the application in the master process and then fork() to the workers
+that will inherit a copy of the master process.</p>
+<p>This approach speedup startup and can potentially consume less memory. The truth is that often (for the way ruby garbage collection works)
+you will get few memory gain. The real advantage in in performance as the vast majority of time during application startup is spent
+in (slowly) searching for files. With the fork() early approach you can avoid repeating that slow procedure one time for worker.</p>
+<p>Obviously the uWSGI mantra is &quot;do whatever you need, if you can't, it is a uWSGI bug&quot; so if your app is not fork()-friendly
+you can add the <code class="docutils literal notranslate"><span class="pre">lazy-apps</span> <span class="pre">=</span> <span class="pre">true</span></code> option that will load your app one time per-worker.</p>
+</div>
+<div class="section" id="the-ruby-gc">
+<h2>The ruby GC<a class="headerlink" href="#the-ruby-gc" title="제목 주소">¶</a></h2>
+<p>By default uWSGI, calls the ruby Garbage collector after each request. This ensure an optimal use of memory (remember on Heroku, your memory is limited) you should not touch
+the default approach, but if you experience a drop in performance you may want to tune it using the <code class="docutils literal notranslate"><span class="pre">ruby-gc-freq</span> <span class="pre">=</span> <span class="pre">n</span></code> option
+where n is the number of requests after the GC is called.</p>
+</div>
+<div class="section" id="concurrency">
+<h2>Concurrency<a class="headerlink" href="#concurrency" title="제목 주소">¶</a></h2>
+<p>Albeit uWSGI supports lot of different paradigms for concurrency, the multiprocess one is suggested for the vast majority of ruby/rack apps.</p>
+<p>Basically all popular ruby-frameworks rely on that. Remember that your app is limited so spawn a number of processes
+that can fit in your Heroku dyno.</p>
+<p>Starting from uWSGI 1.9.14, native ruby 1.9/2.x threads support has been added. Rails4 (only in production mode !!!) supports them:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">...</span>
+<span class="c1">; spawn 8 threads per-process</span>
+<span class="na">threads</span> <span class="o">=</span> <span class="s">8</span>
+<span class="c1">; maps them as ruby threads</span>
+<span class="na">rbthreads</span> <span class="o">=</span> <span class="s">true</span>
+<span class="c1">; do not forget to set production mode for rails4 apps !!!</span>
+<span class="na">env</span> <span class="o">=</span> <span class="s">RAILS_ENV=production</span>
+<span class="na">...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="harakiri">
+<h2>Harakiri<a class="headerlink" href="#harakiri" title="제목 주소">¶</a></h2>
+<p>If you plan to put production-apps on heroku, be sure to understand how dynos and their proxy works. Based on that, try to always set the harakiri parameters to a good value for your app. (do not ask for a default value, IT IS APP-DEPENDENT)</p>
+<p>Harakiri, is the maximum time a single request can run, before being destroyed by the master</p>
+</div>
+<div class="section" id="static-files">
+<h2>Static files<a class="headerlink" href="#static-files" title="제목 주소">¶</a></h2>
+<p>Generally, serving static files on Heroku is not a good idea (mainly from a design point of view). You could obviously have that need. In such a case remember to use uWSGI facilities for that, in particular offloading is the best way to leave your workers free while you serve big files (in addition to this remember that your static files must be tracked with git)</p>
+<p>Try to avoid serving static files from your ruby/rack code. It will be extremely slow (compared to the uWSGI facilities) and can hold your worker busy
+for the whole transfer of the file</p>
+</div>
+<div class="section" id="adaptive-process-spawning">
+<h2>Adaptive process spawning<a class="headerlink" href="#adaptive-process-spawning" title="제목 주소">¶</a></h2>
+<p>None of the supported algorithms are good for the Heroku approach and, very probably, it makes little sense to use a dynamic process number on such a platform.</p>
+</div>
+<div class="section" id="logging">
+<h2>Logging<a class="headerlink" href="#logging" title="제목 주소">¶</a></h2>
+<p>If you plan to use heroku on production, remember to send your logs (via udp for example) on an external server (with persistent storage).</p>
+<p>Check the uWSGI available loggers. Surely one will fit your need. (pay attention to security, as logs will fly in clear).</p>
+<p>UPDATE: a udp logger with crypto features is on work.</p>
+</div>
+<div class="section" id="alarms">
+<h2>Alarms<a class="headerlink" href="#alarms" title="제목 주소">¶</a></h2>
+<p>All of the alarms plugin should work without problems</p>
+</div>
+<div class="section" id="the-spooler">
+<h2>The Spooler<a class="headerlink" href="#the-spooler" title="제목 주소">¶</a></h2>
+<p>As your app runs on a non-persistent filesystem, using the Spooler is a bad idea (you will easily lose tasks).</p>
+</div>
+<div class="section" id="mules">
+<h2>Mules<a class="headerlink" href="#mules" title="제목 주소">¶</a></h2>
+<p>They can be used without problems</p>
+</div>
+<div class="section" id="signals-timers-filemonitors-crons">
+<h2>Signals (timers, filemonitors, crons...)<a class="headerlink" href="#signals-timers-filemonitors-crons" title="제목 주소">¶</a></h2>
+<p>They all works, but do not rely on cron facilities, as heroku can kill/destroy/restarts your instances in every moment.</p>
+</div>
+<div class="section" id="external-daemons">
+<h2>External daemons<a class="headerlink" href="#external-daemons" title="제목 주소">¶</a></h2>
+<p>The --attach-daemon option and its --smart variants work without problems. Just remember you are on a volatile filesystem and you are not free to bind on port/addresses as you may wish</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ReliableFuse.html" class="btn btn-neutral float-right" title="Reliably use FUSE filesystems for uWSGI vassals (with Linux)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="heroku_python.html" class="btn btn-neutral" title="Running python webapps on Heroku with uWSGI" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2012-2016, uWSGI.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'2.0',
+            LANGUAGE:'ko',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/language_data.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          
+          SphinxRtdTheme.Navigation.enableSticky();
+          
+      });
+  </script> 
+
+</body>
+</html>
