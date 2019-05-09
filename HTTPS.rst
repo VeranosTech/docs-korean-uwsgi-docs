@@ -1,4 +1,4 @@
-HTTPS support (from 1.3)
+HTTPS 지원 (1.3 버전부터)
 ============================
 
 Use the ``https <socket>,<certificate>,<key>`` option. This option may be
@@ -53,7 +53,7 @@ the OpenSSL cipher suite.
 This will set all of the **HIGHest** ciphers (whenever possible) for your
 SSL/TLS transactions.
 
-Client certificate authentication
+클라이언트 인증서를 사용한 인증
 ---------------------------------
 
 The ``https`` option can also take an optional 5th argument. You can use it to
