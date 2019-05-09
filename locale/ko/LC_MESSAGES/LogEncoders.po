@@ -1,0 +1,314 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../LogEncoders.rst:2
+msgid "Log encoders"
+msgstr ""
+
+#: ../../LogEncoders.rst:4
+msgid "uWSGI 1.9.16 got the \"log encoding\" feature."
+msgstr ""
+
+#: ../../LogEncoders.rst:6
+msgid "An encoder receives a logline and give back a \"transformation\" of it."
+msgstr ""
+
+#: ../../LogEncoders.rst:8
+msgid ""
+"Encoders can be added by plugins, and can be enabled in chain (the output"
+" of an encoder will be the input of the following one and so on)."
+msgstr ""
+
+#: ../../LogEncoders.rst:24
+msgid ""
+"with this configuration the log server will receive the \"i am gzip "
+"encoded\" string followed by the tru log message encoded in gzip"
+msgstr ""
+
+#: ../../LogEncoders.rst:26
+msgid "The log encoder syntax is the following:"
+msgstr ""
+
+#: ../../LogEncoders.rst:28
+msgid "log-encoder = <encoder>[ args]"
+msgstr ""
+
+#: ../../LogEncoders.rst:30
+msgid "so args (if any) are separated by a single space"
+msgstr ""
+
+#: ../../LogEncoders.rst:33
+msgid "Request logs VS stdout/stderr"
+msgstr ""
+
+#: ../../LogEncoders.rst:35
+msgid "The --log-encoder option encodes only the stdout/stderr logs."
+msgstr ""
+
+#: ../../LogEncoders.rst:37
+msgid "If you want to encode request logs to use --log-req-encoder:"
+msgstr ""
+
+#: ../../LogEncoders.rst:51
+msgid "Routing encoders"
+msgstr ""
+
+#: ../../LogEncoders.rst:53
+msgid ""
+"Log routing allows sending each logline to a different log engine based "
+"on regexps. You can use the same system with encoders too:"
+msgstr ""
+
+#: ../../LogEncoders.rst:70
+msgid "``Core`` encoders"
+msgstr ""
+
+#: ../../LogEncoders.rst:72
+msgid "The following encoders are available in the uwsgi 'core':"
+msgstr ""
+
+#: ../../LogEncoders.rst:74
+msgid "``prefix`` add a raw prefix to each log msg"
+msgstr ""
+
+#: ../../LogEncoders.rst:76
+msgid "``suffix`` add a raw suffix to each log msg"
+msgstr ""
+
+#: ../../LogEncoders.rst:78
+msgid "``nl`` add a newline char to each log msg"
+msgstr ""
+
+#: ../../LogEncoders.rst:80
+msgid "``gzip`` compress each msg with gzip (requires zlib)"
+msgstr ""
+
+#: ../../LogEncoders.rst:82
+msgid "``compress`` compress each msg with zlib compress (requires zlib)"
+msgstr ""
+
+#: ../../LogEncoders.rst:84
+msgid "``format`` apply the specified format to each log msg:"
+msgstr ""
+
+#: ../../LogEncoders.rst:93
+msgid "``json`` like ``format`` but each variable is json escaped"
+msgstr ""
+
+#: ../../LogEncoders.rst:102
+msgid "The following variables (for format and json) are available:"
+msgstr ""
+
+#: ../../LogEncoders.rst:104
+msgid "``${msg}`` the raw log message (newline stripped)"
+msgstr ""
+
+#: ../../LogEncoders.rst:106
+msgid "``${msgnl}`` the raw log message (with newline)"
+msgstr ""
+
+#: ../../LogEncoders.rst:108
+msgid "``${unix}`` the current unix time"
+msgstr ""
+
+#: ../../LogEncoders.rst:110
+msgid "``${micros}`` the current unix time in microseconds"
+msgstr ""
+
+#: ../../LogEncoders.rst:112
+msgid "``${strftime:xxx}`` strftime using the xxx format:"
+msgstr ""
+
+#: ../../LogEncoders.rst:126
+msgid "The ``msgpack`` encoder"
+msgstr ""
+
+#: ../../LogEncoders.rst:128
+msgid ""
+"This is the first log-encoder plugin officially added to uWSGI sources. "
+"It allows encoding of loglines in msgpack (http://msgpack.org/) format."
+msgstr ""
+
+#: ../../LogEncoders.rst:130
+msgid ""
+"The syntax is pretty versatile as it has been developed for adding any "
+"information to a single packet"
+msgstr ""
+
+#: ../../LogEncoders.rst:132
+msgid "``log-encoder = msgpack <format>``"
+msgstr ""
+
+#: ../../LogEncoders.rst:134
+msgid ""
+"format is pretty complex as it is a list of the single items in the whole"
+" packet."
+msgstr ""
+
+#: ../../LogEncoders.rst:136
+msgid ""
+"For example if you want to encode the {'foo':'bar', 'test':17} dictionary"
+" you need to read it as:"
+msgstr ""
+
+#: ../../LogEncoders.rst:138
+msgid ""
+"a map of 2 items | the string foo | the string bar | the string test | "
+"the integer 17"
+msgstr ""
+
+#: ../../LogEncoders.rst:140
+msgid "for a total of 5 items."
+msgstr ""
+
+#: ../../LogEncoders.rst:142
+msgid ""
+"A more complex structure {'boo':30, 'foo':'bar', 'test': "
+"[1,3,3,17.30,nil,true,false]}"
+msgstr ""
+
+#: ../../LogEncoders.rst:144
+msgid "will be"
+msgstr ""
+
+#: ../../LogEncoders.rst:146
+msgid ""
+"a map of 3 items | the string boo | the number 30| the string foo| the "
+"string bar | the string test | an array of 7 items | the integer 1 | the "
+"integer 3 | the integer 3 | the float 17.30 | a nil | a true | a false"
+msgstr ""
+
+#: ../../LogEncoders.rst:148
+msgid "The <format> string is a representation of this way:"
+msgstr ""
+
+#: ../../LogEncoders.rst:154
+msgid ""
+"The pipe is the seprator of each item. The string before the colon is the"
+" type of item, followed by the optional argument"
+msgstr ""
+
+#: ../../LogEncoders.rst:156
+msgid "The following item types are supported:"
+msgstr ""
+
+#: ../../LogEncoders.rst:158
+msgid "``map`` a dictionary, the argument is the number of items"
+msgstr ""
+
+#: ../../LogEncoders.rst:160
+msgid "``array`` an array, the argument is the number of items"
+msgstr ""
+
+#: ../../LogEncoders.rst:162
+msgid "``str`` a string, the argument is the string itself"
+msgstr ""
+
+#: ../../LogEncoders.rst:164
+msgid "``bin`` a byte array, the argument is the binary stream itself"
+msgstr ""
+
+#: ../../LogEncoders.rst:166
+msgid "``int`` an integer, the argument is the number"
+msgstr ""
+
+#: ../../LogEncoders.rst:168
+msgid "``float`` a float, the argument is the number"
+msgstr ""
+
+#: ../../LogEncoders.rst:170
+msgid "``nil`` undefined/NULL"
+msgstr ""
+
+#: ../../LogEncoders.rst:172
+msgid "``true`` boolean TRUE"
+msgstr ""
+
+#: ../../LogEncoders.rst:174
+msgid "``false`` boolean FALSE"
+msgstr ""
+
+#: ../../LogEncoders.rst:176
+msgid "in addition to msgpack types, a series of dynamic types are available:"
+msgstr ""
+
+#: ../../LogEncoders.rst:178
+msgid "``msg`` translate the logline to a msgpack string with newline chopped"
+msgstr ""
+
+#: ../../LogEncoders.rst:180
+msgid ""
+"``msgbin`` translate the logline to a msgpack byte array with newline "
+"chopped"
+msgstr ""
+
+#: ../../LogEncoders.rst:182
+msgid "``msgnl`` translate the logline to a msgpack string (newline included)"
+msgstr ""
+
+#: ../../LogEncoders.rst:184
+msgid ""
+"``msgbin`` translate the logline to a msgpack byte array (newline "
+"included)"
+msgstr ""
+
+#: ../../LogEncoders.rst:186
+msgid "``unix`` translate to an integer of the unix time"
+msgstr ""
+
+#: ../../LogEncoders.rst:188
+msgid "``micros`` translate to an integer of the unix time in microseconds"
+msgstr ""
+
+#: ../../LogEncoders.rst:190
+msgid ""
+"``strftime`` translate to a string using strftime syntax. The strftime "
+"format is the argument"
+msgstr ""
+
+#: ../../LogEncoders.rst:192
+msgid "As an example you can send logline to a logstash server via udp:"
+msgstr ""
+
+#: ../../LogEncoders.rst:195
+msgid "(logstash debug configuration):"
+msgstr ""
+
+#: ../../LogEncoders.rst:218
+msgid "this will generate the following structure:"
+msgstr ""
+
+#: ../../LogEncoders.rst:229
+msgid "that will be stored in elasticsearch"
+msgstr ""
+
+#: ../../LogEncoders.rst:232
+msgid "Notes"
+msgstr ""
+
+#: ../../LogEncoders.rst:234
+msgid "Encoders automatically enable --log-master"
+msgstr ""
+
+#: ../../LogEncoders.rst:236
+msgid ""
+"For best performance consider allocating a thread for log sending with "
+"--threaded-logger"
+msgstr ""
+

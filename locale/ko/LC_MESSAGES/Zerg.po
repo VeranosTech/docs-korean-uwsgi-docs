@@ -1,0 +1,192 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Zerg.rst:2
+msgid "Zerg mode"
+msgstr ""
+
+#: ../../Zerg.rst:6
+msgid ""
+"Yes, that's Zerg as in the \"quantity-over-quality\" Starcraft race. If "
+"you haven't played Starcraft, be prepared for some nonsense."
+msgstr ""
+
+#: ../../Zerg.rst:10
+msgid ""
+"Also note that this nonsense is mostly limited to the nomenclature. Zerg "
+"Mode is serious business."
+msgstr ""
+
+#: ../../Zerg.rst:12
+msgid ""
+"When your site load is variable, it would be nice to be able to add "
+"workers dynamically."
+msgstr ""
+
+#: ../../Zerg.rst:14
+msgid ""
+"You can obviously edit your configuration to hike up ``workers`` and "
+"reload your uWSGI instance, but for very loaded apps this is undesirable,"
+" and frankly -- who wants to do manual work like that to scale an app?"
+msgstr ""
+
+#: ../../Zerg.rst:16
+msgid ""
+"Enabling Zerg mode you can allow \"uwsgi-zerg\" instances to attach to "
+"your already running server and help it in the work."
+msgstr ""
+
+#: ../../Zerg.rst:18
+msgid ""
+"Zerg mode is obviously local only. You cannot use it to add remote "
+"instances -- this is a job better done by the :doc:`Fastrouter`, the "
+":doc:`HTTP plugin<HTTP>` or your web server's load balancer."
+msgstr ""
+
+#: ../../Zerg.rst:21
+msgid "Enabling the zerg server"
+msgstr ""
+
+#: ../../Zerg.rst:23
+msgid ""
+"If you want an uWSGI instance to be rushed by zerg, you have to enable "
+"the Zerg server. It will be bound to an UNIX socket and will pass uwsgi "
+"socket file descriptors to the Zerg workers connecting to it."
+msgstr ""
+
+#: ../../Zerg.rst:25
+msgid ""
+"The socket must be an UNIX socket because it must be capable of passing "
+"through file descriptors. A TCP socket simply will not work."
+msgstr ""
+
+#: ../../Zerg.rst:27
+msgid ""
+"For security reasons the UNIX socket does not inherit the ``chmod-"
+"socket`` option, but will always use the current umask."
+msgstr ""
+
+#: ../../Zerg.rst:29
+msgid ""
+"If you have filesystem permission issues, on Linux you can use the UNIX "
+"sockets in abstract namespace, by prepending an ``@`` to the socket name."
+msgstr ""
+
+#: ../../Zerg.rst:31
+msgid "A normal UNIX socket:"
+msgstr ""
+
+#: ../../Zerg.rst:37
+msgid "A socket in a Linux abstract namespace:"
+msgstr ""
+
+#: ../../Zerg.rst:45
+msgid "Attaching zergs to the zerg server"
+msgstr ""
+
+#: ../../Zerg.rst:47
+msgid "To add a new instance to your zerg pool, simply use the --zerg option"
+msgstr ""
+
+#: ../../Zerg.rst:54
+msgid "In this way 4 new workers will start serving requests."
+msgstr ""
+
+#: ../../Zerg.rst:56
+msgid ""
+"When your load returns to normal values, you can simply shutdown all of "
+"the uwsgi-zerg instances without problems."
+msgstr ""
+
+#: ../../Zerg.rst:58
+msgid "You can attach an unlimited number of uwsgi-zerg instances."
+msgstr ""
+
+#: ../../Zerg.rst:61
+msgid "Fallback if a zerg server is not available"
+msgstr ""
+
+#: ../../Zerg.rst:63
+msgid ""
+"By default a Zerg client will not run if the Zerg server is not "
+"available. Thus, if your zerg server dies, and you reload the zerg "
+"client, it will simply shutdown."
+msgstr ""
+
+#: ../../Zerg.rst:65
+msgid ""
+"If you want to avoid that behaviour, add a ``--socket`` directive mapping"
+" to the required socket (the one that should be managed by the zerg "
+"server) and add the ``--zerg-fallback`` option."
+msgstr ""
+
+#: ../../Zerg.rst:67
+msgid ""
+"With this setup, if a Zerg server is not available, the Zerg client will "
+"continue binding normally to the specified socket(s)."
+msgstr ""
+
+#: ../../Zerg.rst:72
+msgid "Using Zerg as testers"
+msgstr ""
+
+#: ../../Zerg.rst:74
+msgid ""
+"A good trick you can use, is suspending the main instance with the "
+"``SIGTSTP`` signal and loading a new version of your app in a Zerg. If "
+"the code is not ok you can simply shutdown the Zerg and resume the main "
+"instance."
+msgstr ""
+
+#: ../../Zerg.rst:77
+msgid "Zerg Pools"
+msgstr ""
+
+#: ../../Zerg.rst:79
+msgid ""
+"Zergpools are special Zerg servers that only serve Zerg clients, nothing "
+"more."
+msgstr ""
+
+#: ../../Zerg.rst:81
+msgid ""
+"You can use them to build high-availability systems that reduce downtime "
+"during tests/reloads."
+msgstr ""
+
+#: ../../Zerg.rst:83
+msgid ""
+"You can run an unlimited number of zerg pools (on several UNIX sockets) "
+"and map an unlimited number of sockets to them."
+msgstr ""
+
+#: ../../Zerg.rst:92
+msgid ""
+"With a config like this, you will have two zergpools, each serving two "
+"sockets."
+msgstr ""
+
+#: ../../Zerg.rst:94
+msgid "You can now attach instances to them."
+msgstr ""
+
+#: ../../Zerg.rst:101
+msgid "or you can attach a single instance to multiple Zerg servers."
+msgstr ""
+

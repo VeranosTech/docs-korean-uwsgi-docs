@@ -1,0 +1,132 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../EmperorProtocol.rst:2
+msgid "The Emperor protocol"
+msgstr ""
+
+#: ../../EmperorProtocol.rst:4
+msgid ""
+"As of 1.3 you can spawn custom applications via the "
+":doc:`Emperor<Emperor>`."
+msgstr ""
+
+#: ../../EmperorProtocol.rst:6
+msgid ""
+"Non-uWSGI Vassals should never daemonize, to maintain a link with the "
+"Emperor. If you want/need better integration with the Emperor, implement "
+"the Emperor protocol."
+msgstr ""
+
+#: ../../EmperorProtocol.rst:11
+msgid "The protocol"
+msgstr ""
+
+#: ../../EmperorProtocol.rst:13
+msgid ""
+"An environment variable ``UWSGI_EMPEROR_FD`` is passed to every vassal, "
+"containing a file descriptor number."
+msgstr ""
+
+#: ../../EmperorProtocol.rst:23
+msgid "Or in Perl,"
+msgstr ""
+
+#: ../../EmperorProtocol.rst:32
+msgid "Or in C,"
+msgstr ""
+
+#: ../../EmperorProtocol.rst:43
+msgid ""
+"From now you can receive (and send) messages from (and to) the Emperor "
+"over this file descriptor."
+msgstr ""
+
+#: ../../EmperorProtocol.rst:45
+msgid "Messages are byte sized (0-255), and each number (byte) has a meaning."
+msgstr ""
+
+#: ../../EmperorProtocol.rst:48
+msgid "0"
+msgstr ""
+
+#: ../../EmperorProtocol.rst:48
+msgid "Sent by the Emperor to stop a vassal"
+msgstr ""
+
+#: ../../EmperorProtocol.rst:49
+msgid "1"
+msgstr ""
+
+#: ../../EmperorProtocol.rst:49
+msgid ""
+"Sent by the Emperor to reload a vassal / sent by a vassal when it has "
+"been spawned"
+msgstr ""
+
+#: ../../EmperorProtocol.rst:50
+msgid "2"
+msgstr ""
+
+#: ../../EmperorProtocol.rst:50
+msgid "Sent by a vassal to ask the Emperor for configuration chunk"
+msgstr ""
+
+#: ../../EmperorProtocol.rst:51
+msgid "5"
+msgstr ""
+
+#: ../../EmperorProtocol.rst:51
+msgid "Sent by a vassal when it is ready to accept requests"
+msgstr ""
+
+#: ../../EmperorProtocol.rst:52
+msgid "17"
+msgstr ""
+
+#: ../../EmperorProtocol.rst:52
+msgid "Sent by a vassal after the first request to announce loyalty"
+msgstr ""
+
+#: ../../EmperorProtocol.rst:53
+msgid "22"
+msgstr ""
+
+#: ../../EmperorProtocol.rst:53
+msgid "Sent by a vassal to notify the Emperor of voluntary shutdown"
+msgstr ""
+
+#: ../../EmperorProtocol.rst:54
+msgid "26"
+msgstr ""
+
+#: ../../EmperorProtocol.rst:54
+msgid ""
+"Heartbeat sent by the vassal. After the first received heartbeat, the "
+"Emperor will expect more of them from the vassal."
+msgstr ""
+
+#: ../../EmperorProtocol.rst:55
+msgid "30"
+msgstr ""
+
+#: ../../EmperorProtocol.rst:55
+msgid "Sent by the vassal to ask for :doc:`Broodlord` mode."
+msgstr ""
+

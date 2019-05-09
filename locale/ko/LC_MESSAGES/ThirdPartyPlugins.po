@@ -1,0 +1,331 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../ThirdPartyPlugins.rst:2
+msgid "uWSGI third party plugins"
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:4
+msgid ""
+"The following plugins (unless otherwise specified) are not commercially "
+"supported."
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:6
+msgid ""
+"Feel free to add your plugin to the list by sending a pull request to the"
+" ``uwsgi-docs`` project."
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:9
+msgid "uwsgi-capture"
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:11 ../../ThirdPartyPlugins.rst:21
+#: ../../ThirdPartyPlugins.rst:30 ../../ThirdPartyPlugins.rst:39
+#: ../../ThirdPartyPlugins.rst:48 ../../ThirdPartyPlugins.rst:57
+#: ../../ThirdPartyPlugins.rst:66 ../../ThirdPartyPlugins.rst:75
+#: ../../ThirdPartyPlugins.rst:84 ../../ThirdPartyPlugins.rst:93
+#: ../../ThirdPartyPlugins.rst:102 ../../ThirdPartyPlugins.rst:111
+#: ../../ThirdPartyPlugins.rst:120 ../../ThirdPartyPlugins.rst:129
+#: ../../ThirdPartyPlugins.rst:138 ../../ThirdPartyPlugins.rst:147
+#: ../../ThirdPartyPlugins.rst:156 ../../ThirdPartyPlugins.rst:165
+#: ../../ThirdPartyPlugins.rst:174 ../../ThirdPartyPlugins.rst:183
+#: ../../ThirdPartyPlugins.rst:192
+msgid "License: MIT"
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:12 ../../ThirdPartyPlugins.rst:22
+#: ../../ThirdPartyPlugins.rst:31 ../../ThirdPartyPlugins.rst:40
+#: ../../ThirdPartyPlugins.rst:49 ../../ThirdPartyPlugins.rst:58
+#: ../../ThirdPartyPlugins.rst:67 ../../ThirdPartyPlugins.rst:76
+#: ../../ThirdPartyPlugins.rst:85 ../../ThirdPartyPlugins.rst:94
+#: ../../ThirdPartyPlugins.rst:112 ../../ThirdPartyPlugins.rst:121
+#: ../../ThirdPartyPlugins.rst:130 ../../ThirdPartyPlugins.rst:139
+#: ../../ThirdPartyPlugins.rst:166 ../../ThirdPartyPlugins.rst:175
+#: ../../ThirdPartyPlugins.rst:184 ../../ThirdPartyPlugins.rst:193
+msgid "Author: unbit"
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:13
+msgid "Website: https://github.com/unbit/uwsgi-capture"
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:15
+msgid "Allows gathering video4linux frames in a sharedarea."
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:19
+msgid "uwsgi-wstcp"
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:23
+msgid "Website: https://github.com/unbit/uwsgi-wstcp"
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:25
+msgid "Maps websockets to TCP connections (useful for proxying via javascript)."
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:28
+msgid "uwsgi-pgnotify"
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:32
+msgid "Website: https://github.com/unbit/uwsgi-pgnotify"
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:34
+msgid ""
+"Integrates the PostgreSQL notification system with the uWSGI signal "
+"framework."
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:37
+msgid "uwsgi-quota"
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:41
+msgid "Website: https://github.com/unbit/uwsgi-quota"
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:43
+msgid "Allows to set and monitor filesystem quotas."
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:46
+msgid "uwsgi-eventfd"
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:50
+msgid "Website: https://github.com/unbit/uwsgi-eventfd"
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:52
+msgid ""
+"Allows to monitor eventfd() objects (like events sent by the cgroup "
+"system)."
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:55
+msgid "uwsgi-console-broadcast"
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:59
+msgid "Website: https://github.com/unbit/uwsgi-console-broadcast"
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:61
+msgid "Exposes hooks for sending broadcast messages to user terminals."
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:64
+msgid "uwsgi-strophe"
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:68
+msgid "Website: https://github.com/unbit/uwsgi-strophe"
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:70
+msgid "Integration with the libstrophe library (xmpp)."
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:73
+msgid "uwsgi-alarm-chain"
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:77
+msgid "Website: https://github.com/unbit/uwsgi-alarm-chain"
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:79
+msgid "Virtual alarm handler combining multiple alarms into a single one."
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:82
+msgid "uwsgi-netlink"
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:86
+msgid "Website: https://github.com/unbit/uwsgi-netlink"
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:88
+msgid "Integration with the Linux netlink subsystem."
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:91
+msgid "uwsgi-pushover"
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:95
+msgid "Website: https://github.com/unbit/uwsgi-pushover"
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:97
+msgid "Integration with Pushover.net services."
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:100
+msgid "uwsgi-consul"
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:103
+msgid "Author: unbit, ultrabug"
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:104
+msgid "Website: https://github.com/unbit/uwsgi-consul"
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:106
+msgid "Integration with consul agents (consul.io)"
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:109
+msgid "uwsgi-influxdb"
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:113
+msgid "Website: https://github.com/unbit/uwsgi-influxdb"
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:115
+msgid "Allows sending metrics to the InfluxDB time series database."
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:118
+msgid "uwsgi-opentsdb"
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:122
+msgid "Website: https://github.com/unbit/uwsgi-opentsdb"
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:124
+msgid "Allows sending metrics to the OpenTSDB monitoring system."
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:127
+msgid "uwsgi-cares"
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:131
+msgid "Website: https://github.com/unbit/uwsgi-cares"
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:133
+msgid ""
+"Exposes non-blocking DNS querying via the c-ares asynchronous name "
+"resolution library."
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:136
+msgid "uwsgi-ganglia"
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:140
+msgid "Website: https://github.com/unbit/uwsgi-ganglia"
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:142
+msgid "Allows sending metrics to Ganglia."
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:145
+msgid "uwsgi-bonjour"
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:148
+msgid "Author: unbit, 20tab"
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:149
+msgid "Website: https://github.com/unbit/uwsgi-bonjour"
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:151
+msgid "Automatically register domain names in OSX's Bonjour subsystem."
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:154
+msgid "uwsgi-avahi"
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:157
+msgid "Author: 20tab"
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:158
+msgid "Website: https://github.com/20tab/uwsgi-avahi"
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:160
+msgid "Automatically register domain names in the Avahi subsystem."
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:163
+msgid "uwsgi-datadog"
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:167
+msgid "Website: https://github.com/unbit/uwsgi-datadog"
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:169
+msgid "Automatically send metrics to Datadog (https://www.datadoghq.com/)."
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:172
+msgid "uwsgi-apparmor"
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:176
+msgid "Website: https://github.com/unbit/uwsgi-apparmor"
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:178
+msgid "Allows setting Apparmor profiles for instances."
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:181
+msgid "uwsgi-docker"
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:185
+msgid "Website: https://github.com/unbit/uwsgi-docker"
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:187
+msgid "Allows running dockerized (https://docker.io) vassals."
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:190
+msgid "uwsgi-gif"
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:194
+msgid "Website: https://github.com/unbit/uwsgi-gif"
+msgstr ""
+
+#: ../../ThirdPartyPlugins.rst:196
+msgid "dynamic generation of gif images"
+msgstr ""
+

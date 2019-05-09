@@ -1,0 +1,286 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../JVM.rst:2
+msgid "JVM in the uWSGI server (updated to 1.9)"
+msgstr ""
+
+#: ../../JVM.rst:11
+msgid "Introduction"
+msgstr ""
+
+#: ../../JVM.rst:13
+msgid ""
+"As of uWSGI 1.9, you can have a full, thread-safe and versatile JVM "
+"embedded in the core.  All of the plugins can call JVM functions (written"
+" in Java, JRuby, Jython, Clojure, whatever new fancy language the JVM can"
+" run) via the :doc:`RPC subsystem<RPC>` or using uWSGI :doc:`Signals` The"
+" JVM plugin itself can implement request handlers to host JVM-based web "
+"applications. Currently :doc:`JWSGI` and :doc:`Ring` (Clojure) apps are "
+"supported. A long-term goal is supporting servlets, but it will require "
+"heavy sponsorship and funding (feel free to ask for more information "
+"about the project at info@unbit.it)."
+msgstr ""
+
+#: ../../JVM.rst:23
+msgid "Building the JVM support"
+msgstr ""
+
+#: ../../JVM.rst:25
+msgid ""
+"First of all, be sure to have a full JDK distribution installed.  The "
+"uWSGI build system will try to detect common JDK setups (Debian, Ubuntu, "
+"Centos, OSX...), but if it is not able to find a JDK installation it will"
+" need some information from the user (see below).  To build the JVM "
+"plugin simply run:"
+msgstr ""
+
+#: ../../JVM.rst:34
+msgid ""
+"Change 'default', if needed, to your alternative build profile. For "
+"example if you have a Perl/PSGI monolithic build just run"
+msgstr ""
+
+#: ../../JVM.rst:41
+msgid "or for a fully-modular build"
+msgstr ""
+
+#: ../../JVM.rst:47
+msgid ""
+"If all goes well the jvm_plugin will be built.  If the build system "
+"cannot find a JDK installation you will ned to specify the path of the "
+"headers directory (the directory containing the jni.h file) and the lib "
+"directory (the directory containing libjvm.so).  As an example, if jni.h "
+"is in /opt/java/includes and libjvm.so is in /opt/java/lib/jvm/i386, run "
+"the build system in that way:"
+msgstr ""
+
+#: ../../JVM.rst:58
+msgid ""
+"After a successful build, you will get the path of the uwsgi.jar file.  "
+"That jarball contains classes to access the uWSGI API, and you should "
+"copy it into your CLASSPATH or at the very least manually load it from "
+"uWSGI's configuration."
+msgstr ""
+
+#: ../../JVM.rst:64
+msgid "Exposing functions via the RPC subsystem"
+msgstr ""
+
+#: ../../JVM.rst:66
+msgid ""
+"In this example we will export a \"hello\" Java function (returning a "
+"string) and we will call it from a Python WSGI application.  This is our "
+"base configuration (we assume a modular build)."
+msgstr ""
+
+#: ../../JVM.rst:78
+msgid ""
+"The ``jvm-classpath`` is an option exported by the JVM plugin that allows"
+" you to add directories or jarfiles to your classpath. You can specify as"
+" many ``jvm-classpath`` options you need.  Here we are manually adding "
+"``uwsgi.jar`` as we did not copy it into our CLASSPATH.  This is our WSGI"
+" example script."
+msgstr ""
+
+#: ../../JVM.rst:93
+msgid ""
+"Here we use ``uwsgi.call()`` instead of ``uwsgi.rpc()`` as a shortcut "
+"(little performance gain in options parsing).  We now create our "
+"Foobar.java class. Its ``static void main()`` function will be run by "
+"uWSGI on startup."
+msgstr ""
+
+#: ../../JVM.rst:115
+msgid ""
+"The ``uwsgi.RpcFunction`` interface allows you to easily write uWSGI-"
+"compliant RPC functions.  Now compile the Foobar.java file:"
+msgstr ""
+
+#: ../../JVM.rst:122
+msgid ""
+"(eventually fix the classpath or pass the uwsgi.jar path with the -cp "
+"option) You now have a Foobar.class that can be loaded by uWSGI. Let's "
+"complete the configuration..."
+msgstr ""
+
+#: ../../JVM.rst:135
+msgid ""
+"The last option (``jvm-main-class``) will load a java class and will "
+"execute its ``main()`` method.  We can now visit localhost:9090 and we "
+"should see the Hello World message."
+msgstr ""
+
+#: ../../JVM.rst:140
+msgid "Registering signal handlers"
+msgstr ""
+
+#: ../../JVM.rst:142
+msgid ""
+"In the same way as the RPC subsystem you can register signal handlers.  "
+"You will be able to call Java functions on time events, file "
+"modifications, cron... Our Sigbar.java:"
+msgstr ""
+
+#: ../../JVM.rst:163
+msgid "``uwsgi.SignalHandler`` is the interface for signal handlers."
+msgstr ""
+
+#: ../../JVM.rst:165
+msgid ""
+"Whenever signal 17 is rased, the corresponding JVM function will be run. "
+"Remember to compile the file, load it in uWSGI and to enable to master "
+"process (without it the signal subsystem will not work)."
+msgstr ""
+
+#: ../../JVM.rst:171
+msgid "The fork() problem and multithreading"
+msgstr ""
+
+#: ../../JVM.rst:173
+msgid ""
+"The JVM is not ``fork()`` friendly. If you load a virtual machine in the "
+"master and then you fork() (like generally you do in other languages) the"
+" children JVM will be broken (this is mainly because threads required by "
+"the JVM are not inherited).  For that reason a JVM for each worker, mule "
+"and spooler is spawned.  Fortunately enough, differently from the vast "
+"majority of other platforms, the JVM has truly powerful multithreading "
+"support.  uWSGI supports it, so if you want to run one of the request "
+"handlers (JWSGI, Clojure/Ring) just remember to spawn a number of threads"
+" with the ``--threads`` option."
+msgstr ""
+
+#: ../../JVM.rst:183
+msgid "How does it work?"
+msgstr ""
+
+#: ../../JVM.rst:185
+msgid ""
+"uWSGI embeds the JVM using the JNI interface. Unfortunately we cannot "
+"rely on JVM's automatic garbage collector, so we have to manually "
+"unreference all of the allocated objects. This is not a problem from a "
+"performance and usage point of view, but makes the development of plugins"
+" a bit more difficult compared to other JNI-based products.  Fortunately "
+"the current API simplifies that task."
+msgstr ""
+
+#: ../../JVM.rst:192
+msgid "Passing options to the JVM"
+msgstr ""
+
+#: ../../JVM.rst:194
+msgid "You can pass specific options to the JVM using the ``--jvm-opt`` option."
+msgstr ""
+
+#: ../../JVM.rst:196
+msgid "For example to limit heap usage to 10 megabytes:"
+msgstr ""
+
+#: ../../JVM.rst:205
+msgid "Loading classes (without main method)"
+msgstr ""
+
+#: ../../JVM.rst:207
+msgid ""
+"We have already seen how to load classes and run their ``main()`` method "
+"on startup.  Often you will want to load classes only to add them to the "
+"JVM (allowing access to external modules needing them) To load a class "
+"you can use ``--jvm-class``."
+msgstr ""
+
+#: ../../JVM.rst:219
+msgid ""
+"Remember class names must use the '/' format instead of dots! This rule "
+"applies to ``--jvm-main-class`` too."
+msgstr ""
+
+#: ../../JVM.rst:223
+msgid "Request handlers"
+msgstr ""
+
+#: ../../JVM.rst:225
+msgid ""
+"Although the Java(TM) world has its J2EE environment for deploying web "
+"applications, you may want to follow a different approach.  The uWSGI "
+"project implements lot of features that are not part of J2EE (and does "
+"not implement lot of features that are a strong part of J2EE), so you may"
+" find its approach more suited for your setup (or taste, or skills)."
+msgstr ""
+
+#: ../../JVM.rst:231
+msgid ""
+"The JVM plugin exports an API to allow hooking web requests. This "
+"approach differs a bit from \"classic\" way uWSGI works.  The JVM plugin "
+"registers itself as a handler for modifier1==8, but will look at the "
+"modifier2 value to know which of its request handlers has to manage it.  "
+"For example the :doc:`Ring` plugin registers itself in the JVM plugin as "
+"the modifier2 number '1'.  So to pass requests to it you need something "
+"like that:"
+msgstr ""
+
+#: ../../JVM.rst:245
+msgid "or with nginx:"
+msgstr ""
+
+#: ../../JVM.rst:257
+msgid "Currently there are 2 JVM request handlers available:"
+msgstr ""
+
+#: ../../JVM.rst:259
+msgid ":doc:`JWSGI`"
+msgstr ""
+
+#: ../../JVM.rst:260
+msgid ":doc:`Ring` (for Clojure)"
+msgstr ""
+
+#: ../../JVM.rst:262
+msgid ""
+"As already said, the idea of developing a servlet request handler is "
+"there, but it will require a sponsorship (aka. money) as it'll be a "
+"really big effort."
+msgstr ""
+
+#: ../../JVM.rst:266
+msgid "Notes"
+msgstr ""
+
+#: ../../JVM.rst:268
+msgid ""
+"You do not need special jar files to use UNIX sockets -- the JVM plugin "
+"has access to all of the uWSGI features."
+msgstr ""
+
+#: ../../JVM.rst:270
+msgid ""
+"You may be addicted to the log4j module. There is nothing wrong with it, "
+"but do take a look at uWSGI's logging capabilities (less resources "
+"needed, less configuration, and more NoEnterprise)"
+msgstr ""
+
+#: ../../JVM.rst:273
+msgid "The uWSGI API access is still incomplete (will be updated after 1.9)"
+msgstr ""
+
+#: ../../JVM.rst:274
+msgid ""
+"The JVM does not play well in environments with limited address space. "
+"Avoid using ``--limit-as`` if you load the JVM in your instances."
+msgstr ""
+

@@ -1,0 +1,553 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../StaticFiles.rst:2
+msgid "Serving static files with uWSGI (updated to 1.9)"
+msgstr ""
+
+#: ../../StaticFiles.rst:4
+msgid ""
+"Unfortunately you cannot live without serving static files via some "
+"protocol (HTTP, SPDY or something else)."
+msgstr ""
+
+#: ../../StaticFiles.rst:6
+msgid ""
+"Fortunately uWSGI has a wide series of options and micro-optimizations "
+"for serving static files."
+msgstr ""
+
+#: ../../StaticFiles.rst:8
+msgid ""
+"Generally your webserver of choice (Nginx, Mongrel2, etc.) will serve "
+"static files efficiently and quickly and will simply forward dynamic "
+"requests to uWSGI backend nodes."
+msgstr ""
+
+#: ../../StaticFiles.rst:10
+msgid ""
+"The uWSGI project has ISPs and PaaS (that is, the hosting market) as the "
+"main target, where generally you would want to avoid generating disk I/O "
+"on a central server and have each user-dedicated area handle (and account"
+" for) that itself. More importantly still, you want to allow customers to"
+" customize the way they serve static assets without bothering your system"
+" administrator(s)."
+msgstr ""
+
+#: ../../StaticFiles.rst:14
+msgid "Mode 1: Check for a static resource before passing the request to your app"
+msgstr ""
+
+#: ../../StaticFiles.rst:16
+msgid ""
+"This a fairly common way of managing static files in web apps. Frameworks"
+" like Ruby on Rails and many PHP apps have used this method for ages."
+msgstr ""
+
+#: ../../StaticFiles.rst:18
+msgid ""
+"Suppose your static assets are under ``/customers/foobar/app001/public``."
+" You want to check each request has a corresponding file in that "
+"directory before passing the request to your dynamic app. The ``--check-"
+"static`` option is for you:"
+msgstr ""
+
+#: ../../StaticFiles.rst:24
+msgid ""
+"If uWSGI receives a request for ``/foo.png`` will first check for the "
+"existence of ``/customers/foobar/app001/public/foo.png`` and if it is not"
+" found it will invoke your app."
+msgstr ""
+
+#: ../../StaticFiles.rst:26
+msgid ""
+"You can specify ``--check-static`` multiple times to specify multiple "
+"possible root paths."
+msgstr ""
+
+#: ../../StaticFiles.rst:32
+msgid ""
+"uWSGI will first check for ``/customers/foobar/app001/public/foo.png``; "
+"if it does not find it it will try "
+"``/customers/foobar/app001/static/foo.png`` before finally delegating the"
+" request to your app."
+msgstr ""
+
+#: ../../StaticFiles.rst:35
+msgid "Mode 2: trust frontend's DOCUMENT_ROOT"
+msgstr ""
+
+#: ../../StaticFiles.rst:37
+msgid ""
+"If your frontend (a webserver, a uWSGI corerouters...) set the "
+"``DOCUMENT_ROOT`` value, you can instruct uWSGI to trust it as a valid "
+"directory for checking for static files with the ``--check-static-"
+"docroot`` option."
+msgstr ""
+
+#: ../../StaticFiles.rst:40
+msgid "Mode 3: using static file mount points"
+msgstr ""
+
+#: ../../StaticFiles.rst:42
+msgid ""
+"A more general approach is \"mapping\" specific request prefixes to "
+"physical directories on your file system."
+msgstr ""
+
+#: ../../StaticFiles.rst:44
+msgid "The ``--static-map mountpoint=path`` is the option for you."
+msgstr ""
+
+#: ../../StaticFiles.rst:50
+msgid ""
+"If you get a request for ``/images/logo.png`` and "
+"``/var/www/img/logo.png`` exists, it will be served. Otherwise your app "
+"will manage the request."
+msgstr ""
+
+#: ../../StaticFiles.rst:52
+msgid ""
+"You can specify multiple ``--static-map`` options, even for the same "
+"mountpoint."
+msgstr ""
+
+#: ../../StaticFiles.rst:58
+msgid ""
+"The file will be searched in each directory until it's found, or if it's "
+"not, the request will be managed by your app."
+msgstr ""
+
+#: ../../StaticFiles.rst:60
+msgid ""
+"In some specific cases you may want to build the internal path in a "
+"different way, retaining the original path portion of the request. The "
+"``--static-map2`` option will do this."
+msgstr ""
+
+#: ../../StaticFiles.rst:66
+msgid ""
+"A request for ``/images/logo.png`` will be looked for as "
+"``/var/www/img/images/logo.png``."
+msgstr ""
+
+#: ../../StaticFiles.rst:68
+msgid "You can ``map`` (or ``map2``) both directories and files."
+msgstr ""
+
+#: ../../StaticFiles.rst:77
+msgid "Mode 4: using advanced internal routing"
+msgstr ""
+
+#: ../../StaticFiles.rst:79
+msgid ""
+"When mappings are not enough, advanced internal routing (available from "
+"1.9) will be your last resort."
+msgstr ""
+
+#: ../../StaticFiles.rst:81
+msgid ""
+"Thanks to the power of regular expressions you will be able to build very"
+" complex mappings."
+msgstr ""
+
+#: ../../StaticFiles.rst:90
+msgid "Setting the index page"
+msgstr ""
+
+#: ../../StaticFiles.rst:92
+msgid ""
+"By default, requests for a \"directory\" (like / or /foo) are bypassed "
+"(if advanced internal routing is not in place)."
+msgstr ""
+
+#: ../../StaticFiles.rst:94
+msgid ""
+"If you want to map specific files to a \"directory\" request (like the "
+"venerable index.html) just use the ``--static-index`` option."
+msgstr ""
+
+#: ../../StaticFiles.rst:100
+msgid "As with the other options, the first one matching will stop the chain."
+msgstr ""
+
+#: ../../StaticFiles.rst:103
+msgid "MIME types"
+msgstr ""
+
+#: ../../StaticFiles.rst:105
+msgid ""
+"Your HTTP/SPDY/whateveryouwant responses for static files should always "
+"return the correct mime type for the specific file to let user agents "
+"handle them correctly."
+msgstr ""
+
+#: ../../StaticFiles.rst:107
+msgid ""
+"By default uWSGI builds its list of MIME types from the "
+"``/etc/mime.types`` file. You can load additional files with the "
+"``--mime-file`` option."
+msgstr ""
+
+#: ../../StaticFiles.rst:114
+msgid ""
+"All of the files will be combined into a single auto-optimizing linked "
+"list."
+msgstr ""
+
+#: ../../StaticFiles.rst:117
+msgid "Skipping specific extensions"
+msgstr ""
+
+#: ../../StaticFiles.rst:119
+msgid ""
+"Some platforms/languages, most-notably CGI based ones, like PHP are "
+"deployed in a very simple manner."
+msgstr ""
+
+#: ../../StaticFiles.rst:121
+msgid ""
+"You simply drop them in the document root and they are executed whenever "
+"you call them."
+msgstr ""
+
+#: ../../StaticFiles.rst:123
+msgid ""
+"This approach, when combined with static file serving, requires a bit of "
+"attention for avoiding your CGI/PHP/whatever to be served like static "
+"files."
+msgstr ""
+
+#: ../../StaticFiles.rst:125
+msgid "The ``--static-skip-ext`` will do the trick."
+msgstr ""
+
+#: ../../StaticFiles.rst:127
+msgid "A very common pattern on CGI and PHP deployment is this:"
+msgstr ""
+
+#: ../../StaticFiles.rst:135
+msgid "Setting the Expires headers"
+msgstr ""
+
+#: ../../StaticFiles.rst:137
+msgid ""
+"When serving static files, abusing client browser caching is the path to "
+"wisdom. By default uWSGI will add a ``Last-Modified`` header to all "
+"static responses, and will honor the ``If-Modified-Since`` request "
+"header."
+msgstr ""
+
+#: ../../StaticFiles.rst:140
+msgid ""
+"This might be not enough for high traffic sites. You can add automatic "
+"``Expires`` headers using one of the following options:"
+msgstr ""
+
+#: ../../StaticFiles.rst:142
+msgid ""
+"``--static-expires-type`` will set the Expires header to the specified "
+"number of seconds for the specified MIME type."
+msgstr ""
+
+#: ../../StaticFiles.rst:143
+msgid ""
+"``--static-expires-type-mtime`` is similar, but based on file "
+"modification time, not the current time."
+msgstr ""
+
+#: ../../StaticFiles.rst:144
+msgid ""
+"``--static-expires`` (and ``-mtime``) will set Expires header for all of "
+"the filenames (after finishing mapping to the filesystem) matching the "
+"specified regexp."
+msgstr ""
+
+#: ../../StaticFiles.rst:145
+msgid ""
+"``--static-expires-uri`` (and ``-mtime``) match regexps against "
+"``REQUEST_URI``"
+msgstr ""
+
+#: ../../StaticFiles.rst:146
+msgid ""
+"``--static-expires-path-info`` (and ``-mtime``) match regexps against "
+"``PATH_INFO``"
+msgstr ""
+
+#: ../../StaticFiles.rst:158
+msgid "Transfer modes"
+msgstr ""
+
+#: ../../StaticFiles.rst:160
+msgid ""
+"If you have developed an asynchronous/nonblocking application, serving "
+"static files directly from uWSGI is not a big problem."
+msgstr ""
+
+#: ../../StaticFiles.rst:162
+msgid ""
+"All of the transfers are managed in the async way, so your app will not "
+"block during them."
+msgstr ""
+
+#: ../../StaticFiles.rst:164
+msgid ""
+"In multi-process/multi-threaded modes, your processes (or threads) will "
+"be blocked during the whole transfer of the file."
+msgstr ""
+
+#: ../../StaticFiles.rst:166
+msgid ""
+"For smaller files this is not a problem, but for the bigger one it's a "
+"great idea to offload their transfer to something else."
+msgstr ""
+
+#: ../../StaticFiles.rst:168
+msgid "You have various ways to do this:"
+msgstr ""
+
+#: ../../StaticFiles.rst:171
+msgid "X-Sendfile"
+msgstr ""
+
+#: ../../StaticFiles.rst:173
+msgid ""
+"If your web server supports the X-Sendfile header and has access to the "
+"file you want to send (for example it is on the same machine of your "
+"application or can access it via NFS) you can avoid the transfer of the "
+"file from your app with the ``--file-serve-mode x-sendfile`` option."
+msgstr ""
+
+#: ../../StaticFiles.rst:176
+msgid ""
+"With this, uWSGI will only generate response headers and the web server "
+"will be delegated to transferring the physical file."
+msgstr ""
+
+#: ../../StaticFiles.rst:179
+msgid "X-Accel-Redirect"
+msgstr ""
+
+#: ../../StaticFiles.rst:181
+msgid ""
+"This is currently (January 2013) supported only on Nginx. Works in the "
+"same way as X-Sendfile, the only difference is in the option argument."
+msgstr ""
+
+#: ../../StaticFiles.rst:189
+msgid "Offloading"
+msgstr ""
+
+#: ../../StaticFiles.rst:191
+msgid ""
+"This is the best approach if your frontend server has no access to the "
+"static files. It uses the :doc:`OffloadSubsystem` to delegate the file "
+"transfer to a pool of non-blocking threads."
+msgstr ""
+
+#: ../../StaticFiles.rst:194
+msgid ""
+"Each one of these threads can manage thousands of file transfers "
+"concurrently."
+msgstr ""
+
+#: ../../StaticFiles.rst:196
+msgid ""
+"To enable file transfer offloading just use the option ``--offload-"
+"threads`` specifying the number of threads to spawn (try to set it to the"
+" number of CPU cores to take advantage of SMP)."
+msgstr ""
+
+#: ../../StaticFiles.rst:199
+msgid "GZIP (uWSGI 1.9)"
+msgstr ""
+
+#: ../../StaticFiles.rst:201
+msgid "uWSGI 1.9 can check for a ``*.gz`` variant of a static file."
+msgstr ""
+
+#: ../../StaticFiles.rst:203
+msgid ""
+"Many users/sysadmins underestimate the CPU impact of on-the-fly Gzip "
+"encoding."
+msgstr ""
+
+#: ../../StaticFiles.rst:205
+msgid ""
+"Compressing files every time (unless your webservers is caching them in "
+"some way) will use CPU and you will not be able to use advanced (zero-"
+"copy) techniques like ``sendfile()``. For a very loaded site (or network)"
+" this could be a problem (especially when gzip encoding is a need for a "
+"better, more responsive user experience)."
+msgstr ""
+
+#: ../../StaticFiles.rst:209
+msgid ""
+"Although uWSGI is able to compress contents on the fly (this is used in "
+"the HTTP/HTTPS/SPDY router for example), the best approach for serving "
+"gzipped static files is generating them \"manually\" (but please use a "
+"script, not an intern to do this), and let uWSGI choose if it is best to "
+"serve the uncompressed or the compressed one every time."
+msgstr ""
+
+#: ../../StaticFiles.rst:213
+msgid ""
+"In this way serving gzip content will be no different from serving "
+"standard static files (sendfile, offloading...)"
+msgstr ""
+
+#: ../../StaticFiles.rst:215
+msgid "To trigger this behavior you have various options:"
+msgstr ""
+
+#: ../../StaticFiles.rst:217
+msgid ""
+"``static-gzip <regexp>`` checks for .gz variant for all of the requested "
+"files matching the specified regexp (the regexp is applied to the full "
+"filesystem path of the file)"
+msgstr ""
+
+#: ../../StaticFiles.rst:218
+msgid ""
+"``static-gzip-dir <dir>``/``static-gzip-prefix <prefix>`` checks for .gz "
+"variant for all of the files under the specified directory"
+msgstr ""
+
+#: ../../StaticFiles.rst:219
+msgid ""
+"``static-gzip-ext <ext>``/``static-gzip-suffix <suffix>`` check for .gz "
+"variant for all of the files with the specified extension/suffix"
+msgstr ""
+
+#: ../../StaticFiles.rst:220
+msgid "``static-gzip-all`` check for .gz variant for all requested static files"
+msgstr ""
+
+#: ../../StaticFiles.rst:222
+msgid ""
+"So basically if you have ``/var/www/uwsgi.c`` and "
+"``/var/www/uwsgi.c.gz``, clients accepting gzip as their Content-Encoding"
+" will be transparently served the gzipped version instead."
+msgstr ""
+
+#: ../../StaticFiles.rst:225
+msgid "Security"
+msgstr ""
+
+#: ../../StaticFiles.rst:227
+msgid ""
+"Every static mapping is fully translated to the \"real\" path (so "
+"symbolic links are translated too)."
+msgstr ""
+
+#: ../../StaticFiles.rst:229
+msgid ""
+"If the resulting path is not under the one specified in the option, a "
+"security error will be triggered and the request refused."
+msgstr ""
+
+#: ../../StaticFiles.rst:231
+msgid ""
+"If you trust your UNIX skills and know what you are doing, you can add a "
+"list of \"safe\" paths. If a translated path is not under a configured "
+"directory but it is under a safe one, it will be served nevertheless."
+msgstr ""
+
+#: ../../StaticFiles.rst:234
+msgid "Example:"
+msgstr ""
+
+#: ../../StaticFiles.rst:240
+msgid "``/var/www/test.png`` is a symlink to ``/tmp/foo.png``"
+msgstr ""
+
+#: ../../StaticFiles.rst:242
+msgid ""
+"After the translation of ``/foo/test.png``, uWSGI will raise a security "
+"error as ``/tmp/foo.png`` is not under ``/var/www/``."
+msgstr ""
+
+#: ../../StaticFiles.rst:244
+msgid "Using"
+msgstr ""
+
+#: ../../StaticFiles.rst:250
+msgid "will bypass that limit."
+msgstr ""
+
+#: ../../StaticFiles.rst:252
+msgid "You can specify multiple ``--static-safe`` options."
+msgstr ""
+
+#: ../../StaticFiles.rst:255
+msgid "Caching paths mappings/resolutions"
+msgstr ""
+
+#: ../../StaticFiles.rst:257
+msgid ""
+"One of the bottlenecks in static file serving is the constant massive "
+"amount of ``stat()`` syscalls."
+msgstr ""
+
+#: ../../StaticFiles.rst:259
+msgid ""
+"You can use the uWSGI caching subsystem to store mappings from URI to "
+"filesystem paths."
+msgstr ""
+
+#: ../../StaticFiles.rst:265
+msgid "will cache each static file translation for 30 seconds in the uWSGI cache."
+msgstr ""
+
+#: ../../StaticFiles.rst:267
+msgid ""
+"From uWSGI 1.9 an updated caching subsystem has been added, allowing you "
+"to create multiple caches. If you want to store translations in a "
+"specific cache you can use ``--static-cache-paths-name <cachename>``."
+msgstr ""
+
+#: ../../StaticFiles.rst:270
+msgid "Bonus trick: storing static files in the cache"
+msgstr ""
+
+#: ../../StaticFiles.rst:272
+msgid ""
+"You can directly store a static file in the uWSGI cache during startup "
+"using the option ``--load-file-in-cache <filename>`` (you can specify it "
+"multiple times). The content of the file will be stored under the key "
+"<filename>."
+msgstr ""
+
+#: ../../StaticFiles.rst:274
+msgid ""
+"So please pay attention -- ``load-file-in-cache ./foo.png`` will store "
+"the item as ``./foo.png``, not its full path."
+msgstr ""
+
+#: ../../StaticFiles.rst:277
+msgid "Notes"
+msgstr ""
+
+#: ../../StaticFiles.rst:279
+msgid ""
+"The static file serving subsystem automatically honours the If-Modified-"
+"Since HTTP request header"
+msgstr ""
+

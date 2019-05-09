@@ -1,0 +1,213 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../GlusterFS.rst:2
+msgid "The GlusterFS plugin"
+msgstr ""
+
+#: ../../GlusterFS.rst:4
+msgid "Available from uWSGI 1.9.15"
+msgstr ""
+
+#: ../../GlusterFS.rst:6
+msgid "official modifier1: 27"
+msgstr ""
+
+#: ../../GlusterFS.rst:8
+msgid ""
+"The 'glusterfs' plugin allows you to serve files stored in glusterfs "
+"filesystems directly using the glusterfs api available starting from "
+"GlusterFS 3.4"
+msgstr ""
+
+#: ../../GlusterFS.rst:11
+msgid ""
+"This approach (compared to serving via fuse or nfs) has various "
+"advantages in terms of performances and ease of deployment."
+msgstr ""
+
+#: ../../GlusterFS.rst:15
+msgid "Step1: glusterfs installation"
+msgstr ""
+
+#: ../../GlusterFS.rst:17
+msgid ""
+"we build glusterfs from official sources, installing it in /opt/glusterfs"
+" on 3 nodes (192.168.173.1, 192.168.173.2, 192.168.173.3)."
+msgstr ""
+
+#: ../../GlusterFS.rst:25
+msgid "now start the configuration/control daemon with:"
+msgstr ""
+
+#: ../../GlusterFS.rst:31
+msgid "from now on we can start configuring our cluster"
+msgstr ""
+
+#: ../../GlusterFS.rst:34
+msgid "Step2: the first cluster"
+msgstr ""
+
+#: ../../GlusterFS.rst:36
+msgid "run the control client to access the glusterfs shell:"
+msgstr ""
+
+#: ../../GlusterFS.rst:42
+msgid "the first step is \"discovering\" the other nodes:"
+msgstr ""
+
+#: ../../GlusterFS.rst:53
+msgid ""
+"remember, you do not need to run \"peer probe\" for the same address of "
+"the machine on which you are running the glusterfs console. You have to "
+"repeat the procedure on each node of the cluser."
+msgstr ""
+
+#: ../../GlusterFS.rst:56
+msgid ""
+"Now we can create a replica volume (/exports/brick001 dir has to exist in"
+" every node):"
+msgstr ""
+
+#: ../../GlusterFS.rst:62
+msgid "and start it:"
+msgstr ""
+
+#: ../../GlusterFS.rst:68
+msgid ""
+"Now you should be able to mount your glusterfs filesystem and start "
+"writing files in it (you can use nfs or fuse)"
+msgstr ""
+
+#: ../../GlusterFS.rst:71
+msgid "Step3: uWSGI"
+msgstr ""
+
+#: ../../GlusterFS.rst:73
+msgid ""
+"a build profile, named 'glusterfs' is already available, so you can "
+"simply do:"
+msgstr ""
+
+#: ../../GlusterFS.rst:79
+msgid ""
+"The profile currently disable 'matheval' support as the glusterfs "
+"libraries use bison/yacc with the same function prefixes (causing "
+"nameclash)."
+msgstr ""
+
+#: ../../GlusterFS.rst:82
+msgid ""
+"You can now start your HTTP serving fastly serving glusterfs files "
+"(remember no nfs or fuse are involved):"
+msgstr ""
+
+#: ../../GlusterFS.rst:98
+msgid "High availability"
+msgstr ""
+
+#: ../../GlusterFS.rst:100
+msgid ""
+"The main GlusterFS selling point is high availability. With the prevopus "
+"setup we introduced a SPOF with the control daemon."
+msgstr ""
+
+#: ../../GlusterFS.rst:102
+msgid ""
+"The 'server' option allows you to specify multiple control daemons (they "
+"are tried until one responds)"
+msgstr ""
+
+#: ../../GlusterFS.rst:116
+msgid ""
+"The '0' port is a glusterfs convention, it means 'the default port' "
+"(generally 24007). You can specify whatever port you need/want"
+msgstr ""
+
+#: ../../GlusterFS.rst:119
+msgid "Multiple mountpoints"
+msgstr ""
+
+#: ../../GlusterFS.rst:121
+msgid ""
+"If your webserver (like nginx or the uWSGI http router) is capable of "
+"setting protocol vars (like SCRIPT_NAME or UWSGI_APPID) you can mount "
+"multiple glusterfs filesystems in the same instance:"
+msgstr ""
+
+#: ../../GlusterFS.rst:139
+msgid "Multiprocess VS multithread"
+msgstr ""
+
+#: ../../GlusterFS.rst:141
+msgid ""
+"Currently a mix of the both will offers you best performance and "
+"availability."
+msgstr ""
+
+#: ../../GlusterFS.rst:143
+msgid "Async support is on work"
+msgstr ""
+
+#: ../../GlusterFS.rst:146
+msgid "Internal routing"
+msgstr ""
+
+#: ../../GlusterFS.rst:148
+msgid ""
+"The :doc:`InternalRouting` allows you to rewrite requests to change the "
+"requested files. Currently the glusterfs plugin only uses the PATH_INFO, "
+"so you can change it via the 'setpathinfo' directive"
+msgstr ""
+
+#: ../../GlusterFS.rst:151
+msgid ""
+"Caching is supported too. Check the tutorial (linked in the homepage) for"
+" some cool idea"
+msgstr ""
+
+#: ../../GlusterFS.rst:155
+msgid "Using capabilities (on Linux)"
+msgstr ""
+
+#: ../../GlusterFS.rst:157
+msgid ""
+"If your cluster requires clients to bind on privileged ports (<1024) and "
+"you do not want to change that thing (and obviously you do not want to "
+"run uWSGI as root) you may want to give your uWSGI instance the "
+"NET_BIND_SERVICE capability. Just ensure you have a capabilities-enabled "
+"uWSGI and add"
+msgstr ""
+
+#: ../../GlusterFS.rst:164
+msgid "to all of the instances you want to connect to glusterfs"
+msgstr ""
+
+#: ../../GlusterFS.rst:167
+msgid "Notes:"
+msgstr ""
+
+#: ../../GlusterFS.rst:169
+msgid "The plugin automatically enables the mime type engine."
+msgstr ""
+
+#: ../../GlusterFS.rst:171
+msgid "There is no directory index support"
+msgstr ""
+

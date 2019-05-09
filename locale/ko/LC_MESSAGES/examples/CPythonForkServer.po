@@ -1,0 +1,55 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../examples/CPythonForkServer.rst:2
+msgid "Fork Server with CPython"
+msgstr ""
+
+#: ../../examples/CPythonForkServer.rst:4
+msgid "Our \"base\" app (myforkbase.py in /var/www):"
+msgstr ""
+
+#: ../../examples/CPythonForkServer.rst:16
+msgid "The base vassal (in /etc/forkvassals/base.ini)"
+msgstr ""
+
+#: ../../examples/CPythonForkServer.rst:29
+msgid "and now two vassals inheriting from the base"
+msgstr ""
+
+#: ../../examples/CPythonForkServer.rst:58
+msgid "And finally run the Emperor"
+msgstr ""
+
+#: ../../examples/CPythonForkServer.rst:64
+msgid ""
+"the `--emperor-collect-attr` option tells the Emperor to search for a "
+"'myfork-base' attribute in the [emperor] section, while `--emperor-fork-"
+"server-attr` instruct it to use the parameter as the fork-server to "
+"connect to."
+msgstr ""
+
+#: ../../examples/CPythonForkServer.rst:68
+msgid "TODO"
+msgstr ""
+
+#: ../../examples/CPythonForkServer.rst:70
+msgid "The --emperor-collect-attr could be implicited by emperor-fork-server-attr"
+msgstr ""
+

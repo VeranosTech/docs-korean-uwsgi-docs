@@ -1,0 +1,457 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Caching.rst:2
+msgid "The uWSGI caching framework"
+msgstr ""
+
+#: ../../Caching.rst:6
+msgid ""
+"This page is about \"new-generation\" cache introduced in uWSGI 1.9. For "
+"old-style cache (now simply named \"web caching\") check "
+":doc:`WebCaching`"
+msgstr ""
+
+#: ../../Caching.rst:9
+msgid ""
+"uWSGI includes a very fast, all-in-memory, zero-IPC, SMP-safe, "
+"constantly-optimizing, highly-tunable, key-value store simply called "
+"\"the caching framework\".  A single uWSGI instance can create an "
+"unlimited number of \"caches\" each one with different setup and purpose."
+msgstr ""
+
+#: ../../Caching.rst:15
+msgid "Creating a \"cache\""
+msgstr ""
+
+#: ../../Caching.rst:17
+msgid ""
+"To create a cache you use the ``--cache2`` option. It takes a dictionary "
+"of arguments specifying the cache configuration.  To have a valid cache "
+"you need to specify its name and the maximum number of items it can "
+"contains."
+msgstr ""
+
+#: ../../Caching.rst:25
+msgid ""
+"this will create a cache named \"mycache\" with a maximum of 100 items. "
+"Each item can be at most 64k."
+msgstr ""
+
+#: ../../Caching.rst:29
+msgid "A sad/weird/strange/bad note about \"the maximum number of items\""
+msgstr ""
+
+#: ../../Caching.rst:31
+msgid ""
+"If you start with a 100 item cache you will suddenly note that the true "
+"maximum number of items you can use is indeed 99."
+msgstr ""
+
+#: ../../Caching.rst:33
+msgid ""
+"This is because the first item of the cache is always internally used as "
+"\"NULL/None/undef\" item."
+msgstr ""
+
+#: ../../Caching.rst:35
+msgid "Remember this when you start planning your cache configuration."
+msgstr ""
+
+#: ../../Caching.rst:39
+msgid "Configuring the cache (how it works)"
+msgstr ""
+
+#: ../../Caching.rst:41
+msgid ""
+"The uWSGI cache works like a file system. You have an area for storing "
+"keys (metadata) followed by a series of fixed size blocks in which to "
+"store the content of each key.  Another memory area, the hash table is "
+"allocated for fast search of keys.  When you request a key, it is first "
+"hashed over the hash table. Each hash points to a key in the metadata "
+"area.  Keys can be linked to manage hash collisions. Each key has a "
+"reference to the block containing its value."
+msgstr ""
+
+#: ../../Caching.rst:50
+msgid "Single block (faster) vs. bitmaps (slower)"
+msgstr ""
+
+#: ../../Caching.rst:52
+msgid ""
+"Bitmap mode is considered production ready only from uWSGI 2.0.2! (That "
+"is, it was buggy before that.)"
+msgstr ""
+
+#: ../../Caching.rst:54
+msgid ""
+"In the standard (\"single block\") configuration a key can only map to a "
+"single block. Thus if you have a cache block size of 64k your items can "
+"be at most 65,535 bytes long. Conversely items smaller than that will "
+"still consume 64k of memory.  The advantage of this approach is its "
+"simplicity and speed. The system does not need to scan the memory for "
+"free blocks every time you insert an object in the cache."
+msgstr ""
+
+#: ../../Caching.rst:61
+msgid ""
+"If you need a more versatile (but relatively slower) approach, you can "
+"enable the \"bitmap\" mode. Another memory area will be created "
+"containing a map of all of the used and free blocks of the cache. When "
+"you insert an item the bitmap is scanned for contiguous free blocks.  "
+"Blocks must be contiguous, this could lead to a bit of fragmentation but "
+"it is not as big a problem as with disk storage, and you can always tune "
+"the block size to reduce fragmentation."
+msgstr ""
+
+#: ../../Caching.rst:69
+msgid "Persistent storage"
+msgstr ""
+
+#: ../../Caching.rst:71
+msgid ""
+"You can store cache data in a backing store file to implement "
+"persistence.  As this is managed by ``mmap()`` it is almost transparent "
+"to the user.  You should not rely on this for data safety (disk syncing "
+"is managed asynchronously); use it only for performance purposes."
+msgstr ""
+
+#: ../../Caching.rst:77
+msgid "Network access"
+msgstr ""
+
+#: ../../Caching.rst:79
+msgid ""
+"All of your caches can be accessed over the network. A request plugin "
+"named \"cache\" (modifier1 111) manages requests from external nodes. On "
+"a standard monolithic build of uWSGI the cache plugin is always enabled."
+"  The cache plugin works in a fully non-blocking way, and it is "
+"greenthreads/coroutine friendly so you can use technologies like gevent "
+"or Coro::AnyEvent with it safely."
+msgstr ""
+
+#: ../../Caching.rst:86
+msgid "UDP sync"
+msgstr ""
+
+#: ../../Caching.rst:88
+msgid ""
+"This technique has been inspired by the STUD project, which uses "
+"something like this for SSL session scaling (and coincidentally the same "
+"approach can be used with uWSGI SSL/HTTPS routers).  Basically whenever "
+"you set/update/delete an item from the cache, the operation is propagated"
+" to remote nodes via simple UDP packets.  There are no built-in "
+"guarantees with UDP syncing so use it only for very specific purposes, "
+"like :doc:`SSLScaling`."
+msgstr ""
+
+#: ../../Caching.rst:96
+msgid "--cache2 options"
+msgstr ""
+
+#: ../../Caching.rst:98
+msgid ""
+"This is the list of all of the options (and their aliases) of "
+"``--cache2``."
+msgstr ""
+
+#: ../../Caching.rst:101
+msgid "name"
+msgstr ""
+
+#: ../../Caching.rst:103
+msgid "Set the name of the cache. Must be unique in an instance."
+msgstr ""
+
+#: ../../Caching.rst:106
+msgid "max-items || maxitems || items"
+msgstr ""
+
+#: ../../Caching.rst:108
+msgid "Set the maximum number of cache items."
+msgstr ""
+
+#: ../../Caching.rst:111
+msgid "blocksize"
+msgstr ""
+
+#: ../../Caching.rst:113
+msgid "Set the size (in bytes) of a single block."
+msgstr ""
+
+#: ../../Caching.rst:116
+msgid "blocks"
+msgstr ""
+
+#: ../../Caching.rst:118
+msgid ""
+"Set the number of blocks in the cache. Useful only in bitmap mode, "
+"otherwise the number of blocks is equal to the maximum number of items."
+msgstr ""
+
+#: ../../Caching.rst:122
+msgid "hash"
+msgstr ""
+
+#: ../../Caching.rst:124
+msgid ""
+"Set the hash algorithm used in the hash table. Currentl options are "
+"\"djb33x\" (default) and \"murmur2\"."
+msgstr ""
+
+#: ../../Caching.rst:128
+msgid "hashsize || hash_size"
+msgstr ""
+
+#: ../../Caching.rst:130
+msgid ""
+"this is the size of the hash table in bytes. Generally 65536 (the "
+"default) is a good value. Change it only if you know what you are doing "
+"or if you have a lot of collisions in your cache."
+msgstr ""
+
+#: ../../Caching.rst:135
+msgid "keysize || key_size"
+msgstr ""
+
+#: ../../Caching.rst:137
+msgid "Set the maximum size of a key, in bytes (default 2048)"
+msgstr ""
+
+#: ../../Caching.rst:140
+msgid "store"
+msgstr ""
+
+#: ../../Caching.rst:142
+msgid ""
+"Set the filename for the persistent storage. If it doesn't exist, the "
+"system assumes an empty cache and the file will be created."
+msgstr ""
+
+#: ../../Caching.rst:146
+msgid "store_sync || storesync"
+msgstr ""
+
+#: ../../Caching.rst:148
+msgid ""
+"Set the number of seconds after which msync() is called to flush memory "
+"cache on disk when in persistent mode.  By default it is disabled leaving"
+" the decision-making to the kernel."
+msgstr ""
+
+#: ../../Caching.rst:153
+msgid "store_delete || storedelete"
+msgstr ""
+
+#: ../../Caching.rst:155
+msgid ""
+"uWSGI, by default, will not start if a cache file exists and the store "
+"file does not match the configured items/blocksize. Setting this option "
+"will make uWSGI delete the existing file upon mismatch and create a new "
+"one."
+msgstr ""
+
+#: ../../Caching.rst:159
+msgid "node || nodes"
+msgstr ""
+
+#: ../../Caching.rst:161
+msgid ""
+"A semicolon separated list of UDP servers which will receive UDP cache "
+"updates."
+msgstr ""
+
+#: ../../Caching.rst:164
+msgid "sync"
+msgstr ""
+
+#: ../../Caching.rst:166
+msgid ""
+"A semicolon separated list of uwsgi addresses which the cache subsystem "
+"will connect to for getting a full dump of the cache. It can be used for "
+"initial cache synchronization. The first node sending a valid dump will "
+"stop the procedure."
+msgstr ""
+
+#: ../../Caching.rst:172
+msgid "udp || udp_servers || udp_server || udpserver"
+msgstr ""
+
+#: ../../Caching.rst:174
+msgid ""
+"A semicolon separated list of UDP addresses on which to bind the cache to"
+" wait for UDP updates."
+msgstr ""
+
+#: ../../Caching.rst:177
+msgid "bitmap"
+msgstr ""
+
+#: ../../Caching.rst:179
+msgid "Set to 1 to enable bitmap mode."
+msgstr ""
+
+#: ../../Caching.rst:182
+msgid "lastmod"
+msgstr ""
+
+#: ../../Caching.rst:184
+msgid ""
+"Setting lastmod to 1 will update last_modified_at timestamp of each cache"
+" on every cache item modification.  Enable it if you want to track this "
+"value or if other features depend on it. This value will then be "
+"accessible via the stats socket."
+msgstr ""
+
+#: ../../Caching.rst:190
+msgid "ignore_full"
+msgstr ""
+
+#: ../../Caching.rst:192
+msgid ""
+"By default uWSGI will print warning message on every cache set operation "
+"if the cache is full. To disable this warning set this option. Available "
+"since 2.0.4"
+msgstr ""
+
+#: ../../Caching.rst:195
+msgid "purge_lru"
+msgstr ""
+
+#: ../../Caching.rst:197
+msgid ""
+"This option allows the caching framework to evict Least Recently Used "
+"(LRU) item when you try to add new item to cache storage that is full. "
+"The ``expires`` argument described below will be ignored. An item is "
+"considered used when it's accessed, added and updated by cache_get(), "
+"cache_set() and cache_update(); whereas the existence check by "
+"cache_exists() is not."
+msgstr ""
+
+#: ../../Caching.rst:204
+msgid "Accessing the cache from your applications using the cache api"
+msgstr ""
+
+#: ../../Caching.rst:206
+msgid ""
+"You can access the various cache in your instance or on remote instances "
+"by using the cache API.  Currently the following functions are exposed "
+"(each language might name them a bit differently from the standard):"
+msgstr ""
+
+#: ../../Caching.rst:210
+msgid "cache_get(key[,cache])"
+msgstr ""
+
+#: ../../Caching.rst:211
+msgid "cache_set(key,value[,expires,cache])"
+msgstr ""
+
+#: ../../Caching.rst:212
+msgid "cache_update(key,value[,expires,cache])"
+msgstr ""
+
+#: ../../Caching.rst:213
+msgid "cache_exists(key[,cache])"
+msgstr ""
+
+#: ../../Caching.rst:214
+msgid "cache_del(key[,cache])"
+msgstr ""
+
+#: ../../Caching.rst:215
+msgid "cache_clear([cache])"
+msgstr ""
+
+#: ../../Caching.rst:217
+msgid ""
+"If the language/platform calling the cache API differentiates between "
+"strings and bytes (like Python 3 and Java) you have to assume that keys "
+"are strings and values are bytes (or bytearray in the java way). "
+"Otherwise keys and values are both strings in no specific encoding, as "
+"internally the cache values and keys are simple binary blobs."
+msgstr ""
+
+#: ../../Caching.rst:223
+msgid ""
+"The ``expires`` argument (default to 0 for disabled) is the number of "
+"seconds after the object is no more valid (and will be removed by the "
+"cache sweeper when ``purge_lru`` is not set, see below)"
+msgstr ""
+
+#: ../../Caching.rst:227
+msgid ""
+"The ``cache`` argument is the so called \"magic identifier\". Its syntax "
+"is ``cache[@node]``."
+msgstr ""
+
+#: ../../Caching.rst:230
+msgid ""
+"To operate on the local cache \"mycache\" you set it as \"mycache\", "
+"while to operate on \"yourcache\" on the uWSGI server at 192.168.173.22 "
+"port 4040 the value will be ``yourcache@192.168.173.22:4040``."
+msgstr ""
+
+#: ../../Caching.rst:234
+msgid ""
+"An empty cache value means the default cache which is generally the first"
+" initialized. The default value is empty."
+msgstr ""
+
+#: ../../Caching.rst:237
+msgid ""
+"All of the network operations are transparent, fully non-blocking, and "
+"threads/greenthreads friendly."
+msgstr ""
+
+#: ../../Caching.rst:241
+msgid "The Cache sweeper thread"
+msgstr ""
+
+#: ../../Caching.rst:243
+msgid ""
+"When at least one cache is configured without ``purge_lru`` and the "
+"master is enabled a thread named \"the cache sweeper\" is started.  Its "
+"main purpose is deleting expired keys from the cache. So, if you want "
+"auto-expiring you need to enable the master."
+msgstr ""
+
+#: ../../Caching.rst:250
+msgid "Web caching"
+msgstr ""
+
+#: ../../Caching.rst:252
+msgid ""
+"In its first incarnation the uWSGI caching framework was meant only for "
+"caching of web pages. The old system has been rebuilt. It is now named "
+":doc:`WebCaching`. Enabling the old-style ``--cache`` option will create "
+"a cache named \"default\"."
+msgstr ""
+
+#: ../../Caching.rst:258
+msgid "Monitoring caches"
+msgstr ""
+
+#: ../../Caching.rst:260
+msgid ""
+"The stats server exposes cache information. An ncurses based tool "
+"(https://pypi.python.org/pypi/uwsgicachetop) exists that uses that "
+"information for real-time monitoring."
+msgstr ""
+

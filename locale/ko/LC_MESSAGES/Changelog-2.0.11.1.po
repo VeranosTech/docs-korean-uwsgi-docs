@@ -1,0 +1,67 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Changelog-2.0.11.1.rst:2
+msgid "uWSGI 2.0.11.1"
+msgstr ""
+
+#: ../../Changelog-2.0.11.1.rst:4
+msgid "[20150719]"
+msgstr ""
+
+#: ../../Changelog-2.0.11.1.rst:7
+msgid "Bugfixes"
+msgstr ""
+
+#: ../../Changelog-2.0.11.1.rst:9
+msgid "fixed HTTPS router resource deallocation and fiel descriptors leak"
+msgstr ""
+
+#: ../../Changelog-2.0.11.1.rst:10
+msgid "do not spit out ssl errors when errno is 0"
+msgstr ""
+
+#: ../../Changelog-2.0.11.1.rst:13
+msgid "New Features"
+msgstr ""
+
+#: ../../Changelog-2.0.11.1.rst:16
+msgid "The unix_signal hook"
+msgstr ""
+
+#: ../../Changelog-2.0.11.1.rst:18
+msgid "You can now remap UNIX signals to specific functions symbols:"
+msgstr ""
+
+#: ../../Changelog-2.0.11.1.rst:33
+msgid "will run the function hello_world whenever signal 1 (SIGHUP) is raised"
+msgstr ""
+
+#: ../../Changelog-2.0.11.1.rst:36
+msgid "Availability"
+msgstr ""
+
+#: ../../Changelog-2.0.11.1.rst:38
+msgid "You can download uWSGI 2.0.11.1 from"
+msgstr ""
+
+#: ../../Changelog-2.0.11.1.rst:40
+msgid "https://projects.unbit.it/downloads/uwsgi-2.0.11.1.tar.gz"
+msgstr ""
+

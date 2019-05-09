@@ -1,0 +1,292 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Changelog-2.0.5.rst:2
+msgid "uWSGI 2.0.5"
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:4
+msgid "Changelog [20140601]"
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:7
+msgid "Bugfixes"
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:9
+msgid "fixed support for repeated headers in the Lua plugin (Credits: tizoc)"
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:10
+msgid "fixed support for embedding configuration in OpenBSD and NetBSD"
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:11
+msgid "various fixes in the cURL-based plugins (Credits: Yu Zhao)"
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:12
+msgid "fixed milliseconds-based waits"
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:13
+msgid "fixed sharedarea's poller"
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:14
+msgid "fixed the JSON encoder in the stats server"
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:15
+msgid ""
+"fixed FastCGI parser and implemented EOF management (Credits:  Jeff "
+"Trawick)"
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:16
+msgid "improved fast on-demand mode"
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:17
+msgid "avg_rt computation is excluded for static files"
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:18
+msgid "fixed variable support in uwsgi internal router"
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:19
+msgid "fixed websockets + keepalive ordering"
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:20
+msgid "disable SIGPIPE management in coroutine-based loop engines"
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:21
+msgid "fixed 64-bit sharedarea management in 32-bit systems"
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:22
+msgid "honor chmod/chown-socket in fd0 mode"
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:23
+msgid "hack to avoid Safari on iOS making a mess with keepalive"
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:24
+msgid ""
+"fixed log setup when both --logto and --log2 are used (Credits: Łukasz "
+"Mierzwa)"
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:25
+msgid "fixed mule_get_msg EAGAIN"
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:26
+msgid "signal_pidfile returns the right error code"
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:27
+msgid "fixed asyncio on OSX"
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:30
+msgid "New features"
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:33
+msgid "graceful reload of mule processes (Credits: Paul Egan)"
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:35
+msgid ""
+"`SIGHUP` is now sent to mules instead of directly killing them. You are "
+"free to trap/catch the signal in your code. If a mule does not die in the"
+" allowed \"mercy time\" (`--mule-reload-mercy`, default 60 seconds), "
+"SIGKILL will be sent."
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:40
+msgid "`return` routing action (Credits: Yu Zhao)"
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:42
+msgid "This new action will allow users to write simplified \"break\" clauses."
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:44
+msgid ""
+"For example, \"return:403\" is equivalent to \"break:403 Forbidden\", "
+"with response body \"Forbidden\"."
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:46
+msgid ""
+"The response body is quite useful for telling end users what's going "
+"wrong."
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:49
+msgid "--emperor-no-blacklist"
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:51
+msgid "This new option completely disables the Emperor's blacklisting subsystem."
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:54
+msgid "Icecast2 protocol helpers"
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:56
+msgid ""
+"One of the upcoming unbit.com projects is a uWSGI based audio/video "
+"streaming server."
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:58
+msgid ""
+"The plugin (should be released during Europython 2014) already supports "
+"the Icecast2 protocol."
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:60
+msgid ""
+"A bunch of patches have been added to the HTTP router to support the "
+"Icecast2 protocol."
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:62
+msgid ""
+"For example the ``--http-manage-source`` option allows the HTTP router to"
+" honor `SOURCE` method requests, automatically placing them in raw mode."
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:65
+msgid "--metrics-no-cores, --stats-no-cores, --stats-no-metrics"
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:67
+msgid ""
+"When you have hundreds (or thousands) of async cores, exposing metrics "
+"for them may get really slow."
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:69
+msgid ""
+"Three new options have been added allowing you to disable the generation "
+"of core-related metrics and consequently their usage in the stats server."
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:72
+msgid "sharedarea improvements"
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:74
+msgid ""
+"The sharedarea API continues to improve. Latest patches include support "
+"for memory-mapping files (or devices) (`mmap`) directly from the command "
+"line."
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:76
+msgid ""
+"An interesting way to test this is mapping the BCM2835 memory of the "
+"Raspberry PI. This little example allows you to read the RPi system "
+"timer."
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:82
+msgid "Now you can read a 64-bit value from the first (zero-based) sharedarea:"
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:89
+msgid ""
+"(Obviously, when reading and writing the Raspberry Pi memory, be careful."
+" An error could crash the whole system!)"
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:92
+msgid "UWSGI_GO_CHEAP_CODE"
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:94
+msgid ""
+"This exit code (15) can be raised by a worker to tell the master to not "
+"respawn it."
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:97
+msgid "PROXY1 support for the http router (Credits: bgglenn)"
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:99
+msgid ""
+"The option ``--http-enable-proxy-protocol`` allows the HTTP router to "
+"understand PROXY1 protocol requests, such as those made by Haproxy or "
+"Amazon Elastic Load Balancer (ELB)."
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:102
+msgid "reset_after_push for metrics (Credits: Babacar Tall)"
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:104
+msgid ""
+"This metric attribute ensures that the metric value is reset to 0 (or its"
+" hardcoded `initial_value`) after the metric is pushed to external "
+"systems (such as Carbon or StatsD)."
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:107
+msgid "setremoteaddr"
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:109
+msgid ""
+"This new routing action allows you to completely override the "
+"`REMOTE_ADDR` detected by protocol handlers:"
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:118
+msgid "the `resolve` option"
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:120
+msgid ""
+"There are uWSGI options (or plugins) that do not automatically resolve "
+"DNS names to IP addresses. This option allows you to map a placeholder to"
+" the DNS resolution result of a string:"
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:132
+msgid "Availability"
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:134
+msgid "uWSGI 2.0.5 has been released on [20140601] and can be downloaded from:"
+msgstr ""
+
+#: ../../Changelog-2.0.5.rst:136
+msgid "https://projects.unbit.it/downloads/uwsgi-2.0.5.tar.gz"
+msgstr ""
+

@@ -1,0 +1,43 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../tutorials/DynamicProxying.rst:2
+msgid "Build a dynamic proxy using RPC and internal routing"
+msgstr ""
+
+#: ../../tutorials/DynamicProxying.rst:4
+msgid "Work in progress (requires uWSGI 1.9.14, we use PyPy as the engine)"
+msgstr ""
+
+#: ../../tutorials/DynamicProxying.rst:7
+msgid "step 1: build your mapping function"
+msgstr ""
+
+#: ../../tutorials/DynamicProxying.rst:9
+msgid "we use the hostname as the mapping (you can use whatever you need)"
+msgstr ""
+
+#: ../../tutorials/DynamicProxying.rst:20
+msgid "save it as myfuncs.py"
+msgstr ""
+
+#: ../../tutorials/DynamicProxying.rst:24
+msgid "step 2: building a routing table"
+msgstr ""
+

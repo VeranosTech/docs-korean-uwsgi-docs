@@ -1,0 +1,363 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Changelog-1.9.16.rst:2
+msgid "uWSGI 1.9.16"
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:4
+msgid "Changelog [20130914]"
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:8
+msgid "Important change in the gevent plugin shutdown/reload procedure !!!"
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:10
+msgid ""
+"The shutdown/reload phase when in gevent mode has been changed to better "
+"integrate with multithreaded (and multigreenlet) environments (most "
+"notably the newrelic agent)."
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:13
+msgid ""
+"Instead of \"joining\" the gevent hub, a new \"dummy\" greenlet is "
+"spawned and \"joined\"."
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:15
+msgid ""
+"During shutdown only the greenlets spawned by uWSGI are taken in account,"
+" and after all of them are destroyed the process will exit. This is "
+"different from the old approach where the process wait for ALL the "
+"currently available greenlets (and monkeypatched threads)."
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:19
+msgid ""
+"If you prefer the old behaviout just specify the option --gevent-wait-"
+"for-hub"
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:23
+msgid "Bugfixes/Improvements"
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:25
+msgid "fixed CPython reference counting bug in rpc and signal handlers"
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:26
+msgid "improved smart-attach-daemon for slow processes"
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:27
+msgid ""
+"follow Rack specifications for QUERY_STRING,SCRIPT_NAME,SERVER_NAME and "
+"SERVER_PORT"
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:28
+msgid ""
+"report missing internal routing support (it is only a warning when "
+"libpcre is missing)"
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:29
+msgid ""
+"better ipcsem support during shutdown and zerg mode (added --persistent-"
+"ipcsem as special case)"
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:30
+msgid "fixed fastcgi bug exposed by apache mod_fastcgi"
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:31
+msgid "do not call pre-jail hook on reload"
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:32
+msgid "force linking with -lrt on solaris"
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:33
+msgid "report thunder lock status"
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:34
+msgid "allow custom priority in rsyslog plugin"
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:37
+msgid "New features"
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:40
+msgid "FreeBSD jails native support"
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:42
+msgid ""
+"uWSGI got nativr FreeBSD jails support. Official documentation is here "
+":doc:`FreeBSDJails`"
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:45
+msgid "The Rados plugin"
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:47
+msgid "Author: Javier Guerra"
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:49
+msgid ""
+"Based on the :doc:`GlusterFS` plugin, a new one allowing access to Rados "
+"object storage is available:"
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:51
+msgid ":doc:`Rados`"
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:54
+msgid "The TunTap router"
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:56
+msgid ""
+"This new gateway is the result of tons of headaches while trying to build"
+" better (read: solid) infrastructures with Linux namespaces."
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:58
+msgid ""
+"While dealing with uts, ipc, pid and filesystem namespaces is pretty "
+"handy, managing networking is a real pain."
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:60
+msgid ""
+"We introduced lot of workaroud in uWSGI 1.9.15 (especially to simplify "
+"the veth management) but finally we realized that those systems do not "
+"scale in terms of management."
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:63
+msgid ""
+"The TunTap router tries to solve the issue moving the networking part of "
+"jailed vassals in user space."
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:65
+msgid ""
+"Basically each vassal create one or more tuntap devices. This devices are"
+" connected (via a unix socket) to the \"tuntap router\" allowing access "
+"from the vassal to the external network."
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:68
+msgid ""
+"That means a single network interface in the main namespace and one for "
+"each vassal."
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:70
+#, python-format
+msgid ""
+"The performance are already quite good (we are only losing about 10% in "
+"respect of kernel-level routing) but can be optimized."
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:72
+msgid ""
+"In addition to this the tuntap router has a simple userspace firewall you"
+" can use to manage complex routing rules."
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:74
+msgid ""
+"Documentation is still in progress, but you can configure a tuntap router"
+" following the big comment on top of this file:"
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:76
+msgid "https://github.com/unbit/uwsgi/blob/master/plugins/tuntap/tuntap.c"
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:78
+msgid ""
+"while you can connect to it with ``--tuntap-device <dev> <socket>`` where"
+" <dev> is the tuntap device to create in the vassal/client and <socket> "
+"is the unix address of the tuntap router"
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:81
+msgid "An Example Emperor"
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:94
+msgid "and one of its vassals:"
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:108
+msgid "Linux O_TMPFILE"
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:110
+msgid ""
+"Latest Linux kernel support a new operational mode for opening files: "
+"O_TMPFILE"
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:112
+msgid ""
+"this flag open a temporary file (read: unlinked) without any kind of race"
+" conditions."
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:114
+msgid "This mode is automatically used if available (no options needed)"
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:117
+msgid "Linux pivot-root"
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:119
+msgid ""
+"When dealing with Linux namespaces, changing the root filesystem is one "
+"of the main task."
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:121
+msgid ""
+"chroot() is generally too simple, while pivot-root allows you more "
+"advanced setup"
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:123
+msgid "The syntax is ``--pivot-root <new_root> <old_root>``"
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:126
+msgid "Cheaper memlimit"
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:128
+msgid "Author: Łukasz Mierzwa"
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:130
+msgid ""
+"This new check allows control of dynamic process spawning based on the "
+"RSS usage:"
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:132
+msgid ""
+"https://uwsgi-docs.readthedocs.io/en/latest/Cheaper.html#setting-memory-"
+"limits"
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:135
+msgid "Log encoders"
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:137
+msgid ""
+"There are dozens of log engines and storage system nowadays. The original"
+" uWSGI approach was developing a plugin for every engine."
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:139
+msgid ""
+"While working with logstash and fluentd we realized that most of the "
+"logging pluging are reimplementations of the same concept over and over "
+"again."
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:141
+msgid "We followed an even more modular approach introducing log encoders:"
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:143
+msgid ":doc:`LogEncoders`"
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:145
+msgid "They are basically patterns you can apply to each logline"
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:148
+msgid "New \"advanced\" Hooks"
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:150
+msgid ""
+"A new series of hooks for developers needing little modifications to the "
+"uWSGI cores are available."
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:152
+msgid ""
+"Documention about the whole hooks subsystem is now available (it is a "
+"work in progress):"
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:154
+msgid ":doc:`Hooks`"
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:157
+msgid "New mount/umount hooks"
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:159
+msgid ""
+"When dealing with namespaces and jails, mounting and unmounting "
+"filesystems is one of the most common tasks."
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:161
+msgid ""
+"As the mount and umount commands could not be available during the setup "
+"phase, these 2 hooks have been added directly calling the syscalls."
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:164
+msgid "Check :doc:`Hooks`"
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:168
+msgid "Availability"
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:170
+msgid ""
+"uWSGI 1.9.16 has been released on September 14th 2013. You can download "
+"it from:"
+msgstr ""
+
+#: ../../Changelog-1.9.16.rst:172
+msgid "https://projects.unbit.it/downloads/uwsgi-1.9.16.tar.gz"
+msgstr ""
+

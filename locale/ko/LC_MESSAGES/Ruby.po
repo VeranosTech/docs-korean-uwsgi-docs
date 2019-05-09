@@ -1,0 +1,198 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Ruby.rst:2
+msgid "Ruby support"
+msgstr ""
+
+#: ../../Ruby.rst:9
+msgid ""
+"Starting from version 0.9.7-dev a Ruby (Rack/Rails) plugin is officially "
+"available. The official modifier number for Ruby apps is 7, so remember "
+"to set it in your web server configuration."
+msgstr ""
+
+#: ../../Ruby.rst:11
+msgid ""
+"The plugin can be embedded in the uWSGI core or built as a dynamically "
+"loaded plugin."
+msgstr ""
+
+#: ../../Ruby.rst:13
+msgid ""
+"Some uWSGI standard features still aren't supported by the plugin, such "
+"as:"
+msgstr ""
+
+#: ../../Ruby.rst:15
+msgid "UDP request management"
+msgstr ""
+
+#: ../../Ruby.rst:16
+msgid ":doc:`SharedArea` (support on the way)"
+msgstr ""
+
+#: ../../Ruby.rst:17
+msgid ":doc:`Queue`"
+msgstr ""
+
+#: ../../Ruby.rst:19
+msgid "See the :doc:`RubyAPI` page for a list of features currently supported."
+msgstr ""
+
+#: ../../Ruby.rst:24
+msgid "Building uWSGI for Ruby support"
+msgstr ""
+
+#: ../../Ruby.rst:26
+msgid ""
+"You can find :file:`rack.ini` in the :file:`buildconf` directory. This "
+"configuration will build uWSGI with a Ruby interpreter embedded. To build"
+" uWSGI with this configuration, you'll need the Ruby headers/development "
+"package."
+msgstr ""
+
+#: ../../Ruby.rst:32
+msgid "The resulting uWSGI binary can run Ruby apps."
+msgstr ""
+
+#: ../../Ruby.rst:34
+msgid ""
+"A :file:`rackp.ini` build configuration also exists; this will build "
+"uWSGI with Ruby support as a plugin; in this case remember to invoke "
+"uWSGI with the ``plugins=rack`` option."
+msgstr ""
+
+#: ../../Ruby.rst:37
+msgid "A note regarding memory consumption"
+msgstr ""
+
+#: ../../Ruby.rst:39
+msgid ""
+"By default the memory management of this plugin is very aggressive (as "
+"Ruby can easily devour memory like it was going out of fashion). The Ruby"
+" garbage collector is invoked after every request by default. This may "
+"hurt your performance if your app creates lots of objects on every "
+"request. You can tune the frequency of the collection with the "
+":ref:`OptionRubyGcFreq` option. As usual, there is no one-value-fits-all "
+"setting for this, so experiment a bit."
+msgstr ""
+
+#: ../../Ruby.rst:41
+msgid ""
+"If your app leaks memory without control, consider limiting the number of"
+" requests a worker can manage before being restarted with the ``max-"
+"requests`` option. Using ``limit-as`` can help too."
+msgstr ""
+
+#: ../../Ruby.rst:44
+msgid "A note regarding threads and fibers"
+msgstr ""
+
+#: ../../Ruby.rst:46
+msgid ""
+"Adding threading support in Ruby 1.8 is out of discussion. Thread support"
+" in this versions is practically useless in a server like uWSGI. Ruby 1.9"
+" has a threading mode very similar to the Python one, its support is "
+"available starting from uWSGI 1.9.14 using the \"rbthreads\" plugin."
+msgstr ""
+
+#: ../../Ruby.rst:49
+msgid ""
+"Fibers are a new feature of Ruby 1.9. They are an implementation of "
+"coroutines/green threads/stop resume/cooperative multithreading, or "
+"whatever you'd like to call this class of funny technologies. See "
+":doc:`FiberLoop`."
+msgstr ""
+
+#: ../../Ruby.rst:52
+msgid "Running Rack applications on uWSGI"
+msgstr ""
+
+#: ../../Ruby.rst:54
+msgid "This example shows you how to run a Sinatra application on uWSGI."
+msgstr ""
+
+#: ../../Ruby.rst:57
+msgid ":file:`config.ru`"
+msgstr ""
+
+#: ../../Ruby.rst:70
+msgid ""
+"Then invoke uWSGI (with ``--plugins`` if you built Ruby support as a "
+"plugin):"
+msgstr ""
+
+#: ../../Ruby.rst:77
+msgid "``post-buffering`` is required by the Rack specification."
+msgstr ""
+
+#: ../../Ruby.rst:79
+msgid ""
+"As Sinatra has a built-in logging system, you may wish to disable uWSGI's"
+" logging of requests with the ``disable-logging`` option."
+msgstr ""
+
+#: ../../Ruby.rst:83
+msgid "Running Ruby on Rails applications on uWSGI"
+msgstr ""
+
+#: ../../Ruby.rst:85
+msgid ""
+"As writing formal documentation isn't very interesting, here's a couple "
+"of examples of Rails apps on uWSGI."
+msgstr ""
+
+#: ../../Ruby.rst:88
+msgid "Running Typo"
+msgstr ""
+
+#: ../../Ruby.rst:96
+msgid ""
+"--lazy-apps is vital here as typo (like a lot of apps) is not fork-"
+"friendly (it does not expect is loaded in the master and then fork() is "
+"called). With this option the app is fully loaded one-time per-worker."
+msgstr ""
+
+#: ../../Ruby.rst:99
+msgid "Nginx configuration:"
+msgstr ""
+
+#: ../../Ruby.rst:113
+msgid "Running Radiant"
+msgstr ""
+
+#: ../../Ruby.rst:124
+msgid "Apache configuration (with static paths mapped directly):"
+msgstr ""
+
+#: ../../Ruby.rst:154
+msgid "Rails and SSL"
+msgstr ""
+
+#: ../../Ruby.rst:156
+msgid ""
+"You may wish to use the ``HTTPS`` / ``UWSGI_SCHEME https`` uwsgi protocol"
+" parameters to inform the app that it is running under HTTPS."
+msgstr ""
+
+#: ../../Ruby.rst:158
+msgid "For Nginx:"
+msgstr ""
+

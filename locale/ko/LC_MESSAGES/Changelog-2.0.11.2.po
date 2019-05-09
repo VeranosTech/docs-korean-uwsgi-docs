@@ -1,0 +1,63 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Changelog-2.0.11.2.rst:2
+msgid "uWSGI 2.0.11.2"
+msgstr ""
+
+#: ../../Changelog-2.0.11.2.rst:4
+msgid "[20151007]"
+msgstr ""
+
+#: ../../Changelog-2.0.11.2.rst:7
+msgid "Bugfixes"
+msgstr ""
+
+#: ../../Changelog-2.0.11.2.rst:9
+msgid "OSX 10.11 supports TCP_FASTOPEN"
+msgstr ""
+
+#: ../../Changelog-2.0.11.2.rst:10
+msgid "fixed http-socket parser state after harakiri"
+msgstr ""
+
+#: ../../Changelog-2.0.11.2.rst:11
+msgid "fixed threaded request logger"
+msgstr ""
+
+#: ../../Changelog-2.0.11.2.rst:12
+msgid "fixed fastrouter subscriptions modifiers"
+msgstr ""
+
+#: ../../Changelog-2.0.11.2.rst:13
+msgid "fixed alarm backlog"
+msgstr ""
+
+#: ../../Changelog-2.0.11.2.rst:16
+msgid "Availability"
+msgstr ""
+
+#: ../../Changelog-2.0.11.2.rst:18
+msgid "You can download uWSGI 2.0.11.2 from"
+msgstr ""
+
+#: ../../Changelog-2.0.11.2.rst:20
+msgid "https://projects.unbit.it/downloads/uwsgi-2.0.11.2.tar.gz"
+msgstr ""
+

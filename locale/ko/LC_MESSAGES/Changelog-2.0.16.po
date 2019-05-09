@@ -1,0 +1,187 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Changelog-2.0.16.rst:2
+msgid "uWSGI 2.0.16"
+msgstr ""
+
+#: ../../Changelog-2.0.16.rst:4
+msgid "[20180210]"
+msgstr ""
+
+#: ../../Changelog-2.0.16.rst:6
+msgid "Maintenance release"
+msgstr ""
+
+#: ../../Changelog-2.0.16.rst:9
+msgid "Security"
+msgstr ""
+
+#: ../../Changelog-2.0.16.rst:11
+msgid ""
+"[CVE-2018-6758] Stack-based buffer overflow in "
+"core/utils.c:uwsgi_expand_path()"
+msgstr ""
+
+#: ../../Changelog-2.0.16.rst:14
+msgid "Changes"
+msgstr ""
+
+#: ../../Changelog-2.0.16.rst:16
+msgid "Backported early_post_jail plugin hook (Bjørnar Ness)"
+msgstr ""
+
+#: ../../Changelog-2.0.16.rst:17
+msgid "Fixed ipv6 suupport for http-socket (James Brown)"
+msgstr ""
+
+#: ../../Changelog-2.0.16.rst:18
+msgid "Enable execinfo on DragonFly BSD (Aaron LI)"
+msgstr ""
+
+#: ../../Changelog-2.0.16.rst:19
+msgid "Fix inet_ntop buffer size (Orivej Desh)"
+msgstr ""
+
+#: ../../Changelog-2.0.16.rst:20
+msgid "Add worker running time metrics (Serge/yasek)"
+msgstr ""
+
+#: ../../Changelog-2.0.16.rst:21
+msgid "Backported safe-pidfile, safe-pidfile2 (Nate Coraor)"
+msgstr ""
+
+#: ../../Changelog-2.0.16.rst:22
+msgid "Stop using libxml2 by default on osx"
+msgstr ""
+
+#: ../../Changelog-2.0.16.rst:23
+msgid "Fixed uwsgi_kvlist_parse signature"
+msgstr ""
+
+#: ../../Changelog-2.0.16.rst:24
+msgid "Backport http range fixes from master (Curtis Maloney, Sokolov Yura)"
+msgstr ""
+
+#: ../../Changelog-2.0.16.rst:25
+msgid "relicensed mod_proxy_uwsgi to Apache 2.0"
+msgstr ""
+
+#: ../../Changelog-2.0.16.rst:26
+msgid "logging: Add ${millis} support to json encode"
+msgstr ""
+
+#: ../../Changelog-2.0.16.rst:27
+msgid "plugins/router_xmldir: fixup invalid locale check (Riccardo Magliocchetti)"
+msgstr ""
+
+#: ../../Changelog-2.0.16.rst:28
+msgid ""
+"Add ssl-verify-depth flag to set the max Client CA chain length (Paul "
+"Tagliamonte)"
+msgstr ""
+
+#: ../../Changelog-2.0.16.rst:29
+msgid "Allow to override build date (Bernhard M. Wiedemann)"
+msgstr ""
+
+#: ../../Changelog-2.0.16.rst:30
+msgid ""
+"Python 3 plugin: improved thread names handling (Jyrki Muukkonen, Mark "
+"Meyer)"
+msgstr ""
+
+#: ../../Changelog-2.0.16.rst:31
+msgid "Added uwsgi_resolve_ip for redis host (ahmbas)"
+msgstr ""
+
+#: ../../Changelog-2.0.16.rst:32
+msgid "plugins/gevent: Fix signal handlers (Maslov Alexander)"
+msgstr ""
+
+#: ../../Changelog-2.0.16.rst:33
+msgid "Write x509 DER to the uwsgi buffer (Paul Tagliamonte)"
+msgstr ""
+
+#: ../../Changelog-2.0.16.rst:34
+msgid "plugin/http: Fix compilation (Melvyn Sopacua)"
+msgstr ""
+
+#: ../../Changelog-2.0.16.rst:35
+msgid "Fixed emperor throttling system  (Jeremy Hiatt)"
+msgstr ""
+
+#: ../../Changelog-2.0.16.rst:36
+msgid ""
+"Fix application loading without Plack after excluding \".\" from @INC in "
+"new Perl versions (Anton Petrusevich)"
+msgstr ""
+
+#: ../../Changelog-2.0.16.rst:37
+msgid "Fix MULE MSG QUEUE IS FULL message hint (Eugene Tataurov)"
+msgstr ""
+
+#: ../../Changelog-2.0.16.rst:38
+msgid "Build System: support k_minor has a _xxx suffix (TOGO Li)"
+msgstr ""
+
+#: ../../Changelog-2.0.16.rst:39
+msgid "Fixed drop-after-* options (Robert DeRose)"
+msgstr ""
+
+#: ../../Changelog-2.0.16.rst:40
+msgid "Add mule_send_msg success indicator (Josh Tiras)"
+msgstr ""
+
+#: ../../Changelog-2.0.16.rst:41
+msgid "Properly check item size in uwsgi_queue_push (Josh Tiras)"
+msgstr ""
+
+#: ../../Changelog-2.0.16.rst:42
+msgid "FastRouter / HTTP Router can now have a 'fallback' key configured"
+msgstr ""
+
+#: ../../Changelog-2.0.16.rst:43
+msgid "HTTP Router now supports `post-buffer`, just like FastRouter"
+msgstr ""
+
+#: ../../Changelog-2.0.16.rst:44
+msgid ""
+"Fix handling of `env` in embedded dict in Python plugin (could cause "
+"segfaults in single thread mode)"
+msgstr ""
+
+#: ../../Changelog-2.0.16.rst:45
+msgid "Add support for Brotli (.br) with `--static-gzip`"
+msgstr ""
+
+#: ../../Changelog-2.0.16.rst:46
+msgid "Back-ported HTTP/1.1 support (--http11-socket) from 2.1"
+msgstr ""
+
+#: ../../Changelog-2.0.16.rst:49
+msgid "Availability"
+msgstr ""
+
+#: ../../Changelog-2.0.16.rst:51
+msgid ""
+"You can download uWSGI 2.0.16 from "
+"https://projects.unbit.it/downloads/uwsgi-2.0.16.tar.gz"
+msgstr ""
+

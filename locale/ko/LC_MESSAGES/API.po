@@ -1,0 +1,382 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../API.rst:2
+msgid "The uWSGI api"
+msgstr ""
+
+#: ../../API.rst:4
+msgid ""
+"Language plugins should expose the following api. Each language has its "
+"conventions, limits and strength's point."
+msgstr ""
+
+#: ../../API.rst:6
+msgid ""
+"When porting the api to a specific language try to be friendly to the "
+"language style."
+msgstr ""
+
+#: ../../API.rst:8
+msgid ""
+"This is the \"official\" list of functions exposed by the uWSGI api, "
+"functions not appearing here are not standardized so they could change "
+"their semanthics in future uWSGI relases."
+msgstr ""
+
+#: ../../API.rst:12
+msgid ""
+"The syntax proposed here is a pseudo-python, each language will expose "
+"each function with its specific style"
+msgstr ""
+
+#: ../../API.rst:14
+msgid ""
+"When not_defined is used, it means the language-specific NULL "
+"representation (like None in python or undef in perl)"
+msgstr ""
+
+#: ../../API.rst:17
+msgid "uwsgi.signal(signum)"
+msgstr ""
+
+#: ../../API.rst:19
+msgid "raise the specified uwsgi signal"
+msgstr ""
+
+#: ../../API.rst:22
+msgid "uwsgi.register_rpc(name, func, argc=0)"
+msgstr ""
+
+#: ../../API.rst:24
+msgid "register the function \"func\" as an RPC one with the specified \"name\""
+msgstr ""
+
+#: ../../API.rst:26
+msgid "argc will force the accepted number of arguments"
+msgstr ""
+
+#: ../../API.rst:29
+msgid "uwsgi.rpc(node, name, *args)"
+msgstr ""
+
+#: ../../API.rst:31
+msgid ""
+"call the uWSGI RPC function \"name\" on server \"node\" with the supplied"
+" args (if any)"
+msgstr ""
+
+#: ../../API.rst:33
+msgid "if node is not_defined a \"local\" RPC will be made"
+msgstr ""
+
+#: ../../API.rst:36
+msgid "uwsgi.call(name, *args)"
+msgstr ""
+
+#: ../../API.rst:38
+msgid ""
+"call the uWSGI RPC function \"name\" locally with the supplied args (if "
+"any)"
+msgstr ""
+
+#: ../../API.rst:41
+msgid "uwsgi.cache_get(key[, cache])"
+msgstr ""
+
+#: ../../API.rst:43
+msgid ""
+"get \"key\" from the specified \"cache\". If \"cache\" is not_defined, "
+"the default local cache will be used."
+msgstr ""
+
+#: ../../API.rst:45
+msgid ""
+"To get an item from a remote cache use the cachename@addr:port syntax for"
+" the \"cache\" value"
+msgstr ""
+
+#: ../../API.rst:47
+msgid "returns not_defined if the item is not found or an error has occurred"
+msgstr ""
+
+#: ../../API.rst:50
+msgid "uwsgi.add_timer(signum, secs)"
+msgstr ""
+
+#: ../../API.rst:52
+msgid "register a timer raising \"signum\" every \"secs\""
+msgstr ""
+
+#: ../../API.rst:55
+msgid "uwsgi.add_rb_timer(signum, secs[, iterations])"
+msgstr ""
+
+#: ../../API.rst:57
+msgid "register a redblack timer raising \"signum\" every \"secs\""
+msgstr ""
+
+#: ../../API.rst:60
+msgid "uwsgi.lock(num=0)"
+msgstr ""
+
+#: ../../API.rst:62
+msgid "acquire the specified user lock"
+msgstr ""
+
+#: ../../API.rst:65
+msgid "uwsgi.unlock(num=0)"
+msgstr ""
+
+#: ../../API.rst:67
+msgid "release the specified user lock"
+msgstr ""
+
+#: ../../API.rst:70
+msgid "uwsgi.masterpid()"
+msgstr ""
+
+#: ../../API.rst:72
+msgid "return the current pid of the master process"
+msgstr ""
+
+#: ../../API.rst:75
+msgid "uwsgi.alarm(alarm, msg)"
+msgstr ""
+
+#: ../../API.rst:77
+msgid "raise the specified \"alarm\" with the message \"msg\""
+msgstr ""
+
+#: ../../API.rst:80
+msgid "uwsgi.suspend()"
+msgstr ""
+
+#: ../../API.rst:82
+msgid ""
+"suspend the current async core and give cpu to the next core in the "
+"schedule chain"
+msgstr ""
+
+#: ../../API.rst:85
+msgid "uwsgi.async_sleep(secs)"
+msgstr ""
+
+#: ../../API.rst:87
+msgid "suspend the current async core for the specified number of seconds"
+msgstr ""
+
+#: ../../API.rst:89 ../../API.rst:106 ../../API.rst:113
+msgid "(requires uwsgi.suspend() or form of \"yield\" to be committed)"
+msgstr ""
+
+#: ../../API.rst:92
+msgid "uwsgi.connection_fd()"
+msgstr ""
+
+#: ../../API.rst:94
+msgid "returns the file descriptor of the connection opened with the client"
+msgstr ""
+
+#: ../../API.rst:97
+msgid "uwsgi.async_connect(addr)"
+msgstr ""
+
+#: ../../API.rst:99
+msgid ""
+"returns the file descriptor of a non-blocking connection to the specified"
+" \"addr\""
+msgstr ""
+
+#: ../../API.rst:101 ../../API.rst:108 ../../API.rst:115
+msgid "will raise an exception on error"
+msgstr ""
+
+#: ../../API.rst:104
+msgid "uwsgi.wait_fd_read(fd[, timeout])"
+msgstr ""
+
+#: ../../API.rst:111
+msgid "uwsgi.wait_fd_write(fd[, timeout])"
+msgstr ""
+
+#: ../../API.rst:118
+msgid "uwsgi.ready_fd()"
+msgstr ""
+
+#: ../../API.rst:120
+msgid ""
+"after resume from suspend() returns the currently available file "
+"descriptor or -1 if a timeout was the cause of resume"
+msgstr ""
+
+#: ../../API.rst:123
+msgid "uwsgi.send([fd,] data)"
+msgstr ""
+
+#: ../../API.rst:125
+msgid "send the specified \"data\" to the file descriptor \"fd\"."
+msgstr ""
+
+#: ../../API.rst:127 ../../API.rst:136
+msgid ""
+"If \"fd\" is not specified the output of uwsgi.connection_fd() will be "
+"used"
+msgstr ""
+
+#: ../../API.rst:129
+msgid ""
+"The position of arguments is a bit strange, but allows easier integration"
+" with POSIX write()"
+msgstr ""
+
+#: ../../API.rst:132
+msgid "uwsgi.recv([fd,] len)"
+msgstr ""
+
+#: ../../API.rst:134
+msgid "receive at most \"len\" bytes from the specified \"fd\""
+msgstr ""
+
+#: ../../API.rst:138
+msgid ""
+"The position of arguments is a bit strange, but allows easier integration"
+" with POSIX read()"
+msgstr ""
+
+#: ../../API.rst:141
+msgid "uwsgi.close(fd)"
+msgstr ""
+
+#: ../../API.rst:143
+msgid "close the specified file descriptor"
+msgstr ""
+
+#: ../../API.rst:146
+msgid "uwsgi.setprocname(name)"
+msgstr ""
+
+#: ../../API.rst:148
+msgid "set the name of the calling process"
+msgstr ""
+
+#: ../../API.rst:151
+msgid "uwsgi.add_cron(signum, minute, hour, day, month, week)"
+msgstr ""
+
+#: ../../API.rst:153
+msgid "register a cron raising the uwsgi signal \"signum\""
+msgstr ""
+
+#: ../../API.rst:157
+msgid "uwsgi.disconnect()"
+msgstr ""
+
+#: ../../API.rst:159
+msgid "disconnect the client without stopping the request handler"
+msgstr ""
+
+#: ../../API.rst:163
+msgid "uwsgi.worker_id()"
+msgstr ""
+
+#: ../../API.rst:165
+msgid "returns the current worker id (as integer)."
+msgstr ""
+
+#: ../../API.rst:167
+msgid "0 means the calling process is not a worker"
+msgstr ""
+
+#: ../../API.rst:170
+msgid "uwsgi.mule_id()"
+msgstr ""
+
+#: ../../API.rst:172
+msgid "returns the current mule id (as integer)."
+msgstr ""
+
+#: ../../API.rst:174
+msgid "0 means the calling process is not a mule"
+msgstr ""
+
+#: ../../API.rst:177
+msgid "uwsgi.signal_registered(signum)"
+msgstr ""
+
+#: ../../API.rst:179
+msgid "check if \"signum\" is registered"
+msgstr ""
+
+#: ../../API.rst:181
+msgid "returns boolean"
+msgstr ""
+
+#: ../../API.rst:184
+msgid "uwsgi.opt"
+msgstr ""
+
+#: ../../API.rst:186
+msgid ""
+"This is a hash/dictionary of all the specified options for the instance "
+"(both registered and virtuals)"
+msgstr ""
+
+#: ../../API.rst:189
+msgid "uwsgi.version"
+msgstr ""
+
+#: ../../API.rst:191
+msgid "the uWSGI version string"
+msgstr ""
+
+#: ../../API.rst:194
+msgid "uwsgi.hostname"
+msgstr ""
+
+#: ../../API.rst:196
+msgid "the server hostname"
+msgstr ""
+
+#: ../../API.rst:199
+msgid "uwsgi.register_signal(signum, kind, handler)"
+msgstr ""
+
+#: ../../API.rst:201
+msgid ""
+"register the uwsgi signal \"signum\" of the specified \"kind\" mapped to "
+"\"handler\""
+msgstr ""
+
+#: ../../API.rst:203
+msgid "raise an Exception on error"
+msgstr ""
+
+#: ../../API.rst:206
+msgid "uwsgi.set_user_harakiri(sec)"
+msgstr ""
+
+#: ../../API.rst:208
+msgid "set the user harakiri (for workers, mules and spoolers)."
+msgstr ""
+
+#: ../../API.rst:210
+msgid "A value of 0, reset the timer"
+msgstr ""
+

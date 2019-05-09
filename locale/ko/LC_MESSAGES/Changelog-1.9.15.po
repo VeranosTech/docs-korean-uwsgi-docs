@@ -1,0 +1,560 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Changelog-1.9.15.rst:2
+msgid "uWSGI 1.9.15"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:4
+msgid "Changelog [20130829]"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:7
+msgid "Bugfixes"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:9
+msgid "fixed jvm options hashmap (#364)"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:10
+msgid "fixed python3 wsgi.file_wrapper"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:11
+msgid "fixed python3 --catch-exceptions"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:12
+msgid "fixed type in pypy wsgi.input.read"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:13
+msgid "better symbol detection for pypy"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:14
+msgid "improved ruby libraries management on heroku"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:15
+msgid "fixed http-keepalive memleak"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:16
+msgid "fixed spooler body management under CPython"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:17
+msgid "fixed unshare() usage of 'fs'"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:18
+msgid "fixed UWSGI_PROFILE usage when building plugins with --plugin"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:19
+msgid "improved SmartOS support and added OmniOS support"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:24
+msgid "New features"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:27
+msgid "The PTY plugin"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:29
+msgid ""
+"This new plugin allows you to generate pseudoterminals and attach them to"
+" your workers."
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:31
+msgid "Pseudoterminals are then reachable via network (UNIX or TCP sockets)."
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:33
+msgid ""
+"You can use them for shared debugging or to have input channels on your "
+"webapps."
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:35
+msgid ""
+"The plugin is in early stage of development (very few features) and it is"
+" not built in by default, but you can already make funny things like:"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:54
+msgid "now you can access the pseudoterminal with"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:60
+msgid ""
+"you can run the client in various windows, it will be shared by all of "
+"the peers (all will access the same pseudoterminal)."
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:62
+msgid "We are sure new funny uses for it will popup pretty soon"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:64
+msgid "preliminary documentation is available at :doc:`Pty`"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:67
+msgid "strict mode"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:69
+msgid ""
+"One of the most common error when writing uWSGI config files, are typos "
+"in option names."
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:71
+msgid ""
+"As you can add any option in uWSGI config files, the system will accept "
+"anythyng you will write even if it is not a real uWSGI option."
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:73
+msgid ""
+"While this approach is very powerful and allow lot of funny hacks, it can"
+" causes lot of headaches too."
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:75
+msgid ""
+"If you want to check all of your options in one step, you can now add the"
+" --strict option. Unknown options will trigger a fatal error."
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:78
+msgid "fallback configs"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:80
+msgid ""
+"Being very cheap (in term of resources) and supporting lot of operating "
+"systems and architectures, uWSGI is heavily used in embedded systems."
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:82
+msgid ""
+"One of the common feature in such devices is the \"reset to factory "
+"defaults\"."
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:84
+msgid ""
+"uWSGI now natively support this kind of operation, thanks to the "
+"--fallback-config option."
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:86
+msgid ""
+"If a uWSGI instance dies with exit(1) and a fallback-config is specified,"
+" the binary will be re-exec()'d with the new config as the only argument."
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:88
+msgid ""
+"Let's see an example of a configuration with unbindable address "
+"(unprivileged user trying to bind to privileged port)"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:97
+msgid "and a fallback one (bind to unprivileged port 8080)"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:106
+msgid "run it (as root, as we want to drop privileges):"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:113
+msgid "you will get in your logs:"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:126
+msgid "--perl-exec and --perl-exec-post-fork"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:128
+msgid "You can now run custom perl code before and after the fork() calls."
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:130
+msgid "Both options simply take the perl script as the argument"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:133
+msgid "uwsgi.cache_keys([cache])"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:135
+msgid ""
+"This api function has been added to the python and pypy plugins. It "
+"allows you to iterate the keys of a local uWSGI cache."
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:137
+msgid "It returns a list."
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:140
+msgid "added `%(ftime)` to logformat"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:142
+msgid "this is like 'ltime' but honouring the --log-date format"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:145
+msgid "protect destruction of UNIX sockets when another instance binds them"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:147
+msgid "on startup uWSGI now get the inode of the just created unix socket."
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:149
+msgid "On vacuum if the inode is changed the unlink of the socket is skipped."
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:151
+msgid ""
+"This should help avoiding sysadmin destructive race conditions or "
+"misconfigurations"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:154
+msgid "--worker-exec2"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:156
+msgid "this is like --worker-exec but happens after post_fork hooks"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:159
+msgid "allow post_fork hook on general plugins"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:161
+msgid ""
+"general plugins (the ones without the .request hook) can now expose the "
+".post_fork hook"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:164
+msgid "--call hooks"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:166
+msgid ""
+"In the same spirit of exec-* hooks, call hooks works in the same way but "
+"directly calling functions in the current process address space (they "
+"have to be exposed as valid symbols)"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:169
+msgid "take this c source (call it hello.c):"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:179
+msgid "and compile it as a shared library:"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:185
+msgid "now choose when (and where) to call it in uWSGI:"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:206
+msgid ""
+"options ending with a number are variants expecting arguments (the suffix"
+" is the number of arguments they take)"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:208
+msgid "we want to call our function just before our application is loaded:"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:221
+msgid "your custom function will be called just before app loading."
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:223
+msgid ""
+"Take in account those functions are called in the process address space, "
+"so you can make all sort of (black) magic with them."
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:226
+msgid ""
+"Note: dlopen is a wrapper for the dlopen() function, so all the same "
+"rules apply (read: USE ABSOLUTE PATHS !!!)"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:229
+msgid "init_func support for plugins, and --need-plugin variant"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:231
+msgid ""
+"when loading a plugin you can call a symbol defined in it soon after "
+"dlopen():"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:237
+msgid "uWSGI will call the 'myfunc' symbol exposed by the 'foobar' plugin"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:239
+msgid ""
+"--need-plugin is like --plugin but will exit(1) the process if plugin "
+"loading fails"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:242
+msgid "added commodity loader for the pecan framework"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:244
+msgid "Author: Ryan Petrello"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:246
+msgid "A new python loader (--pecan) has been added for the pecan WSGI framework"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:248
+msgid "http://pecanpy.org/"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:250
+msgid "https://uwsgi-docs.readthedocs.io/en/latest/Python.html#pecan-support"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:253
+msgid "UWSGI_REMOVE_INCLUDES"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:255
+msgid ""
+"during the build phase you can remove include headers with the "
+"UWSGI_REMOVE_INCLUDES environment variable."
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:257
+msgid ""
+"This is useful for cross-compilation where some automatically detected "
+"includes could be wrong"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:260
+msgid "router_expires"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:262
+msgid "We already have various options in the uWSGI core to set Expires header."
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:264
+msgid "This router has been added to allow customizing them:"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:272
+msgid ""
+"the router takes a filename mtime or a unix time, adds 'value' to it, and"
+" return it as an http date."
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:276
+msgid "announce Legion's death on reload/shutdown"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:278
+msgid ""
+"Every legion member will now announce its death as soon as a reload (or a"
+" shutdown) of the instance is triggered"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:281
+msgid "The GlusterFS plugin (beta)"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:283
+msgid ""
+"This new plugin make use ot the new glusterfs c api, avoiding the "
+"overhead of fuse when serving files stored on glusterfs servers."
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:285
+msgid ""
+"The plugin supports the multiprocess and multithreads modes, while async "
+"modes are currently in beta."
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:287
+msgid "Documentation is available: :doc:`GlusterFS`"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:290
+msgid "--force-gateway"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:292
+msgid ""
+"all of the gateways (fastrouter, httprouter, rawrouter, sslrouter ...) "
+"has to be run under the master process."
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:294
+msgid "By specifying --force-gateway, you will bypass this limit"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:297
+msgid "preliminary python3 profiler (beta)"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:299
+msgid ""
+"The --profiler pycall/pyline profilers have been added to python3. They "
+"are beta quality (they leaks memory), but should be usable."
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:302
+msgid "file monitor support for OpenBSD,NetBSD,DragonFlyBSD"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:304
+msgid ""
+"Both --fs-reload and the @fmon decorator now work on this operating "
+"systems."
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:307
+msgid "--cwd"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:309
+msgid ""
+"you can force the startup \"current working directory\" (used by --vacuum"
+" and the reloading subsystem) with this option."
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:311
+msgid ""
+"It is useful in chroot setups where the binary executable change its "
+"place."
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:314
+msgid "--add-gid"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:316
+msgid ""
+"This options allows you to add additional group ids to the current "
+"process. You can specify it multiple times."
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:319
+msgid "Emperor and Linux namespaces improvements"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:321
+msgid ""
+"Thanks to the cooperation with the pythonanywhere.com guys the Emperor "
+"has been improved for better Linux namespaces integration."
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:323
+msgid ""
+"The --emperor-use-clone option allows you to use clone() instead of "
+"fork() for your vassal's spawn. In this way you can create the vassals "
+"directly in a new namespace. The function takes the same parameters of "
+"the --unshare one"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:330
+msgid "will create each vassal in a new pid and uts namespace"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:332
+msgid "while"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:338
+msgid "will basically use all of the currently available namespaces."
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:340
+msgid "Two new exec (and call) hooks are available:"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:342
+msgid ""
+"--exec-as-emperor will run commands in the emperor soon after a vassal "
+"has been spawn (setting 4 env vars, UWSGI_VASSAL_CONFIG, "
+"UWSGI_VASSAL_PID, UWSGI_VASSAL_UID and UWSGI_VASSAL_GID)"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:344
+msgid ""
+"--exec-as-vassal will run commands in the vassal just before calling "
+"exec() (so directly in the new namespaces)"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:348
+msgid "--wait-for-interface"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:350
+msgid ""
+"As dealing with the Linux network namespace introduces lot of race "
+"conditions (especially when working with virtual ethernets), this new "
+"option allows you to pause an instance until a network interface is "
+"available."
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:353
+msgid ""
+"This is useful when waiting for the emperor to move a veth to the vassal "
+"namespace, avoiding the vassal to run commands on the interface before is"
+" available"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:386
+msgid "Availability"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:388
+msgid ""
+"uWSGI 1.9.15 has been released on August 29th 2013. You can download it "
+"from:"
+msgstr ""
+
+#: ../../Changelog-1.9.15.rst:390
+msgid "https://projects.unbit.it/downloads/uwsgi-1.9.15.tar.gz"
+msgstr ""
+

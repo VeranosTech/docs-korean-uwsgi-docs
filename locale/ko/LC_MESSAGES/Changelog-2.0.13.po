@@ -1,0 +1,99 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Changelog-2.0.13.rst:2
+msgid "uWSGI 2.0.13"
+msgstr ""
+
+#: ../../Changelog-2.0.13.rst:4
+msgid "[20160510]"
+msgstr ""
+
+#: ../../Changelog-2.0.13.rst:7
+msgid "Changes"
+msgstr ""
+
+#: ../../Changelog-2.0.13.rst:9
+msgid "Fix compilation with GCC 6"
+msgstr ""
+
+#: ../../Changelog-2.0.13.rst:10
+msgid "Remote rpc fixes (Darvame)"
+msgstr ""
+
+#: ../../Changelog-2.0.13.rst:11
+msgid "Musl support! (Natanael Copa, Matt Dainty, Riccardo Magliocchetti)"
+msgstr ""
+
+#: ../../Changelog-2.0.13.rst:12
+msgid "Create the spooler directory if it does not exist (Alexandre Bonnetain)"
+msgstr ""
+
+#: ../../Changelog-2.0.13.rst:13
+msgid "Fix compilation on big endian linux (Riccardo Magliocchetti)"
+msgstr ""
+
+#: ../../Changelog-2.0.13.rst:14
+msgid "A ton of cache fixes (Darvame)"
+msgstr ""
+
+#: ../../Changelog-2.0.13.rst:15
+msgid "Make it easier to compile plugins on a different directory (Jakub Jirutka)"
+msgstr ""
+
+#: ../../Changelog-2.0.13.rst:16
+msgid "Add wheel package machinery (Matt Robenolt)"
+msgstr ""
+
+#: ../../Changelog-2.0.13.rst:17
+msgid ""
+"Use EPOLLEXCLUSIVE for reading, helps with the thundering herd problem "
+"(on linux 4.5+) (INADA Naoki)"
+msgstr ""
+
+#: ../../Changelog-2.0.13.rst:18
+msgid "Fix apache 2.4 integration with unix sockets (Alexandre Rossi)"
+msgstr ""
+
+#: ../../Changelog-2.0.13.rst:19
+msgid "Add HTTP/2 support to apache 2 proxy (Michael Fladischer, OGAWA Hirofumi)"
+msgstr ""
+
+#: ../../Changelog-2.0.13.rst:20
+msgid "Fix apache mod proxy compilation with apache 2.4.20 (Mathieu Arnold)"
+msgstr ""
+
+#: ../../Changelog-2.0.13.rst:21
+msgid "Default to clang as default compiler on MacOS X (Riccardo Magliocchetti)"
+msgstr ""
+
+#: ../../Changelog-2.0.13.rst:22
+msgid "Added --cgi-close-stdin-on-eof (Roberto De Ioris)"
+msgstr ""
+
+#: ../../Changelog-2.0.13.rst:26
+msgid "Availability"
+msgstr ""
+
+#: ../../Changelog-2.0.13.rst:28
+msgid ""
+"You can download uWSGI 2.0.13 from "
+"https://projects.unbit.it/downloads/uwsgi-2.0.13.tar.gz"
+msgstr ""
+

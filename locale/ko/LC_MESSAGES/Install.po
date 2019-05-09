@@ -1,0 +1,125 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Install.rst:2
+msgid "Installing uWSGI"
+msgstr ""
+
+#: ../../Install.rst:5
+msgid "Installing from a distribution package"
+msgstr ""
+
+#: ../../Install.rst:7
+msgid "uWSGI is available as a package in several OS/distributions."
+msgstr ""
+
+#: ../../Install.rst:10
+msgid "Installing from source"
+msgstr ""
+
+#: ../../Install.rst:12
+msgid ""
+"To build uWSGI you need Python and a C compiler (``gcc`` and ``clang`` "
+"are supported).  Depending on the languages you wish to support you will "
+"need their development headers.  On a Debian/Ubuntu system you can "
+"install them (and the rest of the infrastructure required to build "
+"software) with:"
+msgstr ""
+
+#: ../../Install.rst:21
+msgid "And if you want to build a binary with python/wsgi support (as an example)"
+msgstr ""
+
+#: ../../Install.rst:27
+msgid "On a Fedora/Redhat system you can install them with:"
+msgstr ""
+
+#: ../../Install.rst:34
+msgid "For python/wsgi support:"
+msgstr ""
+
+#: ../../Install.rst:41
+msgid ""
+"If you have a variant of `make` available in your system you can simply "
+"run `make`.  If you do not have `make` (or want to have more control) "
+"simply run:"
+msgstr ""
+
+#: ../../Install.rst:48
+msgid ""
+"You can also use pip to install uWSGI (it will build a binary with python"
+" support)."
+msgstr ""
+
+#: ../../Install.rst:57
+msgid "Or you can use ruby gems (it will build a binary with ruby/rack support)."
+msgstr ""
+
+#: ../../Install.rst:65
+msgid ""
+"At the end of the build, you will get a report of the enabled features. "
+"If something you require is missing, just add the development headers and"
+" rerun the build.  For example to build uWSGI with ssl and perl regexp "
+"support you need libssl-dev and pcre headers."
+msgstr ""
+
+#: ../../Install.rst:71
+msgid "Alternative build profiles"
+msgstr ""
+
+#: ../../Install.rst:73
+msgid ""
+"For historical reasons when you run 'make', uWSGI is built with Python as"
+" the only supported language.  You can build customized uWSGI servers "
+"using build profiles, located in the `buildconf/` directory.  You can use"
+" a specific profile with:"
+msgstr ""
+
+#: ../../Install.rst:82
+msgid "Or you can pass it via an environment variable:"
+msgstr ""
+
+#: ../../Install.rst:92
+msgid "Modular builds"
+msgstr ""
+
+#: ../../Install.rst:94
+msgid ""
+"This is the approach your distribution should follow, and this is the "
+"approach you MUST follow if you want to build a commercial service over "
+"uWSGI (see below).  The vast majority of uWSGI features are available as "
+"plugins. Plugins can be loaded using the --plugin option. If you want to "
+"give users the maximum amount of flexibility allowing them to use only "
+"the minimal amount of resources, just create a modular build.  A build "
+"profile named \"core\" is available."
+msgstr ""
+
+#: ../../Install.rst:106
+msgid ""
+"This will build a uWSGi binary without plugins. This is called the "
+"\"server core\".  Now you can start building all of the plugins you need."
+" Check the plugins/ directory in the source distribution for a full list."
+msgstr ""
+
+#: ../../Install.rst:120
+msgid ""
+"Remember to always pass the build profile ('core' in this case) as the "
+"third argument."
+msgstr ""
+

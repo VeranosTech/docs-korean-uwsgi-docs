@@ -1,0 +1,483 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Changelog-1.9.18.rst:2
+msgid "uWSGI 1.9.18"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:4
+msgid "Changelog [20131011]"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:7
+msgid "License change"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:9
+msgid ""
+"This version of uWSGI is the first of the 1.9 tree using GPL2 + linking "
+"exception instead of plain GPL2."
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:11
+msgid ""
+"This new license should avoid any problems when using uWSGI as a shared "
+"library (or when linking it with non-GPL2 compatible libraries)"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:13
+msgid ""
+"Remember: if you need to make closed-source modifications to uWSGI you "
+"can buy a commercial license."
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:16
+msgid "Bugfixes"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:18
+msgid "fixed uwsgi native protocol support on big endian machines"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:19
+msgid "fixed jvm build system for arm (Jorge Gallegos)"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:20
+msgid "fixed a memleak spotted by cppcheck in zlib management"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:21
+msgid "chdir() at every emperor glob iteration"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:22
+msgid "correctly honour --force-cwd"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:23
+msgid "fixed ia64/Linux compilation (Jonas Smedegaard/Riccardo Magliocchetti)"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:24
+msgid "fixed ruby rvm paths parsing order"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:25
+msgid "added waitpid() after daemon's SIGTERM (Łukasz Mierzwa)"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:26
+msgid "fixed pid numbering after --idle (Łukasz Mierzwa)"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:27
+msgid "fixed/improved cheaper memory limits (Łukasz Mierzwa)"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:28
+msgid "correctly close inherited sockets in gateways"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:29
+msgid "fix checks for MAP_FAILED in mmap() (instead of NULL)"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:30
+msgid "fixed FastCGI non-blocking body read() (patch by Arkaitz Jimenez)"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:31
+msgid "fixed attach.py script"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:32
+msgid "avoid crashing on non-conformant PSGI response headers"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:33
+msgid "run the python autoreloader even in non-apps mode when non-lazy"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:36
+msgid "New Features"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:39
+msgid "Minimal build profiles"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:41
+msgid ""
+"Albeit the memory usage of the uWSGI core is generally between 1.8 and "
+"2.5 megs, there are use cases in which you want an even minimal core and "
+"set of embedded plugins."
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:44
+msgid ""
+"Examples are users not making use of uWSGI specific features, or cases in"
+" which the libraries used by uWSGI nameclash with others (like openssl or"
+" zeromq)."
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:46
+msgid "A bunch of 'minimal' build profiles have been added:"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:48
+msgid "pyonly (build a minimal CPython WSGI server)"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:49
+msgid "pypyonly (build a minimal PyPy WSGI server)"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:50
+msgid "plonly (build a minimal PSGI server)"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:51
+msgid "rbonly (build a minimal Rack server)"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:53
+msgid ""
+"the only supported configuration format is .ini and internal routing and "
+"legion subsystem are not builtin."
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:55
+msgid "For example if you want to install a minimal uWSGI binary via pip:"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:61
+msgid ""
+"IMPORTANT: minimal build profiles do not improve performance, for the way"
+" uWSGI is designed, unused features do not waste CPU. Minimal build "
+"profiles impact on final binary size only"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:64
+msgid "Auto-fix modifier1"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:66
+msgid ""
+"Setting the modifier1 for non-python plugin is pretty annoying (read: you"
+" always forget about it)."
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:68
+msgid ""
+"Now if the modifier1 of the request is zero, but the python plugin is not"
+" loaded (or there are no python apps loaded) the first configured app "
+"will be set instead (unless you disable with feature with --no-default-"
+"app)."
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:71
+msgid "This means you can now run:"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:77
+msgid "instead of"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:83
+msgid "obviously try to always set the modifier1, this is only a handy hack"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:86
+msgid "Perl auto reloader"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:88
+msgid ""
+"The --perl-auto-reload option allows the psgi plugin to check for changed"
+" modules after every request. It takes the frequency (in seconds) of the "
+"scan."
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:90
+msgid ""
+"The scan happens after a request has been served. It is suboptimal, but "
+"it is the safest choice too."
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:93
+msgid "The \"raw\" mode (preview technology, only for CPython)"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:95
+msgid ""
+"While working on a new server-side project in Unbit we had the need to "
+"expose our web application using a very specific protocol (none of the "
+"ones supported by uWSGI)."
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:97
+msgid ""
+"Our first way was adding the new protocol as a plugin, but soon we "
+"realize that is was too-specific. So we decided to introduce the RAW "
+"mode."
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:99
+msgid ""
+"Raw mode allows you to directly parse the request in your application "
+"callable. Instead of getting a list of CGI vars/headers in your callable "
+"you only get the file descriptor soon after accept()."
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:102
+msgid "You can then read()/write() to that file descriptor in full freedom."
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:114
+msgid ""
+"Raw mode disables request logging. We currently support it only for "
+"CPython, if we get reports (or interest) about it for the other languages"
+" we will add support for sure."
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:117
+msgid ""
+"IMPORTANT: raw mode is not a standard, so do not expect any middleware or"
+" common usage patterns will apply. Use it as a low-level socket wrapper."
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:122
+msgid ""
+"Optional NON-standard support for CPython buffer protocol for WSGI "
+"responses"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:124
+msgid "Authors: yihuang with help of INADA Naoki (methane)"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:126
+msgid ""
+"The WSGI (PEP333/3333) is pretty clear about the type of valid objects "
+"for responses: str for python2, bytes for python3"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:128
+msgid ""
+"uWSGI (heavily using mod_wsgi as a reference) always enforce such "
+"behaviour, so \"exotic\" patterns like returning bytearray where not "
+"supported. Such uses are somewhat involuntary supported on pure-python "
+"application servers, just because they simply call write() over them or "
+"because they cast them to string before returning (very inefficient)"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:132
+msgid ""
+"The patch proposed by yihuang suggests the use of the low-level buffer "
+"protocol exposed by the CPython C api. Strings (in python2) and bytes (in"
+" python3) support the buffer protocol, so its use is transparent and "
+"backward compatibility is granted too. (for the CPython C api experts: "
+"yes we support both old and new buffer protocol)"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:135
+msgid ""
+"This is a NON-standard behaviour you have to voluntary enable with "
+"--wsgi-accept-buffer."
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:137
+msgid "Use with care as it could mask errors and/or wrong behaviours."
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:139
+msgid ""
+"Note: if you tried 1.9.18-dev you may note this option was enabled by "
+"default. It was an error. Thanks to Graham Dumpleton (mod_wsgi author) "
+"for pointing it out."
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:142
+msgid "Emperor and config improvements"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:144
+msgid "Credits: Matthijs Kooijman"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:146
+msgid ""
+"The config system has been improved to be even more consistent in respect"
+" to strict mode (remainder: with --strict you basically check your config"
+" files for unknown options avoiding headaches caused by typos)."
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:149
+msgid ""
+"New magic vars have been added exposing the name of the original config "
+"file (this simplify templating when in Emperor mode), check them at "
+"https://github.com/unbit/uwsgi-docs/blob/master/Configuration.rst#magic-"
+"variables"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:151
+msgid ""
+"The Emperor got support for Linux capabilities using the --emperor-cap "
+"option. The option takes the list of capability you want to maintain for "
+"your vassals when they start as root:"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:160
+msgid ""
+"with this setup your vassal will be only able to drop privileges and bind"
+" to ports < 1024"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:162
+msgid ""
+"Its best friend is the CLONE_NEWUSER flag of linux namespaces that is now"
+" fully supported on uWSGI:"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:171
+msgid ""
+"this will create a new root user for the vassal with fewer privileges "
+"(CLONE_NEWUSER is pretty hard to understand, but the best thing to catch "
+"it is seeing it as a new root user with dedicated capabilities)"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:175
+msgid "Build system improvements"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:177
+msgid ""
+"The build system has been improved to link custom sources on the fly. "
+"This works great for low-level hooks:"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:188
+msgid "Now we can link this file to the main uWSGI binary in one shot:"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:195
+msgid "and you will automatically get access for your hooks:"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:201
+msgid ""
+"Finally, Riccardo Magliocchetti rewrote the build script to use optparse "
+"instead of raw/old-fashioned sys.argv parsing"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:205
+msgid "Pluginized the 'schemes' management"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:207
+msgid "schemes are the prefix part of uWSGI uri's. When you do"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:213
+msgid ""
+"the http:// is the scheme, signalling uWSGI it has to download the config"
+" file via http."
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:215
+msgid ""
+"Til now those 'schemes' were hardcoded. Now they are exposed as plugins, "
+"so you can add more of them (or override the default one)."
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:217
+msgid ""
+"The new system has been applied to the PSGI plugin too (sorry we are sure"
+" only perl developers will understand that kind of poetry :P) so you can "
+"do things like:"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:223
+msgid "or"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:232
+msgid "mountpoints checks"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:234
+msgid ""
+"It could be hard to understand why an application server should check for"
+" mountpoints."
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:236
+msgid ""
+"In the same way understanding how writing filesystem in userspace was "
+"silly few years ago."
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:238
+msgid ""
+"So, check the article about managing Fuse filesystem with uWSGI: https"
+"://uwsgi-docs.readthedocs.io/en/latest/tutorials/ReliableFuse.html"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:241
+msgid "Preliminary libffi plugin"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:243
+msgid ""
+"As embedding c libraries for exposing hooks is becoming more common, we "
+"have started working on libffi integration, allowing safe (and sane) "
+"argument passing to hooks. More to came soon."
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:247
+msgid "Official support for kFreeBSD"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:249
+msgid "Debian/kFreeBSD is officially supported."
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:251
+msgid "You can even use FreeBSD jails too !!!"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:253
+msgid ":doc:`FreeBSDJails`"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:256
+msgid "Availability"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:258
+msgid ""
+"uWSGI 1.9.18 has been released on October 11th 2013 and can be downloaded"
+" from:"
+msgstr ""
+
+#: ../../Changelog-1.9.18.rst:260
+msgid "https://projects.unbit.it/downloads/uwsgi-1.9.18.tar.gz"
+msgstr ""
+

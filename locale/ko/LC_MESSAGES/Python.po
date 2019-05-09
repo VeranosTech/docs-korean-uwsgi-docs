@@ -1,0 +1,211 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Python.rst:2
+msgid "Python support"
+msgstr ""
+
+#: ../../Python.rst:13
+msgid ":ref:`Python configuration options <OptionsPython>`"
+msgstr ""
+
+#: ../../Python.rst:18
+msgid "Application dictionary"
+msgstr ""
+
+#: ../../Python.rst:20
+msgid ""
+"You can use the application dictionary mechanism to avoid setting up your"
+" application in your configuration."
+msgstr ""
+
+#: ../../Python.rst:40
+msgid ""
+"Passing this Python module name (that is, it should be importable and "
+"without the ``.py`` extension) to uWSGI's ``module`` / ``wsgi`` option, "
+"uWSGI will search the ``uwsgi.applications`` dictionary for the URL "
+"prefix/callable mappings."
+msgstr ""
+
+#: ../../Python.rst:42
+msgid "The value of every item can be a callable, or its name as a string."
+msgstr ""
+
+#: ../../Python.rst:49
+msgid "Virtualenv support"
+msgstr ""
+
+#: ../../Python.rst:51
+msgid ""
+"`virtualenv <virtualenvwww_>`_ is a mechanism that lets you isolate one "
+"(or more) Python applications' libraries (and interpreters, when not "
+"using uWSGI) from each other. Virtualenvs should be used by any "
+"respectable modern Python application."
+msgstr ""
+
+#: ../../Python.rst:57
+msgid "Quickstart"
+msgstr ""
+
+#: ../../Python.rst:59
+msgid "Create your virtualenv::"
+msgstr ""
+
+#: ../../Python.rst:66
+msgid ""
+"Install all the modules you need (using `Flask "
+"<http://flask.pocoo.org/>`_ as an example)::"
+msgstr ""
+
+#: ../../Python.rst:72
+msgid ""
+"Copy your WSGI module into this new environment (under "
+":file:`lib/python2.{x}` if you do not want to modify your "
+"``PYTHONPATH``)."
+msgstr ""
+
+#: ../../Python.rst:74
+msgid ""
+"It's common for many deployments that your application will live outside "
+"the virtualenv. How to configure this is not quite documented yet, but "
+"it's probably very easy."
+msgstr ""
+
+#: ../../Python.rst:77
+msgid ""
+"Run the uwsgi server using the ``home``/``virtualenv`` option (``-H`` for"
+" short)::"
+msgstr ""
+
+#: ../../Python.rst:85
+msgid "Python 3"
+msgstr ""
+
+#: ../../Python.rst:87
+msgid "The WSGI specification was updated for Python 3 as PEP3333_."
+msgstr ""
+
+#: ../../Python.rst:89
+msgid ""
+"One major change is that applications are required to respond only with "
+"``bytes`` instances, not (Unicode) strings, back to the WSGI stack."
+msgstr ""
+
+#: ../../Python.rst:93
+msgid "You should encode strings or use bytes literals:"
+msgstr ""
+
+#: ../../Python.rst:105
+msgid "Paste support"
+msgstr ""
+
+#: ../../Python.rst:107
+msgid ""
+"If you are a user or developer of Paste-compatible frameworks, such as "
+"Pyramid_, Pylons_ and Turbogears_ or applications using them, you can use"
+" the uWSGI ``--paste`` option to conveniently deploy your application."
+msgstr ""
+
+#: ../../Python.rst:113
+msgid ""
+"For example, if you have a virtualenv in :file:`/opt/tg2env` containing a"
+" Turbogears app called ``addressbook`` configured in "
+":file:`/opt/tg2env/addressbook/development.ini`::"
+msgstr ""
+
+#: ../../Python.rst:117
+msgid "That's it! No additional configuration or Python modules to write."
+msgstr ""
+
+#: ../../Python.rst:121 ../../Python.rst:143
+msgid ""
+"If you setup multiple process/workers (:term:`master` mode) you will "
+"receive an error::"
+msgstr ""
+
+#: ../../Python.rst:125
+msgid ""
+"in which case you'll have to set the ``debug`` option in your paste "
+"configuration file to False -- or revert to single process environment."
+msgstr ""
+
+#: ../../Python.rst:131
+msgid "Pecan support"
+msgstr ""
+
+#: ../../Python.rst:133
+msgid ""
+"If you are a user or developer of the Pecan_ WSGI framework, you can use "
+"the uWSGI ``--pecan`` option to conveniently deploy your application."
+msgstr ""
+
+#: ../../Python.rst:137
+msgid ""
+"For example, if you have a virtualenv in :file:`/opt/pecanenv` containing"
+" a Pecan app called ``addressbook`` configured in "
+":file:`/opt/pecanenv/addressbook/development.py`::"
+msgstr ""
+
+#: ../../Python.rst:147
+msgid ""
+"in which case you'll have to set the ``debug`` option in your pecan "
+"configuration file to False -- or revert to single process environment."
+msgstr ""
+
+#: ../../Python.rst:150
+msgid "Using the django-uwsgi Django app"
+msgstr ""
+
+#: ../../Python.rst:152
+msgid ""
+"First of all you need to get the ``django_uwsgi`` app from "
+"https://github.com/unbit/django-uwsgi (once it was in the ``django`` "
+"directory of the distribution)."
+msgstr ""
+
+#: ../../Python.rst:154
+msgid ""
+"Install it with ``pip install django-uwsgi`` and add it into your "
+"``INSTALLED_APPS``."
+msgstr ""
+
+#: ../../Python.rst:165
+msgid "Then modify your ``urls.py`` accordingly. For example:"
+msgstr ""
+
+#: ../../Python.rst:174
+msgid ""
+"Be sure to place the URL pattern for django_uwsgi *before* the one for "
+"the admin site, or it will never match."
+msgstr ""
+
+#: ../../Python.rst:176
+msgid ""
+"``/admin/uwsgi/`` will then serve uWSGI statistics and has a button for "
+"graceful reloading of the server (when running under a Master). Note that"
+" memory usage is reported only when the ``memory-report`` option is "
+"enabled."
+msgstr ""
+
+#: ../../Python.rst:178
+msgid ""
+"`Read the documentation for django-uwsgi at rtfd.org <http://django-"
+"uwsgi.rtfd.org/>`_"
+msgstr ""
+

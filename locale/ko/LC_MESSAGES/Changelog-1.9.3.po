@@ -1,0 +1,236 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Changelog-1.9.3.rst:2
+msgid "uWSGI 1.9.3"
+msgstr ""
+
+#: ../../Changelog-1.9.3.rst:4
+msgid "Changelog 20130328"
+msgstr ""
+
+#: ../../Changelog-1.9.3.rst:8
+msgid "Bugfixes"
+msgstr ""
+
+#: ../../Changelog-1.9.3.rst:10
+msgid ""
+"fixed imports in the JVM build system when virtualenvs are used (Ryan "
+"Kaskel)"
+msgstr ""
+
+#: ../../Changelog-1.9.3.rst:12
+msgid "fixed mod_proxy_uwsgi with apache 2.4"
+msgstr ""
+
+#: ../../Changelog-1.9.3.rst:14
+msgid ""
+"fixed php headers generation when Status is created from the php app "
+"itself"
+msgstr ""
+
+#: ../../Changelog-1.9.3.rst:18
+msgid "New features"
+msgstr ""
+
+#: ../../Changelog-1.9.3.rst:21
+msgid "Pluggable configuration system (with Lua support)"
+msgstr ""
+
+#: ../../Changelog-1.9.3.rst:23
+msgid ""
+"From this version you will be able to implement configurators (like the "
+"already available xml, ini, yaml, json, ldap, sqlite...) as plugins."
+msgstr ""
+
+#: ../../Changelog-1.9.3.rst:26
+msgid ""
+"The first available configurator is the Lua one (offered by the lua "
+"plugin)."
+msgstr ""
+
+#: ../../Changelog-1.9.3.rst:28
+msgid "This is an example configuration written in lua:"
+msgstr ""
+
+#: ../../Changelog-1.9.3.rst:42
+msgid "you can load it with:"
+msgstr ""
+
+#: ../../Changelog-1.9.3.rst:48
+msgid ""
+"The --config option is the way to load pluggable configurators. You can "
+"even override the already available embedded configurators with your own "
+"version."
+msgstr ""
+
+#: ../../Changelog-1.9.3.rst:51
+msgid "The Emperor has already been extended to support pluggable configurators:"
+msgstr ""
+
+#: ../../Changelog-1.9.3.rst:60
+msgid ""
+"adding emperor-extra-extension will allows the emperor to search for the "
+"specified extension passing the config file to the vassal with the "
+"--config option."
+msgstr ""
+
+#: ../../Changelog-1.9.3.rst:63
+msgid "Immediate setuid and setgid"
+msgstr ""
+
+#: ../../Changelog-1.9.3.rst:65
+msgid ""
+"In a recent uWSGI maling-list thread, the need to not rely on file system"
+" permissions for the tyrant mode emerged."
+msgstr ""
+
+#: ../../Changelog-1.9.3.rst:67
+msgid ""
+"Albeit it is the most secure approach, two new options --immediate-uid "
+"and --immediate-gid have been added."
+msgstr ""
+
+#: ../../Changelog-1.9.3.rst:69
+msgid ""
+"Setting them on top of your vassal file will force the instance to "
+"setuid()/setgid() as soon as possible and without the (theoretical) "
+"possibility to override them."
+msgstr ""
+
+#: ../../Changelog-1.9.3.rst:71
+msgid ""
+"The word \"theoretical\" here is the key, you always need to remember "
+"that a security bug in uWSGI could allow a malicious user to change "
+"privileges, so if you really care security (or do not trust uWSGI "
+"developers ;) always drop privileges before the vassal/instance is "
+"spawned (like in standard tyrant mode)"
+msgstr ""
+
+#: ../../Changelog-1.9.3.rst:75
+msgid "Honouring symlinks in tyrant mode"
+msgstr ""
+
+#: ../../Changelog-1.9.3.rst:77
+msgid ""
+"The option --emperor-tyrant-nofollow has been added forcing the emperor "
+"to now follow symlinks when searching for uid/gid in tyrant mode."
+msgstr ""
+
+#: ../../Changelog-1.9.3.rst:79
+msgid ""
+"This option allows the sysadmin to simply symlink configurations and just"
+" change the uid/gid of the symlink it self (remember to pass the -h "
+"option to chown !!!)"
+msgstr ""
+
+#: ../../Changelog-1.9.3.rst:83
+msgid "The \"rpcret\" routing action (or usa Lua to write advanced rules)"
+msgstr ""
+
+#: ../../Changelog-1.9.3.rst:85
+msgid "The :doc:`InternalRouting` continue to be improved."
+msgstr ""
+
+#: ../../Changelog-1.9.3.rst:87
+msgid ""
+"You can already call rpc function for the routing system (to generate "
+"response bypassing WSGI/PSGI/Rack/... engines):"
+msgstr ""
+
+#: ../../Changelog-1.9.3.rst:95
+msgid ""
+"the hello_world rpc function is defined (and registered) in the "
+"myrpcfunctions.lua taking two arguments."
+msgstr ""
+
+#: ../../Changelog-1.9.3.rst:97
+msgid ""
+"The function is called when the routing regexp matches, and its output "
+"sent to the client."
+msgstr ""
+
+#: ../../Changelog-1.9.3.rst:99
+msgid ""
+"The \"rpcret\" works in similar way, but instead generating a response, "
+"you generate a routing return code:"
+msgstr ""
+
+#: ../../Changelog-1.9.3.rst:114
+msgid "and the uWSGI config:"
+msgstr ""
+
+#: ../../Changelog-1.9.3.rst:125
+msgid ""
+"The 'choose' rpc function will be invoked at every request passing "
+"REQUEST_URI and REMOTE_ADDR as its argument."
+msgstr ""
+
+#: ../../Changelog-1.9.3.rst:127
+msgid ""
+"The return string of the function will be used to know what to do next "
+"(from the internal ruting point of view)."
+msgstr ""
+
+#: ../../Changelog-1.9.3.rst:129
+msgid "Currently supported return strings are:"
+msgstr ""
+
+#: ../../Changelog-1.9.3.rst:131
+msgid "``next`` move to the next rule"
+msgstr ""
+
+#: ../../Changelog-1.9.3.rst:133
+msgid "``continue`` pass the request to the request handler"
+msgstr ""
+
+#: ../../Changelog-1.9.3.rst:135
+msgid "``goon`` move to the next rule with a different action"
+msgstr ""
+
+#: ../../Changelog-1.9.3.rst:137
+msgid "``break`` close the connection with an optional status code"
+msgstr ""
+
+#: ../../Changelog-1.9.3.rst:139
+msgid "``goto <label>`` goto to the specified label"
+msgstr ""
+
+#: ../../Changelog-1.9.3.rst:142
+msgid ""
+"Obviously rpc functions for rpcret can be written in any "
+"language/platform supported by uWSGI, but we strongly suggest to go with "
+"Lua for performance reasons (the inpact compared to pure C code is pretty"
+" irrelevant). If you are lucky and can use LuaJit you will experiment "
+"even better performance as for this kind of job a JIT compiler is the "
+"best approach."
+msgstr ""
+
+#: ../../Changelog-1.9.3.rst:148
+msgid "Availability"
+msgstr ""
+
+#: ../../Changelog-1.9.3.rst:150
+msgid "uWSGI 1.9.3 has been released on 20130328 and can be downloaded from:"
+msgstr ""
+
+#: ../../Changelog-1.9.3.rst:152
+msgid "https://projects.unbit.it/downloads/uwsgi-1.9.3.tar.gz"
+msgstr ""
+

@@ -1,0 +1,297 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Changelog-1.9.1.rst:2
+msgid "uWSGI 1.9.1"
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:4
+msgid "First minor release for the 1.9 tree."
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:7
+msgid "Bugfixes"
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:9
+msgid "Fixed --req-logger after a graceful reload"
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:11
+msgid "Fixed a crash with the carbon plugin"
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:13
+msgid "Fixed signal handling when multiple workers + copy on write is in place"
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:15
+msgid "Fixed exception handling in the Rack plugin"
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:18
+msgid "The XSLT plugin"
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:20
+msgid ""
+"The :doc:`XSLT<XSLT>` plugin has been added. It allows to apply XML "
+"transformation via request plugin or :doc:`InternalRouting`"
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:23
+msgid "Legion scrolls api"
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:25
+msgid ""
+"Scrolls are text blob attached to each member of a :doc:`Legion<Legion>` "
+"cluster. We are slowly defining an api allowing developers to directly "
+"use the legion subsystem in their apps and configurations. The addition "
+"in 1.9.1 is the uwsgi.scrolls(legion) function returning a list/array of "
+"the current scrolls defined by the whole cluster. This is still not "
+"something fully usable (and useful) more to come soon..."
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:30
+msgid "On demand vassals"
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:32
+msgid ""
+"Another step in better resource usage for massive hosting. You can now "
+"tell the :doc:`Emperor<Emperor>` to start vassals only after the first "
+"request to a specific socket. Combined with --idle/--die-on-idle options,"
+" you can have truly on-demand applications."
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:35
+msgid "To define the socket to wait for for each vassal you have 3 options:"
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:38
+msgid "--emperor-on-demand-extension <ext>"
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:40
+msgid ""
+"this will instruct the Emperor to check for a file named <vassal>+<ext>, "
+"if the file is available it will be read and its content used as the "
+"socket to wait for:"
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:46
+msgid ""
+"supposing a myapp.ini file in /etc/uwsgi/vassals, a "
+"/etc/uwsgi/vassals/myapp.ini.socket will be searched for (and its content"
+" used as the socket name)"
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:48
+msgid ""
+"At the first connection, the vassal is spawned and the socket passed as "
+"the file descriptor 0. File descriptor 0 is always checked by uWSGI so "
+"you do not need to specify a --socket option in the vassal file. This "
+"works automagically for uwsgi sockets, if you use other protocols (like "
+"http or fastcgi) you have to specify it with the --protocol option"
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:53
+msgid "--emperor-on-demand-directory <dir>"
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:55
+msgid ""
+"This is a less-versatile approach supporting only UNIX sockets. Basically"
+" the name (without extension and path) of the vassal is appended to the "
+"specified directory + the .socket extension and used as the on-demand "
+"socket:"
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:62
+msgid ""
+"using the previous example, the socket /var/tmp/myapp.socket will be "
+"automatically bound"
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:65
+msgid "--emperor-on-demand-exec <cmd>"
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:67
+msgid ""
+"This is what (very probably) you will use in very big deployments. Every "
+"time a new vassal is added the supplied command is run passing the vassal"
+" name as the first argument. The STDOUT of the command is used as the "
+"socket name."
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:71
+msgid "The --exec-post-app hook"
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:73
+msgid ""
+"In addition to the other --exec-* options (used to run commands at the "
+"various server stages), a new one has been added allowing you to run "
+"commands after the load of an application."
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:77
+msgid "The pyring build profile"
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:79
+msgid ""
+"This is a very specific build profile allowing you to automatically build"
+" a uWSGI stack with monolithic python support and modular jvm + ring "
+"honouring virtualenvs."
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:82
+msgid "The cache router plugin"
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:84
+msgid ""
+"This has been improved, and in next releases we should be able to "
+"directly store response in the uWSGI cache only using the internal "
+"routing subsystem"
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:86
+msgid "Docs will be available soon"
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:89
+msgid "The crypto logger"
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:91
+msgid ""
+"If you host your applications on cloud services without persistent "
+"storage you may want to send your logs to external systems. Sadly logs "
+"often contain sensible informations you should not transfer in clear. The"
+" new crypto logger try to solve this issue allowing you to encrypt each "
+"log packet and send it over udp to a server able to decrypt it."
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:95
+msgid "The following example"
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:101
+msgid ""
+"will send each log packet to the udp server available at "
+"192.168.173.22:1717 encrypting the text with 'ciaociao' secret key using "
+"the blowfish cbc algorithm."
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:104
+msgid "An example server is available here:"
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:106
+msgid "https://github.com/unbit/uwsgi/blob/master/contrib/cryptologger.rb"
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:110
+msgid "The rpc internal routing instruction"
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:112
+msgid ""
+"The \"rpc\" routing instruction has been added, allowing you to call rpc "
+"functions directly from the routing subsystem and forward they output to "
+"the client."
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:115
+msgid "Check the following examples:"
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:128
+msgid "Preliminary support for name resolving in the carbon plugin"
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:130
+msgid ""
+"You can specify carbon servers using hostnames. The current code is "
+"pretty simple. Future updates will support round robin queries."
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:133
+msgid "New routing conditions"
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:135
+msgid ""
+"New routing conditions have been added (equal,startswith,endswith,regexp)"
+" check the updated docs:"
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:137
+msgid ""
+"https://uwsgi-docs.readthedocs.io/en/latest/InternalRouting.html#the-"
+"internal-routing-table"
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:140
+msgid "The 'V' magic var"
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:142
+msgid ""
+"You can reference the uWSGI version string using the %V magic var in your"
+" configurations"
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:145
+msgid "The 'mongodb' generic plugin"
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:147
+msgid ""
+"This is a commodity plugin for packagers not able to access a shared "
+"libmongoclient. This basically link it in a new shared object that can be"
+" used by the others mongodb plugin"
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:151
+msgid "Build profiles over network"
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:153
+msgid ""
+"You can now reference build profiles using urls (http, https and ftp are "
+"supported):"
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:161
+msgid "Get it"
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:163
+msgid "uWSGI 1.9.1 will be available since 20130324 at this url:"
+msgstr ""
+
+#: ../../Changelog-1.9.1.rst:165
+msgid "https://projects.unbit.it/downloads/uwsgi-1.9.1.tar.gz"
+msgstr ""
+

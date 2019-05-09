@@ -1,0 +1,336 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../ImperialMonitors.rst:2
+msgid "Imperial monitors"
+msgstr ""
+
+#: ../../ImperialMonitors.rst:6
+msgid "``dir://`` -- scan a directory for uWSGI config files"
+msgstr ""
+
+#: ../../ImperialMonitors.rst:8
+msgid ""
+"Simply put all of your config files in a directory, then point the uWSGI "
+"emperor to it. The Emperor will start scanning this directory. When it "
+"finds a valid config file it will spawn a new uWSGI instance."
+msgstr ""
+
+#: ../../ImperialMonitors.rst:12
+msgid ""
+"For our example, we're deploying a Werkzeug_ test app, a Trac_ instance, "
+"a Ruby on Rails app and a Django_ app."
+msgstr ""
+
+#: ../../ImperialMonitors.rst:15
+msgid "werkzeug.xml"
+msgstr ""
+
+#: ../../ImperialMonitors.rst:26
+msgid "trac.ini"
+msgstr ""
+
+#: ../../ImperialMonitors.rst:37
+msgid "rails.yml"
+msgstr ""
+
+#: ../../ImperialMonitors.rst:50
+msgid "django.ini"
+msgstr ""
+
+#: ../../ImperialMonitors.rst:62
+msgid ""
+"Put these 4 files in a directory, for instance :file:`/etc/uwsgi/vassals`"
+" in our example, then spawn the Emperor:"
+msgstr ""
+
+#: ../../ImperialMonitors.rst:68
+msgid ""
+"The emperor will find the uWSGI instance configuration files in that "
+"directory (the ``dir://`` plugin declaration is implicit) and start the "
+"daemons needed to run them."
+msgstr ""
+
+#: ../../ImperialMonitors.rst:77
+msgid "``glob://`` -- monitor a shell pattern"
+msgstr ""
+
+#: ../../ImperialMonitors.rst:79
+msgid ""
+"``glob://`` is similar to ``dir://``, but a glob expression must be "
+"specified:"
+msgstr ""
+
+#: ../../ImperialMonitors.rst:86
+msgid ""
+"Remember to quote the pattern, otherwise your shell will most likely "
+"interpret it and expand it at invocation time, which is not what you "
+"want."
+msgstr ""
+
+#: ../../ImperialMonitors.rst:89
+msgid ""
+"As the Emperor can search for configuration files in subdirectory "
+"hierarchies, you could have a structure like this:"
+msgstr ""
+
+#: ../../ImperialMonitors.rst:99
+msgid "and run uWSGI with:"
+msgstr ""
+
+#: ../../ImperialMonitors.rst:107
+msgid "``pg://`` -- scan a PostgreSQL table for configuration"
+msgstr ""
+
+#: ../../ImperialMonitors.rst:109
+msgid ""
+"You can specify a query to run against a PostgreSQL database. Its result "
+"must be a list of 3 to 6 fields defining a vassal:"
+msgstr ""
+
+#: ../../ImperialMonitors.rst:112
+msgid ""
+"The instance name, including a valid uWSGI config file extension. (Such "
+"as ``django-001.ini``)"
+msgstr ""
+
+#: ../../ImperialMonitors.rst:114
+msgid ""
+"A ``TEXT`` blob containing the vassal configuration, in the format based "
+"on the extension in field 1"
+msgstr ""
+
+#: ../../ImperialMonitors.rst:116
+msgid ""
+"A number representing the modification time of this row in UNIX format "
+"(seconds since the epoch)."
+msgstr ""
+
+#: ../../ImperialMonitors.rst:118
+msgid "The UID of the vassal instance. Required in :ref:`Tyrant` mode only."
+msgstr ""
+
+#: ../../ImperialMonitors.rst:119
+msgid "The GID of the vassal instance. Required in :ref:`Tyrant` mode only."
+msgstr ""
+
+#: ../../ImperialMonitors.rst:120
+msgid ""
+"Socket for on demand vassal activation. If specified, vassal will be run "
+"in on demand mode. If omitted or empty, vassal will be run normally. Go "
+"to :doc:`OnDemandVassals` for more information."
+msgstr ""
+
+#: ../../ImperialMonitors.rst:128
+msgid ""
+"Whenever a new tuple is added a new instance is created and spawned with "
+"the config specified in the second field."
+msgstr ""
+
+#: ../../ImperialMonitors.rst:130
+msgid "Whenever the modification time field changes, the instance is reloaded."
+msgstr ""
+
+#: ../../ImperialMonitors.rst:131
+msgid "If a tuple is removed, the corresponding vassal will be destroyed."
+msgstr ""
+
+#: ../../ImperialMonitors.rst:135
+msgid "``mongodb://`` -- Scan MongoDB collections for configuration"
+msgstr ""
+
+#: ../../ImperialMonitors.rst:141
+msgid ""
+"This will scan all of the documents in the ``emperor.vassals`` collection"
+" having the field ``enabled`` set to 1.  An Emperor-compliant document "
+"must define three fields: ``name``, ``config`` and ``ts``. In "
+":ref:`Tyrant` mode, 2 more fields are required. There is also optional "
+"``socket`` field for on demand vassal mode."
+msgstr ""
+
+#: ../../ImperialMonitors.rst:147
+msgid ""
+"``name`` (string) is the name of the vassal (remember to give it a valid "
+"extension, like .ini)"
+msgstr ""
+
+#: ../../ImperialMonitors.rst:148
+msgid ""
+"``config`` (multiline string) is the vassal config in the format "
+"described by the ``name``'s extension."
+msgstr ""
+
+#: ../../ImperialMonitors.rst:149
+msgid ""
+"``ts`` (date) is the timestamp of the config (Note: MongoDB internally "
+"stores the timestamp in milliseconds.)"
+msgstr ""
+
+#: ../../ImperialMonitors.rst:150
+msgid ""
+"``uid`` (number) is the UID to run the vassal as. Required in "
+":ref:`Tyrant` mode only."
+msgstr ""
+
+#: ../../ImperialMonitors.rst:151
+msgid ""
+"``gid`` (number) is the GID to run the vassal as. Required in "
+":ref:`Tyrant` mode only."
+msgstr ""
+
+#: ../../ImperialMonitors.rst:152
+msgid ""
+"``socket`` (string) Socket for on demand vassal activation. If specified,"
+" vassal will be run in on demand mode. If omitted or empty, vassal will "
+"be run normally. Go to :doc:`OnDemandVassals` for more information."
+msgstr ""
+
+#: ../../ImperialMonitors.rst:157
+msgid "``amqp://`` -- Use an AMQP compliant message queue to announce events"
+msgstr ""
+
+#: ../../ImperialMonitors.rst:159
+msgid ""
+"Set your AMQP (RabbitMQ, for instance) server address as the --emperor "
+"argument:"
+msgstr ""
+
+#: ../../ImperialMonitors.rst:165
+msgid ""
+"Now the Emperor will wait for messages in the ``uwsgi.emperor`` exchange."
+" This should be a `fanout` type exchange, but you can use other systems "
+"for your specific needs.  Messages are simple strings containing the "
+"absolute path of a valid uWSGI config file."
+msgstr ""
+
+#: ../../ImperialMonitors.rst:183
+msgid ""
+"The first time you launch the script, the emperor will add the new "
+"instance (if the config file is available).  From now on every time you "
+"re-publish the message the app will be reloaded. When you remove the "
+"config file the app is removed too."
+msgstr ""
+
+#: ../../ImperialMonitors.rst:190
+msgid ""
+"You can subscribe all of your emperors in the various servers to this "
+"exchange to allow cluster-synchronized reloading/deploy."
+msgstr ""
+
+#: ../../ImperialMonitors.rst:194
+msgid "AMQP with HTTP"
+msgstr ""
+
+#: ../../ImperialMonitors.rst:196
+msgid ""
+"uWSGI :ref:`is capable of loading configuration files over "
+"HTTP<LoadingConfig>`. This is a very handy way to dynamically generate "
+"configuration files for massive hosting.  Simply declare the HTTP URL of "
+"the config file in the AMQP message. Remember that it must end with one "
+"of the valid config extensions, but under the hood it can be generated by"
+" a script. If the HTTP URL returns a non-200 status code, the instance "
+"will be removed."
+msgstr ""
+
+#: ../../ImperialMonitors.rst:208
+msgid "Direct AMQP configuration"
+msgstr ""
+
+#: ../../ImperialMonitors.rst:210
+msgid ""
+"Configuration files may also be served directly over AMQP. The "
+"``routing_key`` will be the (virtual) config filename, and the message "
+"will be the content of the config file."
+msgstr ""
+
+#: ../../ImperialMonitors.rst:226
+msgid ""
+"The same reloading rules of previous modes are valid. When you want to "
+"remove an instance simply set an empty body as the \"configuration\"."
+msgstr ""
+
+#: ../../ImperialMonitors.rst:234
+msgid "``zmq://`` -- ZeroMQ"
+msgstr ""
+
+#: ../../ImperialMonitors.rst:236
+msgid ""
+"The Emperor binds itself to a ZeroMQ PULL socket, ready to receive "
+"commands."
+msgstr ""
+
+#: ../../ImperialMonitors.rst:242
+msgid ""
+"Each command is a multipart message sent over a PUSH zmq socket.  A "
+"command is composed by at least 2 parts: ``command`` and ``name``. "
+"``command`` is the action to execute, while ``name`` is the name of the "
+"vassal. 4 optional parts can be specified."
+msgstr ""
+
+#: ../../ImperialMonitors.rst:247
+msgid "``config`` (a string containing the vassal config)"
+msgstr ""
+
+#: ../../ImperialMonitors.rst:248
+msgid "``uid`` (the user id to drop priviliges to in case of tyrant mode)"
+msgstr ""
+
+#: ../../ImperialMonitors.rst:249
+msgid "``gid`` (the group id to drop priviliges to in case of tyrant mode)"
+msgstr ""
+
+#: ../../ImperialMonitors.rst:250
+msgid ""
+"``socket`` (socket for on demand vassal activation. If specified, vassal "
+"will be run in on demand mode. If omitted or empty, vassal will be run "
+"normally. Go to :doc:`OnDemandVassals` for more information)"
+msgstr ""
+
+#: ../../ImperialMonitors.rst:254
+msgid "There are 2 kind of commands (for now):"
+msgstr ""
+
+#: ../../ImperialMonitors.rst:256
+msgid "``touch``"
+msgstr ""
+
+#: ../../ImperialMonitors.rst:257
+msgid "``destroy``"
+msgstr ""
+
+#: ../../ImperialMonitors.rst:259
+msgid ""
+"The first one is used for creating and reloading instances while the "
+"second is for destroying.  If you do not specify a config string, the "
+"Emperor will assume you are referring to a static file available in the "
+"Emperor current directory."
+msgstr ""
+
+#: ../../ImperialMonitors.rst:273
+msgid "``zoo://`` -- Zookeeper"
+msgstr ""
+
+#: ../../ImperialMonitors.rst:275 ../../ImperialMonitors.rst:280
+msgid "Currently in development."
+msgstr ""
+
+#: ../../ImperialMonitors.rst:278
+msgid "``ldap://`` -- LDAP"
+msgstr ""
+

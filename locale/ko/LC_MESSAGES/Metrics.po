@@ -1,0 +1,835 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Metrics.rst:2
+msgid "The Metrics subsystem"
+msgstr ""
+
+#: ../../Metrics.rst:4
+msgid "Available from 1.9.19."
+msgstr ""
+
+#: ../../Metrics.rst:6
+msgid ""
+"The uWSGI metrics subsystem allows you to manage \"numbers\" from your "
+"app."
+msgstr ""
+
+#: ../../Metrics.rst:8
+msgid ""
+"While the caching subsystem got some math capabilities during the 1.9 "
+"development cycle, the metrics subsystem is optimized by design for "
+"storing numbers and applying functions over them. So, compared to the "
+"caching subsystem it's way faster and requires a fraction of the memory."
+msgstr ""
+
+#: ../../Metrics.rst:12
+msgid ""
+"When enabled, the metric subsystem configures a vast amount of metrics "
+"(like requests per-core, memory usage, etc) but, in addition to this, you"
+" can configure your own metrics, such as the number of active users or, "
+"say, hits of a particular URL, as well as the memory consumption of your "
+"app or the whole server."
+msgstr ""
+
+#: ../../Metrics.rst:15
+msgid ""
+"To enable the metrics subsystem just add ``--enable-metrics`` to your "
+"options, or configure a stats pusher (see below)."
+msgstr ""
+
+#: ../../Metrics.rst:17
+msgid "The metrics subsystem is completely thread-safe."
+msgstr ""
+
+#: ../../Metrics.rst:19
+msgid ""
+"By default uWSGI creates a lot of metrics (and more are planned), so "
+"before adding your own be sure uWSGI does not already expose the one(s) "
+"you need."
+msgstr ""
+
+#: ../../Metrics.rst:22
+msgid "Metric names and oids"
+msgstr ""
+
+#: ../../Metrics.rst:24
+msgid ""
+"Each metric must have a name (containing only numbers, letters, "
+"underscores, dashes and dots) and an optional ``oid`` (required for "
+"mapping a metric to :doc:`SNMP`)."
+msgstr ""
+
+#: ../../Metrics.rst:27
+msgid "Metric types"
+msgstr ""
+
+#: ../../Metrics.rst:29
+msgid ""
+"Before dealing with metrics you need to understand the various types "
+"represented by each metric:"
+msgstr ""
+
+#: ../../Metrics.rst:33
+msgid "COUNTER (type 0)"
+msgstr ""
+
+#: ../../Metrics.rst:35
+msgid "This is a generally-growing up number (like the number of requests)."
+msgstr ""
+
+#: ../../Metrics.rst:38
+msgid "GAUGE (type 1)"
+msgstr ""
+
+#: ../../Metrics.rst:40
+msgid ""
+"This is a number that can increase or decrease dynamically (like the "
+"memory used by a worker, or CPU load)."
+msgstr ""
+
+#: ../../Metrics.rst:43
+msgid "ABSOLUTE (type 2)"
+msgstr ""
+
+#: ../../Metrics.rst:45
+msgid ""
+"This is an absolute number, like the memory of the whole server, or the "
+"size of the hard disk."
+msgstr ""
+
+#: ../../Metrics.rst:48
+msgid "ALIAS (type 3)"
+msgstr ""
+
+#: ../../Metrics.rst:50
+msgid ""
+"This is a virtual metric pointing to another one . You can use it to give"
+" different names to already existing metrics."
+msgstr ""
+
+#: ../../Metrics.rst:53
+msgid "Metric collectors"
+msgstr ""
+
+#: ../../Metrics.rst:55
+msgid ""
+"Once you define a metric type, you need to tell uWSGI how to 'collect' "
+"the specific metric."
+msgstr ""
+
+#: ../../Metrics.rst:57
+msgid ""
+"There are various collectors available (and more can be added via "
+"plugins)."
+msgstr ""
+
+#: ../../Metrics.rst:59
+msgid "``ptr`` -- The value is collected from a memory pointer"
+msgstr ""
+
+#: ../../Metrics.rst:60
+msgid "``file`` -- the value is collected from a file"
+msgstr ""
+
+#: ../../Metrics.rst:61
+msgid "``sum`` -- the value is the sum of other metrics"
+msgstr ""
+
+#: ../../Metrics.rst:62
+msgid "``avg`` -- compute the algebraic average of the children (added in 1.9.20)"
+msgstr ""
+
+#: ../../Metrics.rst:63
+msgid ""
+"``accumulator`` -- always add the sum of children to the final value. See"
+" below for an example."
+msgstr ""
+
+#: ../../Metrics.rst:65
+msgid ""
+"Round 1: child1 = 22, child2 = 17 -> metric_value = 39 Round 2: child1 = "
+"26, child2 = 30 -> metric_value += 56"
+msgstr ""
+
+#: ../../Metrics.rst:68
+msgid ""
+"``multiplier`` - Multiply the sum of children by the specified argument "
+"(arg1n)."
+msgstr ""
+
+#: ../../Metrics.rst:70
+msgid "child1 = 22, child2 = 17, arg1n = 3 -> metric_value = (22+17)*3"
+msgstr ""
+
+#: ../../Metrics.rst:72
+msgid "``func`` - the value is computed calling a specific function every time"
+msgstr ""
+
+#: ../../Metrics.rst:73
+msgid ""
+"``manual`` - the NULL collector. The value must be updated manually from "
+"applications using the metrics API."
+msgstr ""
+
+#: ../../Metrics.rst:76
+msgid "Custom metrics"
+msgstr ""
+
+#: ../../Metrics.rst:78
+msgid "You can define additional metrics to manage from your app."
+msgstr ""
+
+#: ../../Metrics.rst:80
+msgid "The ``--metric`` option allows you to add more metrics."
+msgstr ""
+
+#: ../../Metrics.rst:82
+msgid "It has two syntaxes: \"simplified\" and \"keyval\"."
+msgstr ""
+
+#: ../../Metrics.rst:88
+msgid ""
+"will create a metric 'foobar' with type 'counter', manual collector and "
+"no oid."
+msgstr ""
+
+#: ../../Metrics.rst:90
+msgid "For creating advanced metrics you need the keyval way:"
+msgstr ""
+
+#: ../../Metrics.rst:96
+msgid "The following keys are available:"
+msgstr ""
+
+#: ../../Metrics.rst:98
+msgid "``name`` -- set the metric name"
+msgstr ""
+
+#: ../../Metrics.rst:99
+msgid "``oid`` -- set the metric oid"
+msgstr ""
+
+#: ../../Metrics.rst:100
+msgid ""
+"``type`` -- set the metric type, can be ``counter``, ``gauge``, "
+"``absolute``, ``alias``"
+msgstr ""
+
+#: ../../Metrics.rst:101
+msgid "``initial_value`` -- set the metric to a specific value on startup"
+msgstr ""
+
+#: ../../Metrics.rst:102
+msgid "``freq`` -- set the collection frequency in seconds (default to 1)"
+msgstr ""
+
+#: ../../Metrics.rst:103
+msgid ""
+"``reset_after_push`` -- reset the metric to zero (or the configured "
+"``initial_value``) after it's been pushed to the backend (so every "
+"``freq`` seconds)"
+msgstr ""
+
+#: ../../Metrics.rst:104
+msgid "``children`` -- maps children to the metric (see below)"
+msgstr ""
+
+#: ../../Metrics.rst:105
+msgid ""
+"``alias`` -- the metric will be a simple alias for the specified one "
+"(--metric name=foobar,alias=worker.0.requests,type=alias)"
+msgstr ""
+
+#: ../../Metrics.rst:106
+msgid "``arg1`` to ``arg3`` -- string based arguments (see below)"
+msgstr ""
+
+#: ../../Metrics.rst:107
+msgid "``arg1n`` to ``arg3n`` -- number based arguments (see below)"
+msgstr ""
+
+#: ../../Metrics.rst:108
+msgid ""
+"``collector`` set the collector, can be ``ptr``, ``file``, ``sum``, "
+"``func`` or anything exposed by plugins. Not specifying a collector means"
+" the metric is manual (your app needs to update it)."
+msgstr ""
+
+#: ../../Metrics.rst:110
+msgid ""
+"The ptr is currently unimplemented, while the other collector requires a "
+"bit of additional configuration:"
+msgstr ""
+
+#: ../../Metrics.rst:112
+msgid ""
+"``collector=file`` requires ``arg1`` for the filename and an optional "
+"``arg1n`` for the so-called split value."
+msgstr ""
+
+#: ../../Metrics.rst:118
+msgid ""
+"This will add a 'loadavg` metric, of type gauge, updated every 3 seconds "
+"with the content of ``/proc/loadavg``. The content is split (using \\\\n,"
+" \\\\t, spaces, \\\\r and zero as separator) and the item 1 (the returned"
+" array is zero-based) used as the return value."
+msgstr ""
+
+#: ../../Metrics.rst:120
+msgid ""
+"The splitter is very powerful, making it possible to gather information "
+"from more complex files, such as ``/proc/meminfo``."
+msgstr ""
+
+#: ../../Metrics.rst:126
+msgid "Once split, ``/proc/meminfo`` has the MemFree value in the 4th slot."
+msgstr ""
+
+#: ../../Metrics.rst:128
+msgid ""
+"``collector=sum`` requires the list of metrics that must be summed up. "
+"Each metric has the concept of 'children'. The sum collector will sum the"
+" values of all of its children:"
+msgstr ""
+
+#: ../../Metrics.rst:135
+msgid ""
+"This will sum the value of worker.1.requests and worker.2.requests every "
+"second."
+msgstr ""
+
+#: ../../Metrics.rst:137
+msgid ""
+"``collector=func`` is a convenience collector avoiding you to write a "
+"whole plugin for adding a new collector."
+msgstr ""
+
+#: ../../Metrics.rst:139
+msgid ""
+"Let's define a C function (call the file mycollector.c or whatever you "
+"want):"
+msgstr ""
+
+#: ../../Metrics.rst:147
+msgid "and build it as a shared library..."
+msgstr ""
+
+#: ../../Metrics.rst:153
+msgid "now run uWSGI loading the library..."
+msgstr ""
+
+#: ../../Metrics.rst:159
+msgid ""
+"this will call the C function my_collector every 10 seconds and will set "
+"the value of the metric 'mine' to its return value."
+msgstr ""
+
+#: ../../Metrics.rst:161
+msgid ""
+"The function must returns an ``int64_t`` value. The argument it takes is "
+"a ``uwsgi_metric`` pointer. You generally do not need to parse the "
+"metric, so just casting to void will avoid headaches."
+msgstr ""
+
+#: ../../Metrics.rst:164
+msgid "The metrics directory"
+msgstr ""
+
+#: ../../Metrics.rst:166
+msgid ""
+"UNIX sysadmins love text files. They are generally the things they have "
+"to work on most of the time. If you want to make a UNIX sysadmin happy, "
+"just give him or her some text file to play with. (Or some coffee, or "
+"whiskey maybe, depending on their tastes. But generally, text files "
+"should do just fine.)"
+msgstr ""
+
+#: ../../Metrics.rst:168
+msgid ""
+"The metrics subsystem can expose all of its metrics in the form of text "
+"files in a directory:"
+msgstr ""
+
+#: ../../Metrics.rst:174
+msgid "The directory must exist in advance."
+msgstr ""
+
+#: ../../Metrics.rst:176
+msgid ""
+"This will create a text file for each metric in the 'mymetrics' "
+"directory. The content of each file is the value of the metric (updated "
+"in real time)."
+msgstr ""
+
+#: ../../Metrics.rst:178
+msgid ""
+"Each file is mapped into the process address space, so do not worry if "
+"your virtual memory increases slightly."
+msgstr ""
+
+#: ../../Metrics.rst:181
+msgid "Restoring metrics (persistent metrics)"
+msgstr ""
+
+#: ../../Metrics.rst:183
+msgid "When you restart a uWSGI instance, all of its metrics are reset."
+msgstr ""
+
+#: ../../Metrics.rst:185
+msgid ""
+"This is generally the best thing to do, but if you want, you can restore "
+"the previous situation using the values stored in the metrics directory "
+"defined before."
+msgstr ""
+
+#: ../../Metrics.rst:188
+msgid ""
+"Just add the ``--metrics-dir-restore`` option to force the metric "
+"subsystem to read-back the values from the metric directory before "
+"starting to collect values."
+msgstr ""
+
+#: ../../Metrics.rst:192
+msgid "API"
+msgstr ""
+
+#: ../../Metrics.rst:194
+msgid ""
+"Your language plugins should expose at least the following api functions."
+" Currently they are implemented in Perl, CPython, PyPy and Ruby"
+msgstr ""
+
+#: ../../Metrics.rst:196
+msgid "``metric_get(name)``"
+msgstr ""
+
+#: ../../Metrics.rst:197
+msgid "``metric_set(name, value)``"
+msgstr ""
+
+#: ../../Metrics.rst:198
+msgid ""
+"``metric_set_max(name, value)`` -- only set the metric *name* if the give"
+" *value* is greater than the one currently stored"
+msgstr ""
+
+#: ../../Metrics.rst:199
+msgid ""
+"``metric_set_min(name, value)`` -- only set the metric *name* if the give"
+" *value* is lower than the one currently stored"
+msgstr ""
+
+#: ../../Metrics.rst:201
+msgid ""
+"``metric_set_max`` and ``metric_set_min`` can be used to avoid having to "
+"call ``metric_get`` when you need a metric to be set at a maximal or "
+"minimal value. Another simple use case is to use the ``avg`` collector to"
+" calculate an average between some *max* and *min* set metrics."
+msgstr ""
+
+#: ../../Metrics.rst:203
+msgid "``metric_inc(name[, delta])``"
+msgstr ""
+
+#: ../../Metrics.rst:204
+msgid "``metric_dec(name[, delta])``"
+msgstr ""
+
+#: ../../Metrics.rst:205
+msgid "``metric_mul(name[, delta])``"
+msgstr ""
+
+#: ../../Metrics.rst:206
+msgid "``metric_div(name[, delta])``"
+msgstr ""
+
+#: ../../Metrics.rst:207
+msgid ""
+"metrics (tuple/array of metric keys, should be immutable and not-"
+"callable, currently unimplemented)"
+msgstr ""
+
+#: ../../Metrics.rst:210
+msgid "Stats pushers"
+msgstr ""
+
+#: ../../Metrics.rst:212
+msgid ""
+"Collected metrics can be sent to external systems for analysis or chart "
+"generation."
+msgstr ""
+
+#: ../../Metrics.rst:214
+msgid "Stats pushers are plugins aimed at sending metrics to those systems."
+msgstr ""
+
+#: ../../Metrics.rst:216
+msgid "There are two kinds of stats pushers at the moment: JSON and raw."
+msgstr ""
+
+#: ../../Metrics.rst:218
+msgid ""
+"The JSON stats pusher send the whole JSON stats blob (the same you get "
+"from the stats server), while 'raw' ones send the metrics list."
+msgstr ""
+
+#: ../../Metrics.rst:220
+msgid "Currently available stats pushers:"
+msgstr ""
+
+#: ../../Metrics.rst:223
+msgid "rrdtool"
+msgstr ""
+
+#: ../../Metrics.rst:225 ../../Metrics.rst:247 ../../Metrics.rst:262
+#: ../../Metrics.rst:269 ../../Metrics.rst:306
+msgid "Type: raw"
+msgstr ""
+
+#: ../../Metrics.rst:226
+msgid "Plugin: rrdtool (builtin by default)"
+msgstr ""
+
+#: ../../Metrics.rst:227
+msgid "Requires (during runtime): librrd.so"
+msgstr ""
+
+#: ../../Metrics.rst:228
+msgid "Syntax: ``--stats-push rrdtool:my_rrds ...``"
+msgstr ""
+
+#: ../../Metrics.rst:230
+msgid ""
+"This will store an rrd file for each metric in the specified directory. "
+"Each rrd file has a single data source named 'metric'."
+msgstr ""
+
+#: ../../Metrics.rst:232 ../../Metrics.rst:253 ../../Metrics.rst:279
+msgid "Usage:"
+msgstr ""
+
+#: ../../Metrics.rst:240
+msgid ""
+"By default the RRD files are updated every 300 seconds. You can tune this"
+" value with ``--rrdtool-freq``"
+msgstr ""
+
+#: ../../Metrics.rst:242
+msgid ""
+"The librrd.so library is detected at runtime. If you need you can specify"
+" its absolute path with ``--rrdtool-lib``."
+msgstr ""
+
+#: ../../Metrics.rst:245
+msgid "statsd"
+msgstr ""
+
+#: ../../Metrics.rst:248
+msgid "Plugin: stats_pusher_statsd"
+msgstr ""
+
+#: ../../Metrics.rst:249
+msgid "Syntax: ``--stats-push statsd:address[,prefix]``"
+msgstr ""
+
+#: ../../Metrics.rst:251
+msgid "Push metrics to a statsd server."
+msgstr ""
+
+#: ../../Metrics.rst:260
+msgid "carbon"
+msgstr ""
+
+#: ../../Metrics.rst:263
+msgid "Plugin: carbon (built-in by default)"
+msgstr ""
+
+#: ../../Metrics.rst:264
+msgid "See: :doc:`Carbon`"
+msgstr ""
+
+#: ../../Metrics.rst:267
+msgid "zabbix"
+msgstr ""
+
+#: ../../Metrics.rst:270
+msgid "Plugin: zabbix"
+msgstr ""
+
+#: ../../Metrics.rst:271
+msgid "Syntax: ``--stats-push zabbix:address[,prefix]``"
+msgstr ""
+
+#: ../../Metrics.rst:273
+msgid "Push metrics to a zabbix server."
+msgstr ""
+
+#: ../../Metrics.rst:275
+msgid ""
+"The plugin exposes a ``--zabbix-template`` option that will generate a "
+"zabbix template (on stdout or in the specified file) containing all of "
+"the exposed metrics as trapper items."
+msgstr ""
+
+#: ../../Metrics.rst:277
+msgid ""
+"On some Zabbix versions you will need to authorize the IP addresses "
+"allowed to push items."
+msgstr ""
+
+#: ../../Metrics.rst:286
+msgid "mongodb"
+msgstr ""
+
+#: ../../Metrics.rst:288 ../../Metrics.rst:298
+msgid "Type: json"
+msgstr ""
+
+#: ../../Metrics.rst:289
+msgid "Plugin: stats_pusher_mongodb"
+msgstr ""
+
+#: ../../Metrics.rst:290
+msgid "Required (build time): libmongoclient.so"
+msgstr ""
+
+#: ../../Metrics.rst:291
+msgid ""
+"Syntax (keyval): ``--stats-push "
+"mongodb:addr=<addr>,collection=<db>,freq=<freq>``"
+msgstr ""
+
+#: ../../Metrics.rst:293
+msgid "Push statistics (as JSON) the the specified MongoDB database."
+msgstr ""
+
+#: ../../Metrics.rst:296
+msgid "file"
+msgstr ""
+
+#: ../../Metrics.rst:299
+msgid "Plugin: stats_pusher_file"
+msgstr ""
+
+#: ../../Metrics.rst:301
+msgid "Example plugin storing stats JSON in a file."
+msgstr ""
+
+#: ../../Metrics.rst:304
+msgid "socket"
+msgstr ""
+
+#: ../../Metrics.rst:307
+msgid "Plugin: stats_pusher_socket (builtin by default)"
+msgstr ""
+
+#: ../../Metrics.rst:308
+msgid "Syntax: ``--stats-push socket:address[,prefix]``"
+msgstr ""
+
+#: ../../Metrics.rst:310
+msgid ""
+"Push metrics to a UDP server with the following format: ``<metric> <type>"
+" <value>`` (<type> is in the numeric form previously reported)."
+msgstr ""
+
+#: ../../Metrics.rst:312 ../../Metrics.rst:367
+msgid "Example:"
+msgstr ""
+
+#: ../../Metrics.rst:319
+msgid "Alarms/Thresholds"
+msgstr ""
+
+#: ../../Metrics.rst:321
+msgid "You can configure one or more \"thresholds\" for each metric."
+msgstr ""
+
+#: ../../Metrics.rst:323
+msgid ""
+"Once this limit is reached the specified alarm (see "
+":doc:`AlarmSubsystem`) is triggered."
+msgstr ""
+
+#: ../../Metrics.rst:325
+msgid ""
+"Once the alarm is delivered you may choose to reset the counter to a "
+"specific value (generally 0), or continue triggering alarms with a "
+"specified rate."
+msgstr ""
+
+#: ../../Metrics.rst:337
+msgid ""
+"Specifying an alarm is not required. Using the threshold value to "
+"automatically reset a metric is perfectly valid."
+msgstr ""
+
+#: ../../Metrics.rst:339
+msgid ""
+"Note: ``--metric-threshold`` and ``--metric-alarm`` are aliases for the "
+"same option."
+msgstr ""
+
+#: ../../Metrics.rst:342
+msgid "SNMP integration"
+msgstr ""
+
+#: ../../Metrics.rst:344
+msgid ""
+"The :doc:`SNMP` server exposes metrics starting from the "
+"1.3.6.1.4.1.35156.17.3 OID."
+msgstr ""
+
+#: ../../Metrics.rst:346
+msgid "For example to get the value of ``worker.0.requests``:"
+msgstr ""
+
+#: ../../Metrics.rst:352
+msgid "Remember: only metrics with an associated OID can be used via SNMP."
+msgstr ""
+
+#: ../../Metrics.rst:355
+msgid "Internal Routing integration"
+msgstr ""
+
+#: ../../Metrics.rst:357
+msgid ""
+"The ''router_metrics'' plugin (builtin by default) adds a series of "
+"actions to the internal routing subsystem."
+msgstr ""
+
+#: ../../Metrics.rst:359
+msgid "``metricinc:<metric>[,value]`` increase the <metric>"
+msgstr ""
+
+#: ../../Metrics.rst:360
+msgid "``metricdec:<metric>[,value]`` decrease the <metric>"
+msgstr ""
+
+#: ../../Metrics.rst:361
+msgid "``metricmul:<metric>[,value]`` multiply the <metric>"
+msgstr ""
+
+#: ../../Metrics.rst:362
+msgid "``metricdiv:<metric>[,value]`` divide the <metric>"
+msgstr ""
+
+#: ../../Metrics.rst:363
+msgid "``metricset:<metric>,<value>`` set <metric> to <value>"
+msgstr ""
+
+#: ../../Metrics.rst:365
+msgid "In addition to action, a route var named \"metric\" is added."
+msgstr ""
+
+#: ../../Metrics.rst:378
+msgid "Request logging"
+msgstr ""
+
+#: ../../Metrics.rst:380
+msgid ""
+"You can access metrics values from your request logging format using the "
+"%(metric.xxx) placeholder:"
+msgstr ""
+
+#: ../../Metrics.rst:388
+msgid "Officially Registered Metrics"
+msgstr ""
+
+#: ../../Metrics.rst:390
+msgid "This is a work in progress."
+msgstr ""
+
+#: ../../Metrics.rst:392
+msgid ""
+"The best way to know which default metrics are exposed is enabling the "
+"stats server and querying it (or adding the ``--metrics-dir`` option)."
+msgstr ""
+
+#: ../../Metrics.rst:394
+msgid ""
+"worker/3 (exports information about workers, example worker.1.requests "
+"[or 3.1.1] reports the number of requests served by worker 1)"
+msgstr ""
+
+#: ../../Metrics.rst:395
+msgid ""
+"plugin/4 (namespace for metrics automatically added by plugins, example "
+"plugins.foo.bar)"
+msgstr ""
+
+#: ../../Metrics.rst:396
+msgid "core/5 (namespace for general instance informations)"
+msgstr ""
+
+#: ../../Metrics.rst:397
+msgid "router/6 (namespace for corerouters, example router.http.active_sessions)"
+msgstr ""
+
+#: ../../Metrics.rst:398
+msgid "socket/7 (namespace for sockets, example socket.0.listen_queue)"
+msgstr ""
+
+#: ../../Metrics.rst:399
+msgid "mule/8 (namespace for mules, example mule.1.signals)"
+msgstr ""
+
+#: ../../Metrics.rst:400
+msgid "spooler/9 (namespace for spoolers, example spooler.1.signals)"
+msgstr ""
+
+#: ../../Metrics.rst:401
+msgid "system/10 (namespace for system metrics, like loadavg or free memory)"
+msgstr ""
+
+#: ../../Metrics.rst:404
+msgid "OID assigment for plugins"
+msgstr ""
+
+#: ../../Metrics.rst:406
+msgid ""
+"If you want to write a plugin that will expose metrics, please add the "
+"OID namespace that you are going to use to the list below and make a pull"
+" request first."
+msgstr ""
+
+#: ../../Metrics.rst:408
+msgid "This will ensure that all plugins are using unique OID namespaces."
+msgstr ""
+
+#: ../../Metrics.rst:410
+msgid ""
+"Prefix all plugin metric names with plugin name to ensure no conflicts if"
+" same keys are used in multiple plugins (example plugin.myplugin.foo.bar,"
+" worker.1.plugin.myplugin.foo.bar)"
+msgstr ""
+
+#: ../../Metrics.rst:412
+msgid "(3|4).100.1 - cheaper_busyness"
+msgstr ""
+
+#: ../../Metrics.rst:415
+msgid "External tools"
+msgstr ""
+
+#: ../../Metrics.rst:417
+msgid "Check: https://github.com/unbit/unbit-bars"
+msgstr ""
+

@@ -1,0 +1,208 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Changelog-1.9.17.rst:2
+msgid "uWSGI 1.9.17"
+msgstr ""
+
+#: ../../Changelog-1.9.17.rst:4
+msgid "Changelog [20130917]"
+msgstr ""
+
+#: ../../Changelog-1.9.17.rst:8
+msgid "Bugfixes"
+msgstr ""
+
+#: ../../Changelog-1.9.17.rst:10
+msgid "the 'pty' client is now blocking (safer approach)"
+msgstr ""
+
+#: ../../Changelog-1.9.17.rst:11
+msgid ""
+"removed strtok() usage (substituted by a new uwsgi api function on top of"
+" strtok_r() )"
+msgstr ""
+
+#: ../../Changelog-1.9.17.rst:12
+msgid "fixed --pty-exec (Credits: C Anthony Risinger)"
+msgstr ""
+
+#: ../../Changelog-1.9.17.rst:13
+msgid "listen_queue/somaxconn linux check is now done even for UNIX sockets"
+msgstr ""
+
+#: ../../Changelog-1.9.17.rst:18
+msgid "New features"
+msgstr ""
+
+#: ../../Changelog-1.9.17.rst:21
+msgid "The Master FIFO"
+msgstr ""
+
+#: ../../Changelog-1.9.17.rst:23
+msgid ""
+"This is a new management way in addition to UNIX signals. As we have no "
+"more free signals to use (and generally dealing with signals and pidfiles"
+" is not very funny), all of the new management features of uWSGI will be "
+"based on the master fifo."
+msgstr ""
+
+#: ../../Changelog-1.9.17.rst:25
+msgid "Docs are already available: :doc:`MasterFIFO`"
+msgstr ""
+
+#: ../../Changelog-1.9.17.rst:29
+msgid "The asap hook"
+msgstr ""
+
+#: ../../Changelog-1.9.17.rst:31 ../../Changelog-1.9.17.rst:92
+msgid "Credits: Matthijs Kooijman"
+msgstr ""
+
+#: ../../Changelog-1.9.17.rst:33
+msgid ""
+"a new hook, named 'asap' has been added. It will be run soon after the "
+"options are parsed."
+msgstr ""
+
+#: ../../Changelog-1.9.17.rst:35
+msgid "Check: :doc:`Hooks`"
+msgstr ""
+
+#: ../../Changelog-1.9.17.rst:38
+msgid "The TCC (libtcc) plugin"
+msgstr ""
+
+#: ../../Changelog-1.9.17.rst:40
+msgid ""
+"TCC is an embeddable c compilers. It includes a shared library (libtcc) "
+"you can use to compile strings of c code on the fly."
+msgstr ""
+
+#: ../../Changelog-1.9.17.rst:42
+msgid ""
+"The libtcc uWSGI plugins allows compiling strings of c to process "
+"symbols. CUrrently the \"tcc\" hook engine has been implemented:"
+msgstr ""
+
+#: ../../Changelog-1.9.17.rst:55
+msgid "The forkptyrouter gateway"
+msgstr ""
+
+#: ../../Changelog-1.9.17.rst:57
+msgid ""
+"While work on Linux containers/namespaces continues to improve we have "
+"added this special router/gateway allowing dynamic allocation of "
+"pseodoterminals in uWSGI instances. To access the sockets created by the "
+"forkptyrouter you can use the --pty-connect option exposed by the 'pty' "
+"plugin."
+msgstr ""
+
+#: ../../Changelog-1.9.17.rst:60
+msgid "Documention is being worked on."
+msgstr ""
+
+#: ../../Changelog-1.9.17.rst:63
+msgid "added a new magic var for ANSI escaping"
+msgstr ""
+
+#: ../../Changelog-1.9.17.rst:65
+msgid ""
+"The %[ magic var has been added, it allows you to define ANSI sequences "
+"in your logs."
+msgstr ""
+
+#: ../../Changelog-1.9.17.rst:67
+msgid "If you like coloured logs:"
+msgstr ""
+
+#: ../../Changelog-1.9.17.rst:74
+msgid "Routable log encoders"
+msgstr ""
+
+#: ../../Changelog-1.9.17.rst:76
+msgid "You can now attach log encoders to specific log routes:"
+msgstr ""
+
+#: ../../Changelog-1.9.17.rst:90
+msgid "--vassals-include"
+msgstr ""
+
+#: ../../Changelog-1.9.17.rst:94
+msgid ""
+"This is like --vassal-inherit but the parsing will be \"immediate\" (so "
+"you can use placeholders)"
+msgstr ""
+
+#: ../../Changelog-1.9.17.rst:97
+msgid "The Emperor heartbeat system is now mercyless..."
+msgstr ""
+
+#: ../../Changelog-1.9.17.rst:99
+msgid ""
+"The old approach for the heartbeat Emperor subsystem was asking for "
+"\"gentle\" reload to bad vassals."
+msgstr ""
+
+#: ../../Changelog-1.9.17.rst:101
+msgid ""
+"Now vassals not sending heartbeat (after being registered with the "
+"heartbeat subsystem) are killed with -9"
+msgstr ""
+
+#: ../../Changelog-1.9.17.rst:103
+msgid "The result of this patch will be more robust bad vassals management"
+msgstr ""
+
+#: ../../Changelog-1.9.17.rst:106
+msgid "logpipe"
+msgstr ""
+
+#: ../../Changelog-1.9.17.rst:108
+msgid "Author: INADA Naoki"
+msgstr ""
+
+#: ../../Changelog-1.9.17.rst:110
+msgid "You can now send loglines to the stdin of an external command:"
+msgstr ""
+
+#: ../../Changelog-1.9.17.rst:117
+msgid "added \"fd\" logger to \"logfile\" plugin"
+msgstr ""
+
+#: ../../Changelog-1.9.17.rst:119
+msgid "you can directly send logs to a file descriptors:"
+msgstr ""
+
+#: ../../Changelog-1.9.17.rst:127
+msgid "Availability"
+msgstr ""
+
+#: ../../Changelog-1.9.17.rst:129
+msgid "uWSGI 1.9.17 has been released on Semptember 22th 2013"
+msgstr ""
+
+#: ../../Changelog-1.9.17.rst:131
+msgid "You can download it from:"
+msgstr ""
+
+#: ../../Changelog-1.9.17.rst:133
+msgid "https://projects.unbit.it/downloads/uwsgi-1.9.17.tar.gz"
+msgstr ""
+

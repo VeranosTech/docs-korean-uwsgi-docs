@@ -1,0 +1,64 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../WorkerOverride.rst:2
+msgid "Overriding Workers"
+msgstr ""
+
+#: ../../WorkerOverride.rst:4
+msgid ""
+"You can override the code run by each uWSGI worker thanks to the "
+"\"worker\" hook exposed to plugins."
+msgstr ""
+
+#: ../../WorkerOverride.rst:6
+msgid "Currently the python plugin is the only one exposing it:"
+msgstr ""
+
+#: ../../WorkerOverride.rst:22
+msgid ""
+"The python script has access to the uwsgi module so it can control/change"
+" its internals."
+msgstr ""
+
+#: ../../WorkerOverride.rst:24
+msgid "The following examples shows the use of aiohttp (requires python 3.5)"
+msgstr ""
+
+#: ../../WorkerOverride.rst:84
+msgid ""
+"In the example (taken from the official aiohttp docs) we see the "
+"uwsgi.sockets list (holding the list of uWSGI sockets file descriptors), "
+"and the override of SIGINT and SIGHUP to support reloading (SIGHUP should"
+" be adapted to support waiting for all the queued requests)"
+msgstr ""
+
+#: ../../WorkerOverride.rst:86
+msgid ""
+":py:func:`uwsgi.accepting()` is called to notify the master that the "
+"worker is accepting requests, this is required for touch-chain-reload to "
+"work."
+msgstr ""
+
+#: ../../WorkerOverride.rst:88
+msgid ""
+"The script should be extended to call uwsgi.log(...) after every request "
+"and to (eventually) update some metrics"
+msgstr ""
+

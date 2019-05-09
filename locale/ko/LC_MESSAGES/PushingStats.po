@@ -1,0 +1,94 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../PushingStats.rst:2
+msgid "Pushing statistics (from 1.4)"
+msgstr ""
+
+#: ../../PushingStats.rst:4
+msgid ""
+"IMPORTANT: the Metrics subsystem offers a better introduction to the "
+"following concepts. See :doc:`Metrics`"
+msgstr ""
+
+#: ../../PushingStats.rst:6
+msgid ""
+"Starting from uWSGI 1.4 you can push statistics (the same JSON blob you "
+"get with the :doc:`StatsServer`) via various systems (called stats "
+"pushers)."
+msgstr ""
+
+#: ../../PushingStats.rst:9
+msgid "Statistics are pushed at regular intervals (default 3 seconds)."
+msgstr ""
+
+#: ../../PushingStats.rst:12
+msgid "The 'file' stats pusher"
+msgstr ""
+
+#: ../../PushingStats.rst:14
+msgid ""
+"By default the 'file' stats pusher is available up to 1.9.18. Starting "
+"from 1.9.19 is available as a plugin (stats_pusher_file)."
+msgstr ""
+
+#: ../../PushingStats.rst:16
+msgid "It allows you to save json chunks to a file (open in appended mode)"
+msgstr ""
+
+#: ../../PushingStats.rst:26
+msgid "this config will append JSON to the /tmp/foobar file every 10 seconds"
+msgstr ""
+
+#: ../../PushingStats.rst:30
+msgid "The 'mongodb' stats pusher"
+msgstr ""
+
+#: ../../PushingStats.rst:32
+msgid ""
+"This is the first developed stats pusher plugin, allowing you to store "
+"JSON data directly on a mongodb collection"
+msgstr ""
+
+#: ../../PushingStats.rst:44
+msgid ""
+"This config will insert JSON data to the collection uwsgi.mystats on the "
+"mongodb server 127.0.0.1:5151 every 4 seconds."
+msgstr ""
+
+#: ../../PushingStats.rst:47
+msgid ""
+"To build the plugin you need mongodb development headers (mongodb-dev on "
+"Debian/Ubuntu)"
+msgstr ""
+
+#: ../../PushingStats.rst:53
+msgid "will do the trick"
+msgstr ""
+
+#: ../../PushingStats.rst:57
+msgid "Notes"
+msgstr ""
+
+#: ../../PushingStats.rst:59
+msgid ""
+"You can configure all of the stats pusher you need, just specify multiple"
+" stats-push options"
+msgstr ""
+

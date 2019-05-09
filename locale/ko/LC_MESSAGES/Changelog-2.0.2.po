@@ -1,0 +1,124 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Changelog-2.0.2.rst:2
+msgid "uWSGI 2.0.2"
+msgstr ""
+
+#: ../../Changelog-2.0.2.rst:5
+msgid "Changelog 20140226"
+msgstr ""
+
+#: ../../Changelog-2.0.2.rst:9
+msgid "Bugfixes"
+msgstr ""
+
+#: ../../Changelog-2.0.2.rst:11
+msgid "fixed python3 support on older compilers/libc"
+msgstr ""
+
+#: ../../Changelog-2.0.2.rst:12
+msgid "allow starting in spooler-only mode"
+msgstr ""
+
+#: ../../Changelog-2.0.2.rst:13
+msgid "fixed cache bitmap support and added test suite (credits: Danila Shtan)"
+msgstr ""
+
+#: ../../Changelog-2.0.2.rst:14
+msgid "fixed ftime log var"
+msgstr ""
+
+#: ../../Changelog-2.0.2.rst:15
+msgid "added async remote signal management"
+msgstr ""
+
+#: ../../Changelog-2.0.2.rst:16
+msgid "fixed end-for and end-if"
+msgstr ""
+
+#: ../../Changelog-2.0.2.rst:17
+msgid "fixed loop in internal-routing response chain"
+msgstr ""
+
+#: ../../Changelog-2.0.2.rst:18
+msgid "fixed pypy execute_source usage"
+msgstr ""
+
+#: ../../Changelog-2.0.2.rst:19
+msgid "logpipe: Don't setsid() twice (credits: INADA Naoki)"
+msgstr ""
+
+#: ../../Changelog-2.0.2.rst:22
+msgid "New features and improvements"
+msgstr ""
+
+#: ../../Changelog-2.0.2.rst:25
+msgid "CGI plugin"
+msgstr ""
+
+#: ../../Changelog-2.0.2.rst:27
+msgid "The plugin has been improved to support streaming."
+msgstr ""
+
+#: ../../Changelog-2.0.2.rst:29
+msgid ""
+"In addition to this the long-awaited async support is finally ready. Now "
+"you can have CGI concurrency without spawning a gazillion of expensive "
+"threads/processes"
+msgstr ""
+
+#: ../../Changelog-2.0.2.rst:32
+msgid "Check: :doc:`CGI`"
+msgstr ""
+
+#: ../../Changelog-2.0.2.rst:35
+msgid "PSGI loading improvements"
+msgstr ""
+
+#: ../../Changelog-2.0.2.rst:37
+msgid ""
+"The PSGI loader now tries to use Plack::Util::load_psgi() function "
+"instead of simple eval. This addresses various inconsistences in the "
+"environment (like the double parsing/compilation/execution of psgi "
+"scripts)."
+msgstr ""
+
+#: ../../Changelog-2.0.2.rst:40
+msgid ""
+"If the Plack module is not available, a simple do-based code is used "
+"(very similar to load_psgi)"
+msgstr ""
+
+#: ../../Changelog-2.0.2.rst:42
+msgid ""
+"Many thanks to Ævar Arnfjörð Bjarmason of booking.com for having "
+"discovered the problem"
+msgstr ""
+
+#: ../../Changelog-2.0.2.rst:45
+msgid "Availability"
+msgstr ""
+
+#: ../../Changelog-2.0.2.rst:47
+msgid ""
+"uWSGI 2.0.2 can be downloaded from: "
+"https://projects.unbit.it/downloads/uwsgi-2.0.2.tar.gz"
+msgstr ""
+

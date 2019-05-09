@@ -1,0 +1,452 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../PyPy.rst:2
+msgid "The PyPy plugin"
+msgstr ""
+
+#: ../../PyPy.rst:4
+msgid "Requires uWSGI >= 2.0.9"
+msgstr ""
+
+#: ../../PyPy.rst:7
+msgid "Introduction"
+msgstr ""
+
+#: ../../PyPy.rst:9
+msgid "Idea/Design: Maciej Fijalkowski"
+msgstr ""
+
+#: ../../PyPy.rst:11
+msgid "Contributors: Alex Gaynor, Armin Rigo"
+msgstr ""
+
+#: ../../PyPy.rst:13
+msgid ""
+"A new PyPy plugin based on cffi is available since uWSGI 1.9.11. The old "
+"slow cpyext-based one has been removed from the tree."
+msgstr ""
+
+#: ../../PyPy.rst:15
+msgid ""
+"The plugin is currently supported only on Linux systems. Following "
+"releases will support other platforms as well."
+msgstr ""
+
+#: ../../PyPy.rst:17
+msgid ""
+"The plugin loads ``libpypy-c.so`` on startup, sets the home of the PyPy "
+"installation and executes a special Python module implementing the plugin"
+" logic. So yes, most of the plugin is implemented in Python, and "
+"theoretically this approach will allow writing uWSGI plugins directly in "
+"Python in addition to C, C++ and Objective-C."
+msgstr ""
+
+#: ../../PyPy.rst:21
+msgid ""
+"As of December 2014 all of the required patches to PyPy have been merged,"
+" so you can get an official nightly build (or a stable version released "
+"after december 2014) and use it with uWSGI."
+msgstr ""
+
+#: ../../PyPy.rst:26
+msgid "Install uWSGI with PyPy support"
+msgstr ""
+
+#: ../../PyPy.rst:28
+msgid ""
+"As always with uWSGI, you have different ways to install uWSGI based on "
+"your needs."
+msgstr ""
+
+#: ../../PyPy.rst:30
+msgid "If you have installed pip in your PyPy home, you can run"
+msgstr ""
+
+#: ../../PyPy.rst:36
+msgid ""
+"The uwsgi setup.py file will recognize the PyPy environment and will "
+"build a PyPy-only uWSGI binary."
+msgstr ""
+
+#: ../../PyPy.rst:38
+msgid "In the same way, you can execute the setup.py supplied in uWSGI sources:"
+msgstr ""
+
+#: ../../PyPy.rst:45
+msgid ""
+"(this two approaches will hardcode the pypy home in the uWSGI binary, so "
+"you will not need to set pypy-home in your options)"
+msgstr ""
+
+#: ../../PyPy.rst:48
+msgid "Or you can compile manually:"
+msgstr ""
+
+#: ../../PyPy.rst:54
+msgid "Or you can use the network installer:"
+msgstr ""
+
+#: ../../PyPy.rst:60
+msgid "This will build a uWSGI + PyPy binary in ``/tmp/uwsgi``."
+msgstr ""
+
+#: ../../PyPy.rst:62
+msgid "Or you can build PyPy support as a plugin."
+msgstr ""
+
+#: ../../PyPy.rst:68
+msgid "or (old-style)"
+msgstr ""
+
+#: ../../PyPy.rst:75
+msgid "The PyPy home"
+msgstr ""
+
+#: ../../PyPy.rst:77
+msgid ""
+"The uWSGI Python plugin (more exactly the CPython plugin) works by "
+"linking in ``libpython``. That means you need to rebuild the plugin for "
+"every different version of Python. The PyPy plugin is different, as "
+"libpypy-c is loaded on startup and its symbols are resolved at runtime. "
+"This allows you to migrate to a different PyPy version on the fly."
+msgstr ""
+
+#: ../../PyPy.rst:79
+msgid ""
+"The \"downside\" of this approach is that you need to inform uWSGI where "
+"your PyPy installation is at runtime (unless you installed uwsgi via pip "
+"or with the setup.py script, in such a case the home will be found "
+"automatically)"
+msgstr ""
+
+#: ../../PyPy.rst:81
+msgid "Supposing your PyPy is in ``/opt/pypy`` you can start uWSGI with:"
+msgstr ""
+
+#: ../../PyPy.rst:87
+msgid ""
+"With this command line uWSGI will search for "
+"``/opt/pypy/bin/libpypy-c.so`` and if found, it will set that path as the"
+" PyPy home."
+msgstr ""
+
+#: ../../PyPy.rst:89
+msgid ""
+"If your ``libpypy-c.so`` is outside of the PyPy home (and in a directory "
+"not reachable by the dynamic linker), you can use the ``--pypy-"
+"lib``option."
+msgstr ""
+
+#: ../../PyPy.rst:95
+msgid ""
+"With this approach you are able to use the library from a specific PyPy "
+"build and the home from another one."
+msgstr ""
+
+#: ../../PyPy.rst:97
+msgid ""
+"Remember to prefix --pypy-lib with ./ if you want to point to a .so file "
+"in your current directory!"
+msgstr ""
+
+#: ../../PyPy.rst:100
+msgid "The PyPy setup file"
+msgstr ""
+
+#: ../../PyPy.rst:102
+msgid ""
+"As said before, most of the uWSGI PyPy plugin is written in Python. This "
+"code is loaded at runtime, and you can also customize it."
+msgstr ""
+
+#: ../../PyPy.rst:104
+msgid ""
+"Yes, this does mean you can change the way the plugin works without "
+"rebuilding uWSGI."
+msgstr ""
+
+#: ../../PyPy.rst:106
+msgid ""
+"A default version of the ``pypy_setup.py`` file is embedded in the uWSGI "
+"binary, and it is automatically loaded on startup."
+msgstr ""
+
+#: ../../PyPy.rst:108
+msgid ""
+"If you want to change it, just pass another filename via the ``--pypy-"
+"setup`` option."
+msgstr ""
+
+#: ../../PyPy.rst:114
+msgid ""
+"This Python module implements uWSGI hooks and the virtual ``uwsgi`` "
+"python module for accessing the uWSGI API from your apps."
+msgstr ""
+
+#: ../../PyPy.rst:116
+msgid ""
+"If you want to retrieve the contents of the embedded pypy_setup.py file "
+"you can read it from the binary symbols with the ``print-sym`` "
+"convenience option."
+msgstr ""
+
+#: ../../PyPy.rst:123
+msgid "WSGI support"
+msgstr ""
+
+#: ../../PyPy.rst:125
+msgid ""
+"The plugin implements PEP 333 and PEP 3333. You can load both WSGI "
+"modules and ``mod_wsgi`` style ``.wsgi`` files."
+msgstr ""
+
+#: ../../PyPy.rst:127
+msgid "To load a WSGI module (it must be in your Python path):"
+msgstr ""
+
+#: ../../PyPy.rst:133
+msgid "To load a WSGI file:"
+msgstr ""
+
+#: ../../PyPy.rst:140
+msgid "RPC support"
+msgstr ""
+
+#: ../../PyPy.rst:142
+msgid ""
+"You can register RPC functions using the :func:`uwsgi.register_rpc` API "
+"function, like you would with the vanilla Python plugin."
+msgstr ""
+
+#: ../../PyPy.rst:153
+msgid ""
+"To call RPC functions, both :func:`uwsgi.rpc` and :func:`uwsgi.call` are "
+"available."
+msgstr ""
+
+#: ../../PyPy.rst:164
+msgid ""
+"Integration (with local RPC) has been tested between PyPy and PyPy, PyPy "
+"and JVM, and PyPy and Lua. All of these worked flawlessly... so that "
+"means you can call Java functions from PyPy."
+msgstr ""
+
+#: ../../PyPy.rst:167
+msgid "IPython trick"
+msgstr ""
+
+#: ../../PyPy.rst:169
+msgid ""
+"Having a runtime shell for making tests is very nice to have. You can use"
+" IPython for this."
+msgstr ""
+
+#: ../../PyPy.rst:177
+msgid "uWSGI API status"
+msgstr ""
+
+#: ../../PyPy.rst:179
+msgid ""
+"The following API functions, hooks and attributes are supported as of "
+"20130526."
+msgstr ""
+
+#: ../../PyPy.rst:181
+msgid ":py:data:`uwsgi.opt`"
+msgstr ""
+
+#: ../../PyPy.rst:182
+msgid ":py:data:`uwsgi.post_fork_hook`"
+msgstr ""
+
+#: ../../PyPy.rst:183
+msgid ":func:`uwsgi.add_cron()`"
+msgstr ""
+
+#: ../../PyPy.rst:184
+msgid ":func:`uwsgi.setprocname()`"
+msgstr ""
+
+#: ../../PyPy.rst:185
+msgid ":func:`uwsgi.alarm()`"
+msgstr ""
+
+#: ../../PyPy.rst:186
+msgid ":func:`uwsgi.signal_registered()`"
+msgstr ""
+
+#: ../../PyPy.rst:187
+msgid ":func:`uwsgi.mule_id()`"
+msgstr ""
+
+#: ../../PyPy.rst:188
+msgid ":func:`uwsgi.worker_id()`"
+msgstr ""
+
+#: ../../PyPy.rst:189
+msgid ":func:`uwsgi.masterpid()`"
+msgstr ""
+
+#: ../../PyPy.rst:190
+msgid ":func:`uwsgi.lock()`"
+msgstr ""
+
+#: ../../PyPy.rst:191
+msgid ":func:`uwsgi.unlock()`"
+msgstr ""
+
+#: ../../PyPy.rst:192
+msgid ":func:`uwsgi.add_file_monitor()`"
+msgstr ""
+
+#: ../../PyPy.rst:193
+msgid ":func:`uwsgi.add_timer()`"
+msgstr ""
+
+#: ../../PyPy.rst:194
+msgid ":func:`uwsgi.add_rb_timer()`"
+msgstr ""
+
+#: ../../PyPy.rst:195
+msgid ":func:`uwsgi.cache_get()`"
+msgstr ""
+
+#: ../../PyPy.rst:196
+msgid ":func:`uwsgi.cache_set()`"
+msgstr ""
+
+#: ../../PyPy.rst:197
+msgid ":func:`uwsgi.cache_update()`"
+msgstr ""
+
+#: ../../PyPy.rst:198
+msgid ":func:`uwsgi.cache_del()`"
+msgstr ""
+
+#: ../../PyPy.rst:199
+msgid ":func:`uwsgi.signal()`"
+msgstr ""
+
+#: ../../PyPy.rst:200
+msgid ":func:`uwsgi.call()`"
+msgstr ""
+
+#: ../../PyPy.rst:201
+msgid ":func:`uwsgi.rpc()`"
+msgstr ""
+
+#: ../../PyPy.rst:202
+msgid ":func:`uwsgi.register_rpc()`"
+msgstr ""
+
+#: ../../PyPy.rst:203
+msgid ":func:`uwsgi.register_signal()`"
+msgstr ""
+
+#: ../../PyPy.rst:206
+msgid "Options"
+msgstr ""
+
+#: ../../PyPy.rst:209
+msgid "``pypy-lib`` - load the specified libpypy-s.so"
+msgstr ""
+
+#: ../../PyPy.rst:210
+msgid "``pypy-setup`` - load the specified pypy_setup script file"
+msgstr ""
+
+#: ../../PyPy.rst:211
+msgid "``pypy-home`` - set the pypy home"
+msgstr ""
+
+#: ../../PyPy.rst:212
+msgid "``pypy-wsgi`` - load a WSGI module"
+msgstr ""
+
+#: ../../PyPy.rst:213
+msgid "``pypy-wsgi-file`` - load a mod_wsgi compatible .wsgi file"
+msgstr ""
+
+#: ../../PyPy.rst:214
+msgid "``pypy-eval`` - execute the specified string before ``fork()``"
+msgstr ""
+
+#: ../../PyPy.rst:215
+msgid ""
+"``pypy-eval-post-fork`` - execute the specified string after each "
+"``fork()``"
+msgstr ""
+
+#: ../../PyPy.rst:216
+msgid "``pypy-exec`` - execute the specified python script before ``fork()``"
+msgstr ""
+
+#: ../../PyPy.rst:217
+msgid ""
+"``pypy-exec-post-fork`` - execute the specified python script after each "
+"``fork()``"
+msgstr ""
+
+#: ../../PyPy.rst:218
+msgid ""
+"``pypy-pp/pypy-python-path/pypy-pythonpath`` - add the specified item to "
+"the pythonpath"
+msgstr ""
+
+#: ../../PyPy.rst:219
+msgid "``pypy-paste`` - load a paste.deploy .ini configuration"
+msgstr ""
+
+#: ../../PyPy.rst:220
+msgid ""
+"``pypy-ini-paste`` - load a paste.deploy .ini configuration and use its "
+"[uwsgi] section"
+msgstr ""
+
+#: ../../PyPy.rst:224
+msgid "Notes"
+msgstr ""
+
+#: ../../PyPy.rst:226
+msgid ""
+"Mixing libpython with libpypy-c is explicitly forbidden. A check in the "
+"pypy plugin prevents you from doing such a hellish thing."
+msgstr ""
+
+#: ../../PyPy.rst:227
+msgid ""
+"The PyPy plugin is generally somewhat more \"orthodox\" from a Python "
+"programmer point of view, while the CPython one may be a little "
+"blasphemous in many areas. We have been able to make that choice as we do"
+" not need backward compatibility with older uWSGI releases."
+msgstr ""
+
+#: ../../PyPy.rst:228
+msgid "The uWSGI API is still incomplete."
+msgstr ""
+
+#: ../../PyPy.rst:229
+msgid ""
+"The WSGI loader does not update the uWSGI internal application list, so "
+"things like ``--need-app`` will not work. The server will report "
+"\"dynamic mode\" on startup even if the app has been successfully loaded."
+" This will be fixed soon."
+msgstr ""
+

@@ -1,0 +1,147 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../ForkptyRouter.rst:2
+msgid "The Forkpty Router"
+msgstr ""
+
+#: ../../ForkptyRouter.rst:4
+msgid ""
+"Dealing with containers is now a common deployment pattern. One of the "
+"most annoying tasks when dealing with jails/namespaces is 'attaching' to "
+"already running instances."
+msgstr ""
+
+#: ../../ForkptyRouter.rst:7
+msgid ""
+"The forkpty router aims at simplifyng the process giving a pseudoterminal"
+" server to your uWSGI instances."
+msgstr ""
+
+#: ../../ForkptyRouter.rst:9
+msgid ""
+"A client connect to the socket exposed by the forkpty router and get a "
+"new pseudoterminal connected to a process (generally a shell, but can be "
+"whatever you want)"
+msgstr ""
+
+#: ../../ForkptyRouter.rst:12
+msgid "uwsgi mode VS raw mode"
+msgstr ""
+
+#: ../../ForkptyRouter.rst:14
+msgid ""
+"Clients connecting to the forkpty router can use two protocols for data "
+"exchange: uwsgi and raw mode."
+msgstr ""
+
+#: ../../ForkptyRouter.rst:16
+msgid ""
+"The raw mode simply maps the socket to the pty, for such a reason you "
+"will not be able to resize your terminal or send specific signals. The "
+"advantage of this mode is in performance: no overhead for each char."
+msgstr ""
+
+#: ../../ForkptyRouter.rst:19
+msgid ""
+"The uwsgi mode encapsulates every instruction (stdin, signals, window "
+"changes) in a uwsgi packet. This is very similar to how ssh works, so if "
+"you plan to use the forkpty router for shell sessions the uwsgi mode is "
+"the best choice (in terms of user experience)."
+msgstr ""
+
+#: ../../ForkptyRouter.rst:22
+msgid ""
+"The overhead of the uwsgi protocol (worst case) is 5 bytes for each stdin"
+" event (single char)"
+msgstr ""
+
+#: ../../ForkptyRouter.rst:25
+msgid "Running the forkpty router"
+msgstr ""
+
+#: ../../ForkptyRouter.rst:27
+msgid "The plugin is not builtin by default, so you have to compile it:"
+msgstr ""
+
+#: ../../ForkptyRouter.rst:33
+msgid "or, using the old plugin build system:"
+msgstr ""
+
+#: ../../ForkptyRouter.rst:39
+msgid "generally compiling the pty plugin is required too (for client access)"
+msgstr ""
+
+#: ../../ForkptyRouter.rst:45
+msgid "or again, using the old build system:"
+msgstr ""
+
+#: ../../ForkptyRouter.rst:51
+msgid "Alternatively, you can build all in one shot with:"
+msgstr ""
+
+#: ../../ForkptyRouter.rst:57
+msgid ""
+"Now you can run the forkptyrouter as a standard gateway (we use UNIX "
+"socket as we want a communication channel with jails, and we unshare the "
+"uts namespace to give a new hostname)"
+msgstr ""
+
+#: ../../ForkptyRouter.rst:69
+msgid "and connect with the pty client:"
+msgstr ""
+
+#: ../../ForkptyRouter.rst:76
+msgid ""
+"now you have a shell (/bin/sh by default) in the uWSGI instance. Running "
+"``hostname`` will give you 'iaminajail'"
+msgstr ""
+
+#: ../../ForkptyRouter.rst:78
+msgid ""
+"Eventually you can avoid using uWSGI to attacj to the pty and instead you"
+" can rely on this simple python script:"
+msgstr ""
+
+#: ../../ForkptyRouter.rst:122
+msgid ""
+"The previous example uses raw mode, if you resize the client terminal you"
+" will se no updates."
+msgstr ""
+
+#: ../../ForkptyRouter.rst:124
+msgid "To use the 'uwsgi' mode add a 'u':"
+msgstr ""
+
+#: ../../ForkptyRouter.rst:141
+msgid "a single instance can expose both protocols on different sockets"
+msgstr ""
+
+#: ../../ForkptyRouter.rst:155
+msgid "Changing the default command"
+msgstr ""
+
+#: ../../ForkptyRouter.rst:157
+msgid "By default the forkpty router run /bin/sh on new connections."
+msgstr ""
+
+#: ../../ForkptyRouter.rst:159
+msgid "You can change the command using the --forkptyrouter-command"
+msgstr ""
+

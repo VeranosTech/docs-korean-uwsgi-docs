@@ -1,0 +1,330 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Management.rst:2
+msgid "Managing the uWSGI server"
+msgstr ""
+
+#: ../../Management.rst:6
+msgid "If you are managing multiple apps or a high volume site, take a look at"
+msgstr ""
+
+#: ../../Management.rst:8
+msgid ":doc:`Emperor`"
+msgstr ""
+
+#: ../../Management.rst:9
+msgid ":doc:`Zerg`"
+msgstr ""
+
+#: ../../Management.rst:10
+msgid ":doc:`SubscriptionServer`"
+msgstr ""
+
+#: ../../Management.rst:14
+msgid "Starting the server"
+msgstr ""
+
+#: ../../Management.rst:16
+msgid ""
+"Starting an uWSGI server is the role of the system administrator, like "
+"starting the Web server. It should not be the role of the Web server to "
+"start the uWSGI server -- though you can also do that if it fits your "
+"architecture."
+msgstr ""
+
+#: ../../Management.rst:18
+msgid ""
+"How to best start uWSGI services at boot depends on the operating system "
+"you use."
+msgstr ""
+
+#: ../../Management.rst:20
+msgid ""
+"On modern systems the following should hold true. On \"classic\" "
+"operating systems you can use ``init.d``/``rc.d`` scripts, or tools such "
+"as Supervisor, Daemontools or :doc:`inetd/xinetd <Inetd>`."
+msgstr ""
+
+#: ../../Management.rst:23
+msgid "System"
+msgstr ""
+
+#: ../../Management.rst:23
+msgid "Method"
+msgstr ""
+
+#: ../../Management.rst:25
+msgid "Ubuntu < 15.04"
+msgstr ""
+
+#: ../../Management.rst:25
+msgid ""
+":doc:`Upstart` (the official ``uwsgi`` package, available since Ubuntu "
+"12.04 provides an init.d based solution. Read the README.)"
+msgstr ""
+
+#: ../../Management.rst:26
+msgid "Ubuntu >= 15.04"
+msgstr ""
+
+#: ../../Management.rst:26 ../../Management.rst:27 ../../Management.rst:28
+#: ../../Management.rst:29
+msgid ":doc:`Systemd`"
+msgstr ""
+
+#: ../../Management.rst:27
+msgid "Debian"
+msgstr ""
+
+#: ../../Management.rst:28
+msgid "Arch Linux"
+msgstr ""
+
+#: ../../Management.rst:29
+msgid "Fedora"
+msgstr ""
+
+#: ../../Management.rst:30
+msgid "OSX"
+msgstr ""
+
+#: ../../Management.rst:30
+msgid "launchd"
+msgstr ""
+
+#: ../../Management.rst:31
+msgid "Solaris"
+msgstr ""
+
+#: ../../Management.rst:31
+msgid "SMF"
+msgstr ""
+
+#: ../../Management.rst:36
+msgid "Signals for controlling uWSGI"
+msgstr ""
+
+#: ../../Management.rst:38
+msgid ""
+"You can instruct uWSGI to write the master process PID to a file with the"
+" ``safe-pidfile`` option."
+msgstr ""
+
+#: ../../Management.rst:40
+msgid "The uWSGI server responds to the following signals."
+msgstr ""
+
+#: ../../Management.rst:43
+msgid "Signal"
+msgstr ""
+
+#: ../../Management.rst:43
+msgid "Description"
+msgstr ""
+
+#: ../../Management.rst:43
+msgid "Convenience command"
+msgstr ""
+
+#: ../../Management.rst:45
+msgid "`SIGHUP`"
+msgstr ""
+
+#: ../../Management.rst:45
+msgid "gracefully reload all the workers and the master process"
+msgstr ""
+
+#: ../../Management.rst:45
+msgid "``--reload``"
+msgstr ""
+
+#: ../../Management.rst:46
+msgid "`SIGTERM`"
+msgstr ""
+
+#: ../../Management.rst:46
+msgid "brutally reload all the workers and the master process"
+msgstr ""
+
+#: ../../Management.rst:46
+msgid ""
+"(use ``--die-on-term`` to respect the convention of shutting down the "
+"instance)"
+msgstr ""
+
+#: ../../Management.rst:47
+msgid "`SIGINT`"
+msgstr ""
+
+#: ../../Management.rst:47 ../../Management.rst:48
+msgid "immediately kill the entire uWSGI stack"
+msgstr ""
+
+#: ../../Management.rst:47
+msgid "``--stop``"
+msgstr ""
+
+#: ../../Management.rst:48
+msgid "`SIGQUIT`"
+msgstr ""
+
+#: ../../Management.rst:49
+msgid "`SIGUSR1`"
+msgstr ""
+
+#: ../../Management.rst:49
+msgid "print statistics"
+msgstr ""
+
+#: ../../Management.rst:50
+msgid "`SIGUSR2`"
+msgstr ""
+
+#: ../../Management.rst:50
+msgid "print worker status or wakeup the spooler"
+msgstr ""
+
+#: ../../Management.rst:51
+msgid "`SIGURG`"
+msgstr ""
+
+#: ../../Management.rst:51
+msgid "restore a snapshot"
+msgstr ""
+
+#: ../../Management.rst:52
+msgid "`SIGTSTP`"
+msgstr ""
+
+#: ../../Management.rst:52
+msgid "pause/suspend/resume an instance"
+msgstr ""
+
+#: ../../Management.rst:53
+msgid "`SIGWINCH`"
+msgstr ""
+
+#: ../../Management.rst:53
+msgid "wakeup a worker blocked in a syscall (internal use)"
+msgstr ""
+
+#: ../../Management.rst:54
+msgid "`SIGFPE`"
+msgstr ""
+
+#: ../../Management.rst:54 ../../Management.rst:55
+msgid "generate C traceback"
+msgstr ""
+
+#: ../../Management.rst:55
+msgid "`SIGSEGV`"
+msgstr ""
+
+#: ../../Management.rst:58
+msgid ""
+"Note: there are better ways to manage your instances than signals, as an "
+"example the master-fifo is way more robust."
+msgstr ""
+
+#: ../../Management.rst:61
+msgid "Reloading the server"
+msgstr ""
+
+#: ../../Management.rst:63
+msgid ""
+"When running with the ``master`` process mode, the uWSGI server can be "
+"gracefully restarted without closing the main sockets."
+msgstr ""
+
+#: ../../Management.rst:65
+msgid ""
+"This functionality allows you patch/upgrade the uWSGI server without "
+"closing the connection with the web server and losing a single request."
+msgstr ""
+
+#: ../../Management.rst:67
+msgid ""
+"When you send the `SIGHUP` to the master process it will try to "
+"gracefully stop all the workers, waiting for the completion of any "
+"currently running requests."
+msgstr ""
+
+#: ../../Management.rst:69
+msgid ""
+"Then it closes all the eventually opened file descriptors not related to "
+"uWSGI."
+msgstr ""
+
+#: ../../Management.rst:71
+msgid ""
+"Lastly, it binary patches (using ``execve()``) the uWSGI process image "
+"with a new one, inheriting all of the previous file descriptors."
+msgstr ""
+
+#: ../../Management.rst:73
+msgid ""
+"The server will know that it is a reloaded instance and will skip all the"
+" sockets initialization, reusing the previous ones."
+msgstr ""
+
+#: ../../Management.rst:77
+msgid ""
+"Sending the `SIGTERM` signal will obtain the same result reload-wise but "
+"will not wait for the completion of running requests."
+msgstr ""
+
+#: ../../Management.rst:79
+msgid "There are several ways to make uWSGI gracefully restart."
+msgstr ""
+
+#: ../../Management.rst:90
+msgid "Or from your application, in Python:"
+msgstr ""
+
+#: ../../Management.rst:96
+msgid "Or in Ruby,"
+msgstr ""
+
+#: ../../Management.rst:103
+msgid "Stopping the server"
+msgstr ""
+
+#: ../../Management.rst:105
+msgid ""
+"If you have the uWSGI process running in the foreground for some reason, "
+"you can just hit CTRL+C to kill it off."
+msgstr ""
+
+#: ../../Management.rst:107
+msgid ""
+"When dealing with background processes, you'll need to use the master "
+"pidfile again. The SIGINT signal will kill uWSGI."
+msgstr ""
+
+#: ../../Management.rst:116
+msgid "The Master FIFO"
+msgstr ""
+
+#: ../../Management.rst:118
+msgid ""
+"Starting from uWSGI 1.9.17, a new management system has been added using "
+"unix named pipes (fifo): :doc:`MasterFIFO`"
+msgstr ""
+

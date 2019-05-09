@@ -1,0 +1,379 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../tutorials/heroku_python.rst:2
+msgid "Running python webapps on Heroku with uWSGI"
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:4
+msgid ""
+"Prerequisites: a Heroku account (on the cedar platform), git (on the "
+"local system) and the heroku toolbelt."
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:6
+msgid ""
+"Note: you need a uWSGI version >= 1.4.6 to correctly run python apps. "
+"Older versions may work, but are not supported."
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:9
+msgid "Preparing the environment"
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:11
+msgid "On your local system prepare a directory for your project:"
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:20
+msgid ""
+"the last command will create a new heroku application (you can check it "
+"on the web dashboard)."
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:22
+msgid ""
+"For our example we will run the Werkzeug WSGI testapp, so we need to "
+"install the werkzeug package in addition to uWSGI."
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:24
+msgid "First step is creating a requirements.txt file and tracking it with git."
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:26
+msgid "The content of the file will be simply"
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:33
+msgid "Let's track it with git"
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:40
+msgid "Creating the uWSGI config file"
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:42
+msgid ""
+"Now we can create our uWSGI configuration file. Basically all of the "
+"features can be used on heroku"
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:54
+msgid ""
+"as you can see this is a pretty standard configuration. The only heroku-"
+"required options are --http-socket and --die-on-term."
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:56
+msgid ""
+"The first is required to bind the uWSGI socket to the port requested by "
+"the Heroku system (exported via the environment variable PORT we can "
+"access with $(PORT))"
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:58
+msgid ""
+"The second one (--die-on-term) is required to change the default "
+"behaviour of uWSGI when it receive a SIGTERM (brutal reload, while Heroku"
+" expect a shutdown)"
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:60
+msgid ""
+"The memory-report option (as we are in a memory constrained environment) "
+"is a good thing."
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:62
+msgid "Remember to track the file"
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:69
+msgid "Preparing for the first commit/push"
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:71
+msgid "We now need the last step: creating the Procfile."
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:73
+msgid ""
+"The Procfile is a file describing which commands to start. Generally "
+"(with other deployment systems) you will use it for every additional "
+"process required by your app (like memcached, redis, celery...), but "
+"under uWSGI you can continue using its advanced facilities to manage "
+"them."
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:76
+msgid "So, the Procfile, only need to start your uWSGI instance:"
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:82
+msgid "Track it"
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:88
+msgid "And finally let's commit all:"
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:94
+msgid "and push it (read: deploy) to Heroku:"
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:100
+msgid ""
+"The first time it will requires a couple of minutes as it need to prepare"
+" your virtualenv and compile uWSGI."
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:102
+msgid "Following push will be much faster."
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:105
+msgid "Checking your app"
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:107
+msgid ""
+"Running ``heroku logs`` you will be able to access uWSGI logs. You should"
+" get all of your familiar information, and eventually some hint in case "
+"of problems."
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:111
+msgid "Using another version of python"
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:113
+msgid ""
+"Heroku supports different python versions. By default (currently, "
+"february 2013), Python 2.7.3 is enabled."
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:115
+msgid ""
+"If you need another version just create a runtime.txt in your repository "
+"with a string like that:"
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:121
+msgid "to use python 2.7.2"
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:123
+msgid "Remember to add/commit that in the repository."
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:125
+msgid "Every time you change the python version, a new uWSGI binary is built."
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:128
+msgid "Multiprocess or Multithread ?"
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:130
+msgid ""
+"It obviosuly depend on your app. But as we are on a memory-limited "
+"environment you can expect better memory usage with threads."
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:132
+msgid ""
+"In addition to this, if you plan to put production-apps on Heroku be sure"
+" to understand how Dynos and their proxy works (it is very important. "
+"really)"
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:136
+msgid "Async/Greethreads/Coroutine ?"
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:138
+msgid ""
+"As always, do not trust people suggesting you to ALWAYS use some kind of "
+"async mode (like gevent). If your app is async-friendly you can obviously"
+" use gevent (it is built by default in recent uWSGI releases), but if you"
+" do not know that, remain with multiprocess (or multithread)."
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:143
+msgid "Harakiri"
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:145
+msgid ""
+"As said previously, if you plan to put production-apps on heroku, be sure"
+" to understand how dynos and their proxy works. Based on that, try to "
+"always set the harakiri parameters to a good value for your app. (do not "
+"ask for a default value, IT IS APP-DEPENDENT)"
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:149
+msgid "Static files"
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:151
+msgid ""
+"Generally, serving static files on Heroku is not a good idea (mainly from"
+" a design point of view). You could obviously have that need. In such a "
+"case remember to use uWSGI facilities for that, in particular offloading "
+"is the best way to leave your workers free while you serve big files (in "
+"addition to this remember that your static files must be tracked with "
+"git)"
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:155
+msgid "Adaptive process spawning"
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:157
+msgid ""
+"None of the supported algorithm are good for the Heroku approach and, "
+"very probably, it makes little sense to use a dynamic process number on "
+"such a platform."
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:161
+msgid "Logging"
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:163
+msgid ""
+"If you plan to use heroku on production, remember to send your logs (via "
+"udp for example) on an external server (with persistent storage)."
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:165
+msgid ""
+"Check the uWSGI available loggers. Surely one will fit your need. (pay "
+"attention to security, as logs will fly in clear)."
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:167
+msgid "UPDATE: a udp logger with crypto features is on work."
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:170
+msgid "Alarms"
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:172
+msgid "All of the alarms plugin should work without problems"
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:175
+msgid "The Spooler"
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:177
+msgid ""
+"As your app runs on a non-persistent filesystem, using the Spooler is a "
+"bad idea (you will easily lose tasks)."
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:180
+msgid "Mules"
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:182
+msgid "They can be used without problems"
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:185
+msgid "Signals (timers, filemonitors, crons...)"
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:187
+msgid ""
+"They all works, but do not rely on cron facilities, as heroku can "
+"kill/destroy/restarts your instances in every moment."
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:190
+msgid "External daemons"
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:192
+msgid ""
+"The --attach-daemon option and its --smart variants work without "
+"problems. Just remember you are on a volatile filesystem and you are not "
+"free to bind on port/addresses as you may wish"
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:196
+msgid "Monitoring your app (advanced/hacky)"
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:198
+msgid ""
+"Albeit Heroku works really well with newrelic services, you always need "
+"to monitor the internals of your uWSGI instance."
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:200
+msgid ""
+"Generally you enable the stats subsystem with a tool like uwsgitop as the"
+" client."
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:202
+msgid "You can simply add uwsgitop to you requirements.txt"
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:210
+msgid ""
+"and enable the stats server on a TCP port (unix sockets will not work as "
+"the instance running uwsgitop is not on the same server !!!):"
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:223
+msgid "Now we have a problem: how to reach our instance ?"
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:225
+msgid ""
+"We need to know the LAN address of the machine where our instance is "
+"phisically running. To accomplish that, a raw trick is running ifconfig "
+"on uWSGI startup:"
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:240
+msgid ""
+"Now thanks to the ``heroku logs`` command you can know where your stats "
+"server is"
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:246
+msgid ""
+"change x.x.x with the discovered address and remember that you could not "
+"be able to bind on port 22222, so change it accordingly."
+msgstr ""
+
+#: ../../tutorials/heroku_python.rst:248
+msgid ""
+"Is it worthy to make such a mess to get monitoring ? If you are testing "
+"your app before going to production, it could be a good idea, but if you "
+"plan to buy more dynos, all became so complex that you'd better to use "
+"some heroku-blessed technique (if any)"
+msgstr ""
+

@@ -1,0 +1,271 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../ManagementFlag.rst:2
+msgid "Management Flags"
+msgstr ""
+
+#: ../../ManagementFlag.rst:4
+msgid "This feature may be currently broken or deprecated."
+msgstr ""
+
+#: ../../ManagementFlag.rst:6
+msgid ""
+"You can modify the behavior of some aspects of the uWSGI stack remotely, "
+"without taking the server offline using the Management Flag system."
+msgstr ""
+
+#: ../../ManagementFlag.rst:8
+msgid "A more comprehensive re-setup system may be in the works."
+msgstr ""
+
+#: ../../ManagementFlag.rst:10
+msgid ""
+"All the flags take an unsigned 32-bit value (so the block size is always "
+"4) that contains the value to set for the flag. If you do not specify "
+"this value, only sending the uWSGI header, the server will count it as a "
+"read request."
+msgstr ""
+
+#: ../../ManagementFlag.rst:15
+msgid "Flag"
+msgstr ""
+
+#: ../../ManagementFlag.rst:15
+msgid "Action"
+msgstr ""
+
+#: ../../ManagementFlag.rst:15
+msgid "Description"
+msgstr ""
+
+#: ../../ManagementFlag.rst:17
+msgid "0"
+msgstr ""
+
+#: ../../ManagementFlag.rst:17
+msgid "logging"
+msgstr ""
+
+#: ../../ManagementFlag.rst:17
+msgid "enable/disable logging"
+msgstr ""
+
+#: ../../ManagementFlag.rst:18
+msgid "1"
+msgstr ""
+
+#: ../../ManagementFlag.rst:18
+msgid "max_requests"
+msgstr ""
+
+#: ../../ManagementFlag.rst:18
+msgid "set maximum number of requests per worker"
+msgstr ""
+
+#: ../../ManagementFlag.rst:19
+msgid "2"
+msgstr ""
+
+#: ../../ManagementFlag.rst:19
+msgid "socket_timeout"
+msgstr ""
+
+#: ../../ManagementFlag.rst:19
+msgid "modify the internal socket timeout"
+msgstr ""
+
+#: ../../ManagementFlag.rst:20
+msgid "3"
+msgstr ""
+
+#: ../../ManagementFlag.rst:20
+msgid "memory_debug"
+msgstr ""
+
+#: ../../ManagementFlag.rst:20
+msgid "enable/disable memory debug/report"
+msgstr ""
+
+#: ../../ManagementFlag.rst:21
+msgid "4"
+msgstr ""
+
+#: ../../ManagementFlag.rst:21
+msgid "master_interval"
+msgstr ""
+
+#: ../../ManagementFlag.rst:21
+msgid "set the master process check interval"
+msgstr ""
+
+#: ../../ManagementFlag.rst:22
+msgid "5"
+msgstr ""
+
+#: ../../ManagementFlag.rst:22
+msgid "harakiri"
+msgstr ""
+
+#: ../../ManagementFlag.rst:22
+msgid "set/unset the harakiri timeout"
+msgstr ""
+
+#: ../../ManagementFlag.rst:23
+msgid "6"
+msgstr ""
+
+#: ../../ManagementFlag.rst:23
+msgid "cgi_mode"
+msgstr ""
+
+#: ../../ManagementFlag.rst:23
+msgid "enable/disable cgi mode"
+msgstr ""
+
+#: ../../ManagementFlag.rst:24
+msgid "7"
+msgstr ""
+
+#: ../../ManagementFlag.rst:24
+msgid "threads"
+msgstr ""
+
+#: ../../ManagementFlag.rst:24
+msgid "enable/disable threads (currently unimplemented)"
+msgstr ""
+
+#: ../../ManagementFlag.rst:25
+msgid "8"
+msgstr ""
+
+#: ../../ManagementFlag.rst:25
+msgid "reaper"
+msgstr ""
+
+#: ../../ManagementFlag.rst:25
+msgid "enable/disable process reaper"
+msgstr ""
+
+#: ../../ManagementFlag.rst:26
+msgid "9"
+msgstr ""
+
+#: ../../ManagementFlag.rst:26
+msgid "log-zero"
+msgstr ""
+
+#: ../../ManagementFlag.rst:26
+msgid "enable/disable logging of request with zero response size"
+msgstr ""
+
+#: ../../ManagementFlag.rst:27
+msgid "10"
+msgstr ""
+
+#: ../../ManagementFlag.rst:27
+msgid "log-slow"
+msgstr ""
+
+#: ../../ManagementFlag.rst:27
+msgid "set/unset logging of slow requests"
+msgstr ""
+
+#: ../../ManagementFlag.rst:28
+msgid "11"
+msgstr ""
+
+#: ../../ManagementFlag.rst:28
+msgid "log-4xx"
+msgstr ""
+
+#: ../../ManagementFlag.rst:28
+msgid "enable/disable logging of request with 4xx response status"
+msgstr ""
+
+#: ../../ManagementFlag.rst:29
+msgid "12"
+msgstr ""
+
+#: ../../ManagementFlag.rst:29
+msgid "log-5xx"
+msgstr ""
+
+#: ../../ManagementFlag.rst:29
+msgid "enable/disable logging of request with 5xx response status"
+msgstr ""
+
+#: ../../ManagementFlag.rst:30
+msgid "13"
+msgstr ""
+
+#: ../../ManagementFlag.rst:30
+msgid "log-big"
+msgstr ""
+
+#: ../../ManagementFlag.rst:30
+msgid "set/unset logging of request with big response size"
+msgstr ""
+
+#: ../../ManagementFlag.rst:31
+msgid "14"
+msgstr ""
+
+#: ../../ManagementFlag.rst:31
+msgid "log-sendfile"
+msgstr ""
+
+#: ../../ManagementFlag.rst:31
+msgid "set/unset logging of sendfile requests"
+msgstr ""
+
+#: ../../ManagementFlag.rst:32
+msgid "15"
+msgstr ""
+
+#: ../../ManagementFlag.rst:32
+msgid "backlog-status"
+msgstr ""
+
+#: ../../ManagementFlag.rst:32
+msgid "report the current size of the backlog queue (linux on tcp only)"
+msgstr ""
+
+#: ../../ManagementFlag.rst:33
+msgid "16"
+msgstr ""
+
+#: ../../ManagementFlag.rst:33
+msgid "backlog-errors"
+msgstr ""
+
+#: ../../ManagementFlag.rst:33
+msgid "report the number of errors in the backlog queue (linux on tcp only)"
+msgstr ""
+
+#: ../../ManagementFlag.rst:37
+msgid "myadmin tool"
+msgstr ""
+
+#: ../../ManagementFlag.rst:39
+msgid ""
+"A simple (and ugly) script, ``myadmin``, is included to remotely change "
+"management flags:"
+msgstr ""
+

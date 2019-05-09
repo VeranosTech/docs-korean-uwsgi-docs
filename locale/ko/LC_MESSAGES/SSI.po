@@ -1,0 +1,171 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../SSI.rst:2
+msgid "SSI (Server Side Includes) plugin"
+msgstr ""
+
+#: ../../SSI.rst:4
+msgid ""
+"Server Side Includes are an \"old-fashioned\" way to write dynamic web "
+"pages."
+msgstr ""
+
+#: ../../SSI.rst:6
+msgid ""
+"It is generally recognized as a templating system instead of a full "
+"featured language."
+msgstr ""
+
+#: ../../SSI.rst:8
+msgid ""
+"The main purpose of the uWSGI SSI plugin is to have a fast templating "
+"system that has access to the uWSGI API."
+msgstr ""
+
+#: ../../SSI.rst:10
+#, python-format
+msgid ""
+"At the time of writing, March 2013, the plugin is beta quality and "
+"implements less than 30% of the SSI standard, the focus being in exposing"
+" uWSGI API as SSI commands."
+msgstr ""
+
+#: ../../SSI.rst:13
+msgid "Using it as a request handler"
+msgstr ""
+
+#: ../../SSI.rst:15
+msgid "The plugin has an official modifier1, number 19."
+msgstr ""
+
+#: ../../SSI.rst:25
+msgid ""
+"The plugin builds the filename as ``DOCUMENT_ROOT``+``PATH_INFO``. This "
+"file is then parsed as a server side include document."
+msgstr ""
+
+#: ../../SSI.rst:27
+msgid ""
+"Both ``DOCUMENT_ROOT`` and ``PATH_INFO`` are required, otherwise a 500 "
+"error will be returned."
+msgstr ""
+
+#: ../../SSI.rst:29
+msgid "An example configuration for Nginx would be:"
+msgstr ""
+
+#: ../../SSI.rst:40
+msgid "with something like this for uWSGI..."
+msgstr ""
+
+#: ../../SSI.rst:49
+msgid "Using SSI as a routing action"
+msgstr ""
+
+#: ../../SSI.rst:51
+msgid "A more versatile approach is using the SSI parser as a routing action."
+msgstr ""
+
+#: ../../SSI.rst:60
+msgid ""
+"As with all of the routing actions, no check on file paths is made to "
+"allow a higher level of customization. If you pass untrusted paths to the"
+" SSI action, you should sanitize them (you can use routing again, "
+"checking for the presence of .. or other dangerous symbols)."
+msgstr ""
+
+#: ../../SSI.rst:62
+msgid ""
+"And with the above admonition in mind, when used as a routing action, "
+"``DOCUMENT_ROOT`` or ``PATH_INFO`` are not required, as the parameter "
+"passed contains the full filesystem path."
+msgstr ""
+
+#: ../../SSI.rst:65
+msgid "Supported SSI commands"
+msgstr ""
+
+#: ../../SSI.rst:67
+msgid ""
+"This is the list of supported commands (and their arguments). If a "
+"command is not part of the SSI standard (that is, it's uWSGI specific) it"
+" will be reported."
+msgstr ""
+
+#: ../../SSI.rst:70
+msgid "echo"
+msgstr ""
+
+#: ../../SSI.rst:72
+msgid "Arguments: ``var``"
+msgstr ""
+
+#: ../../SSI.rst:74
+msgid "Print the content of the specified request variable."
+msgstr ""
+
+#: ../../SSI.rst:77
+msgid "printenv"
+msgstr ""
+
+#: ../../SSI.rst:79
+msgid "Print a list of all request variables."
+msgstr ""
+
+#: ../../SSI.rst:82
+msgid "include"
+msgstr ""
+
+#: ../../SSI.rst:84
+msgid "Arguments: ``file``"
+msgstr ""
+
+#: ../../SSI.rst:86
+msgid "Include the specified file (relative to the current directory)."
+msgstr ""
+
+#: ../../SSI.rst:89
+msgid "cache"
+msgstr ""
+
+#: ../../SSI.rst:91
+msgid "This is uWSGI specific/non-standard."
+msgstr ""
+
+#: ../../SSI.rst:93
+msgid "Arguments: ``key`` ``name``"
+msgstr ""
+
+#: ../../SSI.rst:95
+msgid "Print the value of the specified cache key in the named cache."
+msgstr ""
+
+#: ../../SSI.rst:98
+msgid "Status"
+msgstr ""
+
+#: ../../SSI.rst:100
+msgid "The plugin is fully thread safe and very fast."
+msgstr ""
+
+#: ../../SSI.rst:101
+msgid "Very few commands are available, more will be added soon."
+msgstr ""
+

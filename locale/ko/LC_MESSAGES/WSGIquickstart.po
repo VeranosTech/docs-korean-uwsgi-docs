@@ -1,0 +1,563 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../WSGIquickstart.rst:2
+msgid "Quickstart for Python/WSGI applications"
+msgstr ""
+
+#: ../../WSGIquickstart.rst:4
+msgid ""
+"This quickstart will show you how to deploy simple WSGI applications and "
+"common web frameworks."
+msgstr ""
+
+#: ../../WSGIquickstart.rst:6
+msgid ""
+"Python here is meant as CPython, for PyPy you need to use the specific "
+"plugin: :doc:`PyPy`, Jython support is under construction."
+msgstr ""
+
+#: ../../WSGIquickstart.rst:10
+msgid ""
+"You need at least uWSGI 1.4 to follow the quickstart. Anything older is "
+"no longer maintained and is highly buggy!"
+msgstr ""
+
+#: ../../WSGIquickstart.rst:13
+msgid "Installing uWSGI with Python support"
+msgstr ""
+
+#: ../../WSGIquickstart.rst:17
+msgid ""
+"When you start learning uWSGI, try to build from official sources: using "
+"distribution-supplied packages may bring you plenty of headaches. When "
+"things are clear, you can use modular builds (like the ones available in "
+"your distribution)."
+msgstr ""
+
+#: ../../WSGIquickstart.rst:20
+msgid ""
+"uWSGI is a (big) C application, so you need a C compiler (like gcc or "
+"clang) and the Python development headers."
+msgstr ""
+
+#: ../../WSGIquickstart.rst:22
+msgid "On a Debian-based distro an"
+msgstr ""
+
+#: ../../WSGIquickstart.rst:28
+msgid "will be enough."
+msgstr ""
+
+#: ../../WSGIquickstart.rst:30
+msgid "You have various ways to install uWSGI for Python:"
+msgstr ""
+
+#: ../../WSGIquickstart.rst:32
+msgid "via pip"
+msgstr ""
+
+#: ../../WSGIquickstart.rst:38
+msgid "using the network installer"
+msgstr ""
+
+#: ../../WSGIquickstart.rst:44
+msgid ""
+"(this will install the uWSGI binary into ``/tmp/uwsgi``, feel free to "
+"change it)."
+msgstr ""
+
+#: ../../WSGIquickstart.rst:46
+msgid "via downloading a source tarball and \"making\" it"
+msgstr ""
+
+#: ../../WSGIquickstart.rst:55
+msgid ""
+"(after the build you will have a ``uwsgi`` binary in the current "
+"directory)."
+msgstr ""
+
+#: ../../WSGIquickstart.rst:57
+msgid ""
+"Installing via your package distribution is not covered (would be "
+"impossible to make everyone happy), but all of the general rules apply."
+msgstr ""
+
+#: ../../WSGIquickstart.rst:59
+msgid ""
+"One thing you may want to take into account when testing this quickstart "
+"with distro-supplied packages, is that very probably your distribution "
+"has built uWSGI in modular way (every feature is a different plugin that "
+"must be loaded). To complete this quickstart, you have to prepend "
+"``--plugin python,http`` to the first series of examples, and ``--plugin "
+"python`` when the HTTP router is removed (if this doesn't make sense to "
+"you, just continue reading)."
+msgstr ""
+
+#: ../../WSGIquickstart.rst:65
+msgid "The first WSGI application"
+msgstr ""
+
+#: ../../WSGIquickstart.rst:67
+msgid "Let's start with a simple \"Hello World\" example:"
+msgstr ""
+
+#: ../../WSGIquickstart.rst:75
+msgid "(save it as ``foobar.py``)."
+msgstr ""
+
+#: ../../WSGIquickstart.rst:77
+msgid ""
+"As you can see, it is composed of a single Python function. It is called "
+"\"application\" as this is the default function that the uWSGI Python "
+"loader will search for (but you can obviously customize it)."
+msgstr ""
+
+#: ../../WSGIquickstart.rst:81
+msgid "Deploy it on HTTP port 9090"
+msgstr ""
+
+#: ../../WSGIquickstart.rst:83
+msgid ""
+"Now start uWSGI to run an HTTP server/router passing requests to your "
+"WSGI application:"
+msgstr ""
+
+#: ../../WSGIquickstart.rst:89
+msgid "That's all."
+msgstr ""
+
+#: ../../WSGIquickstart.rst:91
+msgid ""
+"Do not use ``--http`` when you have a frontend webserver or you are doing"
+" some form of benchmark, use ``--http-socket``. Continue reading the "
+"quickstart to understand why."
+msgstr ""
+
+#: ../../WSGIquickstart.rst:95
+msgid "Adding concurrency and monitoring"
+msgstr ""
+
+#: ../../WSGIquickstart.rst:97
+msgid ""
+"The first tuning you would like to make is adding concurrency (by default"
+" uWSGI starts with a single process and a single thread)."
+msgstr ""
+
+#: ../../WSGIquickstart.rst:99
+msgid ""
+"You can add more processes with the ``--processes`` option or more "
+"threads with the ``--threads`` option (or you can have both)."
+msgstr ""
+
+#: ../../WSGIquickstart.rst:105
+msgid ""
+"This will spawn 4 processes (each with 2 threads), a master process (will"
+" respawn your processes when they die) and the HTTP router (seen before)."
+msgstr ""
+
+#: ../../WSGIquickstart.rst:107
+msgid ""
+"One important task is monitoring. Understanding what is going on is vital"
+" in production deployment. The stats subsystem allows you to export "
+"uWSGI's internal statistics as JSON:"
+msgstr ""
+
+#: ../../WSGIquickstart.rst:114
+msgid ""
+"Make some request to your app and then telnet to the port 9191, you'll "
+"get lots of fun information. You may want to use \"uwsgitop\" (just ``pip"
+" install`` it), which is a top-like tool for monitoring instances."
+msgstr ""
+
+#: ../../WSGIquickstart.rst:119
+msgid ""
+"Bind the stats socket to a private address (unless you know what you are "
+"doing), otherwise everyone could access it!"
+msgstr ""
+
+#: ../../WSGIquickstart.rst:122
+msgid "Putting behind a full webserver"
+msgstr ""
+
+#: ../../WSGIquickstart.rst:124
+msgid ""
+"Even though uWSGI HTTP router is solid and high-performance, you may want"
+" to put your application behind a fully-capable webserver."
+msgstr ""
+
+#: ../../WSGIquickstart.rst:126
+msgid ""
+"uWSGI natively speaks HTTP, FastCGI, SCGI and its specific protocol named"
+" \"uwsgi\" (yes, wrong naming choice). The best performing protocol is "
+"obviously uwsgi, already supported by nginx and Cherokee (while various "
+"Apache modules are available)."
+msgstr ""
+
+#: ../../WSGIquickstart.rst:129
+msgid "A common nginx config is the following:"
+msgstr ""
+
+#: ../../WSGIquickstart.rst:138
+msgid ""
+"This means \"pass every request to the server bound to port 3031 speaking"
+" the uwsgi protocol\"."
+msgstr ""
+
+#: ../../WSGIquickstart.rst:140
+msgid "Now we can spawn uWSGI to natively speak the uwsgi protocol:"
+msgstr ""
+
+#: ../../WSGIquickstart.rst:146
+msgid ""
+"If you'll run ``ps aux``, you will see one process less. The HTTP router "
+"has been removed as our \"workers\" (the processes assigned to uWSGI) "
+"natively speak the uwsgi protocol."
+msgstr ""
+
+#: ../../WSGIquickstart.rst:149
+msgid ""
+"If your proxy/webserver/router speaks HTTP, you have to tell uWSGI to "
+"natively speak the http protocol (this is different from --http that will"
+" spawn a proxy by itself):"
+msgstr ""
+
+#: ../../WSGIquickstart.rst:156
+msgid "Automatically starting uWSGI on boot"
+msgstr ""
+
+#: ../../WSGIquickstart.rst:158
+msgid ""
+"If you are thinking about firing up vi and writing an init.d script for "
+"spawning uWSGI, just sit (and calm) down and make sure your system "
+"doesn't offer a better (more modern) approach first."
+msgstr ""
+
+#: ../../WSGIquickstart.rst:160
+msgid ""
+"Each distribution has chosen a startup system (:doc:`Upstart<Upstart>`, "
+":doc:`Systemd`...) and there are tons of process managers available "
+"(supervisord, god, monit, circus...)."
+msgstr ""
+
+#: ../../WSGIquickstart.rst:162
+msgid ""
+"uWSGI will integrate very well with all of them (we hope), but if you "
+"plan to deploy a big number of apps check the uWSGI "
+":doc:`Emperor<Emperor>` - it is more or less the dream of every devops "
+"engineer."
+msgstr ""
+
+#: ../../WSGIquickstart.rst:165
+msgid "Deploying Django"
+msgstr ""
+
+#: ../../WSGIquickstart.rst:167
+msgid ""
+"Django is very probably the most used Python web framework around. "
+"Deploying it is pretty easy (we continue our configuration with 4 "
+"processes with 2 threads each)."
+msgstr ""
+
+#: ../../WSGIquickstart.rst:169
+msgid "We suppose the Django project is in ``/home/foobar/myproject``:"
+msgstr ""
+
+#: ../../WSGIquickstart.rst:175
+msgid ""
+"(with ``--chdir`` we move to a specific directory). In Django this is "
+"required to correctly load modules."
+msgstr ""
+
+#: ../../WSGIquickstart.rst:177
+msgid ""
+"Argh! What the hell is this?! Yes, you're right, you're right... dealing "
+"with such long command lines is unpractical, foolish and error-prone. "
+"Never fear! uWSGI supports various configuration styles. In this "
+"quickstart we will use .ini files."
+msgstr ""
+
+#: ../../WSGIquickstart.rst:190
+msgid "A lot better!"
+msgstr ""
+
+#: ../../WSGIquickstart.rst:192
+msgid "Just run it:"
+msgstr ""
+
+#: ../../WSGIquickstart.rst:198
+msgid ""
+"If the file ``/home/foobar/myproject/myproject/wsgi.py`` (or whatever you"
+" have called your project) does not exist, you are very probably using an"
+" old (< 1.4) version of Django. In such a case you need a little bit more"
+" configuration:"
+msgstr ""
+
+#: ../../WSGIquickstart.rst:205
+msgid "Or, using the .ini file:"
+msgstr ""
+
+#: ../../WSGIquickstart.rst:219
+msgid ""
+"Older (< 1.4) Django releases need to set ``env``, ``module`` and the "
+"``pythonpath`` (``..`` allow us to reach the ``myproject.settings`` "
+"module)."
+msgstr ""
+
+#: ../../WSGIquickstart.rst:224
+msgid "Deploying Flask"
+msgstr ""
+
+#: ../../WSGIquickstart.rst:226
+msgid "Flask is a popular Python web microframework."
+msgstr ""
+
+#: ../../WSGIquickstart.rst:228
+msgid "Save the following example as ``myflaskapp.py``:"
+msgstr ""
+
+#: ../../WSGIquickstart.rst:240
+msgid ""
+"Flask exports its WSGI function (the one we called \"application\" at the"
+" beginning of this quickstart) as \"app\", so we need to instruct uWSGI "
+"to use it. We still continue to use the 4 processes/2 threads and the "
+"uwsgi socket as the base:"
+msgstr ""
+
+#: ../../WSGIquickstart.rst:247
+msgid "(the only addition is the ``--callable`` option)."
+msgstr ""
+
+#: ../../WSGIquickstart.rst:250
+msgid "Deploying web2py"
+msgstr ""
+
+#: ../../WSGIquickstart.rst:252
+msgid ""
+"Again a popular choice. Unzip the web2py source distribution on a "
+"directory of choice and write a uWSGI config file:"
+msgstr ""
+
+#: ../../WSGIquickstart.rst:265
+msgid ""
+"On recent web2py releases you may need to copy the ``wsgihandler.py`` "
+"script out of the ``handlers`` directory."
+msgstr ""
+
+#: ../../WSGIquickstart.rst:267
+msgid ""
+"We used the HTTP router again. Just go to port 9090 with your browser and"
+" you will see the web2py welcome page."
+msgstr ""
+
+#: ../../WSGIquickstart.rst:269
+msgid ""
+"Click on the administrative interface and... oops, it does not work as it"
+" requires HTTPS. Do not worry, the uWSGI router is HTTPS-capable (be sure"
+" you have OpenSSL development headers: install them and rebuild uWSGI, "
+"the build system will automatically detect it)."
+msgstr ""
+
+#: ../../WSGIquickstart.rst:273
+msgid "First of all generate your key and certificate:"
+msgstr ""
+
+#: ../../WSGIquickstart.rst:281
+msgid ""
+"Now you have 2 files (well 3, counting the ``foobar.csr``), "
+"``foobar.key`` and ``foobar.crt``. Change the uWSGI config:"
+msgstr ""
+
+#: ../../WSGIquickstart.rst:292
+msgid ""
+"Re-run uWSGI and connect to port 9090 using ``https://`` with your "
+"browser."
+msgstr ""
+
+#: ../../WSGIquickstart.rst:295
+msgid "A note on Python threads"
+msgstr ""
+
+#: ../../WSGIquickstart.rst:297
+msgid ""
+"If you start uWSGI without threads, the Python GIL will not be enabled, "
+"so threads generated by your application will never run. You may not like"
+" that choice, but remember that uWSGI is a language-independent server, "
+"so most of its choices are for maintaining it \"agnostic\"."
+msgstr ""
+
+#: ../../WSGIquickstart.rst:301
+msgid ""
+"But do not worry, there are basically no choices made by the uWSGI "
+"developers that cannot be changed with an option."
+msgstr ""
+
+#: ../../WSGIquickstart.rst:303
+msgid ""
+"If you want to maintain Python threads support without starting multiple "
+"threads for your application, just add the ``--enable-threads`` option "
+"(or ``enable-threads = true`` in ini style)."
+msgstr ""
+
+#: ../../WSGIquickstart.rst:307
+msgid "Virtualenvs"
+msgstr ""
+
+#: ../../WSGIquickstart.rst:309
+msgid ""
+"uWSGI can be configured to search for Python modules in a specific "
+"virtualenv."
+msgstr ""
+
+#: ../../WSGIquickstart.rst:311
+msgid "Just add ``virtualenv = <path>`` to your options."
+msgstr ""
+
+#: ../../WSGIquickstart.rst:314
+msgid "Security and availability"
+msgstr ""
+
+#: ../../WSGIquickstart.rst:316
+msgid ""
+"**Always** avoid running your uWSGI instances as root. You can drop "
+"privileges using the ``uid`` and ``gid`` options:"
+msgstr ""
+
+#: ../../WSGIquickstart.rst:329
+msgid ""
+"If you need to bind to privileged ports (like 443 for HTTPS), use shared "
+"sockets. They are created before dropping privileges and can be "
+"referenced with the ``=N`` syntax, where ``N`` is the socket number "
+"(starting from 0):"
+msgstr ""
+
+#: ../../WSGIquickstart.rst:344
+msgid ""
+"A common problem with webapp deployment is \"stuck requests\". All of "
+"your threads/workers are stuck (blocked on request) and your app cannot "
+"accept more requests. To avoid that problem you can set a ``harakiri`` "
+"timer. It is a monitor (managed by the master process) that will destroy "
+"processes stuck for more than the specified number of seconds (choose "
+"``harakiri`` value carefully). For example, you may want to destroy "
+"workers blocked for more than 30 seconds:"
+msgstr ""
+
+#: ../../WSGIquickstart.rst:360
+msgid ""
+"In addition to this, since uWSGI 1.9, the stats server exports the whole "
+"set of request variables, so you can see (in realtime) what your instance"
+" is doing (for each worker, thread or async core)."
+msgstr ""
+
+#: ../../WSGIquickstart.rst:364
+msgid "Offloading"
+msgstr ""
+
+#: ../../WSGIquickstart.rst:366
+msgid ""
+":doc:`OffloadSubsystem` allows you to free your workers as soon as "
+"possible when some specific pattern matches and can be delegated to a "
+"pure-c thread. Examples are sending static file from the file system, "
+"transferring data from the network to the client and so on."
+msgstr ""
+
+#: ../../WSGIquickstart.rst:369
+msgid ""
+"Offloading is very complex, but its use is transparent to the end user. "
+"If you want to try just add ``--offload-threads <n>`` where <n> is the "
+"number of threads to spawn (1 per CPU is a good value to start with)."
+msgstr ""
+
+#: ../../WSGIquickstart.rst:371
+msgid ""
+"When offload threads are enabled, all of the parts that can be optimized "
+"will be automatically detected."
+msgstr ""
+
+#: ../../WSGIquickstart.rst:374
+msgid "Bonus: multiple Python versions for the same uWSGI binary"
+msgstr ""
+
+#: ../../WSGIquickstart.rst:376
+msgid ""
+"As we have seen, uWSGI is composed of a small core and various plugins. "
+"Plugins can be embedded in the binary or loaded dynamically. When you "
+"build uWSGI for Python, a series of plugins plus the Python one are "
+"embedded in the final binary."
+msgstr ""
+
+#: ../../WSGIquickstart.rst:378
+msgid ""
+"This could be a problem if you want to support multiple Python versions "
+"without building a binary for each one."
+msgstr ""
+
+#: ../../WSGIquickstart.rst:380
+msgid ""
+"The best approach would be having a little binary with the language-"
+"independent features built in, and one plugin for each Python version "
+"that will be loaded on-demand."
+msgstr ""
+
+#: ../../WSGIquickstart.rst:382
+msgid "In the uWSGI source directory:"
+msgstr ""
+
+#: ../../WSGIquickstart.rst:388
+msgid ""
+"This will build a uwsgi binary with all the default plugins built-in "
+"except the Python one."
+msgstr ""
+
+#: ../../WSGIquickstart.rst:390
+msgid "Now, from the same directory, we start building Python plugins:"
+msgstr ""
+
+#: ../../WSGIquickstart.rst:398
+msgid ""
+"You will end up with three files: ``python34_plugin.so``, "
+"``python27_plugin.so``, ``python26_plugin.so``. Copy these into your "
+"desired directory. (By default, uWSGI searches for plugins in the current"
+" working directory.)"
+msgstr ""
+
+#: ../../WSGIquickstart.rst:400
+msgid ""
+"Now in your configurations files you can simply add (at the very top) the"
+" `plugins-dir` and `plugin` directives."
+msgstr ""
+
+#: ../../WSGIquickstart.rst:408
+msgid ""
+"This will load the ``python26_plugin.so`` plugin library from the "
+"directory into which you copied the plugins."
+msgstr ""
+
+#: ../../WSGIquickstart.rst:411
+msgid "And now..."
+msgstr ""
+
+#: ../../WSGIquickstart.rst:413
+msgid ""
+"You should already be able to go into production with such few concepts, "
+"but uWSGI is an enormous project with hundreds of features and "
+"configurations. If you want to be a better sysadmin, continue reading the"
+" full docs."
+msgstr ""
+

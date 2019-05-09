@@ -1,0 +1,420 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../PSGIquickstart.rst:2
+msgid "Quickstart for perl/PSGI applications"
+msgstr ""
+
+#: ../../PSGIquickstart.rst:5
+msgid ""
+"The following instructions will guide you through installing and running "
+"a perl-based uWSGI distribution, aimed at running PSGI apps."
+msgstr ""
+
+#: ../../PSGIquickstart.rst:9
+msgid "Installing uWSGI with Perl support"
+msgstr ""
+
+#: ../../PSGIquickstart.rst:11
+msgid ""
+"To build uWSGI you need a c compiler (gcc and clang are supported) and "
+"the python binary (it will only run the uwsgiconfig.py script that will "
+"execute the various compilation steps). As we are building a uWSGI binary"
+" with perl support we need perl development headers too (libperl-dev "
+"package on debian-based distros)"
+msgstr ""
+
+#: ../../PSGIquickstart.rst:14
+msgid "You can build uWSGI manually:"
+msgstr ""
+
+#: ../../PSGIquickstart.rst:20
+msgid "that is the same as"
+msgstr ""
+
+#: ../../PSGIquickstart.rst:27
+msgid "or using the network installer:"
+msgstr ""
+
+#: ../../PSGIquickstart.rst:33
+msgid ""
+"that will create a uWSGI binary in /tmp/uwsgi (feel free to change the "
+"path to whatever you want)"
+msgstr ""
+
+#: ../../PSGIquickstart.rst:36
+msgid "Note for distro packages"
+msgstr ""
+
+#: ../../PSGIquickstart.rst:38
+msgid ""
+"You distribution very probably contains a uWSGI package set. Those uWSGI "
+"packages tend to be highly modulars, so in addition to the core you need "
+"to install the required plugins. Plugins must be loaded in your configs. "
+"In the learning phase we strongly suggest to not use distribution "
+"packages to easily follow documentation and tutorials."
+msgstr ""
+
+#: ../../PSGIquickstart.rst:41
+msgid ""
+"Once you feel comfortable with the \"uWSGI way\" you can choose the best "
+"approach for your deployments."
+msgstr ""
+
+#: ../../PSGIquickstart.rst:44
+msgid "Your first PSGI app"
+msgstr ""
+
+#: ../../PSGIquickstart.rst:46
+msgid "save it to a file named myapp.pl"
+msgstr ""
+
+#: ../../PSGIquickstart.rst:59
+msgid "then run it via uWSGI in http mode:"
+msgstr ""
+
+#: ../../PSGIquickstart.rst:65
+msgid "(remember to replace 'uwsgi' if it is not in your current $PATH)"
+msgstr ""
+
+#: ../../PSGIquickstart.rst:67
+msgid "or if you are using a modular build (like the one of your distro)"
+msgstr ""
+
+#: ../../PSGIquickstart.rst:73
+msgid ""
+"Do not use --http when you have a frontend webserver, use --http-socket. "
+"Continue reading the quickstart to understand why."
+msgstr ""
+
+#: ../../PSGIquickstart.rst:76
+msgid "What is that '--http-modifier1 5' thing ???"
+msgstr ""
+
+#: ../../PSGIquickstart.rst:78
+msgid ""
+"uWSGI supports various languages and platform. When the server receives a"
+" request it has to know where to 'route' it."
+msgstr ""
+
+#: ../../PSGIquickstart.rst:80
+msgid ""
+"Each uWSGI plugin has an assigned number (the modifier), the perl/psgi "
+"one has the 5. So --http-modifier1 5 means \"route to the psgi plugin\""
+msgstr ""
+
+#: ../../PSGIquickstart.rst:82
+msgid ""
+"Albeit uWSGI has a more \"human-friendly\" :doc:`internal routing system "
+"<InternalRouting>` using modifiers is the fastest way, so, if possible "
+"always use them"
+msgstr ""
+
+#: ../../PSGIquickstart.rst:86
+msgid "Using a full webserver: nginx"
+msgstr ""
+
+#: ../../PSGIquickstart.rst:88
+msgid ""
+"The supplied http router, is (yes, incredible) only a router. You can use"
+" it as a load balancer or a proxy, but if you need a full webserver (for "
+"efficiently serving static files or all of those task a webserver is good"
+" at), you can get rid of the uwsgi http router (remember to change "
+"--plugins http,psgi to --plugins psgi if you are using a modular build) "
+"and put your app behind nginx."
+msgstr ""
+
+#: ../../PSGIquickstart.rst:90
+msgid ""
+"To communicate with nginx, uWSGI can use various protocol: http, uwsgi, "
+"fastcgi, scgi..."
+msgstr ""
+
+#: ../../PSGIquickstart.rst:92
+msgid ""
+"The most efficient one is the uwsgi one. Nginx includes uwsgi protocol "
+"support out of the box."
+msgstr ""
+
+#: ../../PSGIquickstart.rst:94
+msgid "Run your psgi application on a uwsgi socket:"
+msgstr ""
+
+#: ../../PSGIquickstart.rst:100
+msgid "then add a location stanza in your nginx config"
+msgstr ""
+
+#: ../../PSGIquickstart.rst:111
+msgid ""
+"Reload your nginx server, and it should start proxying requests to your "
+"uWSGI instance"
+msgstr ""
+
+#: ../../PSGIquickstart.rst:113
+msgid ""
+"Note that you do not need to configure uWSGI to set a specific modifier, "
+"nginx will do it using the ``uwsgi_modifier1 5;`` directive"
+msgstr ""
+
+#: ../../PSGIquickstart.rst:115
+msgid ""
+"If your proxy/webserver/router speaks HTTP, you have to tell uWSGI to "
+"natively speak the http protocol (this is different from --http that will"
+" spawn a proxy by itself):"
+msgstr ""
+
+#: ../../PSGIquickstart.rst:121
+msgid ""
+"as you can see we needed to specify the modifier1 to use, as the http "
+"protocol cannot carry this kind of information"
+msgstr ""
+
+#: ../../PSGIquickstart.rst:125
+msgid "Adding concurrency"
+msgstr ""
+
+#: ../../PSGIquickstart.rst:127
+msgid ""
+"You can give concurrency to to your app via multiprocess,multithreading "
+"or various async modes."
+msgstr ""
+
+#: ../../PSGIquickstart.rst:129
+msgid "To spawn additional processes use the --processes option"
+msgstr ""
+
+#: ../../PSGIquickstart.rst:135
+msgid "To have additional threads use --threads"
+msgstr ""
+
+#: ../../PSGIquickstart.rst:141
+msgid "Or both if you feel exotic"
+msgstr ""
+
+#: ../../PSGIquickstart.rst:147
+msgid ""
+"A very common non-blocking/coroutine library in the perl world is "
+"Coro::AnyEvent. uWSGI can use it (even combined with multiprocessing) "
+"simply including the ``coroae`` plugin."
+msgstr ""
+
+#: ../../PSGIquickstart.rst:149
+msgid "To build a uWSGI binary with ``coroae`` support just run"
+msgstr ""
+
+#: ../../PSGIquickstart.rst:155
+msgid "or"
+msgstr ""
+
+#: ../../PSGIquickstart.rst:161
+msgid ""
+"you will end with a uWSGI binary including both the ``psgi`` and "
+"``coroae`` plugins."
+msgstr ""
+
+#: ../../PSGIquickstart.rst:163
+msgid "Now run your application in Coro::AnyEvent mode:"
+msgstr ""
+
+#: ../../PSGIquickstart.rst:170
+msgid ""
+"it will run 4 processes each able to manage up to 1000 coroutines (or "
+"Coro microthreads)."
+msgstr ""
+
+#: ../../PSGIquickstart.rst:174
+msgid "Adding robustness: the Master process"
+msgstr ""
+
+#: ../../PSGIquickstart.rst:176
+msgid ""
+"It is highly recommended to have the master process always running on "
+"productions apps."
+msgstr ""
+
+#: ../../PSGIquickstart.rst:178
+msgid ""
+"It will constantly monitor your processes/threads and will add funny "
+"features like the :doc:`StatsServer`"
+msgstr ""
+
+#: ../../PSGIquickstart.rst:180
+msgid "To enable the master simply add --master"
+msgstr ""
+
+#: ../../PSGIquickstart.rst:187
+msgid "Using config files"
+msgstr ""
+
+#: ../../PSGIquickstart.rst:189
+msgid ""
+"uWSGI has literally hundreds of options. Dealing with them via command "
+"line is basically silly, so try to always use config files. uWSGI "
+"supports various standards (xml, .ini, json, yaml...). Moving from one to"
+" another is pretty simple. The same options you can use via command line "
+"can be used on config files simply removing the ``--`` prefix:"
+msgstr ""
+
+#: ../../PSGIquickstart.rst:201
+msgid "or xml:"
+msgstr ""
+
+#: ../../PSGIquickstart.rst:212
+msgid "To run uWSGI using a config file, just specify it as argument:"
+msgstr ""
+
+#: ../../PSGIquickstart.rst:218
+msgid ""
+"if for some reason your config cannot end with the expected extension "
+"(.ini, .xml, .yml, .js) you can force the binary to use a specific parser"
+" in this way:"
+msgstr ""
+
+#: ../../PSGIquickstart.rst:233
+msgid "and so on"
+msgstr ""
+
+#: ../../PSGIquickstart.rst:235
+msgid "You can even pipe configs (using the dash to force reading from stdin):"
+msgstr ""
+
+#: ../../PSGIquickstart.rst:242
+msgid "Accessing uWSGI options within application code"
+msgstr ""
+
+#: ../../PSGIquickstart.rst:244
+msgid "uWSGI options can be accessed within application code via ``uwsgi::opt``."
+msgstr ""
+
+#: ../../PSGIquickstart.rst:252
+msgid "Automatically starting uWSGI on boot"
+msgstr ""
+
+#: ../../PSGIquickstart.rst:254
+msgid ""
+"If you are thinking about writing some init.d script for spawning uWSGI, "
+"just sit (and calm) down and check if your system does not offer you a "
+"better (more modern) approach."
+msgstr ""
+
+#: ../../PSGIquickstart.rst:256
+msgid ""
+"Each distribution has chosen a startup system (:doc:`Upstart<Upstart>`, "
+":doc:`Systemd`...) and there are tons of process managers available "
+"(supervisord, god...)."
+msgstr ""
+
+#: ../../PSGIquickstart.rst:258
+msgid ""
+"uWSGI will integrate very well with all of them (we hope), but if you "
+"plan to deploy a big number of apps check the uWSGI "
+":doc:`Emperor<Emperor>` it is the dream of every devops."
+msgstr ""
+
+#: ../../PSGIquickstart.rst:262
+msgid "Security and availability"
+msgstr ""
+
+#: ../../PSGIquickstart.rst:264
+msgid ""
+"ALWAYS avoid running your uWSGI instances as root. You can drop "
+"privileges using the uid and gid options"
+msgstr ""
+
+#: ../../PSGIquickstart.rst:278
+msgid ""
+"A common problem with webapp deployment is \"stuck requests\". All of "
+"your threads/workers are stuck blocked on a request and your app cannot "
+"accept more of them."
+msgstr ""
+
+#: ../../PSGIquickstart.rst:280
+msgid ""
+"To avoid that problem you can set an ``harakiri`` timer. It is a monitor "
+"(managed by the master process) that will destroy processes stuck for "
+"more than the specified number of seconds"
+msgstr ""
+
+#: ../../PSGIquickstart.rst:294
+msgid ""
+"will destroy workers blocked for more than 30 seconds. Choose carefully "
+"the harakiri value !!!"
+msgstr ""
+
+#: ../../PSGIquickstart.rst:296
+msgid ""
+"In addition to this, since uWSGI 1.9, the stats server exports the whole "
+"set of request variables, so you can see (in realtime) what your instance"
+" is doing (for each worker, thread or async core)"
+msgstr ""
+
+#: ../../PSGIquickstart.rst:298
+msgid "Enabling the stats server is easy:"
+msgstr ""
+
+#: ../../PSGIquickstart.rst:313
+msgid ""
+"just bind it to an address (UNIX or TCP) and just connect (you can use "
+"telnet too) to it to receive a JSON representation of your instance."
+msgstr ""
+
+#: ../../PSGIquickstart.rst:315
+msgid ""
+"The ``uwsgitop`` application (you can find it in the official github "
+"repository) is an example of using the stats server to have a top-like "
+"realtime monitoring tool (with colors !!!)"
+msgstr ""
+
+#: ../../PSGIquickstart.rst:319
+msgid "Offloading"
+msgstr ""
+
+#: ../../PSGIquickstart.rst:321
+msgid ""
+":doc:`OffloadSubsystem` allows you to free your workers as soon as "
+"possible when some specific pattern matches and can be delegated to a "
+"pure-c thread. Examples are sending static file from the filesystem, "
+"transferring data from the network to the client and so on."
+msgstr ""
+
+#: ../../PSGIquickstart.rst:324
+msgid ""
+"Offloading is very complex, but its use is transparent to the end user. "
+"If you want to try just add --offload-threads <n> where <n> is the number"
+" of threads to spawn (one for cpu is a good value)."
+msgstr ""
+
+#: ../../PSGIquickstart.rst:326
+msgid ""
+"When offload threads are enabled, all of the parts that can be optimized "
+"will be automatically detected."
+msgstr ""
+
+#: ../../PSGIquickstart.rst:330
+msgid "And now"
+msgstr ""
+
+#: ../../PSGIquickstart.rst:332
+msgid ""
+"You should already be able to go in production with such few concepts, "
+"but uWSGI is an enormous project with hundreds of features and "
+"configurations. If you want to be a better sysadmin, continue reading the"
+" full docs."
+msgstr ""
+

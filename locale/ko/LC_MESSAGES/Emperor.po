@@ -1,0 +1,438 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Emperor.rst:2
+msgid "The uWSGI Emperor -- multi-app deployment"
+msgstr ""
+
+#: ../../Emperor.rst:4
+msgid ""
+"If you need to deploy a big number of apps on a single server, or a group"
+" of servers, the Emperor mode is just the ticket.  It is a special uWSGI "
+"instance that will monitor specific events and will spawn/stop/reload "
+"instances (known as :term:`vassals<vassal>`, when managed by an Emperor) "
+"on demand."
+msgstr ""
+
+#: ../../Emperor.rst:9
+msgid ""
+"By default the Emperor will scan specific directories for supported "
+"(.ini, .xml, .yml, .json, etc.) uWSGI configuration files, but it is "
+"extensible using :term:`imperial monitor` plugins.  The ``dir://`` and "
+"``glob://`` plugins are embedded in the core, so they need not be loaded,"
+" and are automatically detected. The ``dir://`` plugin is the default."
+msgstr ""
+
+#: ../../Emperor.rst:15
+msgid ""
+"Whenever an imperial monitor detects a new configuration file, a new "
+"uWSGI instance will be spawned with that configuration."
+msgstr ""
+
+#: ../../Emperor.rst:16
+msgid ""
+"Whenever a configuration file is modified (its modification time changed,"
+" so ``touch --no-dereference`` may be your friend), the corresponding app"
+" will be reloaded."
+msgstr ""
+
+#: ../../Emperor.rst:17
+msgid "Whenever a config file is removed, the corresponding app will be stopped."
+msgstr ""
+
+#: ../../Emperor.rst:18
+msgid "If the emperor dies, all the vassals die."
+msgstr ""
+
+#: ../../Emperor.rst:19
+msgid "If a vassal dies for any reason, the emperor will respawn it."
+msgstr ""
+
+#: ../../Emperor.rst:21
+msgid ""
+"Multiple sources of configuration may be monitored by specifying "
+"``--emperor`` multiple times."
+msgstr ""
+
+#: ../../Emperor.rst:25
+msgid ""
+"See :doc:`ImperialMonitors` for a list of the Imperial Monitor plugins "
+"shipped with uWSGI and how to use them."
+msgstr ""
+
+#: ../../Emperor.rst:35
+msgid "Special configuration variables"
+msgstr ""
+
+#: ../../Emperor.rst:37
+msgid ""
+"Using :ref:`Placeholders` and :ref:`MagicVars` in conjunction with the "
+"Emperor will probably save you a lot of time and make your configuration "
+"more DRY. Suppose that in /opt/apps there are only Django_ apps.  "
+"/opt/apps/app.skel (the .skel extension is not a known configuration file"
+" type to uWSGI and will be skipped)"
+msgstr ""
+
+#: ../../Emperor.rst:52
+msgid "And then for each app create a symlink::"
+msgstr ""
+
+#: ../../Emperor.rst:57
+msgid ""
+"Finally, start the Emperor with the ``--emperor-nofollow`` option. Now "
+"you can reload each vassal separately with the command::"
+msgstr ""
+
+#: ../../Emperor.rst:64
+msgid "Passing configuration parameters to all vassals"
+msgstr ""
+
+#: ../../Emperor.rst:66
+msgid ""
+"Starting from 1.9.19 you can pass options using the ``--vassal-set`` "
+"facility"
+msgstr ""
+
+#: ../../Emperor.rst:75
+msgid ""
+"this will add ``--set processes=8`` and ``--set enable-metrics=1`` to "
+"each vassal"
+msgstr ""
+
+#: ../../Emperor.rst:77
+msgid ""
+"You can force the Emperor to pass options to uWSGI instances using "
+"environment variables too.  Every environment variable of the form "
+"``UWSGI_VASSAL_xxx`` will be rewritten in the new instance as "
+"``UWSGI_xxx``, with the usual :ref:`configuration "
+"implications<ConfigEnv>`."
+msgstr ""
+
+#: ../../Emperor.rst:82
+msgid "For example::"
+msgstr ""
+
+#: ../../Emperor.rst:86
+msgid "will let you avoid specifying the socket option in configuration files."
+msgstr ""
+
+#: ../../Emperor.rst:88
+msgid ""
+"Alternatively, you can use the ``--vassals-include`` option let each "
+"vassal automatically include a complete config file::"
+msgstr ""
+
+#: ../../Emperor.rst:93
+msgid ""
+"Note that if you do this, ``%n`` (and other magic variables) in the "
+"included file will resolve to the name of the included file, not the "
+"original vassal configuration file. If you want to set options in the "
+"included file using the vassal name, you'll have to use placeholders. For"
+" example, in the vassal config, you write::"
+msgstr ""
+
+#: ../../Emperor.rst:103
+msgid "In the ``vassal-defaults.ini``, you write::"
+msgstr ""
+
+#: ../../Emperor.rst:111
+msgid "Tyrant mode (secure multi-user hosting)"
+msgstr ""
+
+#: ../../Emperor.rst:113
+msgid ""
+"The emperor is normally run as root, setting the UID and GID in each "
+"instance's config. The vassal instance then drops privileges before "
+"serving requests. In this mode, if your users have access to their own "
+"uWSGI configuration files, you can't trust them to set the correct "
+"``uid`` and ``gid``. You could run the emperor as unprivileged user (with"
+" ``uid`` and ``gid``) but all of the vassals would then run under the "
+"same user, as unprivileged users are not able to promote themselves to "
+"other users.  For this case the Tyrant mode is available -- just add the "
+"``emperor-tyrant`` option."
+msgstr ""
+
+#: ../../Emperor.rst:122
+msgid ""
+"In Tyrant mode the Emperor will run the vassal using the UID/GID of the "
+"vassal configuration file (or for other Imperial Monitors, by some other "
+"method of configuration).  If Tyrant mode is used, the vassal "
+"configuration files must have UID/GID > 0. An error will occur if the UID"
+" or GID is zero, or if the UID or GID of the configuration of an already "
+"running vassal changes."
+msgstr ""
+
+#: ../../Emperor.rst:130
+msgid "Tyrant mode for paranoid sysadmins (Linux only)"
+msgstr ""
+
+#: ../../Emperor.rst:132
+msgid ""
+"If you have built a uWSGI version with :doc:`Capabilities` options "
+"enabled, you can run the Emperor as unprivileged user but maintaining the"
+" minimal amount of root-capabilities needed to apply the tyrant mode"
+msgstr ""
+
+#: ../../Emperor.rst:147
+msgid "Loyalty"
+msgstr ""
+
+#: ../../Emperor.rst:149
+msgid ""
+"As soon as a vassal manages a request it will became \"loyal\". This "
+"status is used by the Emperor to identify bad-behaving vassals and punish"
+" them."
+msgstr ""
+
+#: ../../Emperor.rst:153
+msgid "Throttling"
+msgstr ""
+
+#: ../../Emperor.rst:155
+msgid ""
+"Whenever two or more vassals are spawned in the same second, the Emperor "
+"will start a throttling subsystem to avoid `fork bombing`_.  The system "
+"adds a throttle delta (specified in milliseconds via the "
+":ref:`OptionEmperorThrottle` option) whenever it happens, and waits for "
+"that duration before spawning a new vassal.  Every time a new vassal "
+"spawns without triggering throttling, the current throttling duration is "
+"halved."
+msgstr ""
+
+#: ../../Emperor.rst:165
+msgid "Blacklist system"
+msgstr ""
+
+#: ../../Emperor.rst:167
+msgid ""
+"Whenever a non-loyal vassal dies, it is put in a shameful blacklist.  "
+"When in a blacklist, that vassal will be throttled up to a maximum value "
+"(tunable via :ref:`OptionEmperorMaxThrottle`), starting from the default "
+"throttle delta of 3.  Whenever a blacklisted vassal dies, its throttling "
+"value is increased by the delta (:ref:`OptionEmperorThrottle`)."
+msgstr ""
+
+#: ../../Emperor.rst:173
+msgid ""
+"You can also empty the blacklist by sending the signal SIGURG to the "
+"emperor process. This will reset the throttle value."
+msgstr ""
+
+#: ../../Emperor.rst:177
+msgid "Heartbeat system"
+msgstr ""
+
+#: ../../Emperor.rst:179
+msgid ""
+"Vassals can voluntarily ask the Emperor to monitor their status.  Workers"
+" of heartbeat-enabled vassals will send \"heartbeat\" messages to the "
+"Emperor. If the Emperor does not receive heartbeats from an instance for "
+"more than N (default 30, :ref:`OptionEmperorRequiredHeartbeat`) seconds, "
+"that instance will be considered hung and thus reloaded.  To enable "
+"sending of heartbeat packet in a vassal, add the :ref:`OptionHeartbeat` "
+"option."
+msgstr ""
+
+#: ../../Emperor.rst:188
+msgid ""
+"If all of your workers are stuck handling perfectly legal requests such "
+"as slow, large file uploads, the Emperor will trigger a reload as if the "
+"workers are hung.  The reload triggered is a graceful one, so you will be"
+" able to tune your config/timeout/mercy for sane behaviour."
+msgstr ""
+
+#: ../../Emperor.rst:196
+msgid "Using Linux namespaces for vassals"
+msgstr ""
+
+#: ../../Emperor.rst:198
+msgid ""
+"On Linux you can tell the Emperor to run vassals in \"unshared\" "
+"contexts. That means you can run each vassal with a dedicated view of the"
+" filesystems, ipc, uts, networking, pids and uids."
+msgstr ""
+
+#: ../../Emperor.rst:200
+msgid ""
+"Things you generally do with tools like ``lxc`` or its abstractions like "
+"``docker`` are native in uWSGI."
+msgstr ""
+
+#: ../../Emperor.rst:202
+msgid "For example if you want to run each vassals in a new namespace:"
+msgstr ""
+
+#: ../../Emperor.rst:210
+msgid ""
+"now each vassal will be able to modify the filesystem layout, networking,"
+" hostname and so on without damaging the main system."
+msgstr ""
+
+#: ../../Emperor.rst:212
+msgid ""
+"A couple of helper daemons are included in the uWSGI distribution to "
+"simplify management of jailed vassals. Most notably :doc:`TunTapRouter` "
+"allows full user-space networking in jails, while the ``forkpty router`` "
+"allows allocation of pseudoterminals in jails"
+msgstr ""
+
+#: ../../Emperor.rst:215
+msgid ""
+"It is not needed to unshare all of the subsystem in your vassals, "
+"sometimes you only want to give dedicated ipc and hostname to a vassal "
+"and hide from the processes list:"
+msgstr ""
+
+#: ../../Emperor.rst:223
+msgid "a vassal could be:"
+msgstr ""
+
+#: ../../Emperor.rst:243
+msgid "The Imperial Bureau of Statistics"
+msgstr ""
+
+#: ../../Emperor.rst:245
+msgid ""
+"You can enable a statistics/status service for the Emperor by adding the "
+":ref:`OptionEmperorStats` option with a TCP address. By connecting to "
+"that address, you'll get a JSON-format blob of statistics."
+msgstr ""
+
+#: ../../Emperor.rst:252
+msgid "Running non-uWSGI apps or using alternative uWSGIs as vassals"
+msgstr ""
+
+#: ../../Emperor.rst:254
+msgid ""
+"You can ``exec()`` a different binary as your vassal using the "
+"``privileged-binary-patch``/``unprivileged-binary-patch`` options.  The "
+"first one patches the binary after socket inheritance and shared socket "
+"initialization (so you will be able to use uWSGI-defined sockets).  The "
+"second one patches the binary after privileges drop. In this way you will"
+" be able to use uWSGI's UID/GID/chroot/namespace/jailing options.  The "
+"binary is called with the same arguments that were passed to the vassal "
+"by the Emperor."
+msgstr ""
+
+#: ../../Emperor.rst:273
+msgid ""
+"*DO NOT DAEMONIZE* your apps. If you do so, the Emperor will lose its "
+"connection with them."
+msgstr ""
+
+#: ../../Emperor.rst:275
+msgid ""
+"The uWSGI arguments are passed to the new binary. If you do not like that"
+" behaviour (or need to pass custom arguments) add ``-arg`` to the binary "
+"patch option, yielding:"
+msgstr ""
+
+#: ../../Emperor.rst:289
+msgid "or:"
+msgstr ""
+
+#: ../../Emperor.rst:299
+msgid ""
+"Your custom vassal apps can also speak with the emperor using the "
+":doc:`emperor protocol <EmperorProtocol>`."
+msgstr ""
+
+#: ../../Emperor.rst:302
+msgid "Integrating the Emperor with the FastRouter"
+msgstr ""
+
+#: ../../Emperor.rst:304
+msgid ""
+"The FastRouter is a proxy/load-balancer/router speaking :doc:`Protocol`."
+"  Yann Malet from `Lincoln Loop`_ has released `a draft about massive "
+"Emperor + Fastrouter deployment`_ (PDF) using :doc:`Caching` as a "
+"hostname to socket mapping storage."
+msgstr ""
+
+#: ../../Emperor.rst:314
+msgid "Notes"
+msgstr ""
+
+#: ../../Emperor.rst:316
+msgid ""
+"At startup, the emperor ``chdir()`` to the vassal dir. All vassal "
+"instances will start from here."
+msgstr ""
+
+#: ../../Emperor.rst:317
+msgid ""
+"If the uwsgi binary is not in your system path you can force its path "
+"with ``binary-path``::"
+msgstr ""
+
+#: ../../Emperor.rst:321
+msgid "Sending ``SIGUSR1`` to the emperor will print vassal status in its log."
+msgstr ""
+
+#: ../../Emperor.rst:322
+msgid ""
+"Stopping (``SIGINT``/``SIGTERM``/``SIGQUIT``) the Emperor will invoke "
+"Ragnarok and kill all the vassals."
+msgstr ""
+
+#: ../../Emperor.rst:324
+msgid "Sending ``SIGHUP`` to the Emperor will reload all vassals."
+msgstr ""
+
+#: ../../Emperor.rst:325
+msgid ""
+"Sending ``SIGURG`` to the Emperor will remove all vassals from the "
+"blacklist"
+msgstr ""
+
+#: ../../Emperor.rst:326
+msgid ""
+"The emperor should generally not be run with ``--master``, unless master "
+"features like advanced logging are specifically needed."
+msgstr ""
+
+#: ../../Emperor.rst:328
+msgid ""
+"The emperor should generally be started at server boot time and left "
+"alone, not reloaded/restarted except for uWSGI upgrades; emperor reloads "
+"are a bit drastic, reloading all vassals at once. Instead vassals should "
+"be reloaded individually when needed, in the manner of the imperial "
+"monitor in use."
+msgstr ""
+
+#: ../../Emperor.rst:334
+msgid "Todo"
+msgstr ""
+
+#: ../../Emperor.rst:336
+msgid ""
+"Docs-TODO: Clarify what the \"chdir-on-startup\" behavior does with non-"
+"filesystem monitors."
+msgstr ""
+
+#: ../../Emperor.rst:338
+msgid "Export more magic vars"
+msgstr ""
+
+#: ../../Emperor.rst:339
+msgid ""
+"Add support for multiple sections in xml/ini/yaml files (this will allow "
+"to have a single config file for multiple instances)"
+msgstr ""
+

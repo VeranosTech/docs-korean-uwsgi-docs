@@ -1,0 +1,617 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Protocol.rst:2
+msgid "The uwsgi Protocol"
+msgstr ""
+
+#: ../../Protocol.rst:4
+msgid ""
+"The uwsgi (lowercase!) protocol is the native protocol used by the uWSGI "
+"server."
+msgstr ""
+
+#: ../../Protocol.rst:6
+msgid ""
+"It is a binary protocol that can carry any type of data. The first 4 "
+"bytes of a uwsgi packet describe the type of the data contained by the "
+"packet."
+msgstr ""
+
+#: ../../Protocol.rst:8
+msgid "**Every uwsgi request generates a response in the uwsgi format.**"
+msgstr ""
+
+#: ../../Protocol.rst:10
+msgid ""
+"Even the web server handlers obey this rule, as an HTTP response is a "
+"valid uwsgi packet (look at the ``modifier1`` = 72)."
+msgstr ""
+
+#: ../../Protocol.rst:12
+msgid ""
+"The protocol works mainly via TCP but the master process can bind to a "
+"UDP Unicast/Multicast for :doc:`SNMP` or cluster management/messaging "
+"requests."
+msgstr ""
+
+#: ../../Protocol.rst:14
+msgid "SCTP support is being worked on."
+msgstr ""
+
+#: ../../Protocol.rst:17
+msgid "uwsgi packet header"
+msgstr ""
+
+#: ../../Protocol.rst:28
+msgid ""
+"Unless otherwise specified the ``datasize`` value contains the size "
+"(16-bit little endian) of the packet body."
+msgstr ""
+
+#: ../../Protocol.rst:31
+msgid "Packet descriptions"
+msgstr ""
+
+#: ../../Protocol.rst:37
+msgid "``modifier1``"
+msgstr ""
+
+#: ../../Protocol.rst:38
+msgid "``datasize``"
+msgstr ""
+
+#: ../../Protocol.rst:39
+msgid "``modifier2``"
+msgstr ""
+
+#: ../../Protocol.rst:40
+msgid "``packet type``"
+msgstr ""
+
+#: ../../Protocol.rst:42 ../../Protocol.rst:44 ../../Protocol.rst:64
+#: ../../Protocol.rst:69 ../../Protocol.rst:74 ../../Protocol.rst:79
+#: ../../Protocol.rst:84 ../../Protocol.rst:94 ../../Protocol.rst:99
+#: ../../Protocol.rst:139 ../../Protocol.rst:144 ../../Protocol.rst:185
+#: ../../Protocol.rst:195 ../../Protocol.rst:199 ../../Protocol.rst:204
+#: ../../Protocol.rst:214 ../../Protocol.rst:220 ../../Protocol.rst:249
+#: ../../Protocol.rst:250 ../../Protocol.rst:255 ../../Protocol.rst:259
+msgid "0"
+msgstr ""
+
+#: ../../Protocol.rst:43 ../../Protocol.rst:149
+msgid "size of WSGI block vars (HTTP request body excluded)"
+msgstr ""
+
+#: ../../Protocol.rst:45
+msgid "Standard WSGI request followed by the HTTP request body"
+msgstr ""
+
+#: ../../Protocol.rst:47
+msgid "1"
+msgstr ""
+
+#: ../../Protocol.rst:48 ../../Protocol.rst:53 ../../Protocol.rst:58
+msgid "reserved for UNBIT"
+msgstr ""
+
+#: ../../Protocol.rst:52
+msgid "2"
+msgstr ""
+
+#: ../../Protocol.rst:57
+msgid "3"
+msgstr ""
+
+#: ../../Protocol.rst:62
+msgid "5"
+msgstr ""
+
+#: ../../Protocol.rst:63
+msgid "size of :doc:`PSGI <Perl>` block vars (HTTP request body excluded)"
+msgstr ""
+
+#: ../../Protocol.rst:65
+msgid "Standard :doc:`PSGI <Perl>` request followed by the HTTP request body"
+msgstr ""
+
+#: ../../Protocol.rst:67
+msgid "6"
+msgstr ""
+
+#: ../../Protocol.rst:68
+msgid "size of LUA WSAPI block vars (HTTP request body excluded)"
+msgstr ""
+
+#: ../../Protocol.rst:70
+msgid "Standard LUA/WSAPI request followed by the HTTP request body"
+msgstr ""
+
+#: ../../Protocol.rst:72
+msgid "7"
+msgstr ""
+
+#: ../../Protocol.rst:73
+msgid "size of RACK block vars (HTTP request body excluded)"
+msgstr ""
+
+#: ../../Protocol.rst:75
+msgid "Standard RACK request followed by the HTTP request body"
+msgstr ""
+
+#: ../../Protocol.rst:77
+msgid "8"
+msgstr ""
+
+#: ../../Protocol.rst:78
+msgid "size of JWSGI/Ring block vars (HTTP request body excluded)"
+msgstr ""
+
+#: ../../Protocol.rst:80
+msgid ""
+"Standard JVM request for :doc:`JWSGI` and :doc:`Ring` followed by the "
+"HTTP request body"
+msgstr ""
+
+#: ../../Protocol.rst:82
+msgid "9"
+msgstr ""
+
+#: ../../Protocol.rst:83 ../../Protocol.rst:93
+msgid "size of CGI block vars (HTTP request body excluded)"
+msgstr ""
+
+#: ../../Protocol.rst:85
+msgid "Standard :doc:`CGI` request followed by the HTTP request body"
+msgstr ""
+
+#: ../../Protocol.rst:87
+msgid "10"
+msgstr ""
+
+#: ../../Protocol.rst:88 ../../Protocol.rst:154
+msgid "size of block vars"
+msgstr ""
+
+#: ../../Protocol.rst:89 ../../Protocol.rst:104 ../../Protocol.rst:114
+#: ../../Protocol.rst:120 ../../Protocol.rst:125 ../../Protocol.rst:130
+#: ../../Protocol.rst:135 ../../Protocol.rst:140 ../../Protocol.rst:145
+#: ../../Protocol.rst:155 ../../Protocol.rst:160 ../../Protocol.rst:165
+#: ../../Protocol.rst:260
+msgid "0- 255"
+msgstr ""
+
+#: ../../Protocol.rst:90
+msgid ""
+"Management interface request: setup flag specified by modifier2. For a "
+"list of management flag look at ManagementFlag"
+msgstr ""
+
+#: ../../Protocol.rst:92
+msgid "14"
+msgstr ""
+
+#: ../../Protocol.rst:95
+msgid "Standard :doc:`PHP` request followed by the HTTP request body"
+msgstr ""
+
+#: ../../Protocol.rst:97
+msgid "15"
+msgstr ""
+
+#: ../../Protocol.rst:98
+msgid "size of Mono ASP.NET block vars (HTTP request body excluded)"
+msgstr ""
+
+#: ../../Protocol.rst:100
+msgid "Standard :doc:`Mono` request followed by the HTTP request body"
+msgstr ""
+
+#: ../../Protocol.rst:102
+msgid "17"
+msgstr ""
+
+#: ../../Protocol.rst:103
+msgid "size of Spooler block vars"
+msgstr ""
+
+#: ../../Protocol.rst:105
+msgid ""
+":doc:`Spooler` request, the block vars is converted to a "
+"dictionary/hash/table and passed to the spooler callable. The second "
+"modifier is currently ignored."
+msgstr ""
+
+#: ../../Protocol.rst:107
+msgid "18"
+msgstr ""
+
+#: ../../Protocol.rst:108
+msgid "size of CGI block vars"
+msgstr ""
+
+#: ../../Protocol.rst:109
+msgid "0-255"
+msgstr ""
+
+#: ../../Protocol.rst:110
+msgid "direct call to c-like symbols"
+msgstr ""
+
+#: ../../Protocol.rst:112
+msgid "22"
+msgstr ""
+
+#: ../../Protocol.rst:113
+msgid "size of code string"
+msgstr ""
+
+#: ../../Protocol.rst:115
+msgid ""
+"Raw Code evaluation. The interpreter is chosen by the modifier2. 0 is "
+"Python, 5 is Perl. It does not return a valid uwsgi response, but a raw "
+"string (that may be an HTTP response)"
+msgstr ""
+
+#: ../../Protocol.rst:118
+msgid "23"
+msgstr ""
+
+#: ../../Protocol.rst:119 ../../Protocol.rst:124 ../../Protocol.rst:129
+#: ../../Protocol.rst:134
+msgid "size of CGI vars"
+msgstr ""
+
+#: ../../Protocol.rst:121
+msgid "invoke the :doc:`XSLT`"
+msgstr ""
+
+#: ../../Protocol.rst:123
+msgid "24"
+msgstr ""
+
+#: ../../Protocol.rst:126
+msgid "invoke the :doc:`V8`"
+msgstr ""
+
+#: ../../Protocol.rst:128
+msgid "25"
+msgstr ""
+
+#: ../../Protocol.rst:131
+msgid "invoke the :doc:`GridFS`"
+msgstr ""
+
+#: ../../Protocol.rst:133
+msgid "26"
+msgstr ""
+
+#: ../../Protocol.rst:136
+msgid "invoke the :doc:`GlusterFS`"
+msgstr ""
+
+#: ../../Protocol.rst:138
+msgid "27"
+msgstr ""
+
+#: ../../Protocol.rst:141
+msgid "call the :doc:`FastFuncs` specified by the modifier2 field"
+msgstr ""
+
+#: ../../Protocol.rst:143
+msgid "28"
+msgstr ""
+
+#: ../../Protocol.rst:146
+msgid "invoke the :doc:`Rados`"
+msgstr ""
+
+#: ../../Protocol.rst:148
+msgid "30"
+msgstr ""
+
+#: ../../Protocol.rst:150
+msgid ""
+"0 (if defined the size of the block vars is 24bit le, for now none of the"
+" webserver handlers support this feature)"
+msgstr ""
+
+#: ../../Protocol.rst:151
+msgid ""
+"Standard WSGI request followed by the HTTP request body. The PATH_INFO is"
+" automatically modified, removing the SCRIPT_NAME from it"
+msgstr ""
+
+#: ../../Protocol.rst:153
+msgid "31"
+msgstr ""
+
+#: ../../Protocol.rst:156
+msgid "Generic message passing (reserved)"
+msgstr ""
+
+#: ../../Protocol.rst:158
+msgid "32"
+msgstr ""
+
+#: ../../Protocol.rst:159
+msgid "size of char array"
+msgstr ""
+
+#: ../../Protocol.rst:161
+msgid "array of char passing (reserved)"
+msgstr ""
+
+#: ../../Protocol.rst:163
+msgid "33"
+msgstr ""
+
+#: ../../Protocol.rst:164
+msgid "size of marshal object"
+msgstr ""
+
+#: ../../Protocol.rst:166
+msgid "marshalled/serialzed object passing (reserved)"
+msgstr ""
+
+#: ../../Protocol.rst:168
+msgid "48"
+msgstr ""
+
+#: ../../Protocol.rst:169 ../../Protocol.rst:170
+msgid "snmp specific"
+msgstr ""
+
+#: ../../Protocol.rst:171
+msgid "identify a SNMP request/response (mainly via UDP)"
+msgstr ""
+
+#: ../../Protocol.rst:173
+msgid "72"
+msgstr ""
+
+#: ../../Protocol.rst:174
+msgid "chr(TT)"
+msgstr ""
+
+#: ../../Protocol.rst:175
+msgid "chr(P)"
+msgstr ""
+
+#: ../../Protocol.rst:176
+msgid ""
+"Corresponds to the 'HTTP' string and signals that this is a raw HTTP "
+"response."
+msgstr ""
+
+#: ../../Protocol.rst:178
+msgid "73"
+msgstr ""
+
+#: ../../Protocol.rst:179
+msgid "announce message size (for sanity check)"
+msgstr ""
+
+#: ../../Protocol.rst:180
+msgid "announce type (0 = hostname)"
+msgstr ""
+
+#: ../../Protocol.rst:181
+msgid "announce message"
+msgstr ""
+
+#: ../../Protocol.rst:183
+msgid "74"
+msgstr ""
+
+#: ../../Protocol.rst:184
+msgid "multicast message size (for sanity check)"
+msgstr ""
+
+#: ../../Protocol.rst:186
+msgid ""
+"array of chars; a custom multicast message managed by "
+"``uwsgi.multicast_manager``"
+msgstr ""
+
+#: ../../Protocol.rst:188
+msgid "95"
+msgstr ""
+
+#: ../../Protocol.rst:189
+msgid "cluster membership dict size"
+msgstr ""
+
+#: ../../Protocol.rst:190
+msgid "``action``"
+msgstr ""
+
+#: ../../Protocol.rst:191
+msgid ""
+"add/remove/enable/disable node from a cluster. Action may be 0 = add, 1 ="
+" remove, 2 = enable, 3 = disable. Add action requires a dict of at least "
+"3 keys: ``hostname``, ``address`` and ``workers``"
+msgstr ""
+
+#: ../../Protocol.rst:193
+msgid "96"
+msgstr ""
+
+#: ../../Protocol.rst:194
+msgid "log message size"
+msgstr ""
+
+#: ../../Protocol.rst:196
+msgid "Remote logging (clustering/multicast/unicast)"
+msgstr ""
+
+#: ../../Protocol.rst:198
+msgid "97"
+msgstr ""
+
+#: ../../Protocol.rst:200 ../../Protocol.rst:205 ../../Protocol.rst:210
+#: ../../Protocol.rst:215 ../../Protocol.rst:245
+msgid "0, 1"
+msgstr ""
+
+#: ../../Protocol.rst:201
+msgid "brutal reload request (0 request -  1 confirmation)"
+msgstr ""
+
+#: ../../Protocol.rst:203
+msgid "98"
+msgstr ""
+
+#: ../../Protocol.rst:206
+msgid "graceful reload request (0 request -  1 confirmation)"
+msgstr ""
+
+#: ../../Protocol.rst:208
+msgid "99"
+msgstr ""
+
+#: ../../Protocol.rst:209
+msgid "size of options dictionary (if response)"
+msgstr ""
+
+#: ../../Protocol.rst:211
+msgid "request configuration data from a uwsgi node (even via multicast)"
+msgstr ""
+
+#: ../../Protocol.rst:213
+msgid "100"
+msgstr ""
+
+#: ../../Protocol.rst:216
+msgid ""
+"PING- PONG if modifier2 is 0 it is a PING request otherwise it is a PONG "
+"(a response). Useful for cluster health- check"
+msgstr ""
+
+#: ../../Protocol.rst:218
+msgid "101"
+msgstr ""
+
+#: ../../Protocol.rst:219 ../../Protocol.rst:234 ../../Protocol.rst:239
+#: ../../Protocol.rst:244 ../../Protocol.rst:254
+msgid "size of packet"
+msgstr ""
+
+#: ../../Protocol.rst:221
+msgid "ECHO service"
+msgstr ""
+
+#: ../../Protocol.rst:223
+msgid "109"
+msgstr ""
+
+#: ../../Protocol.rst:224
+msgid "size of clean payload"
+msgstr ""
+
+#: ../../Protocol.rst:225 ../../Protocol.rst:230
+msgid "0 to 255"
+msgstr ""
+
+#: ../../Protocol.rst:226
+msgid "legion msg (UDP, the body is encrypted)"
+msgstr ""
+
+#: ../../Protocol.rst:228
+msgid "110"
+msgstr ""
+
+#: ../../Protocol.rst:229
+msgid "size of payload"
+msgstr ""
+
+#: ../../Protocol.rst:231
+msgid ""
+"``uwsgi_signal`` framework (payload is optional), modifier2 is the signal"
+" num"
+msgstr ""
+
+#: ../../Protocol.rst:233
+msgid "111"
+msgstr ""
+
+#: ../../Protocol.rst:235
+msgid "0, 1, 2, 3"
+msgstr ""
+
+#: ../../Protocol.rst:236
+msgid "Cache operations. 0: read, 1: write, 2: delete, 3: dict_based"
+msgstr ""
+
+#: ../../Protocol.rst:238
+msgid "123"
+msgstr ""
+
+#: ../../Protocol.rst:241
+msgid "special modifier for signaling corerouters about special conditions"
+msgstr ""
+
+#: ../../Protocol.rst:243
+msgid "173"
+msgstr ""
+
+#: ../../Protocol.rst:246
+msgid ""
+"RPC. The packet is an uwsgi array where the first item is the name of the"
+" function and the following are the args (if ``modifier2`` is 1 the RPC "
+"will be 'raw' and all of the response will be returned to the app, uwsgi "
+"header included, if available."
+msgstr ""
+
+#: ../../Protocol.rst:248
+msgid "200"
+msgstr ""
+
+#: ../../Protocol.rst:251
+msgid "Close mark for persistent connections"
+msgstr ""
+
+#: ../../Protocol.rst:253
+msgid "224"
+msgstr ""
+
+#: ../../Protocol.rst:256
+msgid "Subscription packet. see SubscriptionServer"
+msgstr ""
+
+#: ../../Protocol.rst:258
+msgid "255"
+msgstr ""
+
+#: ../../Protocol.rst:261
+msgid ""
+"Generic response. Request dependent. For example a spooler response set 0"
+" for a failed spool or 1 for a successful one"
+msgstr ""
+
+#: ../../Protocol.rst:264
+msgid "The uwsgi vars"
+msgstr ""
+
+#: ../../Protocol.rst:266
+msgid ""
+"The uwsgi block vars represent a dictionary/hash. Every key-value is "
+"encoded in this way:"
+msgstr ""
+

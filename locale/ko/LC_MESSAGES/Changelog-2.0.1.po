@@ -1,0 +1,420 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Changelog-2.0.1.rst:2
+msgid "uWSGI 2.0.1"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:4
+msgid "Changelog [20140209]"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:7
+msgid "Bugfixes and improvements"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:9
+msgid ""
+"due to a wrong prototype declaration, building uWSGI without SSL resulted"
+" in a compilation bug. The issue has been fixed."
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:10
+msgid ""
+"a race condition preventing usage of a massive number of threads in the "
+"PyPy plugin has been fixed"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:11
+msgid "check for heartbeat status only if heartbeat subsystem has been enabled"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:12
+msgid "improved heartbeat code to support various corner cases"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:13
+msgid "improved psgi.input to support offset in read()"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:14
+msgid "fixed (and simplified) perl stacktrace usage"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:15
+msgid "fixed sni secured subscription"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:16
+msgid ""
+"CGI plugin does not require anymore that Status header is the first one "
+"(Andjelko Horvat)"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:17
+msgid "fixed CPython mule_msg_get timeout parsing"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:18
+msgid "allows embedding of config files via absolute paths"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:19
+msgid "fixed symcall rpc"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:20
+msgid "fixed a memory leak in CPython spooler api (xiaost)"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:21
+msgid "The --no-orphans hardening has been brought back (currently Linux-only)"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:22
+msgid "improved dotsplit router mode to reduce DOS risk"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:23
+msgid "sub-Emperor are now loyal by default"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:24
+msgid "fixed non-shared ruby 1.8.7 support"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:25
+msgid "fixed harakiri CPython tracebacker"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:26
+msgid "request vars are now correctly exposed by the stats server"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:27
+msgid "support log-master for logfile-chown"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:28
+msgid "improved legion reload"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:29
+msgid "fixed tuntap netmask"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:30
+msgid "fixed busyness plugin without metrics subsystem"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:33
+msgid "New features"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:35
+msgid ""
+"uWSGI 2.0 is a LTS branch, so do not expect too much new features. 2.0.1 "
+"is the first maintainance release, so you still get a bunch of them "
+"(mainly features not complete in 2.0)"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:40
+msgid "Perl native Spooler support"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:42
+msgid ""
+"Perl finally got full support for the Spooler subsystem. In 2.0 we added "
+"server support, in 2.0.1 we completed client support too."
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:58
+msgid "--alarm-backlog"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:60
+msgid "Raise the specified alarm when the listen queue is full"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:69
+msgid "--close-on-exec2"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:71
+msgid "Credits: Kaarle Ritvanen"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:73
+msgid ""
+"this flag applies CLOSE_ON_EXEC socket flag on all of the server socket. "
+"Use it if you do not want you request-generated processes to inherit the "
+"server file descriptor."
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:75
+msgid ""
+"Note: --close-on-exec applies the flag on all of the sockets (client and "
+"server)"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:78
+msgid "simple notifications subsystem"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:80
+msgid ""
+"An annoying problem with subscriptions is that the client does not know "
+"if it has been correctly subscribed to the server."
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:82
+msgid ""
+"The notification subsystem allows you to add to the subscription packet a"
+" datagram address (udp or unix) on which the server will send back "
+"messages (like successful subscription)"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:94
+msgid ""
+"the notification subsystem is really generic. Expect more subsystem to "
+"use it in the future."
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:97
+msgid "pid namespace for daemons (Linux only)"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:99
+msgid ""
+"This is a Linux-only, epxerimental feature allowing you to spawn a daemon"
+" in a new pid namespace. This feature requires the master running as "
+"root."
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:101
+msgid "Check: :doc:`AttachingDaemons`"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:104
+msgid "Resubscriptions"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:106
+msgid ""
+"The fastrouter and the http/https/spdy router now support "
+"\"resubscription\"."
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:108
+msgid ""
+"You can specify a dgram address (udp or unix) on which all of the "
+"subscriptions request will be forwarded to (obviously changing the node "
+"address to the router one)"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:110
+msgid "The system could be useful to build 'federated' setup:"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:119
+msgid ""
+"with this setup the fastrouter on 192.168.0.2 will have all of the "
+"records of 192.168.0.1 with the destination set to 192.168.0.1:3031."
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:122
+msgid "filesystem monitor api"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:124
+msgid ""
+"The real-time filesystem notification api has been standardized and it is"
+" now usable by plugins. The prototype to register a monitor is:"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:130
+msgid ""
+"it will register a monitor on \"path\" triggering the function \"func\" "
+"passing \"data\" as argument."
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:132
+msgid ""
+"Remember, this is different from the \"touch\" api, that is poll-based "
+"and can only monitor files. (while fsmon can monitor directories too)"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:135
+msgid "support for yajl 1.0"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:137
+msgid ""
+"2.0 added support yajl JSON parser (version 2). 2.0.1 added support for "
+"1.0 too"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:140
+msgid "for-readline"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:142
+msgid "a config-logic iterator that yield file lines:"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:152
+#, python-format
+msgid "%i and %j magic vars"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:154
+#, python-format
+msgid "%i -> returns the inode of the currently parsed file"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:156
+msgid ""
+"%j -> returns hex representation of 32bit djb33x hashing of the currently"
+" parsed absolute filename"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:159
+msgid "--inject-before and --inject-after"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:161
+msgid ""
+"This two new options should make the config templating system complete "
+"for everyone."
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:163
+msgid "They basically prepend and append 'blobs' to a config file."
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:165
+msgid "Yeah, it sound a bit nonsense."
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:167
+msgid "Check the following example:"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:169
+msgid "header.xml:"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:176
+msgid "footer.xml:"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:183
+msgid "and body.xml:"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:189
+msgid "you can build a single config tree with:"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:195
+msgid ""
+"this approach, albeit raw, allows you to use magic-vars in more advanced "
+"ways (as you have control on the context of the file using them)"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:197
+msgid ""
+"Note: ordering is important, --inject-before and --inject-after must be "
+"specified before the relevant config option."
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:200
+msgid "--http-server-name-as-http-host"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:202
+msgid ""
+"Some Ruby/Rack middleware make a questionable check on "
+"SERVER_NAME/HTTP_HOST matching."
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:204
+msgid ""
+"This flag allow the http router to map SERVER_NAME to HTTP_HOST "
+"automatically instead of instructing your uWSGI instances to do it."
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:207
+msgid "better Emperor's Ragnarok (shutdown procedure)"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:209
+msgid "The 'Ragnarok' is the Emperor phase executed when you ask him to shutdown."
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:211
+msgid ""
+"Before 2.0.1, this procedure simply send KILL to vassals to brutally "
+"destroy them."
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:213
+msgid ""
+"The new Ragnarok is way more benevolent, asking vassals to gracefully "
+"shutdown."
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:215
+msgid ""
+"The Emperor tolerance for vassals not shutting down can be tuned with "
+"--reload-mercy (default 30 seconds)"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:218
+msgid "PyPy paste support"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:220
+msgid "Two new options for PyPy plugin have been added for paste support:"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:222
+msgid "--pypy-paste <config>"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:224
+msgid "--pypy-ini-paste <ini>"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:226
+msgid ""
+"they both maps 1:1 to the CPython variants, but contrary to it they "
+"automatically fix logging"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:229
+msgid "Availability"
+msgstr ""
+
+#: ../../Changelog-2.0.1.rst:231
+msgid ""
+"You can download uWSGI 2.0.1 from: "
+"https://projects.unbit.it/downloads/uwsgi-2.0.1.tar.gz"
+msgstr ""
+

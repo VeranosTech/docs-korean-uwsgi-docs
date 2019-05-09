@@ -1,0 +1,696 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:2
+msgid ""
+"Massive \"secure\" Hosting with the Emperor and Linux Namespaces, AKA "
+"\"Improving unbit.it and pythonanywhere.com\""
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:4
+msgid "Author: Roberto De Ioris"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:6
+msgid "*** WORK IN PROGRESS ***"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:9
+msgid "Disclaimer"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:11
+msgid ""
+"In the following intro i will mention two companies: Unbit and "
+"pythonanywhere.com. I work with both (effectively i own the first one "
+":P)."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:13
+msgid "If you think i am making advertising to both, well you are right."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:16
+msgid "Intro"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:18
+msgid ""
+"Since 2005 i work as chief sysadmin in the italian ISP Unbit "
+"(http://unbit.it) and as a consultant for various hosting company "
+"worldwide."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:20
+msgid ""
+"Unbit is a developer-oriented service, we allow hosting basically "
+"anything you want without forcing you to a VPS, simply abusing Linux "
+"kernel facilities (it is very similar to what currently Heroku does but "
+"about 5 years before Heroku existed ;)"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:23
+msgid ""
+"In 2009 we started the uWSGI project, initially as a WSGI server, then we"
+" slowly realized that its paradigms could be applied to all our "
+"infrastructure, so now it is becoming a sort of \"hosting platform\" for "
+"various languages. We plan to use only uWSGI for the whole Unbit hosting "
+"stack by 2014."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:26
+msgid ""
+"Before you get excited, Unbit accepts only Italian customers (we are not "
+"racists, it is a policy for avoiding legal problems with the other "
+"hosting companies we work with) and our prices are quite high as we do "
+"not make any kind of over-selling (and more important we do not give "
+"free-accounts ;)"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:29
+msgid ""
+"In more than 8 years me and my co-workers experienced thousands of "
+"problems (yes, if you want to enter the internet services market be "
+"prepared to invest the vast majority of your time solving problems "
+"created by users without the minimal respect for you as a person ;) so, "
+"what you see in the whole uWSGI project is the result of this years of "
+"headaches and non-sleeping nights (and insults by customers)"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:33
+msgid ""
+"During summer 2013 i worked a bit with the pythonanywhere.com guys "
+"(mainly with Harry Percival)."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:35
+msgid ""
+"They heavily use uWSGI features for their service, so they helped "
+"popping-up new ideas and solutions in my mind."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:37
+msgid ""
+"In uWSGI 1.9.15 lot of new patches for advanced Linux namespaces usage "
+"have been merged, thanks to the collaboration with pythonanywhere.com "
+"guys."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:39
+msgid ""
+"Based on the experiences of the two companies, this article will show one"
+" of the approaches you can follow to build your service for hosting "
+"unreliable webapps (yes, even if you have the largest collection of "
+"pacifist customers, they have to be considered 'unreliable' and 'evil', "
+"otherwise you are not a good sysadmin)."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:41
+msgid ""
+"It is not a step-by-step tutorial, but some kind of cookbook to give you "
+"some basis for improving and adapting the concepts for your needs."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:44
+msgid "What we want to allow to our users"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:46
+msgid ""
+"deploy WSGI,PSGI and RACK applications (no CGI and php, albeit "
+"technically possible, if you think you can make any kind of money with "
+"php hosting you should start finding a second job)"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:47
+msgid "run cron scripts"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:48
+msgid "run private services (redis, beanstalkd, memcached...)"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:49
+msgid "applications can connect to the internet"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:50
+msgid "multiple domain names can map to the same instance"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:53
+msgid "...and what we want to forbid"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:55
+msgid ""
+"users cannot see the processes of the other accounts in the machine. "
+"Their init process has to be the uWSGI master"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:56
+msgid "users cannot see the files of the other accounts in the machine"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:57
+msgid ""
+"users cannot connect to private services (memcached, redis...) of the "
+"other accounts in the machine"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:58
+msgid ""
+"users cannot read/write ipc semaphores, shared memory and message queues "
+"of the other accounts in the machine"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:59
+msgid "users cannot allocate more memory than the amount they paid for"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:60
+msgid "users cannot use more cpu power than the amount they paid for"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:63
+msgid "The Operating System"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:66
+msgid "The Webserver"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:68
+msgid ""
+"As we do not need to worry about php and the abuse of .htaccess files, we"
+" can choose any server we want."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:70
+msgid ""
+"We prefer nginx (even if we [Unbit] are slowly moving to the uWSGI "
+"http/https/spdy router as we only need a minimal proxy with dynamic "
+"routing, but for anything more complex nginx is the way to go), but you "
+"can use whatever you like."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:73
+msgid "The \"control panel\""
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:75
+msgid ""
+"This is the thing you need to develop, the more your panel is usable and "
+"powerful the more your users will be happy."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:77
+msgid ""
+"Your control panel is probably the thing will make your hosting company "
+"successful."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:79
+msgid ""
+"The objective of your control panel is generating \"vassal files\" (see "
+"below). Vassal files can be .ini, xml, yaml and json (unless you have "
+"particular reasons to use other formats)."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:81
+msgid ""
+"The vassal file contains the whole structure of a customer micro-system. "
+"As soon as a vassal file is created it will be deployed (and when it is "
+"changed it will be reloaded)"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:84
+msgid "uWSGI 'language' plugins"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:86
+msgid ""
+"We want to support multiple kind of applications. The better approach "
+"will be having a single uWSGI binary and a series of 'language plugins' "
+"(one for each language you want to support)."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:88
+msgid ""
+"You can support multiple versions of the same language. Just build the "
+"corresponding plugin."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:90
+msgid ""
+"In Unbit we make an extremely modular uWSGi distribution (basically all "
+"is a plugin). This is required as we account any MB of memory so we allow"
+" users to enable only the required features to gain much memory as "
+"possible."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:93
+msgid ""
+"If you are still not a black-belt in uWSGI mastering, i suggest you to "
+"start with the included 'nolang' build profile."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:95
+msgid "It will build a standard uwsgi binary without any language builtin."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:97
+msgid "..."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:100
+msgid "Lazy apps VS prefork"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:102
+msgid ""
+"One of the controversial design choices of uWSGI is \"preforking by "
+"default\"."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:104
+msgid ""
+"It means your app is loaded on startup and then fork() is called for each"
+" worker."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:106
+msgid ""
+"While this is the common approach in the UNIX world and it is an expected"
+" behaviour for a Perl developer (that is historically more near to the "
+"UNIX world) it is totally unknown and unexpected by a Python (and maybe "
+"Ruby) one."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:109
+msgid ""
+"So one of the choices you need to make when building a uWSGI-based "
+"service is how to manage the fork() behaviour."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:111
+msgid ""
+"If you are unsure let me tell you one thing: with preforking behaviour "
+"you will make some user very happy, and lot of users completely lost. "
+"With --lazy-apps you will have all of your users totally unconcerned. "
+"Trust me, few happy users cannot make you happy too when you have angry "
+"customers too."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:114
+msgid ""
+"So, uWSGI default fork() behaviour is generally wrong for massive "
+"hosting, so add --lazy-apps and eventually give the advanced users the "
+"freedom to change it when needed."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:118
+msgid "The filesystem layout"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:120
+msgid ""
+"Distro upgrades are always a bloodbath. It is a pretty optimistic "
+"analysis. trust me."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:122
+msgid ""
+"But \"tempus fugit\" so sooner or later one of your customer will start "
+"asking for a more recent packages set..."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:124
+msgid ""
+"You can upgrade, but you will automatically place the vast majority of "
+"your customers in berserk mode, as very probably their apps will no more "
+"work."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:127
+msgid ""
+"A solution for making everyone happy is having different distribution in "
+"your system (yes, it sounds silly, but please continue reading)."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:129
+msgid ""
+"Debbotstrap is a great tool. Let's create under the /distros directory "
+"our set of distributions:"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:139
+msgid ""
+"Each user will be able to choose (and change) its distro, as thanks to "
+"our setup (see below) its root filesystem will be a readonly mount of one"
+" of the available distros."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:142
+msgid "The final layout will be:"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:144
+msgid "/ (rootfs, mapped readonly to one of the dir in /distros)"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:145
+msgid "/proc (needed for showing processes and getting system informations)"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:146
+msgid "/tmp (each user should have a dedicated /tmp)"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:147
+msgid ""
+"/dev (should contain at least zero and null, but can be a bind mount to "
+"the system /dev too)"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:148
+msgid ""
+"/dev/pts (required for pseudoterminals, shared by all vassals [til linux "
+"pts namespace will be released])"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:149
+msgid ""
+"/var/run (all of the sockets will be bound here, and symlinked by the "
+"main rootfs for nginx and ssh access)"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:150
+msgid ""
+"/opt (this could be a bind mount shared by all of the users containing "
+"distribution independent files)"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:154
+msgid "Linux namespaces"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:156
+msgid "This is the first step to limit users."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:158
+msgid ""
+"For this setup we will use 5 namespaces: filesystem, sysv ipc, uts, "
+"networking and pid"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:161
+msgid "filesystem (fs)"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:163
+msgid "this allows changing the filesystems layout (mountpoints)."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:165
+msgid ""
+"Instead of chroot() in each vassal, we will use the --pivot-root option "
+"(it is linux specific) that combined with mount namespace allows fine-"
+"grained configuration of the filesystem layout"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:169
+msgid "sysv ipc (ipc)"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:171
+msgid ""
+"sysv ipc exposes 3 primitives: semaphores, shared memory and message "
+"queues."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:173
+msgid "unsharing it creates a dedicated set of this 3 features"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:176
+msgid "uts (uts)"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:178
+msgid "this namespace allows you to have a dedicated hostname"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:181
+msgid "networking (net)"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:183
+msgid ""
+"when you unshare for the main network namespace, you will lose access to "
+"interface addresses. A new loopback will be allocated."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:186
+msgid "processes (pid)"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:188
+msgid ""
+"this namespace allows you to hide the user the processes not being part "
+"of the user namspace itself."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:190
+msgid "The uWSGI master process will be the pid 1 for the user."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:193
+msgid "Namespacing the Emperor"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:195
+msgid ""
+"The --emperor-use-clone option allows the Emperor to directly spawn "
+"vassals in a new namespace."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:197
+msgid "Our config will be something like:"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:205
+msgid "while each vassal will be"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:216
+msgid "Linux cgroups"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:219
+msgid "uWSGI Emperor and vassals"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:222
+msgid "Networking"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:224
+msgid ""
+"This is probably the most complex part. The \"ortodox\" way to give "
+"networking to a jailed setup is using veth or macvlan."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:226
+msgid ""
+"The first one is a \"network pipe\" composed by two virtual interfaces. "
+"After the namespace is created you can move one of the end of the pipe to"
+" the namespace."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:228
+msgid ""
+"Macvlan, instead works by assigning an additional mac address to the "
+"physical interface."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:230
+msgid ""
+"Both solutions are great for VPS-like setups, but here we need networking"
+" only to connect to external services (inbound connections are managed by"
+" the http proxy)."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:232
+msgid ""
+"Both veth and macvlan approaches are hard to manage correctly, and while "
+"in 1.9.15 we introduced lot of features to simplify the required steps, "
+"in 1.9.16 we decided to create an ad-hoc solution based on tuntap "
+"devices."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:235
+msgid ""
+"Basically for each vassal we create a tun device (it is a virtuale "
+"network interface manageable via user space) connected (via unix sockets)"
+" to another tun device in the main namespace."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:237
+msgid ""
+"The tuntap-router is a software-based ip router, it mainly get packets "
+"fro ma tuntap device and forward them to a unix socket (and the "
+"opposite)."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:239
+msgid ""
+"This approach simplify the whole setup extremely, and, as a killer "
+"feature an ultra simpel firewall is embedded in the process to configure "
+"internal rules."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:241
+msgid ""
+"The tuntap router should run in the Emperor (it is a uWSGI gateway so "
+"this time we need the master process):"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:270
+msgid "and a vassal"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:289
+msgid "Cron"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:291
+msgid ""
+"Cron tasks are added to the vassal file, the syntax is a bit different "
+"from classic crontabs as intead of * and the , we only use numbers (yes "
+"it is a bit less versatile than classic cron, but uWSGI config files "
+"allows for cycle and other constructs)"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:303
+msgid "Static file serving"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:306
+msgid "Additional daemons"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:309
+msgid "SSH"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:311
+msgid ""
+"Managing ssh could be really tricky with namespace setups. The Linux "
+"syscall \"setns\" allows \"attaching\" to an already running namespace."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:313
+msgid ""
+"It generally works, but i will now tell you a technical reason why i do "
+"not want to use it for my services: i do not like it. period."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:315
+msgid ""
+"We have already seen unix sockets works very well as a communication "
+"channel between namespaces, why not use them to \"enter\" an already "
+"running namespace ?"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:317
+msgid ""
+"If you work as a unix sysadmin, you cannot ignore pseudoterminals (or "
+"terminals in general). It is one of the oldest (and rawest) api of the "
+"unix world, by the work by ages. And they works great."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:319
+msgid ""
+"The uWSGI distribution come with 2 pty-related plugin: pty and "
+"forkptyrouter."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:321
+msgid ""
+"The first one simply attach a single pseudoterminal to your workers and "
+"bind to a network address. Connecting to this address give access to the "
+"pseudoterminal. This trick allows for advanced techniques like shared "
+"debugging. The pty plugin exposes the client part too, so you can use the"
+" uwsgi binary itself to connect to this pty."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:324
+msgid "How this can be useful for our ssh access ? It is not."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:326
+msgid ""
+"What we need now is the forkptyrouter (or forkpty-router for better "
+"readability). It works very similar to the pty server with the difference"
+" it generate a new pty for each connection. Exacly like ssh does."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:329
+msgid ""
+"The forkpty-router run into the namespace, so any process attached to it "
+"will effectively run in the namespace itself."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:331
+msgid ""
+"You should now see the point: our customers login via ssh as non-"
+"namespaced account but instead giving them the default shell we force "
+"them to connect to the pty-router."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:334
+msgid ""
+"The \"downside\" of this approach is that we need two pty for each ssh "
+"peer (one for client -> ssh and the other for ssh -> namespace)."
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:336
+msgid ""
+"To force the ssh server to run a specific command, use the ForceCommand "
+"directive in the sshd_config"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:340
+msgid "Bonus: KSM"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:343
+msgid "What is missing"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:345
+msgid "Accounting network usage"
+msgstr ""
+
+#: ../../articles/MassiveHostingWithEmperorAndNamespaces.rst:346
+msgid "Scaling to multiple machines"
+msgstr ""
+

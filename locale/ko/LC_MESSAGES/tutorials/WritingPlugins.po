@@ -1,0 +1,196 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../tutorials/WritingPlugins.rst:2
+msgid "Writing uWSGI plugins"
+msgstr ""
+
+#: ../../tutorials/WritingPlugins.rst:4
+msgid ""
+"This tutorial will introduce you to uWSGI hacking. A bit of C knowledge "
+"and UNIX theory is required."
+msgstr ""
+
+#: ../../tutorials/WritingPlugins.rst:6
+msgid ""
+"The simplified (and safe) build system used in the tutorial has been "
+"added in uWSGI 1.9.21, on older versions you need the raw procedure "
+"(described at the end of the tutorial)"
+msgstr ""
+
+#: ../../tutorials/WritingPlugins.rst:10
+msgid "What is an uWSGI plugin?"
+msgstr ""
+
+#: ../../tutorials/WritingPlugins.rst:12
+msgid ""
+"uWSGI plugins are standard shared libraries (with the classic .so "
+"extension) exposing a specific C structure named \"uwsgi_plugin\"."
+msgstr ""
+
+#: ../../tutorials/WritingPlugins.rst:14
+msgid ""
+"This structure exposes a bunch of handy information (like the name of the"
+" plugin) and \"hooks\"."
+msgstr ""
+
+#: ../../tutorials/WritingPlugins.rst:16
+msgid "Hooks are simple functions registered to be run at specific server phases."
+msgstr ""
+
+#: ../../tutorials/WritingPlugins.rst:18
+msgid ""
+"The minimal plugin you can write it is something like this (the 'foobar' "
+"plugin):"
+msgstr ""
+
+#: ../../tutorials/WritingPlugins.rst:28
+msgid ""
+"It announces itself as 'foobar' and exposes no hooks (yes, it is the most"
+" useless plugin out there, except for adding a teensy bit of memory use "
+"to uWSGI)."
+msgstr ""
+
+#: ../../tutorials/WritingPlugins.rst:30
+msgid ""
+"Plugins are not required to define hooks -- they can simply expose "
+"functions that can be called using uWSGI advanced facilities (read: "
+":doc:`Hooks`)."
+msgstr ""
+
+#: ../../tutorials/WritingPlugins.rst:33
+msgid "Why (and when) plugins?"
+msgstr ""
+
+#: ../../tutorials/WritingPlugins.rst:35
+msgid ""
+"Even if uWSGI is able to directly load shared libraries (with "
+"``--dlopen``) and call their functions as hooks, sometimes you want to "
+"interface with uWSGI's internal structures."
+msgstr ""
+
+#: ../../tutorials/WritingPlugins.rst:39
+msgid "The first plugin"
+msgstr ""
+
+#: ../../tutorials/WritingPlugins.rst:41
+msgid "Our first plugin will be a simple \"Hello world\" one:"
+msgstr ""
+
+#: ../../tutorials/WritingPlugins.rst:57
+msgid "Save it as ``foobar.c``."
+msgstr ""
+
+#: ../../tutorials/WritingPlugins.rst:59
+msgid "Build it:"
+msgstr ""
+
+#: ../../tutorials/WritingPlugins.rst:65
+msgid ""
+"You will end up with a ``foobar_plugin.so`` that you can load in your "
+"uWSGI binary."
+msgstr ""
+
+#: ../../tutorials/WritingPlugins.rst:71
+msgid ""
+"If all goes well, you should see \"Hello World\" on your terminal before "
+"uWSGI exiting with an error (as no socket is defined)."
+msgstr ""
+
+#: ../../tutorials/WritingPlugins.rst:74
+msgid "The uwsgiplugin.py file"
+msgstr ""
+
+#: ../../tutorials/WritingPlugins.rst:77
+msgid "How does the magic happen?"
+msgstr ""
+
+#: ../../tutorials/WritingPlugins.rst:79
+msgid ""
+"As you have seen, the uwsgi binary by itself is able to build plugins "
+"without forcing the user/developer to care about build profiles, #ifdef "
+"or platform-specific configurations."
+msgstr ""
+
+#: ../../tutorials/WritingPlugins.rst:81
+msgid ""
+"This is possible because the uwsgi binary itself contains the raw "
+"'uwsgi.h' file as well as the 'uwsgiconfig.py' script."
+msgstr ""
+
+#: ../../tutorials/WritingPlugins.rst:83
+msgid ""
+"In addition to this the CFLAGS used when building the binary are stored "
+"too."
+msgstr ""
+
+#: ../../tutorials/WritingPlugins.rst:85
+msgid ""
+"With these 3 components you have all you need to safely build a uWSGI "
+"plugin tuned for your uwsgi binary."
+msgstr ""
+
+#: ../../tutorials/WritingPlugins.rst:88
+msgid "General plugins VS request plugins"
+msgstr ""
+
+#: ../../tutorials/WritingPlugins.rst:91
+msgid "The wsgi_request struct"
+msgstr ""
+
+#: ../../tutorials/WritingPlugins.rst:94
+msgid "Headers, body and sendfile"
+msgstr ""
+
+#: ../../tutorials/WritingPlugins.rst:97
+msgid "Offloading"
+msgstr ""
+
+#: ../../tutorials/WritingPlugins.rst:100
+msgid "Available hooks"
+msgstr ""
+
+#: ../../tutorials/WritingPlugins.rst:103
+msgid "Defining options"
+msgstr ""
+
+#: ../../tutorials/WritingPlugins.rst:106
+msgid "Using C++"
+msgstr ""
+
+#: ../../tutorials/WritingPlugins.rst:109
+msgid "Using Objective-C"
+msgstr ""
+
+#: ../../tutorials/WritingPlugins.rst:112
+msgid "socket I/O"
+msgstr ""
+
+#: ../../tutorials/WritingPlugins.rst:114
+msgid ""
+"Whenever you make I/O operations on a socket you have to be sure to not-"
+"block the currently running thread/core/worker."
+msgstr ""
+
+#: ../../tutorials/WritingPlugins.rst:116
+msgid ""
+"The uwsgi API exposes some functions to ensure safety when dealing with "
+"I/O. They would be documented here, but aren't, yet."
+msgstr ""
+

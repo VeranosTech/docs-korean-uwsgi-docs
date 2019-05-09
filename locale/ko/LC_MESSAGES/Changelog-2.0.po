@@ -1,0 +1,229 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Changelog-2.0.rst:2
+msgid "uWSGI 2.0"
+msgstr ""
+
+#: ../../Changelog-2.0.rst:4
+msgid "Changelog [20131230]"
+msgstr ""
+
+#: ../../Changelog-2.0.rst:7
+msgid "Important changes"
+msgstr ""
+
+#: ../../Changelog-2.0.rst:9
+msgid ""
+"Dynamic options have been definitely removed as well as the "
+"broken_plugins directory"
+msgstr ""
+
+#: ../../Changelog-2.0.rst:12
+msgid "Bugfixes and improvements"
+msgstr ""
+
+#: ../../Changelog-2.0.rst:14
+msgid "improved log rotation"
+msgstr ""
+
+#: ../../Changelog-2.0.rst:15
+msgid "do not rely on unix signals to print request status during harakiri"
+msgstr ""
+
+#: ../../Changelog-2.0.rst:16
+msgid "added magic vars for uid and gid"
+msgstr ""
+
+#: ../../Changelog-2.0.rst:17
+msgid "various Lua fixes"
+msgstr ""
+
+#: ../../Changelog-2.0.rst:18
+msgid "a tons of coverity-governed bugfixes made by Riccardo Magliocchetti"
+msgstr ""
+
+#: ../../Changelog-2.0.rst:21
+msgid "New features"
+msgstr ""
+
+#: ../../Changelog-2.0.rst:24
+msgid "--attach-daemon2"
+msgstr ""
+
+#: ../../Changelog-2.0.rst:26
+msgid "this is a keyval based option for configuring external daemons."
+msgstr ""
+
+#: ../../Changelog-2.0.rst:28
+msgid "Updated docs are: :doc:`AttachingDaemons`"
+msgstr ""
+
+#: ../../Changelog-2.0.rst:31
+msgid "Linux setns() support"
+msgstr ""
+
+#: ../../Changelog-2.0.rst:33
+msgid ""
+"One of the biggest improvements in uWSGI 1.9-2.0 has been the total "
+"support for Linux namespaces."
+msgstr ""
+
+#: ../../Changelog-2.0.rst:35
+msgid "This last patch adds support for the setns() syscall."
+msgstr ""
+
+#: ../../Changelog-2.0.rst:37
+msgid "This syscall allows a process to \"attach\" to a running namespace."
+msgstr ""
+
+#: ../../Changelog-2.0.rst:39
+msgid ""
+"uWSGI instances can exposes their namespaces file descriptors (basically "
+"they are the files in /proc/self/ns) via a unix socket."
+msgstr ""
+
+#: ../../Changelog-2.0.rst:41
+msgid ""
+"External instances connects to that unix socket and automatically enters "
+"the mapped namespace."
+msgstr ""
+
+#: ../../Changelog-2.0.rst:43
+msgid ""
+"to spawn an instance in \"namespace server mode\", you use the ``--setns-"
+"socket <addr>`` option"
+msgstr ""
+
+#: ../../Changelog-2.0.rst:50
+msgid "to attach you simply use ``--setns <addr>``"
+msgstr ""
+
+#: ../../Changelog-2.0.rst:57
+msgid "Updated docs: :doc:`Namespaces`"
+msgstr ""
+
+#: ../../Changelog-2.0.rst:60
+msgid "\"private\" hooks"
+msgstr ""
+
+#: ../../Changelog-2.0.rst:62
+msgid ""
+"When uWSGI runs your hooks, it verbosely print the whole hook action "
+"line. This could be a security problem in some scenario (for example when"
+" you run initial phases as root user but allows unprivileged access to "
+"logs)."
+msgstr ""
+
+#: ../../Changelog-2.0.rst:65
+msgid "Prefixing your action with a '!' will suppress full logging:"
+msgstr ""
+
+#: ../../Changelog-2.0.rst:73
+msgid "Support for yajl library (JSON parser)"
+msgstr ""
+
+#: ../../Changelog-2.0.rst:75
+msgid ""
+"Til now uWSGI only supported jansson as the json parser required for "
+"managing .js config files."
+msgstr ""
+
+#: ../../Changelog-2.0.rst:77
+msgid ""
+"You can now use the yajl library (available in centos) as alternative "
+"JSON parser (will be automatically detected)"
+msgstr ""
+
+#: ../../Changelog-2.0.rst:80
+msgid "Perl spooler support"
+msgstr ""
+
+#: ../../Changelog-2.0.rst:82
+msgid "The perl/PSGI plugin can now be used as a spooler server:"
+msgstr ""
+
+#: ../../Changelog-2.0.rst:93
+msgid ""
+"The client part is still missing as we need to fix some internal api "
+"problem."
+msgstr ""
+
+#: ../../Changelog-2.0.rst:95
+msgid "Expect it in 2.0.1 ;)"
+msgstr ""
+
+#: ../../Changelog-2.0.rst:98
+msgid "Gateways can drop privileges"
+msgstr ""
+
+#: ../../Changelog-2.0.rst:100
+msgid ""
+"Gateways (like http router, sslrouter, rawrouter, forkptyrouter ...) can "
+"now drop privileges independently by the master."
+msgstr ""
+
+#: ../../Changelog-2.0.rst:102
+msgid ""
+"Currently only the http/https/spdy router exposes the new option "
+"(``--http-uid/--http-gid``)"
+msgstr ""
+
+#: ../../Changelog-2.0.rst:105
+msgid "Subscriptions-governed SNI contexts"
+msgstr ""
+
+#: ../../Changelog-2.0.rst:107
+msgid ""
+"The subscription subsystem now supports 3 additional keys (you can set "
+"them with the --subscribe2 option):"
+msgstr ""
+
+#: ../../Changelog-2.0.rst:109
+msgid "``sni_key``"
+msgstr ""
+
+#: ../../Changelog-2.0.rst:111
+msgid "``sni_cert``"
+msgstr ""
+
+#: ../../Changelog-2.0.rst:113
+msgid "``sni_ca``"
+msgstr ""
+
+#: ../../Changelog-2.0.rst:115
+msgid "all of the takes a path to the relevant ssl files."
+msgstr ""
+
+#: ../../Changelog-2.0.rst:117
+msgid "Check: :doc:`SNI`"
+msgstr ""
+
+#: ../../Changelog-2.0.rst:121
+msgid "Availability"
+msgstr ""
+
+#: ../../Changelog-2.0.rst:123
+msgid "uWSGI 2.0 has been released on 20131230 and can be downloaded from:"
+msgstr ""
+
+#: ../../Changelog-2.0.rst:125
+msgid "https://projects.unbit.it/downloads/uwsgi-2.0.tar.gz"
+msgstr ""
+

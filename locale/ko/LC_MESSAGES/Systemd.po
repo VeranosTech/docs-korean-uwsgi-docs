@@ -1,0 +1,211 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Systemd.rst:2
+msgid "Systemd"
+msgstr ""
+
+#: ../../Systemd.rst:4
+msgid ""
+"uWSGI is a new-style daemon for `systemd "
+"<http://www.freedesktop.org/wiki/Software/systemd>`_."
+msgstr ""
+
+#: ../../Systemd.rst:6
+msgid "It can notify status change and readyness."
+msgstr ""
+
+#: ../../Systemd.rst:8
+msgid ""
+"When uWSGI detects it is running under systemd, the notification system "
+"is enabled."
+msgstr ""
+
+#: ../../Systemd.rst:11
+msgid "Adding the Emperor to systemd"
+msgstr ""
+
+#: ../../Systemd.rst:13
+msgid ""
+"One approach to integrate uWSGI apps with your init system is using the "
+":doc:`Emperor<Emperor>`."
+msgstr ""
+
+#: ../../Systemd.rst:15
+msgid ""
+"Your init system will talk only with the Emperor that will rule all of "
+"the apps itself."
+msgstr ""
+
+#: ../../Systemd.rst:17
+msgid ""
+"Create a systemd service file (you can save it as "
+"/etc/systemd/system/emperor.uwsgi.service)"
+msgstr ""
+
+#: ../../Systemd.rst:20
+msgid ""
+"Be careful with some systemd versions (e.g. 215 in Debian Jessie), since "
+"SIGQUIT signal will trash the systemd services. Use KillSignal=SIGTERM + "
+"\"die-on-term\" UWSGI option there."
+msgstr ""
+
+#: ../../Systemd.rst:41
+msgid "Then run it"
+msgstr ""
+
+#: ../../Systemd.rst:47
+msgid "And check its status."
+msgstr ""
+
+#: ../../Systemd.rst:53
+msgid ""
+"You will see the Emperor reporting the number of governed vassals to "
+"systemd (and to you)."
+msgstr ""
+
+#: ../../Systemd.rst:68
+msgid "You can stop the Emperor (and all the apps it governs) with"
+msgstr ""
+
+#: ../../Systemd.rst:74
+msgid ""
+"A simple ``emperor.ini`` could look like this (www-data is just an "
+"anonymous user)"
+msgstr ""
+
+#: ../../Systemd.rst:76
+msgid ""
+"NOTE: DO NOT daemonize the Emperor (or the master) unless you know what "
+"you are doing!!!"
+msgstr ""
+
+#: ../../Systemd.rst:85
+msgid ""
+"If you want to allow each vassal to run under different privileges, "
+"remove the ``uid`` and ``gid`` options from the emperor configuration "
+"(and please read the Emperor docs!)"
+msgstr ""
+
+#: ../../Systemd.rst:88
+msgid "Logging"
+msgstr ""
+
+#: ../../Systemd.rst:90
+msgid ""
+"Using the previous service file all of the Emperor messages go to the "
+"syslog. You can avoid it by removing the ``StandardError=syslog`` "
+"directive."
+msgstr ""
+
+#: ../../Systemd.rst:92
+msgid ""
+"If you do that, be sure to set a ``--logto`` option in your Emperor "
+"configuration, otherwise all of your logs will be lost!"
+msgstr ""
+
+#: ../../Systemd.rst:95
+msgid "Putting sockets in /run/"
+msgstr ""
+
+#: ../../Systemd.rst:97
+msgid ""
+"On a modern system, /run/ is mounted as a tmpfs and is the right place to"
+" put sockets and pidfiles into. To have systemd automatically create a "
+"/run/uwsgi/ subdirectory with the correct user/group ownership, as well "
+"as cleaning up the directory when the daemon is stopped, add"
+msgstr ""
+
+#: ../../Systemd.rst:103
+msgid ""
+"to the [Service] section of your systemd uwsgi unit file. This "
+"``RuntimeDirectory`` parameter requires systemd version 211 or newer. For"
+" older versions of systemd, create a systemd-tmpfiles configuration file "
+"(you can save it as /etc/tmpfiles.d/emperor.uwsgi.conf):"
+msgstr ""
+
+#: ../../Systemd.rst:110
+msgid "Socket activation"
+msgstr ""
+
+#: ../../Systemd.rst:112
+msgid ""
+"Starting from uWSGI 0.9.8.3 socket activation is available. You can setup"
+" systemd to spawn uWSGI instances only after the first socket connection."
+msgstr ""
+
+#: ../../Systemd.rst:114
+msgid ""
+"Create the required emperor.uwsgi.socket (in "
+"``/etc/systemd/system/emperor.uwsgi.socket``). Note that the *.socket "
+"file name must match the *.service file name."
+msgstr ""
+
+#: ../../Systemd.rst:128
+msgid "Then disable the service and enable the socket unit."
+msgstr ""
+
+#: ../../Systemd.rst:135
+msgid ""
+"When using Systemd socket activation, you do not need to specify any "
+"socket in your uWSGI configuration; the instance will inherit the socket "
+"from Systemd."
+msgstr ""
+
+#: ../../Systemd.rst:138
+msgid ""
+"To have uWSGI serve HTTP (instead of the binary uwsgi protocol) under "
+"Systemd socket activation, set ``protocol`` to ``http``; for instance, in"
+" an INI, do this:"
+msgstr ""
+
+#: ../../Systemd.rst:149
+msgid "One service per app in systemd"
+msgstr ""
+
+#: ../../Systemd.rst:151
+msgid ""
+"Another approach is to let systemd handle starting individual apps while "
+"taking advantage of systemd template unit files, and of course socket "
+"activation. Each app will run under its own user."
+msgstr ""
+
+#: ../../Systemd.rst:155
+msgid "``/etc/systemd/system/uwsgi-app@.socket``:"
+msgstr ""
+
+#: ../../Systemd.rst:171
+msgid "``/etc/systemd/system/uwsgi-app@.service``:"
+msgstr ""
+
+#: ../../Systemd.rst:191
+msgid ""
+"Now, adding a new app to your system is a matter of creating the "
+"appropriate user and enabling the socket and the service. For instance, "
+"if one were to configure cgit:"
+msgstr ""
+
+#: ../../Systemd.rst:203
+msgid "Then configure the ini file ``/etc/uwsgi/apps-available/cgit.ini``:"
+msgstr ""
+
+#: ../../Systemd.rst:219
+msgid "And last, if applicable, configure your HTTP server the usual way."
+msgstr ""
+

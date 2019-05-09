@@ -1,0 +1,309 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Changelog-1.9.13.rst:2
+msgid "uWSGI 1.9.13"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:4
+msgid "Changelog [20130622]"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:7
+msgid "Bugfixes"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:9
+msgid ""
+"Fixed a corner case bug when response offloading is enabled, but no "
+"request plugin is loaded"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:10
+msgid ""
+"Fixed harakiri routing when multiple rules are in place (return NEXT "
+"instead of CONTINUE)"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:11
+msgid "Fixed curl crashing master on slow dns responses (Łukasz Mierzwa)"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:12
+msgid "Removed PTRACE check in uwsgi.h (it is no more needed since uWSGI 1.0)"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:13
+msgid "Fixed --print-sym"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:14
+msgid "Added a newline in --cflags"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:15
+msgid "Improved python3 detection and compilation"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:16
+msgid "Fixed Coro::AnyEvent loop engine (John Berthels)"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:17
+msgid "Rack api functions are now static"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:18
+msgid "Better fastcgi handling of big uploads"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:19
+msgid "Improved GCC usage on Darwin for Python non-apple builds"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:20
+msgid "Fixed XCLIENT usage in rawrouter"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:21
+msgid ""
+"Use the clang preprocessor instead of hardcoded 'cpp' when CC=clang is "
+"used"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:22
+msgid "Set 16bit options to 65535 when higher values are requested"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:23
+msgid "Fixed virtualhosting (it is now compatible with 1.4 configurations)"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:26
+msgid "New features"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:29
+msgid "PyPy performance and features improvents"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:31
+msgid ""
+"The PyPy plugin has been improved a lot. The amount of C code has been "
+"reduced by 70%, so, now, the vast majority of the plugin is written in "
+"python. The c helpers have been removed allowing the python part to "
+"directly call native uWSGI functions via cffi."
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:34
+msgid ""
+"Support for PyPy continulets (and their greenlet abstraction) has been "
+"added (while waiting for a solid gevent port for pypy) and a chat example"
+" is already available (using the uwsgi async api):"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:37
+msgid "https://github.com/unbit/uwsgi/tree/master/t/pypy"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:39
+msgid "https://github.com/unbit/uwsgi/blob/master/contrib/pypy/uwsgi_pypy_greenlets.py"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:41
+msgid ""
+"The pypy uwsgi api has been improved and now you can use the "
+"uwsgidecorators module (even if the spooler subsystem is still missing)"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:45
+msgid "Chunked input api"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:47
+msgid ""
+"In the last days there have been a bunch of discussions on how to "
+"correctly manage chunked input. As basically none of the available "
+"standards support it in a \"definitive\" way, we have defined a low-level"
+" api (so we can easily adapt it in the feature)."
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:51
+msgid "The api exposes two functions:"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:53
+msgid "uwsgi.chunked_read()"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:55
+msgid "and"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:57
+msgid "uwsgi.chunked_read_nb()"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:59
+msgid "A non blocking chat example:"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:73
+msgid "Toward better third-party plugins management: the --dot-h option"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:75
+msgid ""
+"As the --cflags option shows the CFLAGS used to build the server, the "
+"--dot-h option shows the content of uwsgi.h"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:77
+msgid ""
+"This means the content of uwsgi.h is now embedded in the binary "
+"(compressed where available)."
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:79
+msgid ""
+"It could look a bizarre choice but the objective is to allow easy "
+"compilation of plugins out of the uwsgi sources (somethign that will be "
+"available in 2.0 for sure)"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:83
+msgid "setmethod, seturi and setpathinfo routing action"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:85
+msgid "we continue extending the routing api."
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:87
+msgid "Three new actions have been added to dinamically modify the request"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:90
+msgid "UWSGI_INCLUDES"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:92
+msgid ""
+"You can now ovverride the include search path (while building uWSGI) with"
+" this environment variable."
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:95
+msgid "Improved set_user_harakiri api function"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:97
+msgid ""
+"Now the uwsgi.set_user_harakiri automatically recognize mules and "
+"spoolers. It has been added to the ruby/rack, pypy and perl/psgi plugins"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:100
+msgid "--add-cache-item [cache ]KEY=VALUE"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:102
+msgid ""
+"this is a commodity option (mainly useful for testing) allowing you to "
+"store an item in a uWSGI cache during startup"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:105
+msgid "the router_xmldir plugin"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:107
+msgid ""
+"This is a proof of concept plugin aimed at stressing the transformation "
+"api."
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:109
+msgid ""
+"It basically generates an xml representation of a directory. This could "
+"be useful to implement apache-style directoryindex:"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:112
+msgid "Check this example using xslt:"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:114
+msgid "https://github.com/unbit/uwsgi/issues/271#issuecomment-19820204"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:117
+msgid "Implement __call__ for @spool* decorators"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:119
+msgid ""
+"Thanks to 'anaconda', you can now directly call functions mapped to the "
+"spooler, so instead of"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:125
+msgid "you can directly do:"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:131
+msgid "the old way is obviously supported"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:134
+msgid "the uwsgi[lq] routing var"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:136
+msgid "this routing var exports the current size of the listen_queue:"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:146
+msgid "--use-abort"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:148
+msgid ""
+"On some system the SEGV signal handler cannot be correctly restored after"
+" the uWSGI backtrace."
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:150
+msgid ""
+"If you want to generate a core file, you may want to trigger a SIGABRT "
+"soon after the backtrace."
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:153
+msgid "Availability"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:155
+msgid "uWSGI 1.9.13 will be available 22th June 2013 at this url:"
+msgstr ""
+
+#: ../../Changelog-1.9.13.rst:157
+msgid "https://projects.unbit.it/downloads/uwsgi-1.9.13.tar.gz"
+msgstr ""
+

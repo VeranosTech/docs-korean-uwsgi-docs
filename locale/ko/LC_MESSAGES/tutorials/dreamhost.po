@@ -1,0 +1,264 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../tutorials/dreamhost.rst:2
+msgid "Running uWSGI on Dreamhost shared hosting"
+msgstr ""
+
+#: ../../tutorials/dreamhost.rst:4
+msgid ""
+"Note: the following tutorial gives suggestions on how to name files with "
+"the objective of hosting multiple applications on your account. You are "
+"obviously free to change naming schemes."
+msgstr ""
+
+#: ../../tutorials/dreamhost.rst:7
+msgid ""
+"The tutorial assumes a shared hosting account, but it works on the VPS "
+"offer too (even if on such a system you have lot more freedom and you "
+"could use better techniques to accomplish the result)"
+msgstr ""
+
+#: ../../tutorials/dreamhost.rst:12
+msgid "Preparing the environment"
+msgstr ""
+
+#: ../../tutorials/dreamhost.rst:14
+msgid ""
+"Log in via ssh to your account and move to the home (well, you should be "
+"already there after login)."
+msgstr ""
+
+#: ../../tutorials/dreamhost.rst:16
+msgid ""
+"Download a uWSGI tarball (anything >= 1.4 is good, but for maximum "
+"performance use >= 1.9), explode it and build it normally (run make)."
+msgstr ""
+
+#: ../../tutorials/dreamhost.rst:19
+msgid ""
+"At the end of the procedure copy the resulting ``uwsgi`` binary to your "
+"home (just to avoid writing longer paths later)."
+msgstr ""
+
+#: ../../tutorials/dreamhost.rst:21
+msgid ""
+"Now move to the document root of your domain (it should be named like the"
+" domain) and put a file named ``uwsgi.fcgi`` in it with that content:"
+msgstr ""
+
+#: ../../tutorials/dreamhost.rst:28
+msgid ""
+"change XXX with your account name and YYY with your domain name (it is "
+"only a convention, if you know what you are doing feel free to change it)"
+msgstr ""
+
+#: ../../tutorials/dreamhost.rst:30
+msgid "Give the file 'execute' permission"
+msgstr ""
+
+#: ../../tutorials/dreamhost.rst:36
+msgid ""
+"Now in your home create a YYY.ini (remember to change YYY with your "
+"domain name) with that content"
+msgstr ""
+
+#: ../../tutorials/dreamhost.rst:55
+msgid "change the first three lines accordingly."
+msgstr ""
+
+#: ../../tutorials/dreamhost.rst:58
+msgid "Preparing the python virtualenv"
+msgstr ""
+
+#: ../../tutorials/dreamhost.rst:60
+msgid ""
+"As we want to run the werkzeug test app, we need to install its package "
+"in a virtualenv."
+msgstr ""
+
+#: ../../tutorials/dreamhost.rst:62
+msgid "Move to the home:"
+msgstr ""
+
+#: ../../tutorials/dreamhost.rst:70
+msgid "The .htaccess"
+msgstr ""
+
+#: ../../tutorials/dreamhost.rst:72
+msgid ""
+"Move again to the document root to create the .htaccess file that will "
+"instruct Apache to forward request to uWSGI"
+msgstr ""
+
+#: ../../tutorials/dreamhost.rst:82
+msgid "Ready"
+msgstr ""
+
+#: ../../tutorials/dreamhost.rst:84
+msgid ""
+"Go to your domain and you should see the Werkzeug test page. If it does "
+"not show you can check uWSGI logs in the file you specified with the "
+"logto option."
+msgstr ""
+
+#: ../../tutorials/dreamhost.rst:88
+msgid "The flock trick"
+msgstr ""
+
+#: ../../tutorials/dreamhost.rst:90
+msgid ""
+"As the apache mod_fcgi/mod_fastcgi/mod_fcgid implemenetations are very "
+"flaky on process management, you can easily end with lot of copies of the"
+" same process running. The flock trick avoid that. Just remember that the"
+" flock option is very special as you cannot use placeholder or other "
+"advanced techniques with it. You can only specify the absolute path of "
+"the file to lock."
+msgstr ""
+
+#: ../../tutorials/dreamhost.rst:95
+msgid "Statistics"
+msgstr ""
+
+#: ../../tutorials/dreamhost.rst:97
+msgid "As always remember to use uWSGI internal stats system"
+msgstr ""
+
+#: ../../tutorials/dreamhost.rst:99
+msgid "first, install uwsgitop"
+msgstr ""
+
+#: ../../tutorials/dreamhost.rst:105
+msgid "Enable the stats server on the uWSGI config"
+msgstr ""
+
+#: ../../tutorials/dreamhost.rst:128
+msgid ""
+"(as we have touch-reload in place, as soon as you update the ini file "
+"your instance is reloaded, and you will be able to suddenly use uwsgitop)"
+msgstr ""
+
+#: ../../tutorials/dreamhost.rst:135
+msgid "(remember to change XXX and YYY accordingly)"
+msgstr ""
+
+#: ../../tutorials/dreamhost.rst:139
+msgid "Running Perl/PSGI apps (requires uWSGI >= 1.9)"
+msgstr ""
+
+#: ../../tutorials/dreamhost.rst:141
+msgid ""
+"Older uWSGI versions does not work well with plugins other than the "
+"python one, as the fastcgi implementation has lot of limits."
+msgstr ""
+
+#: ../../tutorials/dreamhost.rst:143
+msgid ""
+"Starting from 1.9, fastCGI is a first-class citizen in the uWSGI project,"
+" so all of the plugins work with it."
+msgstr ""
+
+#: ../../tutorials/dreamhost.rst:145
+msgid ""
+"As before, compile the uWSGI sources but this time we will build a PSGI "
+"monolithic binary:"
+msgstr ""
+
+#: ../../tutorials/dreamhost.rst:151
+msgid "copy the resulting binary in the home as uwsgi_perl"
+msgstr ""
+
+#: ../../tutorials/dreamhost.rst:153
+msgid "Now edit the previously created uwsgi.fcgi file changing it to"
+msgstr ""
+
+#: ../../tutorials/dreamhost.rst:160
+msgid "(again, change XXX and YYY accordingly)"
+msgstr ""
+
+#: ../../tutorials/dreamhost.rst:162
+msgid "Now upload an app.psgi file in the document root (this is your app)"
+msgstr ""
+
+#: ../../tutorials/dreamhost.rst:175
+msgid "and change the uWSGI ini file accordingly"
+msgstr ""
+
+#: ../../tutorials/dreamhost.rst:198
+msgid ""
+"The only difference from the python one, is the usage of 'psgi' instead "
+"of 'module' and the addition of fastcgi-modifier1 that set the uWSGI "
+"modifier to the perl/psgi one"
+msgstr ""
+
+#: ../../tutorials/dreamhost.rst:203
+msgid "Running Ruby/Rack apps (requires uWSGI >= 1.9)"
+msgstr ""
+
+#: ../../tutorials/dreamhost.rst:205
+msgid ""
+"By default you can use passenger on Dreamhost servers to host ruby/rack "
+"applications, but you may need a more advanced application servers for "
+"your work (or you may need simply more control over the deployment "
+"process)"
+msgstr ""
+
+#: ../../tutorials/dreamhost.rst:208
+msgid ""
+"As the PSGI one you need a uWSGI version >= 1.9 to get better (and "
+"faster) fastcgi support"
+msgstr ""
+
+#: ../../tutorials/dreamhost.rst:210
+msgid "Build a new uWSGI binary with rack support"
+msgstr ""
+
+#: ../../tutorials/dreamhost.rst:217
+msgid "and copy it in the home as ''uwsgi_ruby''"
+msgstr ""
+
+#: ../../tutorials/dreamhost.rst:219
+msgid "Edit (again) the uwsgi.fcgi file changing it to"
+msgstr ""
+
+#: ../../tutorials/dreamhost.rst:226
+msgid "and create a Rack application in the document root (call it app.ru)"
+msgstr ""
+
+#: ../../tutorials/dreamhost.rst:241
+msgid "Finally change the uWSGI .ini file for a rack app:"
+msgstr ""
+
+#: ../../tutorials/dreamhost.rst:264
+msgid ""
+"Only differences from the PSGI one, is the use of 'rack' instead of "
+"'psgi', and the modifier1 mapped to 7 (the ruby/rack one)"
+msgstr ""
+
+#: ../../tutorials/dreamhost.rst:268
+msgid "Serving static files"
+msgstr ""
+
+#: ../../tutorials/dreamhost.rst:270
+msgid ""
+"It is unlikely you will need to serve static files on uWSGI on a "
+"dreamhost account. You can directly use apache for that (eventually "
+"remember to change the .htaccess file accordingly)"
+msgstr ""
+

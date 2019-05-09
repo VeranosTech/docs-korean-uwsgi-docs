@@ -1,0 +1,260 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Changelog-1.9.7.rst:2
+msgid "uWSGI 1.9.7"
+msgstr ""
+
+#: ../../Changelog-1.9.7.rst:6
+msgid "Bugfixes"
+msgstr ""
+
+#: ../../Changelog-1.9.7.rst:8
+msgid "fixed teajs engine build"
+msgstr ""
+
+#: ../../Changelog-1.9.7.rst:10
+msgid "fixed offloading status code (set to 202 when a request is offloaded)"
+msgstr ""
+
+#: ../../Changelog-1.9.7.rst:12
+msgid "execute cron tasks within 60 second resolution, instead of 61 seconds"
+msgstr ""
+
+#: ../../Changelog-1.9.7.rst:14
+msgid "fixed websocket proxy"
+msgstr ""
+
+#: ../../Changelog-1.9.7.rst:16
+msgid "check for python3 unicode encoding (instead of crashing...)"
+msgstr ""
+
+#: ../../Changelog-1.9.7.rst:18
+msgid "fixed ipcsem removal on reload"
+msgstr ""
+
+#: ../../Changelog-1.9.7.rst:20
+msgid "fixed kqueue timer on OpenBSD, NetBSD and DragonFlyBSD"
+msgstr ""
+
+#: ../../Changelog-1.9.7.rst:22
+msgid "fixed/reimplemented perl uwsgi::register_rpc"
+msgstr ""
+
+#: ../../Changelog-1.9.7.rst:24
+msgid "fixed fd leak on sendfile() error"
+msgstr ""
+
+#: ../../Changelog-1.9.7.rst:26
+msgid "fixed Content-Length when gzip file variant is used"
+msgstr ""
+
+#: ../../Changelog-1.9.7.rst:28
+msgid "allows non-request plugins to register rpc functions"
+msgstr ""
+
+#: ../../Changelog-1.9.7.rst:30
+msgid "more robust error checking for cgroups"
+msgstr ""
+
+#: ../../Changelog-1.9.7.rst:32
+msgid ""
+"honour SCRIPT_NAME the in the PSGI plugin when multiple perl apps are "
+"mounted"
+msgstr ""
+
+#: ../../Changelog-1.9.7.rst:36
+msgid "New features"
+msgstr ""
+
+#: ../../Changelog-1.9.7.rst:40
+msgid "Legion cron"
+msgstr ""
+
+#: ../../Changelog-1.9.7.rst:42
+msgid ""
+"A common needs when multiple instances of an application are running, is "
+"to force only one of them to run cron tasks. The new --legion-cron uses "
+":doc:`Legion` to accomplish that:"
+msgstr ""
+
+#: ../../Changelog-1.9.7.rst:55
+msgid "Curl cron"
+msgstr ""
+
+#: ../../Changelog-1.9.7.rst:57
+msgid ""
+"The curl_cron plugin has been added allowing the cron subsystem to call "
+"urls (via libcurl) instead of unix commands:"
+msgstr ""
+
+#: ../../Changelog-1.9.7.rst:65
+msgid "The output of the request is reported in the log"
+msgstr ""
+
+#: ../../Changelog-1.9.7.rst:68
+msgid "The UWSGI_EMBED_PLUGINS build variable"
+msgstr ""
+
+#: ../../Changelog-1.9.7.rst:70
+msgid ""
+"ou can now embed plugins on the fly during the build phase. Check this "
+"example:"
+msgstr ""
+
+#: ../../Changelog-1.9.7.rst:76
+msgid ""
+"this will build a monolithic binary with the default profile for psgi + "
+"the gridfs and the rack plugins (both embedded in the binary)"
+msgstr ""
+
+#: ../../Changelog-1.9.7.rst:80
+msgid "Gzip caching"
+msgstr ""
+
+#: ../../Changelog-1.9.7.rst:82
+msgid ""
+"The cachestore routing function can now directly store items in gzip "
+"format."
+msgstr ""
+
+#: ../../Changelog-1.9.7.rst:84
+msgid ""
+"Check the CachingCookbook: https://uwsgi-"
+"docs.readthedocs.io/en/latest/tutorials/CachingCookbook.html"
+msgstr ""
+
+#: ../../Changelog-1.9.7.rst:87
+msgid "--skip-atexit"
+msgstr ""
+
+#: ../../Changelog-1.9.7.rst:89
+msgid ""
+"A bug in the mongodb client library could cause a crash of the uWSGI "
+"server during shutdown/reload. This option avoid calling atexit() hooks. "
+"If you are building a :doc:`GridFS` infrastructure you may want to use "
+"this option while the MongoDB guys solve the issue."
+msgstr ""
+
+#: ../../Changelog-1.9.7.rst:93
+msgid "proxyhttp and proxyuwsgi"
+msgstr ""
+
+#: ../../Changelog-1.9.7.rst:95
+msgid ""
+"The http and uwsgi routing instructions are now more smart. You can cache"
+" their output and get the right status code in the logs."
+msgstr ""
+
+#: ../../Changelog-1.9.7.rst:97
+msgid ""
+"This requires you to NOT use offloading. If offloading is in place and do"
+" not want to use it for this two router use the proxy-prefixed variant "
+"that will skip offloading."
+msgstr ""
+
+#: ../../Changelog-1.9.7.rst:100
+msgid "You can now make cool things like:"
+msgstr ""
+
+#: ../../Changelog-1.9.7.rst:116
+msgid "The transformation api"
+msgstr ""
+
+#: ../../Changelog-1.9.7.rst:118
+msgid ""
+"A generic api for manipulating the response has been added (cachestore "
+"uses it)"
+msgstr ""
+
+#: ../../Changelog-1.9.7.rst:120
+msgid "check :doc:`Transformations`"
+msgstr ""
+
+#: ../../Changelog-1.9.7.rst:123
+msgid "--alarm-fd"
+msgstr ""
+
+#: ../../Changelog-1.9.7.rst:125
+msgid ""
+"We are improving :doc:`AlarmSubsystem` to be less-dependent on loglines. "
+"You can now trigger alarms when an fd is ready for read."
+msgstr ""
+
+#: ../../Changelog-1.9.7.rst:127
+msgid "This is really useful for integration with the Linux eventfd() facility."
+msgstr ""
+
+#: ../../Changelog-1.9.7.rst:129
+msgid ""
+"For example you can monitor (and throw an alarm) when your cgroup is "
+"running the OOM-Killer:"
+msgstr ""
+
+#: ../../Changelog-1.9.7.rst:139
+msgid ""
+"in this example CGROUP_OOM_FD is an environment variable mapping to the "
+"number of an eventfd() filedescriptor inherited from some kind of startup"
+" script. Maybe (in the near future) we could be able to directly define "
+"this kind of monitor directly in uWSGI."
+msgstr ""
+
+#: ../../Changelog-1.9.7.rst:142
+msgid ""
+"More information on the eventfd() + cgroup integration are here: "
+"https://www.kernel.org/doc/Documentation/cgroups/cgroups.txt"
+msgstr ""
+
+#: ../../Changelog-1.9.7.rst:144
+msgid "an example perl startup script:"
+msgstr ""
+
+#: ../../Changelog-1.9.7.rst:163
+msgid ""
+"The spooler server plugin and the cheaper busyness algorithm compiled in "
+"by default"
+msgstr ""
+
+#: ../../Changelog-1.9.7.rst:165
+msgid ""
+"In extremely high-loaded scenario the busyness cheaper algorithm (by "
+"Łukasz Mierzwa) has been a real silver bullet in the past months allowing"
+" adaptive process spawning to be based on real usage time taking in "
+"account performance and response time. For this reason the plugin is now "
+"builtin by default."
+msgstr ""
+
+#: ../../Changelog-1.9.7.rst:169
+msgid ""
+"In addition to this the remote spooler plugin (allowing external process "
+"to enqueue jobs) has been added too in the default build profile."
+msgstr ""
+
+#: ../../Changelog-1.9.7.rst:173
+msgid "Availability"
+msgstr ""
+
+#: ../../Changelog-1.9.7.rst:175
+msgid "uWSGI 1.9.7 will be available since 20130422 at this url:"
+msgstr ""
+
+#: ../../Changelog-1.9.7.rst:177
+msgid "https://projects.unbit.it/downloads/uwsgi-1.9.7.tar.gz"
+msgstr ""
+

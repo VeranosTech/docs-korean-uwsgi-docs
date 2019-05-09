@@ -1,0 +1,122 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../SPDY.rst:2
+msgid "The SPDY router (uWSGI 1.9)"
+msgstr ""
+
+#: ../../SPDY.rst:4
+msgid ""
+"Starting from uWSGI 1.9 the HTTPS router has been extended to support "
+"version 3 of the SPDY protocol."
+msgstr ""
+
+#: ../../SPDY.rst:6
+msgid "To run the HTTPS router with SPDY support, use the ``--https2`` option:"
+msgstr ""
+
+#: ../../SPDY.rst:12
+msgid ""
+"This will start an HTTPS router on port 8443 with SPDY support, "
+"forwarding requests to the Werkzeug's test app the instance is running. "
+"If you'll go to https://address:8443/ with a SPDY-enabled browser, you "
+"will see additional WSGI variables reported by `Werkzeug "
+"<http://werkzeug.pocoo.org/>`_:"
+msgstr ""
+
+#: ../../SPDY.rst:16
+msgid "``SPDY`` -- ``on``"
+msgstr ""
+
+#: ../../SPDY.rst:17
+msgid "``SPDY.version`` -- protocol version (generally ``3``)"
+msgstr ""
+
+#: ../../SPDY.rst:18
+msgid "``SPDY.stream`` -- stream identifier (an odd number)."
+msgstr ""
+
+#: ../../SPDY.rst:20
+msgid ""
+"Opening privileged ports as a non-root user will require the use of the "
+"`shared-socket` option and a slightly different syntax:"
+msgstr ""
+
+#: ../../SPDY.rst:26
+msgid ""
+"Both HTTP and HTTPS can be used at the same time (`=0` and `=1` are "
+"references to the privileged ports opened by `shared-socket` commands):"
+msgstr ""
+
+#: ../../SPDY.rst:34
+msgid "Notes"
+msgstr ""
+
+#: ../../SPDY.rst:36
+msgid ""
+"You need at least OpenSSL 1.x to use SPDY (all modern Linux distributions"
+" should have it)."
+msgstr ""
+
+#: ../../SPDY.rst:37
+msgid "During uploads, the window size is constantly updated."
+msgstr ""
+
+#: ../../SPDY.rst:38
+msgid ""
+"The ``--http-timeout`` directive is used to set the SPDY timeout. This is"
+" the maximum amount of inactivity after the SPDY connection is closed."
+msgstr ""
+
+#: ../../SPDY.rst:39
+msgid "``PING`` requests from the browsers are **all** acknowledged."
+msgstr ""
+
+#: ../../SPDY.rst:40
+msgid ""
+"On connect, the SPDY router sends a settings packet to the client with "
+"optimal values."
+msgstr ""
+
+#: ../../SPDY.rst:41
+msgid ""
+"If a stream fails in some catastrophic way, the whole connection is "
+"closed hard."
+msgstr ""
+
+#: ../../SPDY.rst:42
+msgid "``RST`` messages are always honoured."
+msgstr ""
+
+#: ../../SPDY.rst:45
+msgid "TODO"
+msgstr ""
+
+#: ../../SPDY.rst:47
+msgid "Add old SPDY v2 support (is it worth it?)"
+msgstr ""
+
+#: ../../SPDY.rst:48
+msgid "Allow PUSHing of resources from the uWSGI cache"
+msgstr ""
+
+#: ../../SPDY.rst:49
+msgid "Allow tuning internal buffers"
+msgstr ""
+

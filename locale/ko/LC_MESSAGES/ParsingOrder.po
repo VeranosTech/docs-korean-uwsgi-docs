@@ -1,0 +1,129 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../ParsingOrder.rst:2
+msgid "How uWSGI parses config files"
+msgstr ""
+
+#: ../../ParsingOrder.rst:4
+msgid "Until uWSGI 1.1 the parsing order has not been 'stable' or 'reliable'."
+msgstr ""
+
+#: ../../ParsingOrder.rst:6
+msgid ""
+"Starting from uWSGI 1.1 (thanks to its new options subsystem) we have a "
+"general rule: top-bottom and expand asap."
+msgstr ""
+
+#: ../../ParsingOrder.rst:8
+msgid ""
+"Top-bottom means options are internally ordered as they are parsed, while"
+" \"expand asap\" means to inject the options of a requested config file, "
+"interrupting the currently parsed one:"
+msgstr ""
+
+#: ../../ParsingOrder.rst:10
+msgid ""
+"Note that the ``inherit`` option behaves differently from the other "
+"include options: It is expanded *after* variable expansion, so any "
+"environment variables, external files and placeholders are *not* "
+"expanded. Magic variables (*e.g.* ``%n``) are expanded normally."
+msgstr ""
+
+#: ../../ParsingOrder.rst:12 ../../ParsingOrder.rst:48
+msgid "file1.ini (the one requested from the command line)"
+msgstr ""
+
+#: ../../ParsingOrder.rst:23 ../../ParsingOrder.rst:58
+msgid "file2.ini"
+msgstr ""
+
+#: ../../ParsingOrder.rst:32
+msgid "internally will be assembled in:"
+msgstr ""
+
+#: ../../ParsingOrder.rst:46
+msgid "A more complex example:"
+msgstr ""
+
+#: ../../ParsingOrder.rst:68
+msgid "file3.xml"
+msgstr ""
+
+#: ../../ParsingOrder.rst:77
+msgid "will result in:"
+msgstr ""
+
+#: ../../ParsingOrder.rst:95
+msgid "Expanding variables/placeholders"
+msgstr ""
+
+#: ../../ParsingOrder.rst:97
+msgid ""
+"After the internal config tree is assembled, variables and placeholder "
+"substitution will be applied."
+msgstr ""
+
+#: ../../ParsingOrder.rst:99
+msgid ""
+"The first step is substituting all of the $(VALUE) occurrences with the "
+"value of the environment variable VALUE."
+msgstr ""
+
+#: ../../ParsingOrder.rst:106
+msgid "foobar value will be the content of shell's PATH variable"
+msgstr ""
+
+#: ../../ParsingOrder.rst:108
+msgid "The second step will expand text files embraced in @(FILENAME)"
+msgstr ""
+
+#: ../../ParsingOrder.rst:115
+msgid "nodename value will be the content of /etc/hostname"
+msgstr ""
+
+#: ../../ParsingOrder.rst:117
+msgid ""
+"The last step is placeholder substitution. A placeholder is a reference "
+"to another option:"
+msgstr ""
+
+#: ../../ParsingOrder.rst:126
+msgid "the content of foobar will be mapped to the content of socket."
+msgstr ""
+
+#: ../../ParsingOrder.rst:129
+msgid "A note on magic variables"
+msgstr ""
+
+#: ../../ParsingOrder.rst:131
+msgid ""
+"Config files, support another form of variables, called 'magic' "
+"variables. As they refer to the config file itself, they will be parsed "
+"asap:"
+msgstr ""
+
+#: ../../ParsingOrder.rst:140
+msgid ""
+"The content of my_config_file will be set to %p value (the current file's"
+" absolute path) as soon as it is parsed. That means %p (or whatever magic"
+" vars you need) will be always be consistent in the currently parsing "
+"config file."
+msgstr ""
+

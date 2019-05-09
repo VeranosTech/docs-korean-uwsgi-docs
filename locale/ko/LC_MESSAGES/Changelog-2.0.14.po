@@ -1,0 +1,133 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Changelog-2.0.14.rst:2
+msgid "uWSGI 2.0.14"
+msgstr ""
+
+#: ../../Changelog-2.0.14.rst:4
+msgid "[20161003]"
+msgstr ""
+
+#: ../../Changelog-2.0.14.rst:6
+msgid "Maintenance release"
+msgstr ""
+
+#: ../../Changelog-2.0.14.rst:9
+msgid "Changes"
+msgstr ""
+
+#: ../../Changelog-2.0.14.rst:11
+msgid "backported gevent-early-monkey-patch (jianbin-wei)"
+msgstr ""
+
+#: ../../Changelog-2.0.14.rst:12
+msgid "Fixed OpenBSD version check (Pavel Korovin)"
+msgstr ""
+
+#: ../../Changelog-2.0.14.rst:13
+msgid "PSGI/Perl cache api fixes (Alexander Demenshin)"
+msgstr ""
+
+#: ../../Changelog-2.0.14.rst:14
+msgid "Correctly decode PATH_INFo in router_rewrite plugin (Ben Hearsum)"
+msgstr ""
+
+#: ../../Changelog-2.0.14.rst:15
+msgid "add uwsgi.accepting() for chain-reload + worker-override combo (enkore)"
+msgstr ""
+
+#: ../../Changelog-2.0.14.rst:16
+msgid "fixed workers killing when in cheaper modes (Shoham Peller)"
+msgstr ""
+
+#: ../../Changelog-2.0.14.rst:17
+msgid "added --cgi-safe option (nnnn20430)"
+msgstr ""
+
+#: ../../Changelog-2.0.14.rst:18
+msgid "Implemented graceful reload for COROAE plugin (aleksey-mashanov)"
+msgstr ""
+
+#: ../../Changelog-2.0.14.rst:19
+msgid "Added --php-fallback2, --php-fallback-qs (Felicity unixwitch)"
+msgstr ""
+
+#: ../../Changelog-2.0.14.rst:20
+msgid "Added ipv4in and ipv6in routing rules (Felicity unixwitch)"
+msgstr ""
+
+#: ../../Changelog-2.0.14.rst:21
+msgid ""
+"Fixed readline support in python3 when working interactively (Anthony "
+"Sottile)"
+msgstr ""
+
+#: ../../Changelog-2.0.14.rst:22
+msgid "Implement touch-reloading for mules and spoolers (Alexandre Bonnetain)"
+msgstr ""
+
+#: ../../Changelog-2.0.14.rst:23
+msgid "add request_start timestamp in stats (Ben Plotnick)"
+msgstr ""
+
+#: ../../Changelog-2.0.14.rst:24
+msgid "Fixed double free in uwsgi_routing_func_rewrite (William Orr)"
+msgstr ""
+
+#: ../../Changelog-2.0.14.rst:25
+msgid "Various mod_proxy_uwsgi fixes (Ya-Lin Huang)"
+msgstr ""
+
+#: ../../Changelog-2.0.14.rst:26
+msgid "support for 'no-answer' in PSGI (Anton Petrusevich)"
+msgstr ""
+
+#: ../../Changelog-2.0.14.rst:27
+msgid "added php-constant option (Дамјан Георгиевски [gdamjan])"
+msgstr ""
+
+#: ../../Changelog-2.0.14.rst:28
+msgid "added the stdio logger (Дамјан Георгиевски [gdamjan])"
+msgstr ""
+
+#: ../../Changelog-2.0.14.rst:29
+msgid "spooler: fix reading inconsistent data (Pavel Patrin)"
+msgstr ""
+
+#: ../../Changelog-2.0.14.rst:30
+msgid ""
+"Removed -WError from the build procedure (Riccardo Magliocchetti, "
+"suggested by Ian Denhardt)"
+msgstr ""
+
+#: ../../Changelog-2.0.14.rst:31
+msgid "The usual amount of coverity-based fixes (Riccardo Magliocchetti)"
+msgstr ""
+
+#: ../../Changelog-2.0.14.rst:34
+msgid "Availability"
+msgstr ""
+
+#: ../../Changelog-2.0.14.rst:36
+msgid ""
+"You can download uWSGI 2.0.14 from "
+"https://projects.unbit.it/downloads/uwsgi-2.0.14.tar.gz"
+msgstr ""
+

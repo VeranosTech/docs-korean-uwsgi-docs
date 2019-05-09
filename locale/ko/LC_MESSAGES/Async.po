@@ -1,0 +1,336 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Async.rst:2
+msgid "uWSGI asynchronous/non-blocking modes (updated to uWSGI 1.9)"
+msgstr ""
+
+#: ../../Async.rst:6
+msgid ""
+"Beware! Async modes will not speed up your app, they are aimed at "
+"improving concurrency. Do not expect that enabling some of the modes will"
+" work flawlessly, asynchronous/evented/non-blocking systems require app "
+"cooperation, so if your app is developed without taking specific async "
+"engine rules into consideration, you are doing it wrong. Do not trust "
+"people suggesting you to blindly use async/evented/non-blocking systems!"
+msgstr ""
+
+#: ../../Async.rst:13
+msgid "Glossary"
+msgstr ""
+
+#: ../../Async.rst:15
+msgid ""
+"uWSGI, following its modular approach, splits async engines into two "
+"families."
+msgstr ""
+
+#: ../../Async.rst:18
+msgid "Suspend/Resume engines"
+msgstr ""
+
+#: ../../Async.rst:20
+msgid ""
+"They simply implement coroutine/green threads techniques. They have no "
+"event engine, so you have to use the one supplied by uWSGI. An Event "
+"engine is generally a library exporting primitives for platform-"
+"independent non-blocking I/O (libevent, libev, libuv, etc.). The uWSGI "
+"event engine is enabled using the ``--async <n>`` option."
+msgstr ""
+
+#: ../../Async.rst:24
+msgid ""
+"Currently the uWSGI distribution includes the following suspend/resume "
+"engines:"
+msgstr ""
+
+#: ../../Async.rst:26
+msgid ""
+"``uGreen`` - Unbit's green thread implementation (based on "
+"``swapcontext()``)"
+msgstr ""
+
+#: ../../Async.rst:27
+msgid "``Greenlet`` - Python greenlet module"
+msgstr ""
+
+#: ../../Async.rst:28
+msgid "``Stackless`` - Stackless Python"
+msgstr ""
+
+#: ../../Async.rst:29
+msgid "``Fiber`` - Ruby 1.9 fibers"
+msgstr ""
+
+#: ../../Async.rst:31
+msgid ""
+"Running the uWSGI async mode without a proper suspend/resume engine will "
+"raise a warning, so for a minimal non-blocking app you will need "
+"something like that:"
+msgstr ""
+
+#: ../../Async.rst:38
+msgid ""
+"An important aspect of suspend/resume engines is that they can easily "
+"destroy your process if it is not aware of them. Some of the language "
+"plugins (most notably Python) have hooks to cooperate flawlessly with "
+"coroutines/green threads. Other languages may fail miserably. Always "
+"check the uWSGI mailing list or IRC channel for updated information."
+msgstr ""
+
+#: ../../Async.rst:42
+msgid ""
+"Older uWSGI releases supported an additional system: callbacks. Callbacks"
+" is the approach used by popular systems like node.js. This approach "
+"requires **heavy** app cooperation, and for complex projects like uWSGI "
+"dealing with this is extremely complex. For that reason, callback "
+"approach **is not supported** (even if technically possible) Software "
+"based on callbacks (like :doc:`Tornado`) can be used to combine them with"
+" some form of suspend engine."
+msgstr ""
+
+#: ../../Async.rst:49
+msgid "I/O engines (or event systems)"
+msgstr ""
+
+#: ../../Async.rst:51
+msgid ""
+"uWSGI includes an highly optimized evented technology, but can use "
+"alternative approaches too."
+msgstr ""
+
+#: ../../Async.rst:53
+msgid ""
+"I/O engines always require some suspend/resume engine, otherwise ugly "
+"things happen (the whole uWSGI codebase is coroutine-friendly, so you can"
+" play with stacks pretty easily)."
+msgstr ""
+
+#: ../../Async.rst:56
+msgid "Currently supported I/O engines are:"
+msgstr ""
+
+#: ../../Async.rst:58
+msgid ":doc:`Tornado`"
+msgstr ""
+
+#: ../../Async.rst:59
+msgid ":doc:`libuv` (work in progress)"
+msgstr ""
+
+#: ../../Async.rst:60
+msgid ":doc:`libev` (work in progress)"
+msgstr ""
+
+#: ../../Async.rst:63
+msgid "Loop engines"
+msgstr ""
+
+#: ../../Async.rst:65
+msgid ""
+"Loop engines are packages/libraries exporting both suspend/resume "
+"techniques and an event system. When loaded, they override the way uWSGI "
+"manages connections and signal handlers (uWSGI signals, *not* POSIX "
+"signals)."
+msgstr ""
+
+#: ../../Async.rst:68
+msgid "Currently uWSGI supports the following loop engines:"
+msgstr ""
+
+#: ../../Async.rst:70
+msgid "``Gevent`` (Python, libev, greenlet)"
+msgstr ""
+
+#: ../../Async.rst:71
+msgid "``Coro::AnyEvent`` (Perl, coro, anyevent)"
+msgstr ""
+
+#: ../../Async.rst:73
+msgid ""
+"Although they are generally used by a specific language, pure-C uWSGI "
+"plugins (like the CGI one) can use them to increase concurrency without "
+"problems."
+msgstr ""
+
+#: ../../Async.rst:77
+msgid "Async switches"
+msgstr ""
+
+#: ../../Async.rst:79
+msgid ""
+"To enable async mode, you use the ``--async`` option (or some shortcut "
+"for it, exported by loop engine plugins)."
+msgstr ""
+
+#: ../../Async.rst:81
+msgid ""
+"The argument of the ``--async`` option is the number of \"cores\" to "
+"initialize. Each core can manage a single request, so the more core you "
+"spawn, more requests you will be able to manage (*and more memory you "
+"will use*). The job of the suspend/resume engines is to stop the current "
+"request management, move to another core, and eventually come back to the"
+" old one (and so on)."
+msgstr ""
+
+#: ../../Async.rst:85
+msgid ""
+"Technically, cores are simple memory structures holding request's data, "
+"but to give the user the illusion of a multithreaded system we use that "
+"term."
+msgstr ""
+
+#: ../../Async.rst:88
+msgid ""
+"The switch between cores needs app cooperation. There are various ways to"
+" accomplish that, and generally, if you are using a loop engine, all is "
+"automagic (or requires very little effort)."
+msgstr ""
+
+#: ../../Async.rst:93
+msgid "If you are in doubt, **do not use async mode**."
+msgstr ""
+
+#: ../../Async.rst:96
+msgid "Running uWSGI in Async mode"
+msgstr ""
+
+#: ../../Async.rst:98
+msgid ""
+"To start uWSGI in async mode, pass the ``--async`` option with the number"
+" of \"async cores\" you want."
+msgstr ""
+
+#: ../../Async.rst:104
+msgid ""
+"This will start uWSGI with 10 async cores. Each async core can manage a "
+"request, so with this setup you can accept 10 concurrent requests with "
+"only one process. You can also start more processes (with the "
+"``--processes`` option), each will have its own pool of async cores."
+msgstr ""
+
+#: ../../Async.rst:106
+msgid ""
+"When using :term:`harakiri` mode, every time an async core accepts a "
+"request, the harakiri timer is reset. So even if a request blocks the "
+"async system, harakiri will save you."
+msgstr ""
+
+#: ../../Async.rst:108
+msgid ""
+"The ``tests.cpubound_async`` app is included in the source distribution. "
+"It's very simple:"
+msgstr ""
+
+#: ../../Async.rst:117
+msgid ""
+"Every time the application does ``yield`` from the response function, the"
+" execution of the app is stopped, and a new request or a previously "
+"suspended request on another async core will take over. This means the "
+"number of async cores is the number of requests that can be queued."
+msgstr ""
+
+#: ../../Async.rst:119
+msgid ""
+"If you run the ``tests.cpubound_async`` app on a non-async server, it "
+"will block all processing: will not accept other requests until the heavy"
+" cycle of 10000 ``<h1>``\\ s is done."
+msgstr ""
+
+#: ../../Async.rst:122
+msgid "Waiting for I/O"
+msgstr ""
+
+#: ../../Async.rst:124
+msgid ""
+"If you are not under a loop engine, you can use the uWSGI API to wait for"
+" I/O events."
+msgstr ""
+
+#: ../../Async.rst:126
+msgid "Currently only 2 functions are exported:"
+msgstr ""
+
+#: ../../Async.rst:128
+msgid ":py:func:`uwsgi.wait_fd_read`"
+msgstr ""
+
+#: ../../Async.rst:129
+msgid ":py:func:`uwsgi.wait_fd_write`"
+msgstr ""
+
+#: ../../Async.rst:131
+msgid ""
+"These functions may be called in succession to wait for multiple file "
+"descriptors:"
+msgstr ""
+
+#: ../../Async.rst:141
+msgid "Sleeping"
+msgstr ""
+
+#: ../../Async.rst:143
+msgid ""
+"On occasion you might want to sleep in your app, for example to throttle "
+"bandwidth."
+msgstr ""
+
+#: ../../Async.rst:145
+msgid ""
+"Instead of using the blocking ``time.sleep(N)`` function, use "
+"``uwsgi.async_sleep(N)`` to yield control for N seconds."
+msgstr ""
+
+#: ../../Async.rst:147
+msgid "See :file:`tests/sleeping_async.py` for an example."
+msgstr ""
+
+#: ../../Async.rst:150
+msgid "Suspend/Resume"
+msgstr ""
+
+#: ../../Async.rst:152
+msgid ""
+"Yielding from the main application routine is not very practical, as most"
+" of the time your app is more advanced than a simple callable and is "
+"formed of tons of functions and various levels of call depth."
+msgstr ""
+
+#: ../../Async.rst:154
+msgid ""
+"Worry not! You can force a suspend (using coroutine/green thread) by "
+"simply calling ``uwsgi.suspend()``:"
+msgstr ""
+
+#: ../../Async.rst:161
+msgid ""
+"``uwsgi.suspend()`` will automatically call the chosen suspend engine "
+"(uGreen, greenlet, etc.)."
+msgstr ""
+
+#: ../../Async.rst:164
+msgid "Static files"
+msgstr ""
+
+#: ../../Async.rst:166
+msgid ""
+":doc:`Static file server<StaticFiles>` will automatically use the loaded "
+"async engine."
+msgstr ""
+

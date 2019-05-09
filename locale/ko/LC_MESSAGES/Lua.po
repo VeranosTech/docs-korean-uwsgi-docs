@@ -1,0 +1,286 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Lua.rst:2
+msgid "Using Lua/WSAPI with uWSGI"
+msgstr ""
+
+#: ../../Lua.rst:4
+msgid "Updated for uWSGI 2.0"
+msgstr ""
+
+#: ../../Lua.rst:7
+msgid "Building the plugin"
+msgstr ""
+
+#: ../../Lua.rst:9
+msgid ""
+"The lua plugin is part of the official uWSGI distribution (official "
+"modifier 6) and it is availale in the plugins/lua directory."
+msgstr ""
+
+#: ../../Lua.rst:11
+msgid "The plugin support lua 5.1, lua 5.2 and luajit."
+msgstr ""
+
+#: ../../Lua.rst:13
+msgid "By default lua 5.1 is assumed"
+msgstr ""
+
+#: ../../Lua.rst:15
+msgid "As always there are various ways to build and install Lua support:"
+msgstr ""
+
+#: ../../Lua.rst:17
+msgid "from sources directory:"
+msgstr ""
+
+#: ../../Lua.rst:23
+msgid "with the installer (the resulting binary will be in /tmp/uwsgi)"
+msgstr ""
+
+#: ../../Lua.rst:29
+msgid "or you can build it as a plugin"
+msgstr ""
+
+#: ../../Lua.rst:35
+msgid "or (if you already have a uwsgi binary)"
+msgstr ""
+
+#: ../../Lua.rst:41
+msgid ""
+"The build system (check uwsgiplugin.py in plugins/lua directory for more "
+"details) uses pkg-config to find headers and libraries."
+msgstr ""
+
+#: ../../Lua.rst:43
+msgid ""
+"You can specify the pkg-config module to use with the UWSGICONFIG_LUAPC "
+"environment variable."
+msgstr ""
+
+#: ../../Lua.rst:45
+msgid "As an example"
+msgstr ""
+
+#: ../../Lua.rst:51
+msgid "will build a uwsgi binary for lua 5.2"
+msgstr ""
+
+#: ../../Lua.rst:53
+msgid "as well as"
+msgstr ""
+
+#: ../../Lua.rst:59
+msgid "will build a binary with luajit"
+msgstr ""
+
+#: ../../Lua.rst:61
+msgid ""
+"If you do not want to rely on the pkg-config tool you can manually "
+"specify the includes and library directories as well as the lib name with"
+" the following environment vars:"
+msgstr ""
+
+#: ../../Lua.rst:70
+msgid "Why Lua ?"
+msgstr ""
+
+#: ../../Lua.rst:72
+msgid ""
+"If you came from other object oriented languages, you may find lua for "
+"web development a strange choice."
+msgstr ""
+
+#: ../../Lua.rst:74
+msgid ""
+"Well, you have to consider one thing when exploring Lua: it is fast, "
+"really fast and consume very few resources."
+msgstr ""
+
+#: ../../Lua.rst:76
+msgid ""
+"The uWSGI plugin allows you to write web applications in lua, but another"
+" purpose (if not the main one) is using Lua to extend the uWSGI server "
+"(and your application) using the signals framework, the rpc subsystem or "
+"the simple hooks engine."
+msgstr ""
+
+#: ../../Lua.rst:79
+msgid ""
+"If you have slow-area in your code (independently by the language used) "
+"consider rewriting them in Lua (before dealing with C) and use uWSGI to "
+"safely call them."
+msgstr ""
+
+#: ../../Lua.rst:83
+msgid "Your first WSAPI application"
+msgstr ""
+
+#: ../../Lua.rst:85
+msgid "We will use the official WSAPI example, let's call it :file:`pippo.lua`:"
+msgstr ""
+
+#: ../../Lua.rst:103
+msgid ""
+"Now run uWSGI with the ``lua`` option (remember to add ``--plugins lua`` "
+"as the first command line option if you are using it as a plugin)"
+msgstr ""
+
+#: ../../Lua.rst:110
+msgid ""
+"This command line starts an http router that forward requests to a single"
+" worker in which pippo.lua is loaded."
+msgstr ""
+
+#: ../../Lua.rst:112
+msgid "As you can see the modifier 6 is enforced."
+msgstr ""
+
+#: ../../Lua.rst:114
+msgid ""
+"Obviously you can directly attach uWSGI to your frontline webserver (like"
+" nginx) and bind it to a uwsgi socket:"
+msgstr ""
+
+#: ../../Lua.rst:120
+msgid "(remember to set modifier1 to 6 in your webserver of choice)"
+msgstr ""
+
+#: ../../Lua.rst:123
+msgid "Concurrency"
+msgstr ""
+
+#: ../../Lua.rst:125
+msgid ""
+"Basically Lua is available in all of the supported uWSGI concurrency "
+"models"
+msgstr ""
+
+#: ../../Lua.rst:127
+msgid "you can go multiprocess:"
+msgstr ""
+
+#: ../../Lua.rst:134
+msgid "or multithread:"
+msgstr ""
+
+#: ../../Lua.rst:140
+msgid "or both"
+msgstr ""
+
+#: ../../Lua.rst:146
+msgid ""
+"you can run it in coroutine mode (see below) using :doc:`uGreen` as the "
+"suspend engine"
+msgstr ""
+
+#: ../../Lua.rst:152
+msgid ""
+"Both threading and async modes will initialize a lua state each (you can "
+"see it as a whole independent lua VM)"
+msgstr ""
+
+#: ../../Lua.rst:155
+msgid "Abusing coroutines"
+msgstr ""
+
+#: ../../Lua.rst:157
+msgid ""
+"One of the most exciting feature of Lua are coroutines (cooperative "
+"multithreading) support. uWSGI can benefit from this using its async "
+"engine. The Lua plugin will initialize a ``lua_State`` for every async "
+"core. We will use a CPU-bound version of our pippo.lua to test it:"
+msgstr ""
+
+#: ../../Lua.rst:183
+msgid "and run uWSGI with 8 async cores..."
+msgstr ""
+
+#: ../../Lua.rst:189
+msgid ""
+"And just like that, you can manage 8 concurrent requests within a single "
+"worker!"
+msgstr ""
+
+#: ../../Lua.rst:191
+msgid ""
+"Lua coroutines do not work over C stacks (meaning you cannot manage them "
+"with your C code), but thanks to :doc:`uGreen` (the uWSGI official "
+"coroutine/greenthread engine) you can bypass this limit."
+msgstr ""
+
+#: ../../Lua.rst:194
+msgid ""
+"Thanks to uGreen you can use the uWSGI async API in your Lua apps and "
+"gain a very high level of concurrency."
+msgstr ""
+
+#: ../../Lua.rst:209
+msgid "Threading example"
+msgstr ""
+
+#: ../../Lua.rst:211
+msgid ""
+"The Lua plugin is \"thread-safe\" as uWSGI maps a lua_State to each "
+"internal pthread.  For example you can run the Sputnik_ wiki engine very "
+"easily.  Use LuaRocks_ to install Sputnik and ``versium-sqlite3``. A "
+"database-backed storage is required as the default filesystem storage "
+"does not support being accessed by multiple interpreters concurrently.  "
+"Create a wsapi compliant file:"
+msgstr ""
+
+#: ../../Lua.rst:228
+msgid "And run your threaded uWSGI server"
+msgstr ""
+
+#: ../../Lua.rst:238
+msgid "A note on memory"
+msgstr ""
+
+#: ../../Lua.rst:240
+msgid ""
+"As we all know, uWSGI is parsimonious with memory. Memory is a precious "
+"resource. Do not trust software that does not care for your memory!  The "
+"Lua garbage collector is automatically called (by default) after each "
+"request."
+msgstr ""
+
+#: ../../Lua.rst:244
+msgid ""
+"You can tune the frequency of the GC call with the ``--lua-gc-freq <n>`` "
+"option, where n is the number of requests after the GC will be called:"
+msgstr ""
+
+#: ../../Lua.rst:259
+msgid "RPC and signals"
+msgstr ""
+
+#: ../../Lua.rst:262
+msgid "The Lua shell"
+msgstr ""
+
+#: ../../Lua.rst:265
+msgid "Using Lua as 'configurator'"
+msgstr ""
+
+#: ../../Lua.rst:268
+msgid "uWSGI api status"
+msgstr ""
+

@@ -1,0 +1,132 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../GeoIP.rst:2
+msgid "The GeoIP plugin"
+msgstr ""
+
+#: ../../GeoIP.rst:4
+msgid ""
+"The ``geoip`` plugin adds new routing vars to your internal routing "
+"subsystem. GeoIP's vars are prefixed with the \"geoip\" tag.  To build "
+"the geoip plugin you need the official GeoIP C library and its headers.  "
+"The supported databases are the country and city one, and they are "
+"completely loaded on memory at startup."
+msgstr ""
+
+#: ../../GeoIP.rst:9
+msgid "The country database give access to the following variables:"
+msgstr ""
+
+#: ../../GeoIP.rst:11 ../../GeoIP.rst:19
+msgid "``${geoip[country_code]}``"
+msgstr ""
+
+#: ../../GeoIP.rst:12 ../../GeoIP.rst:20
+msgid "``${geoip[country_code3]}``"
+msgstr ""
+
+#: ../../GeoIP.rst:13 ../../GeoIP.rst:21
+msgid "``${geoip[country_name]}``"
+msgstr ""
+
+#: ../../GeoIP.rst:15
+msgid ""
+"while the city one offers a lot more at the cost of increased memory "
+"usage for storing the database"
+msgstr ""
+
+#: ../../GeoIP.rst:18
+msgid "``${geoip[continent]}``"
+msgstr ""
+
+#: ../../GeoIP.rst:22
+msgid "``${geoip[region]}``"
+msgstr ""
+
+#: ../../GeoIP.rst:23
+msgid "``${geoip[region_name]}``"
+msgstr ""
+
+#: ../../GeoIP.rst:24
+msgid "``${geoip[city]}``"
+msgstr ""
+
+#: ../../GeoIP.rst:25
+msgid "``${geoip[postal_code]}``"
+msgstr ""
+
+#: ../../GeoIP.rst:26
+msgid "``${geoip[latitude]}`` (``${geoip[lat]}``)"
+msgstr ""
+
+#: ../../GeoIP.rst:27
+msgid "``${geoip[longitude]}`` (``${geoip[lon]}``)"
+msgstr ""
+
+#: ../../GeoIP.rst:28
+msgid "``${geoip[dma]}``"
+msgstr ""
+
+#: ../../GeoIP.rst:29
+msgid "``${geoip[area]}``"
+msgstr ""
+
+#: ../../GeoIP.rst:32
+msgid "Enabling geoip lookup"
+msgstr ""
+
+#: ../../GeoIP.rst:34
+msgid ""
+"To enable the GeoIP lookup system you need to load at least one database."
+" After having loaded the geoip plugin you will get 2 new options:"
+msgstr ""
+
+#: ../../GeoIP.rst:37
+msgid "``--geoip-country`` specifies a country database"
+msgstr ""
+
+#: ../../GeoIP.rst:38
+msgid "``--geoip-city`` specifies a city database"
+msgstr ""
+
+#: ../../GeoIP.rst:40
+msgid ""
+"If you do not specify at least one of them, the system will always return"
+" empty strings."
+msgstr ""
+
+#: ../../GeoIP.rst:43
+msgid "An example"
+msgstr ""
+
+#: ../../GeoIP.rst:68
+msgid "Memory usage"
+msgstr ""
+
+#: ../../GeoIP.rst:70
+msgid ""
+"The country database is tiny so you will generally have no problem in "
+"using it. Instead, the city database can be huge (from 20MB to more than "
+"40MB).  If you have lot of instances using the GeoIP city database and "
+"you are on a recent Linux system, consider using :doc:`KSM` to reduce "
+"memory usage. All of the memory used by the GeoIP database can be shared "
+"by all instances with it."
+msgstr ""
+

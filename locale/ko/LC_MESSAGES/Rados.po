@@ -1,0 +1,317 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Rados.rst:2
+msgid "The RADOS plugin"
+msgstr ""
+
+#: ../../Rados.rst:4
+msgid "Available from uWSGI 1.9.16, stable from uWSGI 2.0.6"
+msgstr ""
+
+#: ../../Rados.rst:6
+msgid "official modifier1: 28"
+msgstr ""
+
+#: ../../Rados.rst:8
+msgid ""
+"Authors: Javier Guerra, Marcin Deranek, Roberto De Ioris, Sokolov Yura "
+"aka funny_falcon"
+msgstr ""
+
+#: ../../Rados.rst:10
+msgid ""
+"The 'rados' plugin allows you to serve objects stored in a Ceph cluster "
+"directly using the librados API."
+msgstr ""
+
+#: ../../Rados.rst:12
+msgid ""
+"Note that it's not the CephFS filesystem, nor the 'radosgw' S3/Swift-"
+"compatible layer; RADOS is the bare object-storage layer."
+msgstr ""
+
+#: ../../Rados.rst:16
+msgid "Step1: Ceph cluster and content"
+msgstr ""
+
+#: ../../Rados.rst:18
+msgid ""
+"If you want to try a minimal Ceph instalation, you can follow this guide:"
+" http://ceph.com/docs/master/start/. note that you only need the OSD and "
+"MON daemons, the MDS are needed only for CephFS filesystems."
+msgstr ""
+
+#: ../../Rados.rst:21
+msgid ""
+"Once you get it running, you should have a configuration file (by default"
+" on /etc/ceph/ceph.con), and should be able to use the `rados` utility."
+msgstr ""
+
+#: ../../Rados.rst:27
+msgid ""
+"by default, you should have at least the 'data', 'metadata' and 'rbd' "
+"pools.  Now add some content to the 'data' pool. For example, if you have"
+" a 'list.html' file and images 'first.jpeg', 'second.jpeg' on a "
+"subdirectory 'imgs/':"
+msgstr ""
+
+#: ../../Rados.rst:37
+msgid ""
+"note that RADOS doesn't have a concept of directories, but the object "
+"names can contain slashes."
+msgstr ""
+
+#: ../../Rados.rst:41
+msgid "Step2: uWSGI"
+msgstr ""
+
+#: ../../Rados.rst:43
+msgid "A build profile, named 'rados' is already available, so you can simply do:"
+msgstr ""
+
+#: ../../Rados.rst:49
+msgid "or"
+msgstr ""
+
+#: ../../Rados.rst:55
+msgid "or use the installer"
+msgstr ""
+
+#: ../../Rados.rst:62
+msgid "Obviously you can build rados support as plugin"
+msgstr ""
+
+#: ../../Rados.rst:68
+msgid "or the old style:"
+msgstr ""
+
+#: ../../Rados.rst:74
+msgid "You can now start an HTTP server to serve RADOS objects:"
+msgstr ""
+
+#: ../../Rados.rst:88
+msgid "the 'rados-mount' parameter takes various subparameters:"
+msgstr ""
+
+#: ../../Rados.rst:90
+msgid ""
+"mountpoint: required, the URL prefix on which the RADOS objects will "
+"appear."
+msgstr ""
+
+#: ../../Rados.rst:91
+msgid "pool: required, the RADOS pool to serve."
+msgstr ""
+
+#: ../../Rados.rst:92
+msgid "config: optional, the path to the ceph config file."
+msgstr ""
+
+#: ../../Rados.rst:93
+msgid "timeout: optional, set the timeout for operations, in seconds"
+msgstr ""
+
+#: ../../Rados.rst:94
+msgid "allow_put: allow calling the ``PUT`` HTTP method to store new objects"
+msgstr ""
+
+#: ../../Rados.rst:95
+msgid "allow_delete: allow calling the ``DELETE`` HTTP method to remove objects"
+msgstr ""
+
+#: ../../Rados.rst:96
+msgid "allow_mkcol: allow calling ``MKCOL`` HTTP method to create new pools"
+msgstr ""
+
+#: ../../Rados.rst:97
+msgid ""
+"allow_propfind: (requires uWSGI 2.1) allow calling the WebDAV "
+"``PROPFIND`` method"
+msgstr ""
+
+#: ../../Rados.rst:98
+msgid ""
+"buffer_size: maximum buffer size for ``GET`` requests in bytes (min 8192,"
+" max 16777216, default to 131072)"
+msgstr ""
+
+#: ../../Rados.rst:99
+msgid ""
+"put_buffer_size: maximum buffer size for ``PUT`` requests (default to "
+"buffer_size)"
+msgstr ""
+
+#: ../../Rados.rst:101
+msgid ""
+"In this example, your content will be served at "
+"http://localhost:9090/rad/list.html, "
+"http://localhost:9090/rad/imgs/first.jpeg and "
+"http://localhost:9090/rad/imgs/second.jpeg."
+msgstr ""
+
+#: ../../Rados.rst:106
+msgid "High availability"
+msgstr ""
+
+#: ../../Rados.rst:108
+msgid ""
+"The RADOS storage system is fully distributed, just starting several "
+"uWSGI workers on several machines with the same 'ceph.conf', all will see"
+" the same pools.  If they all serve on the same mountpoint, you get a "
+"failure-resistant RADOS-HTTP gateway."
+msgstr ""
+
+#: ../../Rados.rst:114
+msgid "Multiple mountpoints"
+msgstr ""
+
+#: ../../Rados.rst:116
+msgid ""
+"You can issue several 'rados-mount' entries, each one will define a new "
+"mountpoint.  This way you can expose different RADOS pools at different "
+"URLs."
+msgstr ""
+
+#: ../../Rados.rst:120
+msgid "HTTP methods"
+msgstr ""
+
+#: ../../Rados.rst:122
+msgid "The following methods are supported:"
+msgstr ""
+
+#: ../../Rados.rst:124
+msgid "GET -> retrieve a resource"
+msgstr ""
+
+#: ../../Rados.rst:125
+msgid "HEAD -> like GET but without body"
+msgstr ""
+
+#: ../../Rados.rst:126
+msgid ""
+"OPTIONS -> (requires uWSGI 2.1) returns the list of allowed HTTP methods "
+"and WebDAV support"
+msgstr ""
+
+#: ../../Rados.rst:127
+msgid ""
+"PUT -> requires allow_put in mountpoint options, store a resource in "
+"ceph: curl -T /etc/services http://localhost:8080/services"
+msgstr ""
+
+#: ../../Rados.rst:128
+msgid ""
+"MKCOL -> requires allow_mkcol in mountpoint options, creates a new pool: "
+"curl -X MKCOL http://localhost:8080/anewpool (the pool 'anewpool' will be"
+" created)"
+msgstr ""
+
+#: ../../Rados.rst:129
+msgid "DELETE -> requires allow_delete in mountpoint options, removes an object"
+msgstr ""
+
+#: ../../Rados.rst:130
+msgid ""
+"PROPFIND -> requires allow_propfind in mountpoint options (uWSGI 2.1+), "
+"implements WebDAV PROPFIND method"
+msgstr ""
+
+#: ../../Rados.rst:133
+msgid "Features"
+msgstr ""
+
+#: ../../Rados.rst:135
+msgid "multiprocessing is supported"
+msgstr ""
+
+#: ../../Rados.rst:136
+msgid ""
+"async support is fully functional, the ugreen suspend engine is the only "
+"supported one:"
+msgstr ""
+
+#: ../../Rados.rst:154
+msgid "Caching example"
+msgstr ""
+
+#: ../../Rados.rst:156
+msgid ""
+"Caching is highly recommended to improve performance and reduce the load "
+"on the Ceph cluster. This is a good example:"
+msgstr ""
+
+#: ../../Rados.rst:184
+msgid ""
+"To test the caching behaviour, a tool like uwsgicachetop "
+"(https://pypi.python.org/pypi/uwsgicachetop) will be very useful."
+msgstr ""
+
+#: ../../Rados.rst:186
+msgid "More information about caching here: :doc:`CachingCookbook`"
+msgstr ""
+
+#: ../../Rados.rst:189
+msgid "Security note"
+msgstr ""
+
+#: ../../Rados.rst:191
+msgid "Enabling MKCOL, PUT and DELETE may be high security risks."
+msgstr ""
+
+#: ../../Rados.rst:193
+msgid ""
+"Combine them with the internal routing framework for adding "
+"authentication/authorization policies:"
+msgstr ""
+
+#: ../../Rados.rst:227
+msgid "Notes"
+msgstr ""
+
+#: ../../Rados.rst:229
+msgid "The plugin automatically enables the MIME type engine."
+msgstr ""
+
+#: ../../Rados.rst:230
+msgid ""
+"There is no directory index support. It makes no sense in rados/ceph "
+"context."
+msgstr ""
+
+#: ../../Rados.rst:231
+msgid ""
+"You should drop privileges in your uWSGI instances, so be sure you give "
+"the right permissions to the ceph keyring."
+msgstr ""
+
+#: ../../Rados.rst:232
+msgid ""
+"If you use it for getting/storing large objects, consider increasing "
+"``buffer_size``. 4194304 is very performant value, 1048576 is also good, "
+"if you wish to conserve memory."
+msgstr ""
+
+#: ../../Rados.rst:233
+msgid ""
+"PUT into Erasure coded pools is supported. ``put_buffer_size`` is "
+"automatically adjusted to satisfy pool alignment requirements."
+msgstr ""
+

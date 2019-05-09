@@ -1,0 +1,395 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Changelog-1.9.9.rst:2
+msgid "uWSGI 1.9.9"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:4
+msgid "Changelog [20130508]"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:7
+msgid "Special Warning !!!"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:9
+msgid ""
+"The router_basicauth plugin has changed its default behaviour to return "
+"\"break\" if authorization fails."
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:11
+msgid "The \"basicauth-next\" action, uses the old behaviour (returning \"next\")"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:13
+msgid ""
+"This new approach should reduce security problems caused by wrong "
+"configurations"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:16
+msgid "Bugfixes"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:18
+msgid "do not increment \"tx\" statistics counter for \"unaccountable\" plugins"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:19
+msgid "fixed --backtrace-depth"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:20
+msgid "fixed cache-sync parsing"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:21
+msgid "fixed mule farms initialization"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:22
+msgid "fixed multithreading bug when regexp conditional route is used"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:23
+msgid "fixed default-app usage in the psgi plugin"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:24
+msgid "fixed python dynamic mode + threads"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:25
+msgid "fixed error reporting in corerouter when retry is in place"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:26
+msgid "correctly report harakiri condition for gateways"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:29
+msgid "New Features"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:32
+msgid "The WebDav plugin"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:34
+msgid ""
+"WebDav is one of the much requested features for the project. We now have"
+" a beta-quality plugin, already supporting additional standards like the "
+"carddav:"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:37
+msgid "https://github.com/unbit/uwsgi/blob/master/t/webdav/carddav.ini"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:39
+msgid ""
+"The official modifier is 35, and to mount a simple directory as a webdav "
+"shares (for use with windows, gnome...) you only need to specify the "
+"--webdav-mount option:"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:50
+msgid "remember to protect shares:"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:61
+msgid ""
+"WebDav attributes are stored as filesystem xattr, so be sure to use a "
+"filesystem supporting them (ext4, xfs, hfs+...)"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:63
+msgid "LOCK/UNLOCK support is still incomplete"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:65 ../../Changelog-1.9.9.rst:199
+msgid "Official docs will be available soon."
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:68
+msgid "Support for Go 1.1 (more or less, sad news for go users...)"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:70
+msgid ""
+"Albeit you can successfully embed go 1.1 apps in uWSGI, go 1.1 will be "
+"completely fork() unsafe."
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:72
+msgid ""
+"That means you are not able to use multiprocessing, the master, mules and"
+" so on."
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:74
+msgid "Basically half of the uWSGI features will be no more usable in go apps."
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:76
+msgid ""
+"Things could change in the future, but currently our objective is better "
+"integration with the gccgo project."
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:78
+msgid ""
+"Go 1.0.x will continue to be supported (unless gccgo shows itself as a "
+"better alternative)"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:80
+msgid "More to come soon."
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:83
+msgid "Improved async modes"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:85
+msgid ""
+"Stackless, Greenlet and Fiber support have been updated to support new "
+"async features"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:88
+msgid "The radius plugin"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:90
+msgid ""
+"You can now authenticate over radius servers using the router_radius "
+"plugin:"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:102
+msgid "The SPNEGO plugin"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:104
+msgid "Another authentication backend, using SPNEGO (kerberos)"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:115
+msgid ""
+"The plugin is beta quality as it leaks memory (it looks like a bug in "
+"MIT-kerberos) and Heimdal implementation does not work."
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:117
+msgid "More reports are wellcomed"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:120
+msgid "The ldap authenticator"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:122 ../../Changelog-1.9.9.rst:195
+#: ../../Changelog-1.9.9.rst:204
+msgid "(Author: Łukasz Mierzwa)"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:124
+msgid "Currently it lacks SASL support. Will be improved soon."
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:136
+msgid "New internal routing features"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:138
+msgid ""
+"We removed the GOON action, as it was messy and basically useless with "
+"the new authentication approach"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:140
+msgid ""
+"The \"setscriptname\" action has been added to override the internally "
+"computed SCRIPT_NAME (not only the var)"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:142
+msgid "The \"donotlog\" action forces uWSGI to not log the current request"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:144
+msgid ""
+"The \"regexp\" routing conditions has been improved to allows grouping. "
+"Now you can easily manipulate strings and adding them as new request "
+"VARS:"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:153
+msgid "this will take the first char of foo and place in the PIPPO request var"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:156
+msgid "Gevent atexit hook"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:158
+msgid ""
+"uwsgi.atexit hook is now honoured by the gevent plugin (Author: André "
+"Cruz)"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:162
+msgid "Streaming transformations"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:164
+msgid "Transformations can be applied on the fly (no buffering involved)."
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:166
+msgid "Check updated docs: :doc:`Transformations`"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:169
+msgid "The xattr plugin"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:171
+msgid ""
+"The xattr plugin allows you to reference files extended attributes in the"
+" internal routing subsystem:"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:181
+msgid "or (variant with 2 vars)"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:193
+msgid "The airbrake plugin"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:197
+msgid ""
+"Currently at early stage of development allows sending uWSGI exceptions "
+"and alarms to airbrake servers."
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:202
+msgid "Legion Daemons"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:206
+msgid ""
+"No, it is not a blackmetal band, it is a new feature of :doc:`Legion` "
+"allowing you to run external processes only when an instance is a lord:"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:229
+msgid "--touch-exec"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:231
+msgid ""
+"A new \"touch\" option (like --touch-reload) is available, triggering the"
+" execution of a command:"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:242
+msgid "Math for cache"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:244
+msgid ""
+"You can now use the caching subsystem to store 64bit signed numbers and "
+"apply atomic operations on them."
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:246
+msgid ""
+"The uwsgi api has been extended with 5 new functions (currently exposed "
+"only by the python plugin):"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:248
+msgid ""
+"*uwsgi.cache_num(key[,cache]) -> get the 64bit number from the specified "
+"item"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:250
+msgid ""
+"*uwsgi.cache_inc(key[,amount=1,expires,cache]) -> increment the specified"
+" key by the specified amount"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:252
+msgid ""
+"*uwsgi.cache_dec(key[,amount=1,expires,cache]) -> deccrement the "
+"specified key by the specified amount"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:254
+msgid ""
+"*uwsgi.cache_mul(key[,amount=2,expires,cache]) -> multiply the specified "
+"key by the specified amount"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:256
+msgid ""
+"*uwsgi.cache_div(key[,amount=2,expires,cache]) -> divide the specified "
+"key by the specified amount"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:258
+msgid ""
+"The new api has been exposed to the routing subsystem, allowing you to "
+"implement advanced patterns, like the request limiter:"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:260
+msgid "https://github.com/unbit/uwsgi/blob/master/t/routing/limiter.ini"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:262
+msgid ""
+"the example shows hot to limit the request of a single ip to 10 every 30 "
+"seconds"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:264
+msgid ""
+"The long-term objective of this new feature is being the base for the "
+"upcoming metric subsystem"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:267
+msgid "Availability"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:269
+msgid "uWSGI 1.9.9 will be availabel since 20130508 at the following url"
+msgstr ""
+
+#: ../../Changelog-1.9.9.rst:271
+msgid "https://projects.unbit.it/downloads/uwsgi-1.9.9.tar.gz"
+msgstr ""
+

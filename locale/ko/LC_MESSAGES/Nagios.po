@@ -1,0 +1,46 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Nagios.rst:2
+msgid "Monitoring uWSGI with Nagios"
+msgstr ""
+
+#: ../../Nagios.rst:4
+msgid ""
+"The official uWSGI distribution includes a plugin adding Nagios_\\ "
+"-friendly output."
+msgstr ""
+
+#: ../../Nagios.rst:6
+msgid ""
+"To monitor, and eventually get warning messages, via Nagios, launch the "
+"following command, where ``node`` is the socket (UNIX or TCP) to monitor."
+msgstr ""
+
+#: ../../Nagios.rst:13
+msgid "Setting warning messages"
+msgstr ""
+
+#: ../../Nagios.rst:15
+msgid ""
+"You can set a warning message directly from your app with the "
+":func:`uwsgi.set_warning_message` function. All ping responses (used by "
+"Nagios too) will report this message."
+msgstr ""
+

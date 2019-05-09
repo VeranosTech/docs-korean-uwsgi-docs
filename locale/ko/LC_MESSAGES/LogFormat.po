@@ -1,0 +1,289 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../LogFormat.rst:2
+msgid "Formatting uWSGI requests logs"
+msgstr ""
+
+#: ../../LogFormat.rst:4
+msgid ""
+"uWSGI has a ``--logformat`` option for building custom request loglines. "
+"The syntax is simple:"
+msgstr ""
+
+#: ../../LogFormat.rst:12
+msgid ""
+"All of the variables marked with ``%()`` are substituted using specific "
+"rules. Three kinds of logvars are defined (\"offsetof\", functions, and "
+"user-defined)."
+msgstr ""
+
+#: ../../LogFormat.rst:16
+msgid "offsetof"
+msgstr ""
+
+#: ../../LogFormat.rst:18
+msgid ""
+"These are taken blindly from the internal ``wsgi_request`` structure of "
+"the current request."
+msgstr ""
+
+#: ../../LogFormat.rst:20
+msgid "``%(uri)`` -> REQUEST_URI"
+msgstr ""
+
+#: ../../LogFormat.rst:21
+msgid "``%(method)`` -> REQUEST_METHOD"
+msgstr ""
+
+#: ../../LogFormat.rst:22
+msgid "``%(user)`` -> REMOTE_USER"
+msgstr ""
+
+#: ../../LogFormat.rst:23
+msgid "``%(addr)`` -> REMOTE_ADDR"
+msgstr ""
+
+#: ../../LogFormat.rst:24
+msgid "``%(host)`` -> HTTP_HOST"
+msgstr ""
+
+#: ../../LogFormat.rst:25
+msgid "``%(proto)`` -> SERVER_PROTOCOL"
+msgstr ""
+
+#: ../../LogFormat.rst:26
+msgid "``%(uagent)`` -> HTTP_USER_AGENT (starting from 1.4.5)"
+msgstr ""
+
+#: ../../LogFormat.rst:27
+msgid "``%(referer)`` -> HTTP_REFERER (starting from 1.4.5)"
+msgstr ""
+
+#: ../../LogFormat.rst:30
+msgid "functions"
+msgstr ""
+
+#: ../../LogFormat.rst:32
+msgid "These are simple functions called for generating the logvar value:"
+msgstr ""
+
+#: ../../LogFormat.rst:34
+msgid "``%(status)`` -> HTTP response status code"
+msgstr ""
+
+#: ../../LogFormat.rst:35
+msgid "``%(micros)`` -> response time in microseconds"
+msgstr ""
+
+#: ../../LogFormat.rst:36
+msgid "``%(msecs)`` -> response time in milliseconds"
+msgstr ""
+
+#: ../../LogFormat.rst:37
+msgid "``%(secs)`` -> response time in seconds"
+msgstr ""
+
+#: ../../LogFormat.rst:38
+msgid "``%(time)`` -> timestamp of the start of the request"
+msgstr ""
+
+#: ../../LogFormat.rst:39
+msgid "``%(ctime)`` -> ctime of the start of the request"
+msgstr ""
+
+#: ../../LogFormat.rst:40
+msgid "``%(epoch)`` -> the current time in Unix format"
+msgstr ""
+
+#: ../../LogFormat.rst:41
+msgid "``%(size)`` -> response body size + response headers size (since 1.4.5)"
+msgstr ""
+
+#: ../../LogFormat.rst:42
+msgid "``%(ltime) -> human-formatted (Apache style)`` request time (since 1.4.5)"
+msgstr ""
+
+#: ../../LogFormat.rst:43
+msgid "``%(hsize)`` -> response headers size (since 1.4.5)"
+msgstr ""
+
+#: ../../LogFormat.rst:44
+msgid "``%(rsize)`` -> response body size (since 1.4.5)"
+msgstr ""
+
+#: ../../LogFormat.rst:45
+msgid "``%(cl)`` -> request content body size (since 1.4.5)"
+msgstr ""
+
+#: ../../LogFormat.rst:46
+msgid "``%(pid)`` -> pid of the worker handling the request (since 1.4.6)"
+msgstr ""
+
+#: ../../LogFormat.rst:47
+msgid "``%(wid)`` -> id of the worker handling the request (since 1.4.6)"
+msgstr ""
+
+#: ../../LogFormat.rst:48
+msgid "``%(switches)`` -> number of async switches (since 1.4.6)"
+msgstr ""
+
+#: ../../LogFormat.rst:49
+msgid "``%(vars)`` -> number of CGI vars in the request (since 1.4.6)"
+msgstr ""
+
+#: ../../LogFormat.rst:50
+msgid "``%(headers)`` -> number of generated response headers (since 1.4.6)"
+msgstr ""
+
+#: ../../LogFormat.rst:51
+msgid "``%(core)`` -> the core running the request (since 1.4.6)"
+msgstr ""
+
+#: ../../LogFormat.rst:52
+msgid "``%(vsz)`` -> address space/virtual memory usage (in bytes) (since 1.4.6)"
+msgstr ""
+
+#: ../../LogFormat.rst:53
+msgid "``%(rss)`` -> RSS memory usage (in bytes) (since 1.4.6)"
+msgstr ""
+
+#: ../../LogFormat.rst:54
+msgid ""
+"``%(vszM)`` -> address space/virtual memory usage (in megabytes) (since "
+"1.4.6)"
+msgstr ""
+
+#: ../../LogFormat.rst:55
+msgid "``%(rssM)`` -> RSS memory usage (in megabytes) (since 1.4.6)"
+msgstr ""
+
+#: ../../LogFormat.rst:56
+msgid "``%(pktsize)`` -> size of the internal request uwsgi packet (since 1.4.6)"
+msgstr ""
+
+#: ../../LogFormat.rst:57
+msgid "``%(modifier1)`` -> modifier1 of the request (since 1.4.6)"
+msgstr ""
+
+#: ../../LogFormat.rst:58
+msgid "``%(modifier2)`` -> modifier2 of the request (since 1.4.6)"
+msgstr ""
+
+#: ../../LogFormat.rst:59
+msgid "``%(metric.XXX)`` -> access the XXX metric value (see :doc:`Metrics`)"
+msgstr ""
+
+#: ../../LogFormat.rst:60
+msgid "``%(rerr)`` -> number of read errors for the request (since 1.9.21)"
+msgstr ""
+
+#: ../../LogFormat.rst:61
+msgid "``%(werr)`` -> number of write errors for the request (since 1.9.21)"
+msgstr ""
+
+#: ../../LogFormat.rst:62
+msgid ""
+"``%(ioerr)`` -> number of write and read errors for the request (since "
+"1.9.21)"
+msgstr ""
+
+#: ../../LogFormat.rst:63
+msgid ""
+"``%(tmsecs)`` -> timestamp of the start of the request in milliseconds "
+"since the epoch (since 1.9.21)"
+msgstr ""
+
+#: ../../LogFormat.rst:64
+msgid ""
+"``%(tmicros)`` -> timestamp of the start of the request in microseconds "
+"since the epoch (since 1.9.21)"
+msgstr ""
+
+#: ../../LogFormat.rst:65
+msgid ""
+"``%(var.XXX)`` -> the content of request variable XXX (like var.PATH_INFO"
+" or var.HTTP_X_MY_HEADER for headers from request, available from 1.9.21)"
+msgstr ""
+
+#: ../../LogFormat.rst:68
+msgid "User-defined logvars"
+msgstr ""
+
+#: ../../LogFormat.rst:70
+msgid ""
+"You can define logvars within your request handler. These variables live "
+"only per-request."
+msgstr ""
+
+#: ../../LogFormat.rst:83
+msgid ""
+"With the following log format you will be able to access code-defined "
+"logvars:"
+msgstr ""
+
+#: ../../LogFormat.rst:90
+msgid "uWSGI default logging"
+msgstr ""
+
+#: ../../LogFormat.rst:92
+msgid "To generate uWSGI-compatible logs:"
+msgstr ""
+
+#: ../../LogFormat.rst:103
+msgid "Apache-style combined request logging"
+msgstr ""
+
+#: ../../LogFormat.rst:105
+msgid "To generate Apache-compatible logs:"
+msgstr ""
+
+#: ../../LogFormat.rst:115
+msgid "Hacking logformat"
+msgstr ""
+
+#: ../../LogFormat.rst:117
+msgid "(Updated to 1.9.21)"
+msgstr ""
+
+#: ../../LogFormat.rst:119
+msgid ""
+"You can register new \"logchunk\" (the function to call for each "
+"logformat symbol) with"
+msgstr ""
+
+#: ../../LogFormat.rst:125
+msgid "``name`` -- the name of the symbol"
+msgstr ""
+
+#: ../../LogFormat.rst:126
+msgid "``need_free`` -- if 1, means the pointer set by ``func`` must be free()d"
+msgstr ""
+
+#: ../../LogFormat.rst:127
+msgid "``func`` -- the function to call in the log handler"
+msgstr ""
+
+#: ../../LogFormat.rst:145
+#, python-format
+msgid ""
+"Now if you load the foobar plugin, you will be able to use the %(foobar) "
+"request logging variable (that would report the request status)."
+msgstr ""
+

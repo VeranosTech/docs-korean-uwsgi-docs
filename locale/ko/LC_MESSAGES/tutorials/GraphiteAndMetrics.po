@@ -1,0 +1,330 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../tutorials/GraphiteAndMetrics.rst:2
+msgid "Setting up Graphite on Ubuntu using the Metrics subsystem"
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:4
+msgid ""
+"This tutorial will guide you in installing a multi-app server, with each "
+"application sending metrics to a central graphite/carbon server."
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:6
+msgid "Graphite is available here: http://graphite.wikidot.com/"
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:8
+msgid "The uWSGI Metrics subsystem is documented here :doc:`../Metrics`"
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:10
+msgid "The tutorial assumes an Ubuntu Saucy (13.10) release on amd64"
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:12
+msgid ""
+"While for Graphite we will use Ubuntu official packages, uWSGI core and "
+"plugins will be downloaded and installed from official sources"
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:15
+msgid "Installing Graphite and the others needed packages"
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:21
+msgid ""
+"python-dev and ruby-dev are required as we want to support both WSGI and "
+"Rack apps."
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:23
+msgid ""
+"pcre development headers allow you to build uWSGI with internal routing "
+"support (something you always want)"
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:26
+msgid "Initializing Graphite"
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:28
+msgid "The first step will be enabling th Carbon server."
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:30
+msgid ""
+"The Graphite project is composed by three subsystems: whisper, carbon and"
+" the web frontend"
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:32
+msgid "Whisper is a data storage format (similar to rrdtool)"
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:34
+msgid ""
+"Carbon is the server gathering metrics and storing them in whisper files "
+"(well it does more, but this is its main purpose)"
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:36
+msgid ""
+"The web frontend visualize the charts/graphs built from the data gathered"
+" by the carbon server."
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:38
+msgid ""
+"To enable the carbon server edit ``/etc/default/graphite-carbon`` and set"
+" CARBON_CACHE_ENABLED to true"
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:40
+msgid "Before starting the carbon server we need to build its search index."
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:42
+#: ../../tutorials/GraphiteAndMetrics.rst:122
+msgid "Just run:"
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:48
+msgid ""
+"Then start the carbon server (at the next reboot it will be automatically"
+" started)"
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:55
+msgid "Building and Installing uWSGI"
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:57
+msgid "Download latest stable uWSGI tarball"
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:63
+msgid "explode it, and from the created directory run:"
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:69
+msgid "this will build the uWSGI \"core\" binary."
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:71
+msgid "We now want to build the python, rack and carbon plugins:"
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:80
+msgid ""
+"now we have ``uwsgi``, ``python_plugin.so``, ``rack_plugin.so`` and "
+"``carbon_plugin.so``"
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:82
+msgid "let's copy it to system directories:"
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:94
+msgid "Setting up the uWSGI Emperor"
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:96
+msgid "Create an upstart config file for starting :doc:`../Emperor`"
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:108
+msgid "save it as ``/etc/init/emperor.conf`` and start the Emperor:"
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:115
+msgid ""
+"From now on, to start uWSGI instances just drop their config files into "
+"/etc/uwsgi"
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:118
+msgid "Spawning the Graphite web interface"
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:120
+msgid ""
+"Before starting the graphite web interface (that is a Django app) we need"
+" to initialize its database."
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:128
+msgid ""
+"this is the standard django syncdb command for manage.py. Just answer the"
+" questions to create an admin user."
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:130
+msgid "Now we are ready to create a uWSGI vassal:"
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:142
+msgid "Save it as ``/etc/uwsgi/graphite.ini``"
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:144
+msgid ""
+"the _graphite user (and group) is created by the graphite ubuntu package."
+" Our uWSGI vassal will run under this privileges."
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:146
+msgid ""
+"The web interface will be available on the port 8080 of your server "
+"natively speaking HTTP. If you prefer to proxy it, just change ``http-"
+"socket`` to ``http`` or place it behind a full webserver like nginx (this"
+" step is not covered in this tutorial)"
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:151
+msgid "Spawning vassals sending metrics to Graphite"
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:153
+msgid ""
+"We are now ready to send applications metrics to the carbon/graphite "
+"server."
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:155
+msgid ""
+"For every vassal file in /etc/uwsgi just be sure to add the following "
+"options:"
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:168
+msgid ""
+"The ``carbon-id`` set a meaningful prefix to each metric (%n "
+"automatically translates to the name without extension of the vassal "
+"file)."
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:170
+msgid ""
+"The ``carbon`` option set the address of the carbon server to send "
+"metrics to (by default the carbon server binds on port 2003, but you can "
+"change it editing ``/etc/carbon/carbon.conf`` and restarting the carbon "
+"server)"
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:174
+msgid "Using Graphiti (Ruby/Sinatra based) as alternative frontend"
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:176
+msgid ""
+"Graphiti is an alternative dashboard/frontend from Graphite writte in "
+"Sinatra (a Ruby/Rack framework)."
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:178
+msgid ""
+"Graphiti requires redis, so be sure a redis server is running in your "
+"system."
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:180
+msgid "Running:"
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:186
+msgid "will be enough"
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:188
+msgid "First step is cloning the graphiti app (place it where you want/need):"
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:194
+msgid ""
+"then run the bundler tool (if you are not confident with the ruby world "
+"it is a tool for managing dependencies)"
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:200
+msgid ""
+"if the eventmachine gem installation fails, add \"gem 'eventmachine'\" in"
+" the Gemfile as the first gem and run bundle update. This will ensure "
+"latest eventmachine version will be installed"
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:202
+msgid ""
+"After bundle has installed all of the gems, you have to copy the graphiti"
+" example configuration:"
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:208
+msgid ""
+"edit it and set graphite_base_url to the url where the graphite web "
+"interface (the django one) is running."
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:210
+msgid "Now we can deploy it on uWSGI"
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:224
+msgid "save it as ``/etc/uwsgi/graphiti.ini`` to let the Emperor deploy it"
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:226
+msgid "You can now connect to port 9191 to manage your gathered metrics."
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:228
+msgid "As always you are free to place the instance under a proxy."
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:231
+msgid "Notes"
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:233
+msgid ""
+"By default the carbon server listens on a public address. Unless you know"
+" what you are doing you should point it to a local one (like 127.0.0.1)"
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:235
+msgid ""
+"uWSGI exports a gazillion of metrics (and more are planned), do not be "
+"afraid to use them"
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:237
+msgid ""
+"There is no security between apps and the carbon server, any apps can "
+"write metrics to it. If you are hosting untrusted apps you'd better to "
+"use other approcahes (like giving a graphite instance to every user in "
+"the system)"
+msgstr ""
+
+#: ../../tutorials/GraphiteAndMetrics.rst:239
+msgid ""
+"The same is true for redis, if you run untrusted apps a shared redis "
+"instance is absolutely not a good choice from a secuity point of view"
+msgstr ""
+

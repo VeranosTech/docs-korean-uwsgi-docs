@@ -1,0 +1,188 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../SNI.rst:2
+msgid "SNI - Server Name Identification (virtual hosting for SSL nodes)"
+msgstr ""
+
+#: ../../SNI.rst:4
+msgid ""
+"uWSGI 1.9 (codenamed \"ssl as p0rn\") added support for SNI (Server Name "
+"Identification) throughout the whole SSL subsystem. The HTTPS router, the"
+" SPDY router and the SSL router can all use it transparently."
+msgstr ""
+
+#: ../../SNI.rst:7
+msgid ""
+"SNI is an extension to the SSL standard which allows a client to specify "
+"a \"name\" for the resource it wants. That name is generally the "
+"requested hostname, so you can implement virtual hosting-like behavior "
+"like you do using the HTTP ``Host:`` header without requiring extra IP "
+"addresses etc."
+msgstr ""
+
+#: ../../SNI.rst:10
+msgid ""
+"In uWSGI an SNI object is composed of a name and a value. The name is the"
+" servername/hostname while the value is the \"SSL context\" (you can "
+"think of it as the sum of certificates, key and ciphers for a particular "
+"domain)."
+msgstr ""
+
+#: ../../SNI.rst:13
+msgid "Adding SNI objects"
+msgstr ""
+
+#: ../../SNI.rst:15
+msgid "To add an SNI object just use the ``--sni`` option:"
+msgstr ""
+
+#: ../../SNI.rst:21
+msgid "For example:"
+msgstr ""
+
+#: ../../SNI.rst:27
+msgid "or for client-based SSL authentication and OpenSSL HIGH cipher levels"
+msgstr ""
+
+#: ../../SNI.rst:34
+msgid "Adding complex SNI objects"
+msgstr ""
+
+#: ../../SNI.rst:36
+msgid ""
+"Sometimes you need more complex keys for your SNI objects (like when "
+"using wildcard certificates)"
+msgstr ""
+
+#: ../../SNI.rst:38
+msgid ""
+"If you have built uWSGI with PCRE/regexp support (as you should) you can "
+"use the ``--sni-regexp`` option."
+msgstr ""
+
+#: ../../SNI.rst:45
+msgid "Massive SNI hosting"
+msgstr ""
+
+#: ../../SNI.rst:47
+msgid ""
+"One of uWSGI's main purposes is massive hosting, so SSL without support "
+"for that would be pretty annoying."
+msgstr ""
+
+#: ../../SNI.rst:49
+msgid ""
+"If you have dozens (or hundreds, for that matter) of certificates mapped "
+"to the same IP address you can simply put them in a directory (following "
+"a simple convention we'll elaborate in a bit) and let uWSGI scan it "
+"whenever it needs to find a context for a domain."
+msgstr ""
+
+#: ../../SNI.rst:51
+msgid "To add a directory just use"
+msgstr ""
+
+#: ../../SNI.rst:57
+msgid "like"
+msgstr ""
+
+#: ../../SNI.rst:63
+msgid ""
+"Now, if you have ``unbit.com`` and ``example.com`` certificates (.crt) "
+"and keys (.key) just drop them in there following these naming rules:"
+msgstr ""
+
+#: ../../SNI.rst:65
+msgid "``/etc/customers/certificates/unbit.com.crt``"
+msgstr ""
+
+#: ../../SNI.rst:66
+msgid "``/etc/customers/certificates/unbit.com.key``"
+msgstr ""
+
+#: ../../SNI.rst:67
+msgid "``/etc/customers/certificates/unbit.com.ca``"
+msgstr ""
+
+#: ../../SNI.rst:68
+msgid "``/etc/customers/certificates/example.com.crt``"
+msgstr ""
+
+#: ../../SNI.rst:69
+msgid "``/etc/customers/certificates/example.com.key``"
+msgstr ""
+
+#: ../../SNI.rst:71
+msgid ""
+"As you can see, ``example.com`` has no .ca file, so client authentication"
+" will be disabled for it."
+msgstr ""
+
+#: ../../SNI.rst:73
+msgid "If you want to force a default cipher set to the SNI contexts, use"
+msgstr ""
+
+#: ../../SNI.rst:79
+msgid "(or whatever other value you need)"
+msgstr ""
+
+#: ../../SNI.rst:81
+msgid ""
+"Note: Unloading SNI objects is not supported. Once they are loaded into "
+"memory they will be held onto until reload."
+msgstr ""
+
+#: ../../SNI.rst:84
+msgid "Subscription system and SNI"
+msgstr ""
+
+#: ../../SNI.rst:86
+msgid "uWSGI 2.0 added support for SNI in the subscription system."
+msgstr ""
+
+#: ../../SNI.rst:88
+msgid ""
+"The https/spdy router and the sslrouter can dynamically load certificates"
+" and keys from the paths specified in a subscription packet:"
+msgstr ""
+
+#: ../../SNI.rst:95
+msgid ""
+"the router will create a new SSL context based on the specified files (be"
+" sure the router can reach them) and will destroy it when the last node "
+"disconnect."
+msgstr ""
+
+#: ../../SNI.rst:98
+msgid ""
+"This is useful for massive hosting where customers have their "
+"certificates in the home and you want them the change/update those files "
+"without bothering you."
+msgstr ""
+
+#: ../../SNI.rst:102
+msgid ""
+"We understand that directly encapsulating keys and cert in the "
+"subscription packets will be much more useful, but network transfer of "
+"keys is something really foolish from a security point of view. We are "
+"investigating if combining it with the secured subscription system (where"
+" each packet is encrypted) could be a solution."
+msgstr ""
+

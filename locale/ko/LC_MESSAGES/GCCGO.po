@@ -1,0 +1,279 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../GCCGO.rst:2
+msgid "The GCCGO plugin"
+msgstr ""
+
+#: ../../GCCGO.rst:4
+msgid ""
+"uWSGI 1.9.20 officially substituted the old :doc:`Go` plugin with a new "
+"one based on GCCGO."
+msgstr ""
+
+#: ../../GCCGO.rst:6
+msgid ""
+"The usage of GCCGO allows more features and better integration with the "
+"uWSGI deployment styles."
+msgstr ""
+
+#: ../../GCCGO.rst:8
+msgid "GCC suite >= 4.8 is expected (and strongly suggested)."
+msgstr ""
+
+#: ../../GCCGO.rst:11
+msgid "How it works"
+msgstr ""
+
+#: ../../GCCGO.rst:13
+msgid ""
+"When the plugin is enabled, a new go runtime is initialized after each "
+"``fork()``."
+msgstr ""
+
+#: ../../GCCGO.rst:15
+msgid ""
+"If a ``main`` Go function is available in the process address space it "
+"will be executed in the Go runtime, otherwise the control goes back to "
+"the uWSGI loop engine."
+msgstr ""
+
+#: ../../GCCGO.rst:18
+msgid "Why not use plain Go?"
+msgstr ""
+
+#: ../../GCCGO.rst:20
+msgid ""
+"Unfortunately the standard Go runtime is currently not embeddable and "
+"does not support compiling code as shared libraries."
+msgstr ""
+
+#: ../../GCCGO.rst:22
+msgid "Both are requisite for meaningful uWSGI integration."
+msgstr ""
+
+#: ../../GCCGO.rst:24
+msgid ""
+"Starting from GCC 4.8.2, its ``libgo`` has been improved a lot and "
+"building shared libraries as well as initializing the Go runtime works "
+"like a charm (even if it required a bit of... not very elegant hacks)."
+msgstr ""
+
+#: ../../GCCGO.rst:27
+msgid "Building the plugin"
+msgstr ""
+
+#: ../../GCCGO.rst:29
+msgid ""
+"A build profile is available allowing you to build a uWSGI+gccgo binary "
+"ready to load Go shared libraries:"
+msgstr ""
+
+#: ../../GCCGO.rst:36
+msgid "The first app"
+msgstr ""
+
+#: ../../GCCGO.rst:38
+msgid ""
+"You do not need to change the way you write webapps in Go. The "
+"``net/http`` package can be used flawlessly:"
+msgstr ""
+
+#: ../../GCCGO.rst:59
+msgid ""
+"The only difference is in calling ``uwsgi.Run()`` instead of initializing"
+" the Go HTTP server."
+msgstr ""
+
+#: ../../GCCGO.rst:61
+msgid "To build the code as shared library simply run:"
+msgstr ""
+
+#: ../../GCCGO.rst:67
+msgid ""
+"If you get an error about gcc not able to resolve uWSGI symbols, just add"
+" ``-I<path_to_uwsgi_binary>`` to the command line (see below):"
+msgstr ""
+
+#: ../../GCCGO.rst:73
+msgid "Now let's run it under uWSGI:"
+msgstr ""
+
+#: ../../GCCGO.rst:79
+msgid ""
+"The gccgo plugin registers itself as ``modifier1`` 11, so remember to set"
+" it to run Go code."
+msgstr ""
+
+#: ../../GCCGO.rst:82
+msgid "uwsgi.gox"
+msgstr ""
+
+#: ../../GCCGO.rst:84
+msgid ""
+"By default when building the gccgo profile, a uwsgi.gox file is created. "
+"This can be used when building go apps using the uWSGI API, to resolve "
+"symbols."
+msgstr ""
+
+#: ../../GCCGO.rst:87
+msgid ""
+"Remember that if you add the directory containing the uwsgi binary (as "
+"seen before) to the includes (``-I path``) path of gcc, the binary itself"
+" will be used for resolving symbols."
+msgstr ""
+
+#: ../../GCCGO.rst:91
+msgid "Shared libraries VS monolithic binaries"
+msgstr ""
+
+#: ../../GCCGO.rst:93
+msgid ""
+"One of the main selling points for Go for many developers is the "
+"\"static-all-in-one\" binary approach."
+msgstr ""
+
+#: ../../GCCGO.rst:95
+msgid ""
+"A Go app basically does not have dependencies, so half of the common "
+"deployment problems just automagically disappear."
+msgstr ""
+
+#: ../../GCCGO.rst:97
+msgid ""
+"The uWSGI-friendly way for hosting Go apps is having a uWSGI binary "
+"loading a specific Go app in the form of a library."
+msgstr ""
+
+#: ../../GCCGO.rst:99
+msgid ""
+"If this is not acceptable, you can build a single binary with both uWSGI "
+"and the Go app:"
+msgstr ""
+
+#: ../../GCCGO.rst:107
+msgid "Goroutines"
+msgstr ""
+
+#: ../../GCCGO.rst:109
+msgid ""
+"Thanks to the new GCC split stack feature, goroutines are sanely (i.e. "
+"they do not require a full pthread) implemented in gccgo."
+msgstr ""
+
+#: ../../GCCGO.rst:111
+msgid ""
+"A loop engine mapping every uWSGI core to a goroutine is available in the"
+" plugin itself."
+msgstr ""
+
+#: ../../GCCGO.rst:113
+msgid ""
+"To start uWSGI in goroutine mode just add ``--goroutines <n>`` where <n> "
+"is the maximum number of concurrent goroutines to spawn."
+msgstr ""
+
+#: ../../GCCGO.rst:115
+msgid ""
+"Like :doc:`Gevent`, uWSGI signal handlers are executed in a dedicated "
+"goroutine."
+msgstr ""
+
+#: ../../GCCGO.rst:117
+msgid ""
+"In addition to this, all blocking calls make use of the ``netpoll`` Go "
+"api. This means you can run internal routing actions, rpc included, in a "
+"goroutine."
+msgstr ""
+
+#: ../../GCCGO.rst:120
+msgid "Options"
+msgstr ""
+
+#: ../../GCCGO.rst:122
+msgid ""
+"``--go-load <path>`` load the specified go shared library in the process "
+"address space"
+msgstr ""
+
+#: ../../GCCGO.rst:123
+msgid "``--gccgo-load <path>`` alias for go-load"
+msgstr ""
+
+#: ../../GCCGO.rst:124
+msgid ""
+"``--go-args <arg1> <arg2> <argN>`` set arguments passed to the virtual go"
+" command line"
+msgstr ""
+
+#: ../../GCCGO.rst:125
+msgid "``--gccgo-args <arg1> <arg2> <argN>`` alias for go-args"
+msgstr ""
+
+#: ../../GCCGO.rst:126
+msgid ""
+"``--goroutines <n>`` enable goroutines loop engine with the specified "
+"number of async cores"
+msgstr ""
+
+#: ../../GCCGO.rst:129
+msgid "uWSGI API"
+msgstr ""
+
+#: ../../GCCGO.rst:131
+msgid "This section may, or may not, be out of date. Who knows!"
+msgstr ""
+
+#: ../../GCCGO.rst:133
+msgid ""
+"Unfortunately only few pieces of the uWSGI API have been ported to the "
+"gccgo plugin. More features will be added in time for uWSGI 2.0."
+msgstr ""
+
+#: ../../GCCGO.rst:135
+msgid "Currently exposed API functions:"
+msgstr ""
+
+#: ../../GCCGO.rst:137
+msgid "``uwsgi.CacheGet(key string, cache string) string``"
+msgstr ""
+
+#: ../../GCCGO.rst:138
+msgid ""
+"``uwsgi.RegisterSignal(signum uint8, receiver string, handler "
+"func(uint8)) bool``"
+msgstr ""
+
+#: ../../GCCGO.rst:141
+msgid "Notes"
+msgstr ""
+
+#: ../../GCCGO.rst:143
+msgid ""
+"Please, please do not enable multithreading, it will not work and "
+"probably will never work."
+msgstr ""
+
+#: ../../GCCGO.rst:144
+msgid ""
+"All uWSGI native features (like internal routing) work in goroutines "
+"mode. However do not expect languages like Python or Perl to work over "
+"them anytime soon."
+msgstr ""
+

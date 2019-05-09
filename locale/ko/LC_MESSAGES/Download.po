@@ -1,0 +1,83 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Download.rst:2
+msgid "Getting uWSGI"
+msgstr ""
+
+#: ../../Download.rst:4
+msgid "These are the current versions of uWSGI."
+msgstr ""
+
+#: ../../Download.rst:7
+msgid "Release"
+msgstr ""
+
+#: ../../Download.rst:7
+msgid "Date"
+msgstr ""
+
+#: ../../Download.rst:7
+msgid "Link"
+msgstr ""
+
+#: ../../Download.rst:9
+msgid "Unstable/Development"
+msgstr ""
+
+#: ../../Download.rst:9 ../../Download.rst:11
+msgid "\\-"
+msgstr ""
+
+#: ../../Download.rst:9
+msgid "https://github.com/unbit/uwsgi/"
+msgstr ""
+
+#: ../../Download.rst:10
+msgid "Stable/LTS"
+msgstr ""
+
+#: ../../Download.rst:10
+msgid "2019-02-09"
+msgstr ""
+
+#: ../../Download.rst:10
+msgid "https://projects.unbit.it/downloads/uwsgi-2.0.18.tar.gz"
+msgstr ""
+
+#: ../../Download.rst:11
+msgid "DOCS"
+msgstr ""
+
+#: ../../Download.rst:11
+msgid "https://github.com/unbit/uwsgi-docs/"
+msgstr ""
+
+#: ../../Download.rst:14
+msgid "uWSGI is also available as a package in several OS/distributions."
+msgstr ""
+
+#: ../../Download.rst:16
+msgid ""
+"uWSGI has a really fast development cycle, so packages may not be up to "
+"date. Building it requires less than 30 seconds and very few dependencies"
+" (only Python interpreter, a C compiler/linker and the libs/headers for "
+"your language of choice)"
+msgstr ""
+

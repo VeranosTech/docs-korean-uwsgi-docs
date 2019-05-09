@@ -1,0 +1,281 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Changelog-1.9.11.rst:2
+msgid "uWSGI 1.9.11"
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:4
+msgid "Changelog [20130526]"
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:7
+msgid "Bugfixes"
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:9
+msgid "Fixed Python 3 stdout/stderr buffering"
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:10
+msgid "Fixed mule messages (``@mulefunc`` is now reliable)"
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:11
+msgid "Fixed ``SCRIPT_NAME`` handling in dynamic mode"
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:12
+msgid "Fixed X-Sendfile with gzip static mode"
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:13
+msgid "Fixed cache item maximum size with custom block size"
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:14
+msgid "Fixed cache path handling"
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:17
+msgid "New features"
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:20
+msgid "The new high-performance PyPy plugin"
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:22
+msgid "Credits: Maciej Fijalkowski"
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:24
+msgid "We are pleased to announce the availability of the new PyPy plugin."
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:26
+msgid ""
+"PyPy team has been great in helping us. We hope the uWSGI integration "
+"(that exposed new challenges to the PyPy project) will help PyPy becaming"
+" better and better."
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:29
+msgid "Official docs: :doc:`PyPy`"
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:32
+msgid "Cron improvements"
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:34
+msgid "Credits: Łukasz Mierzwa"
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:37
+msgid "Unique crons"
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:39
+msgid ""
+"You can now avoid overlapping crons. The uWSGI master will track death of"
+" a single task, and until its death the same cron will not be triggered:"
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:48
+msgid "cron2 syntax"
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:50
+msgid "A key/value variant of the --cron option is now available:"
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:58
+msgid "harakiri cron"
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:60
+msgid ""
+"When using the ``cron2`` option you are allowed to set a harakiri timeout"
+" for a cron task. Just add ``harakiri=n`` to the options."
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:63
+msgid "Support for GNU Hurd"
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:65
+msgid ""
+"Debian GNU/Hurd has been recently released. uWSGI 1.9.11 can be built "
+"over it, however very few tests have been made."
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:68
+msgid "The memory offload engine"
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:70
+msgid "Idea: Stefano Brentegani"
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:72
+msgid ""
+"When serving content from the cache, a worker could get blocked during "
+"transfer from memory to the socket."
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:74
+msgid ""
+"A new offload engine named \"memory\" allows to offload memory transfers."
+" The cache router automatically supports it. Support for more areas will "
+"be added soon."
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:77
+msgid "To enable it just add ``--offload-threads <n>``"
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:80
+msgid "New Websockets chat example"
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:82
+msgid "An example websocket chat using Redis has been added to the repository:"
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:84
+msgid "https://github.com/unbit/uwsgi/blob/master/tests/websockets_chat.py"
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:87
+msgid "Error routes"
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:89
+msgid ""
+"You can now define a routing table to be executed as soon as you set the "
+"HTTP status code in your plugin."
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:91
+msgid ""
+"This allows you to completely modify the response. This is useful for "
+"custom error codes."
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:93
+msgid ""
+"All of the routing standard options are available (included labels) plus "
+"an optimized ``error-route-status`` matching a specific HTTP status code:"
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:102
+msgid "Support for corner case usage in wsgi.file_wrapper"
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:104
+msgid ""
+"Generally the ``wsgi.file_wrapper`` callable expects a file-like object. "
+"PEP 333/3333 reports a special pattern when the object is not a file "
+"(call ``read()`` until the object is consumed). uWSGI now supports this "
+"pattern (even if in a hacky way)."
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:108
+msgid "HTTP/HTTPS router keepalive improvements"
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:110
+msgid "Credits: André Cruz"
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:112
+msgid ""
+"When using ``--http-keepalive`` you can now hold the connection open even"
+" if the request has a body."
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:116
+msgid "The harakiri routing action"
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:118
+msgid "You can now set a harakiri timer for each request using internal routing:"
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:127
+msgid "RPC wrappers"
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:129
+msgid ""
+"The RPC plugin has been extended to allows interoperation with other "
+"standards."
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:131
+msgid "Currently a simple HTTP wrapper and an XML-RPC one are exposed."
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:133
+msgid "The HTTP simple wrapper works by parsing ``PATH_INFO``."
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:135
+msgid "A ``/foo/bar/test`` call will result in"
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:137
+msgid "uwsgi.rpc('foo', 'bar', 'test')"
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:139
+msgid "To enable this HTTP mode just set the ``modifier2`` to '2':"
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:150
+msgid "or (to have more control)"
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:161
+msgid ""
+"The XML-RPC wrapper works in the same way, but it uses the modifier2 "
+"value '3'. It requires a libxml2-enabled build of uWSGI."
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:171
+msgid "Then just call it:"
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:178
+msgid "You can combine multiple wrappers using routing."
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:193
+msgid "Availability"
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:195
+msgid "uWSGI 1.9.11 will be available since 20130526 at:"
+msgstr ""
+
+#: ../../Changelog-1.9.11.rst:197
+msgid "https://projects.unbit.it/downloads/uwsgi-1.9.11.tar.gz"
+msgstr ""
+

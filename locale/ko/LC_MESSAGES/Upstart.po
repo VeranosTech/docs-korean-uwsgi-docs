@@ -1,0 +1,103 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Upstart.rst:2
+msgid "Running uWSGI via Upstart"
+msgstr ""
+
+#: ../../Upstart.rst:4
+msgid "Upstart is the init system of Ubuntu-like distributions."
+msgstr ""
+
+#: ../../Upstart.rst:6
+msgid ""
+"It is based on declarative configuration files -- not shell scripts of "
+"yore -- that are put in the :file:`/etc/init` directory."
+msgstr ""
+
+#: ../../Upstart.rst:9
+msgid "A simple script (/etc/init/uwsgi.conf)"
+msgstr ""
+
+#: ../../Upstart.rst:24
+msgid "Using the Emperor"
+msgstr ""
+
+#: ../../Upstart.rst:26
+msgid ":doc:`Emperor`"
+msgstr ""
+
+#: ../../Upstart.rst:28
+msgid ""
+"A better approach than init files for each app would be to only start an "
+"Emperor via Upstart and let it deal with the rest."
+msgstr ""
+
+#: ../../Upstart.rst:42
+msgid ""
+"If you want to run the Emperor under the master process (for accessing "
+"advanced features) remember to add --die-on-term"
+msgstr ""
+
+#: ../../Upstart.rst:58
+msgid "What is --die-on-term?"
+msgstr ""
+
+#: ../../Upstart.rst:60
+msgid "By default uWSGI maps the SIGTERM signal to \"a brutal reload procedure\"."
+msgstr ""
+
+#: ../../Upstart.rst:62
+msgid ""
+"However, Upstart uses SIGTERM to completely shutdown processes. ``die-on-"
+"term`` inverts the meanings of SIGTERM and SIGQUIT to uWSGI."
+msgstr ""
+
+#: ../../Upstart.rst:64
+msgid ""
+"The first will shutdown the whole stack, the second one will brutally "
+"reload it."
+msgstr ""
+
+#: ../../Upstart.rst:67
+msgid "Socket activation (from Ubuntu 12.04)"
+msgstr ""
+
+#: ../../Upstart.rst:69
+msgid ""
+"Newer Upstart releases have an Inetd-like feature that lets processes "
+"start when connections are made to specific sockets."
+msgstr ""
+
+#: ../../Upstart.rst:71
+msgid ""
+"You can use this feature to start uWSGI only when a client (or the "
+"webserver) first connects to it."
+msgstr ""
+
+#: ../../Upstart.rst:73
+msgid "The 'start on socket' directive will trigger the behaviour."
+msgstr ""
+
+#: ../../Upstart.rst:75
+msgid ""
+"You do not need to specify the socket in uWSGI as it will be passed to it"
+" by Upstart itself."
+msgstr ""
+

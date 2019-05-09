@@ -1,0 +1,144 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Embed.rst:2
+msgid "Embedding an application in uWSGI"
+msgstr ""
+
+#: ../../Embed.rst:4
+msgid ""
+"Starting from uWSGI 0.9.8.2, you can embed files in the server binary. "
+"These can be any file type, including configuration files.  You can embed"
+" directories too, so by hooking the Python module loader you can "
+"transparently import packages, too.  In this example we'll be embedding a"
+" full Flask project."
+msgstr ""
+
+#: ../../Embed.rst:10
+msgid "Step 1: creating the build profile"
+msgstr ""
+
+#: ../../Embed.rst:12
+msgid "We're assuming you have your uWSGI source at the ready."
+msgstr ""
+
+#: ../../Embed.rst:14
+msgid ""
+"In the ``buildconf`` directory, define your profile -- let's call it "
+"flask.ini:"
+msgstr ""
+
+#: ../../Embed.rst:24
+msgid "``myapp.py`` is a simple flask app."
+msgstr ""
+
+#: ../../Embed.rst:36
+msgid ""
+"``bootstrap.py`` is included in the source distribution. It will extend "
+"the python import subsystem to use files embedded in uWSGI."
+msgstr ""
+
+#: ../../Embed.rst:38
+msgid ""
+"Now compile your app-inclusive server. Files will be embedded as symbols "
+"in the executable. Dots and dashes, etc. in filenames are thus "
+"transformed to underscores."
+msgstr ""
+
+#: ../../Embed.rst:46
+msgid "As ``bin_name`` was ``myapp``, you can now run"
+msgstr ""
+
+#: ../../Embed.rst:52
+msgid ""
+"The ``sym://`` pseudoprotocol enables uWSGI to access the binary's "
+"embedded symbols and data, in this case importing bootstrap.py directly "
+"from the binary image."
+msgstr ""
+
+#: ../../Embed.rst:57
+msgid "Step 2: embedding the config file"
+msgstr ""
+
+#: ../../Embed.rst:59
+msgid ""
+"We want our binary to automatically load our Flask app without having to "
+"pass a long command line."
+msgstr ""
+
+#: ../../Embed.rst:61
+msgid "Let's create the configuration -- flaskconfig.ini:"
+msgstr ""
+
+#: ../../Embed.rst:70
+msgid "And add it to the build profile as a config file."
+msgstr ""
+
+#: ../../Embed.rst:80
+msgid "Then, after you rebuild the server"
+msgstr ""
+
+#: ../../Embed.rst:86
+msgid "you can now simply launch"
+msgstr ""
+
+#: ../../Embed.rst:95
+msgid "Step 3: embedding flask itself"
+msgstr ""
+
+#: ../../Embed.rst:97
+msgid ""
+"Now, we are ready to kick asses with uWSGI ninja awesomeness.  We want a "
+"single binary embedding all of the Flask modules, including Werkzeug and "
+"Jinja2, Flask's dependencies.  We need to have these packages' "
+"directories and then specify them in the build profile."
+msgstr ""
+
+#: ../../Embed.rst:110
+msgid ""
+"This time we have used the form \"name=directory\" to force symbols to a "
+"specific names to avoid ending up with a clusterfuck like "
+"``site_packages_flask___init___py``."
+msgstr ""
+
+#: ../../Embed.rst:114
+msgid ""
+"Rebuild and re-run. We're adding --no-site when running to show you that "
+"the embedded modules are being loaded."
+msgstr ""
+
+#: ../../Embed.rst:123
+msgid "Step 4: adding templates"
+msgstr ""
+
+#: ../../Embed.rst:125
+msgid "Still not satisfied? WELL YOU SHOULDN'T BE."
+msgstr ""
+
+#: ../../Embed.rst:135
+msgid ""
+"Templates will be added to the binary... but we'll need to instruct Flask"
+" on how to load templates from the binary image by creating a custom "
+"Jinja2 template loader."
+msgstr ""
+
+#: ../../Embed.rst:171
+msgid "POW! BIFF! NINJA AWESOMENESS."
+msgstr ""
+

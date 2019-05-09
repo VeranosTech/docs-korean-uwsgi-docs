@@ -1,0 +1,201 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Changelog-2.0.7.rst:2
+msgid "uWSGI 2.0.7"
+msgstr ""
+
+#: ../../Changelog-2.0.7.rst:4
+msgid "Changelog [20140905]"
+msgstr ""
+
+#: ../../Changelog-2.0.7.rst:7
+msgid "Bugfixes"
+msgstr ""
+
+#: ../../Changelog-2.0.7.rst:9
+msgid "fixed counters in Statsd plugin (Joshua C. Forest)"
+msgstr ""
+
+#: ../../Changelog-2.0.7.rst:10
+msgid "fixed caching in PHP plugin (Andrew Bevitt)"
+msgstr ""
+
+#: ../../Changelog-2.0.7.rst:11
+msgid "fixed management of system users starting with a number"
+msgstr ""
+
+#: ../../Changelog-2.0.7.rst:12
+msgid ""
+"fixed request body readline using `memmove` instead of `memcpy` (Andrew "
+"Wason)"
+msgstr ""
+
+#: ../../Changelog-2.0.7.rst:13
+msgid "ignore \"user\" namespace in `setns` (still a source of problems)"
+msgstr ""
+
+#: ../../Changelog-2.0.7.rst:14
+msgid "fixed Python3 RPC bytes/string mess (result: we support both)"
+msgstr ""
+
+#: ../../Changelog-2.0.7.rst:15
+msgid "do not destroy the Emperor on failed mount hooks"
+msgstr ""
+
+#: ../../Changelog-2.0.7.rst:16
+msgid "fixed symbol lookup error in the Mono plugin on OS X (Ventero)"
+msgstr ""
+
+#: ../../Changelog-2.0.7.rst:17
+msgid "fixed FastCGI and SCGI protocols error when out of buffer happens"
+msgstr ""
+
+#: ../../Changelog-2.0.7.rst:18
+msgid "fixed Solaris/SmartOS I/O management"
+msgstr ""
+
+#: ../../Changelog-2.0.7.rst:19
+msgid "fixed two memory leaks in the RPC subsystem (Riccardo Magliocchetti)"
+msgstr ""
+
+#: ../../Changelog-2.0.7.rst:20
+msgid "fixed the Rados plugin's PUT method (Martin Mlynář)"
+msgstr ""
+
+#: ../../Changelog-2.0.7.rst:21
+msgid "fixed multiple Python mountpoints with multiple threads in cow mode"
+msgstr ""
+
+#: ../../Changelog-2.0.7.rst:22
+msgid "stats UNIX socket is now deleted by `vacuum`"
+msgstr ""
+
+#: ../../Changelog-2.0.7.rst:23
+msgid "fixed off-by-one corruption in cache LRU mode"
+msgstr ""
+
+#: ../../Changelog-2.0.7.rst:24
+msgid "force single-CPU build in Cygwin (Guido Notari)"
+msgstr ""
+
+#: ../../Changelog-2.0.7.rst:27
+msgid "New Features and improvements"
+msgstr ""
+
+#: ../../Changelog-2.0.7.rst:30
+msgid "Allow calling the spooler from every CPython context"
+msgstr ""
+
+#: ../../Changelog-2.0.7.rst:32
+msgid ""
+"At Europython 2014, Ultrabug (an uWSGI contributor and packager) asked "
+"for the possibility to spool tasks directly from a greenlet."
+msgstr ""
+
+#: ../../Changelog-2.0.7.rst:34
+msgid "Done."
+msgstr ""
+
+#: ../../Changelog-2.0.7.rst:37
+msgid "store_delete cache2 option"
+msgstr ""
+
+#: ../../Changelog-2.0.7.rst:39
+msgid "Author: goir"
+msgstr ""
+
+#: ../../Changelog-2.0.7.rst:41
+msgid ""
+"The `store_delete` flag of the `--cache2` option allows you to force the "
+"cache engine to automatically remove invalid backing store files instead "
+"of steadfastly refusing to launch."
+msgstr ""
+
+#: ../../Changelog-2.0.7.rst:45
+msgid "file logger rotation"
+msgstr ""
+
+#: ../../Changelog-2.0.7.rst:47
+msgid "Author: Riccardo Magliocchetti"
+msgstr ""
+
+#: ../../Changelog-2.0.7.rst:49
+msgid ""
+"The `file` logger has been extended to allow the use of rotation (the "
+"same system used by the non-pluggable `--logto`)."
+msgstr ""
+
+#: ../../Changelog-2.0.7.rst:51
+msgid "https://github.com/unbit/uwsgi/commit/0324e5965c360dccfb873ffe351dec88ddab59c5"
+msgstr ""
+
+#: ../../Changelog-2.0.7.rst:54
+msgid "Vassal plugin hooks"
+msgstr ""
+
+#: ../../Changelog-2.0.7.rst:56
+msgid ""
+"The plugin hook API has been extended with two new hooks: `vassal` and "
+"`vassal_before_exec`."
+msgstr ""
+
+#: ../../Changelog-2.0.7.rst:58
+msgid "They allow customizing a vassal soon after its process has been created."
+msgstr ""
+
+#: ../../Changelog-2.0.7.rst:60
+msgid ""
+"The first third-party plugin using it is 'apparmor': "
+"https://github.com/unbit/uwsgi-apparmor"
+msgstr ""
+
+#: ../../Changelog-2.0.7.rst:62
+msgid "This allows you to apply an Apparmor profile to a vassal."
+msgstr ""
+
+#: ../../Changelog-2.0.7.rst:66
+msgid "Broodlord improvements"
+msgstr ""
+
+#: ../../Changelog-2.0.7.rst:68
+msgid ""
+"The Broodlord subsystem has been improved with a new option: `--vassal-"
+"sos` that automatically ask for reinforcement when all of the workers of "
+"an instance are busy."
+msgstr ""
+
+#: ../../Changelog-2.0.7.rst:70
+msgid ""
+"In addition to this a sysadmin can now manually ask for reinforcement "
+"sending the 'B' command to the master FIFO of an instance."
+msgstr ""
+
+#: ../../Changelog-2.0.7.rst:73
+msgid "Availability"
+msgstr ""
+
+#: ../../Changelog-2.0.7.rst:75
+msgid "uWSGI 2.0.7 has been released on 20140905, and you can download it from"
+msgstr ""
+
+#: ../../Changelog-2.0.7.rst:77
+msgid "https://projects.unbit.it/downloads/uwsgi-2.0.7.tar.gz"
+msgstr ""
+

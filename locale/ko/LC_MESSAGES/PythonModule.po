@@ -1,0 +1,690 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../PythonModule.rst:2
+msgid "The uwsgi Python module"
+msgstr ""
+
+#: ../../PythonModule.rst:4
+msgid ""
+"The uWSGI server automagically adds a ``uwsgi`` module into your Python "
+"apps."
+msgstr ""
+
+#: ../../PythonModule.rst:6
+msgid ""
+"This is useful for configuring the uWSGI server, use its internal "
+"functions and get statistics. Also useful for detecting whether you're "
+"actually running under uWSGI; if you attempt to ``import uwsgi`` and "
+"receive an ImportError you're not running under uWSGI."
+msgstr ""
+
+#: ../../PythonModule.rst:8
+msgid "Many of these functions are currently woefully undocumented."
+msgstr ""
+
+#: ../../PythonModule.rst:11
+msgid "Module-level globals"
+msgstr ""
+
+#: ../../PythonModule.rst:19
+msgid "The number of processes/workers currently running."
+msgstr ""
+
+#: ../../PythonModule.rst:23
+msgid "The current configured buffer size in bytes."
+msgstr ""
+
+#: ../../PythonModule.rst:27
+msgid "The Unix timestamp of uWSGI's startup."
+msgstr ""
+
+#: ../../PythonModule.rst:31
+msgid "This is the dictionary used to define :doc:`FastFuncs`."
+msgstr ""
+
+#: ../../PythonModule.rst:35
+msgid "This is the list of applications currently configured."
+msgstr ""
+
+#: ../../PythonModule.rst:41
+msgid "This is the dynamic applications dictionary."
+msgstr ""
+
+#: ../../PythonModule.rst:43
+msgid ":ref:`PythonAppDict`"
+msgstr ""
+
+#: ../../PythonModule.rst:47
+msgid "The callable to run when the uWSGI server receives a marshalled message."
+msgstr ""
+
+#: ../../PythonModule.rst:53
+msgid "The magic table of configuration placeholders."
+msgstr ""
+
+#: ../../PythonModule.rst:57
+msgid "The current configuration options, including any custom placeholders."
+msgstr ""
+
+#: ../../PythonModule.rst:60
+msgid "Cache functions"
+msgstr ""
+
+#: ../../PythonModule.rst:65
+msgid "Get a value from the cache."
+msgstr ""
+
+#: ../../PythonModule.rst
+msgid "Parameters"
+msgstr ""
+
+#: ../../PythonModule.rst:67
+msgid "The cache key to read."
+msgstr ""
+
+#: ../../PythonModule.rst:68 ../../PythonModule.rst:78
+#: ../../PythonModule.rst:88 ../../PythonModule.rst:96
+#: ../../PythonModule.rst:103
+msgid ""
+"The name of the cache in multiple cache mode (can be in the form "
+"name@address). Optional."
+msgstr ""
+
+#: ../../PythonModule.rst:73
+msgid ""
+"Set a value in the cache. If the key is already set but not expired, it "
+"doesn't set anything."
+msgstr ""
+
+#: ../../PythonModule.rst:75 ../../PythonModule.rst:85
+msgid "The cache key to write."
+msgstr ""
+
+#: ../../PythonModule.rst:76 ../../PythonModule.rst:86
+msgid "The cache value to write."
+msgstr ""
+
+#: ../../PythonModule.rst:77 ../../PythonModule.rst:87
+msgid "Expiry time of the value, in seconds."
+msgstr ""
+
+#: ../../PythonModule.rst:83
+msgid ""
+"Update a value in the cache. This always sets the key, whether it was "
+"already set before or not and whether it has expired or not."
+msgstr ""
+
+#: ../../PythonModule.rst:93
+msgid "Delete the given cached value from the cache."
+msgstr ""
+
+#: ../../PythonModule.rst:95
+msgid "The cache key to delete."
+msgstr ""
+
+#: ../../PythonModule.rst:100
+msgid ""
+"Quickly check whether there is a value in the cache associated with the "
+"given key."
+msgstr ""
+
+#: ../../PythonModule.rst:102
+msgid "The cache key to check."
+msgstr ""
+
+#: ../../PythonModule.rst:108
+msgid "Queue functions"
+msgstr ""
+
+#: ../../PythonModule.rst:135
+msgid "SNMP functions"
+msgstr ""
+
+#: ../../PythonModule.rst:139
+msgid "The string containing the new community value."
+msgstr ""
+
+#: ../../PythonModule.rst:141
+msgid "Sets the SNMP community string."
+msgstr ""
+
+#: ../../PythonModule.rst:147 ../../PythonModule.rst:159
+msgid "An integer containing the oid number target."
+msgstr ""
+
+#: ../../PythonModule.rst:148
+msgid "An integer containing the new value of the counter or gauge."
+msgstr ""
+
+#: ../../PythonModule.rst:150
+msgid "Sets the counter or gauge to a specific value."
+msgstr ""
+
+#: ../../PythonModule.rst:160
+msgid ""
+"An integer containing the amount to increase or decrease the counter or "
+"gauge. If not specified the default is 1."
+msgstr ""
+
+#: ../../PythonModule.rst:162
+msgid "Increases or decreases the counter or gauge by a specific amount."
+msgstr ""
+
+#: ../../PythonModule.rst:164
+msgid "uWSGI OID tree starts at 1.3.6.1.4.1.35156.17"
+msgstr ""
+
+#: ../../PythonModule.rst:167
+msgid "Spooler functions"
+msgstr ""
+
+#: ../../PythonModule.rst:171
+msgid ""
+"The message (string keys, string values) to spool. Either this, or "
+"**kwargs may be set."
+msgstr ""
+
+#: ../../PythonModule.rst:172
+msgid "The spooler (id or directory) to use."
+msgstr ""
+
+#: ../../PythonModule.rst:173
+msgid "The priority of the message. Larger = less important."
+msgstr ""
+
+#: ../../PythonModule.rst:174
+msgid "The minimum UNIX timestamp at which this message should be processed."
+msgstr ""
+
+#: ../../PythonModule.rst:175
+msgid ""
+"A binary (bytestring) body to add to the message, in addition to the "
+"message dictionary itself. Its value will be available in the key "
+"``body`` in the message."
+msgstr ""
+
+#: ../../PythonModule.rst:177
+msgid "Send data to the :doc:`Spooler`. Also known as `spool()`."
+msgstr ""
+
+#: ../../PythonModule.rst:179
+msgid ""
+"Any of the keyword arguments may also be passed in the message "
+"dictionary. This means they're reserved words, in a way..."
+msgstr ""
+
+#: ../../PythonModule.rst:183
+msgid "Set how often the spooler runs."
+msgstr ""
+
+#: ../../PythonModule.rst:193
+msgid "The relative or absolute path to the task to read"
+msgstr ""
+
+#: ../../PythonModule.rst:197
+msgid "Advanced methods"
+msgstr ""
+
+#: ../../PythonModule.rst:201
+msgid "Send a generic message using :doc:`Protocol`."
+msgstr ""
+
+#: ../../PythonModule.rst:203
+msgid ""
+"Until version `2f970ce58543278c851ff30e52758fd6d6e69fdc` this function "
+"was called ``send_uwsgi_message()``."
+msgstr ""
+
+#: ../../PythonModule.rst:211
+msgid "Send a generic message to multiple recipients using :doc:`Protocol`."
+msgstr ""
+
+#: ../../PythonModule.rst:213
+msgid ""
+"Until version `2f970ce58543278c851ff30e52758fd6d6e69fdc` this function "
+"was called ``send_multi_uwsgi_message()``."
+msgstr ""
+
+#: ../../PythonModule.rst:215
+msgid ":doc:`Clustering` for examples"
+msgstr ""
+
+#: ../../PythonModule.rst:221
+msgid ""
+"Set the accepting flag of the current worker to the value. This is "
+"required when using `Overriding Workers`_ and touch-chain-reload at the "
+"same time."
+msgstr ""
+
+#: ../../PythonModule.rst:225
+msgid ":doc:`WorkerOverride`"
+msgstr ""
+
+#: ../../PythonModule.rst:230
+msgid "Gracefully reload the uWSGI server stack."
+msgstr ""
+
+#: ../../PythonModule.rst:232
+msgid ":doc:`Reload`"
+msgstr ""
+
+#: ../../PythonModule.rst:240
+msgid ""
+"Get a statistics dictionary of all the workers for the current server. A "
+"dictionary is returned."
+msgstr ""
+
+#: ../../PythonModule.rst:245
+msgid "Return the process identifier (PID) of the uWSGI master process."
+msgstr ""
+
+#: ../../PythonModule.rst:250
+msgid ""
+"Returns the total number of requests managed so far by the pool of uWSGI "
+"workers."
+msgstr ""
+
+#: ../../PythonModule.rst:254
+msgid "Also available as `getoption()`."
+msgstr ""
+
+#: ../../PythonModule.rst:258
+msgid "Also available as `setoption()`."
+msgstr ""
+
+#: ../../PythonModule.rst:293
+msgid "The lock number to lock. Lock 0 is always available."
+msgstr ""
+
+#: ../../PythonModule.rst:301
+msgid "The lock number to unlock. Lock 0 is always available."
+msgstr ""
+
+#: ../../PythonModule.rst:315
+msgid "the signal number to configure"
+msgstr ""
+
+#: ../../PythonModule.rst:316
+msgid ""
+"a magic string that will set which process/processes receive the signal."
+"  * ``worker``/``worker0`` will send the signal to the first available "
+"worker. This is the default if you specify an empty string. * ``workers``"
+" will send the signal to every worker. * ``workerN`` (N > 0) will send "
+"the signal to worker N. * ``mule``/``mule0`` will send the signal to the "
+"first available mule. (See :doc:`Mules`) * ``mules`` will send the signal"
+" to all mules * ``muleN`` (N > 0) will send the signal to mule N. * "
+"``cluster`` will send the signal to all the nodes in the cluster. "
+"Warning: not implemented. * ``subscribed`` will send the signal to all "
+"subscribed nodes. Warning: not implemented. * ``spooler`` will send the "
+"signal to the spooler.  ``cluster`` and ``subscribed`` are special, as "
+"they will send the signal to the master of all cluster/subscribed nodes. "
+"The other nodes will have to define a local handler though, to avoid a "
+"terrible signal storm loop."
+msgstr ""
+
+#: ../../PythonModule.rst:316
+msgid "a magic string that will set which process/processes receive the signal."
+msgstr ""
+
+#: ../../PythonModule.rst:318
+msgid ""
+"``worker``/``worker0`` will send the signal to the first available "
+"worker. This is the default if you specify an empty string."
+msgstr ""
+
+#: ../../PythonModule.rst:319
+msgid "``workers`` will send the signal to every worker."
+msgstr ""
+
+#: ../../PythonModule.rst:320
+msgid "``workerN`` (N > 0) will send the signal to worker N."
+msgstr ""
+
+#: ../../PythonModule.rst:321
+msgid ""
+"``mule``/``mule0`` will send the signal to the first available mule. (See"
+" :doc:`Mules`)"
+msgstr ""
+
+#: ../../PythonModule.rst:322
+msgid "``mules`` will send the signal to all mules"
+msgstr ""
+
+#: ../../PythonModule.rst:323
+msgid "``muleN`` (N > 0) will send the signal to mule N."
+msgstr ""
+
+#: ../../PythonModule.rst:324
+msgid ""
+"``cluster`` will send the signal to all the nodes in the cluster. "
+"Warning: not implemented."
+msgstr ""
+
+#: ../../PythonModule.rst:325
+msgid ""
+"``subscribed`` will send the signal to all subscribed nodes. Warning: not"
+" implemented."
+msgstr ""
+
+#: ../../PythonModule.rst:326
+msgid "``spooler`` will send the signal to the spooler."
+msgstr ""
+
+#: ../../PythonModule.rst:328
+msgid ""
+"``cluster`` and ``subscribed`` are special, as they will send the signal "
+"to the master of all cluster/subscribed nodes. The other nodes will have "
+"to define a local handler though, to avoid a terrible signal storm loop."
+msgstr ""
+
+#: ../../PythonModule.rst:330
+msgid "A callable that takes a single numeric argument."
+msgstr ""
+
+#: ../../PythonModule.rst:334
+msgid "the signal number to raise"
+msgstr ""
+
+#: ../../PythonModule.rst:339
+msgid ""
+"Block the process/thread/async core until a signal is received. Use "
+"``signal_received`` to get the number of the signal received. If a "
+"registered handler handles a signal, ``signal_wait`` will be interrupted "
+"and the actual handler will handle the signal."
+msgstr ""
+
+#: ../../PythonModule.rst:342
+msgid "Optional - the signal to wait for"
+msgstr ""
+
+#: ../../PythonModule.rst:350
+msgid ""
+"Get the number of the last signal received. Used in conjunction with "
+"``signal_wait``."
+msgstr ""
+
+#: ../../PythonModule.rst:358 ../../PythonModule.rst:369
+#: ../../PythonModule.rst:378
+msgid "The signal number to raise."
+msgstr ""
+
+#: ../../PythonModule.rst:359 ../../PythonModule.rst:370
+msgid "The interval at which to raise the signal."
+msgstr ""
+
+#: ../../PythonModule.rst:367
+msgid "Add an user-space (red-black tree backed) timer."
+msgstr ""
+
+#: ../../PythonModule.rst:371
+msgid "How many times to raise the signal. 0 (the default) means infinity."
+msgstr ""
+
+#: ../../PythonModule.rst:376
+msgid ""
+"For the time parameters, you may use the syntax ``-n`` to denote \"every "
+"n\". For instance ``hour=-2`` would declare the signal to be sent every "
+"other hour."
+msgstr ""
+
+#: ../../PythonModule.rst:379
+msgid "The minute on which to run this event."
+msgstr ""
+
+#: ../../PythonModule.rst:380
+msgid "The hour on which to run this event."
+msgstr ""
+
+#: ../../PythonModule.rst:381
+msgid "The day on which to run this event. This is \"OR\"ed with ``weekday``."
+msgstr ""
+
+#: ../../PythonModule.rst:382
+msgid "The month on which to run this event."
+msgstr ""
+
+#: ../../PythonModule.rst:383
+msgid ""
+"The weekday on which to run this event. This is \"OR\"ed with ``day``. "
+"(In accordance with the POSIX standard, 0 is Sunday, 6 is Monday)"
+msgstr ""
+
+#: ../../PythonModule.rst:462
+msgid "The symbol name to extract."
+msgstr ""
+
+#: ../../PythonModule.rst:464
+msgid "Extracts a symbol from the uWSGI binary image."
+msgstr ""
+
+#: ../../PythonModule.rst:466
+msgid ":doc:`Embed`"
+msgstr ""
+
+#: ../../PythonModule.rst:474 ../../PythonModule.rst:483
+msgid "The bytestring message to send."
+msgstr ""
+
+#: ../../PythonModule.rst:475
+msgid ""
+"Optional - the mule ID to receive the message. If you do not specify an "
+"ID, the message will go to the first available programmed mule."
+msgstr ""
+
+#: ../../PythonModule.rst:477
+msgid "Send a message to a mule."
+msgstr ""
+
+#: ../../PythonModule.rst:482
+msgid "The name of the farm to send the message to."
+msgstr ""
+
+#: ../../PythonModule.rst:485
+msgid "Send a message to a mule farm."
+msgstr ""
+
+#: ../../PythonModule.rst
+msgid "Returns"
+msgstr ""
+
+#: ../../PythonModule.rst:490 ../../PythonModule.rst:497
+msgid "A mule message, once one is received."
+msgstr ""
+
+#: ../../PythonModule.rst:492
+msgid ""
+"Block until a mule message is received and return it. This can be called "
+"from multiple threads in the same programmed mule."
+msgstr ""
+
+#: ../../PythonModule.rst:499
+msgid ""
+"Block until a mule message is received and return it. Only messages sent "
+"to the mule's configured farm will be received. This can be called from "
+"multiple threads in the same programmed mule."
+msgstr ""
+
+#: ../../PythonModule.rst:504
+msgid "``True`` if the mule is a member of a farm, ``False`` otherwise."
+msgstr ""
+
+#: ../../PythonModule.rst
+msgid "Return type"
+msgstr ""
+
+#: ../../PythonModule.rst:507
+msgid "Indicate whether the mule is a member of a farm."
+msgstr ""
+
+#: ../../PythonModule.rst:517
+msgid "Async functions"
+msgstr ""
+
+#: ../../PythonModule.rst:522
+msgid ""
+"Suspend handling the current request for ``seconds`` seconds and pass "
+"control to the next async core."
+msgstr ""
+
+#: ../../PythonModule.rst:524
+msgid "Sleep time, in seconds."
+msgstr ""
+
+#: ../../PythonModule.rst:538
+msgid ""
+"Suspend handling the current request and pass control to the next async "
+"core clamoring for attention."
+msgstr ""
+
+#: ../../PythonModule.rst:542
+msgid ""
+"Suspend handling the current request until there is something to be read "
+"on file descriptor ``fd``. May be called several times before "
+"yielding/suspending to add more file descriptors to the set to be "
+"watched."
+msgstr ""
+
+#: ../../PythonModule.rst:545 ../../PythonModule.rst:554
+msgid "File descriptor number."
+msgstr ""
+
+#: ../../PythonModule.rst:546 ../../PythonModule.rst:555
+msgid "Optional timeout (infinite if omitted)."
+msgstr ""
+
+#: ../../PythonModule.rst:551
+msgid ""
+"Suspend handling the current request until there is nothing more to be "
+"written on file descriptor ``fd``. May be called several times to add "
+"more file descriptors to the set to be watched."
+msgstr ""
+
+#: ../../PythonModule.rst:561
+msgid "SharedArea functions"
+msgstr ""
+
+#: ../../PythonModule.rst:563
+msgid ":doc:`SharedArea`"
+msgstr ""
+
+#: ../../PythonModule.rst:567
+msgid "Read a byte string from the uWSGI :doc:`SharedArea`."
+msgstr ""
+
+#: ../../PythonModule.rst:569
+msgid "Starting position to read from."
+msgstr ""
+
+#: ../../PythonModule.rst:570
+msgid "Number of bytes to read."
+msgstr ""
+
+#: ../../PythonModule.rst:571 ../../PythonModule.rst:586
+msgid ""
+"Bytes read, or ``None`` if the shared area is not enabled or the read "
+"request is invalid."
+msgstr ""
+
+#: ../../PythonModule.rst:575
+msgid "Write a byte string into the uWSGI :doc:`SharedArea`."
+msgstr ""
+
+#: ../../PythonModule.rst:577
+msgid "Starting position to write to."
+msgstr ""
+
+#: ../../PythonModule.rst:578
+msgid "Bytestring to write."
+msgstr ""
+
+#: ../../PythonModule.rst:579
+msgid ""
+"Number of bytes written, or ``None`` if the shared area is not enabled or"
+" the write could not be fully finished."
+msgstr ""
+
+#: ../../PythonModule.rst:583
+msgid "Read a single byte from the uWSGI :doc:`SharedArea`."
+msgstr ""
+
+#: ../../PythonModule.rst:585 ../../PythonModule.rst:601
+msgid "The position to read from."
+msgstr ""
+
+#: ../../PythonModule.rst:590
+msgid "Write a single byte into the uWSGI :doc:`SharedArea`."
+msgstr ""
+
+#: ../../PythonModule.rst:592 ../../PythonModule.rst:608
+msgid "The position to write the value to."
+msgstr ""
+
+#: ../../PythonModule.rst:593 ../../PythonModule.rst:609
+msgid "The value to write."
+msgstr ""
+
+#: ../../PythonModule.rst:595
+msgid ""
+"The byte written, or ``None`` if the shared area is not enabled or the "
+"write request is invalid."
+msgstr ""
+
+#: ../../PythonModule.rst:599
+msgid "Read a 64-bit (8-byte) long from the uWSGI :doc:`SharedArea`."
+msgstr ""
+
+#: ../../PythonModule.rst:602
+msgid ""
+"The value read, or ``None`` if the shared area is not enabled or the read"
+" request is invalid."
+msgstr ""
+
+#: ../../PythonModule.rst:606
+msgid "Write a 64-bit (8-byte) long into the uWSGI :doc:`SharedArea`."
+msgstr ""
+
+#: ../../PythonModule.rst:611
+msgid ""
+"The value written, or ``None`` if the shared area is not enabled or the "
+"write request is invalid."
+msgstr ""
+
+#: ../../PythonModule.rst:615
+msgid "Atomically increment a 64-bit long value in the uWSGI :doc:`SharedArea`."
+msgstr ""
+
+#: ../../PythonModule.rst:617
+msgid "The position of the value."
+msgstr ""
+
+#: ../../PythonModule.rst:619
+msgid ""
+"The new value at the given position, or ``None`` if the shared area is "
+"not enabled or the read request is invalid."
+msgstr ""
+
+#: ../../PythonModule.rst:622
+msgid "Erlang functions"
+msgstr ""
+
+#: ../../PythonModule.rst:632
+msgid "File descriptor or -1 on error"
+msgstr ""
+

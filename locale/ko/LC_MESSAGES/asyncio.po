@@ -1,0 +1,195 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../asyncio.rst:2
+msgid "The asyncio loop engine (CPython >= 3.4, uWSGI >= 2.0.4)"
+msgstr ""
+
+#: ../../asyncio.rst:6
+msgid ""
+"Status: EXPERIMENTAL, lot of implications, especially in respect to the "
+"WSGI standard"
+msgstr ""
+
+#: ../../asyncio.rst:8
+msgid ""
+"The ``asyncio`` plugin exposes a loop engine built on top of the "
+"``asyncio`` CPython API (https://docs.python.org/3.4/library/asyncio.html"
+"#module-asyncio)."
+msgstr ""
+
+#: ../../asyncio.rst:10
+msgid ""
+"As uWSGI is not callback based, you need a suspend engine (currently only"
+" the 'greenlet' one is supported) to manage the WSGI callable."
+msgstr ""
+
+#: ../../asyncio.rst:13
+msgid "Why not map the WSGI callable to a coroutine?"
+msgstr ""
+
+#: ../../asyncio.rst:15
+msgid ""
+"The reason is pretty simple: this would break WSGI in every possible way."
+" (Let's not go into the details here.)"
+msgstr ""
+
+#: ../../asyncio.rst:17
+msgid ""
+"For this reason each uWSGI core is mapped to a greenlet (running the WSGI"
+" callable)."
+msgstr ""
+
+#: ../../asyncio.rst:19
+msgid "This greenlet registers events and coroutines in the asyncio event loop."
+msgstr ""
+
+#: ../../asyncio.rst:22
+msgid "Callback vs. coroutines"
+msgstr ""
+
+#: ../../asyncio.rst:24
+msgid ""
+"When starting to playing with asyncio you may get confused between "
+"callbacks and coroutines."
+msgstr ""
+
+#: ../../asyncio.rst:26
+msgid ""
+"Callbacks are executed when a specific event raises (for example when a "
+"file descriptor is ready for read). They are basically standard functions"
+" executed in the main greenlet (and eventually they can switch back "
+"control to a specific uWSGI core)."
+msgstr ""
+
+#: ../../asyncio.rst:29
+msgid ""
+"Coroutines are more complex: they are pretty close to a greenlet, but "
+"internally they work on Python frames instead of C stacks. From a Python "
+"programmer point of view, coroutines are very special generators. Your "
+"WSGI callable can spawn coroutines."
+msgstr ""
+
+#: ../../asyncio.rst:32
+msgid "Building uWSGI with asyncio support"
+msgstr ""
+
+#: ../../asyncio.rst:34
+msgid ""
+"An 'asyncio' build profile is available in the official source tree (it "
+"will build greenlet support too)."
+msgstr ""
+
+#: ../../asyncio.rst:40
+msgid "or"
+msgstr ""
+
+#: ../../asyncio.rst:46
+msgid ""
+"be sure to use Python 3.4+ as the Python version and to add the greenlet "
+"include directory to ``CFLAGS`` (this may not be needed if you installed "
+"greenlet support from your distribution's packages)."
+msgstr ""
+
+#: ../../asyncio.rst:49
+msgid "The first example: a simple callback"
+msgstr ""
+
+#: ../../asyncio.rst:51
+msgid ""
+"Let's start with a simple WSGI callable triggering a function 2 seconds "
+"after the callable has returned (magic!)."
+msgstr ""
+
+#: ../../asyncio.rst:65
+msgid ""
+"Once called, the application function will register a callable in the "
+"asyncio event loop and then will return to the client."
+msgstr ""
+
+#: ../../asyncio.rst:67
+msgid "After two seconds the event loop will run the function."
+msgstr ""
+
+#: ../../asyncio.rst:69
+msgid "You can run the example with:"
+msgstr ""
+
+#: ../../asyncio.rst:75
+msgid ""
+"``--asyncio`` is a shortcut enabling 10 uWSGI async cores, enabling you "
+"to manage up to 10 concurrent requests with a single process."
+msgstr ""
+
+#: ../../asyncio.rst:77
+msgid ""
+"But how to wait for a callback completion in the WSGI callable? We can "
+"suspend our WSGI function using greenlets (remember our WSGI callable is "
+"wrapped on a greenlet):"
+msgstr ""
+
+#: ../../asyncio.rst:98
+msgid "And we can go even further abusing the uWSGI support for WSGI generators:"
+msgstr ""
+
+#: ../../asyncio.rst:120
+msgid "Another example: Futures and coroutines"
+msgstr ""
+
+#: ../../asyncio.rst:122
+msgid ""
+"You can spawn coroutines from your WSGI callable using the "
+"``asyncio.Task`` facility:"
+msgstr ""
+
+#: ../../asyncio.rst:145
+msgid "Thanks to Futures we can even get results back from coroutines..."
+msgstr ""
+
+#: ../../asyncio.rst:171
+msgid ""
+"A more advanced example using the ``aiohttp`` module (remember to ``pip "
+"install aiohttp`` it, it's not a standard library module)"
+msgstr ""
+
+#: ../../asyncio.rst:199
+msgid "Status"
+msgstr ""
+
+#: ../../asyncio.rst:201
+msgid ""
+"The plugin is considered experimental (the implications of asyncio with "
+"WSGI are currently unclear). In the future it could be built by default "
+"when Python >= 3.4 is detected."
+msgstr ""
+
+#: ../../asyncio.rst:202
+msgid ""
+"While (more or less) technically possible, mapping a WSGI callable to a "
+"Python 3 coroutine is not expected in the near future."
+msgstr ""
+
+#: ../../asyncio.rst:203
+msgid ""
+"The plugin registers hooks for non blocking reads/writes and timers. This"
+" means you can automagically use the uWSGI API with asyncio. Check the "
+"https://github.com/unbit/uwsgi/blob/master/tests/websockets_chat_asyncio.py"
+" example."
+msgstr ""
+

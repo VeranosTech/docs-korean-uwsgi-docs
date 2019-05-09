@@ -1,0 +1,256 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Go.rst:2
+msgid "uWSGI Go support (1.4 only)"
+msgstr ""
+
+#: ../../Go.rst:4
+msgid ""
+"Starting from 1.9.20, the Go plugin has been superseded by the "
+":doc:`GCCGO` plugin."
+msgstr ""
+
+#: ../../Go.rst:6
+msgid ""
+"Starting from uWSGI 1.4-dev you can host Go web applications in your "
+"uWSGI stack.  You can download Go from http://golang.org/ .  Currently "
+"Linux i386/x86_64, FreeBSD i386/x86_64 and OSX are supported.  For OSX "
+"support, you need Go 1.0.3+ or you will need to apply the patch available"
+" at http://code.google.com/p/go/source/detail?r=62b7ebe62958 Goroutines "
+"are currently supported only on Linux i386/x86_64."
+msgstr ""
+
+#: ../../Go.rst:14
+msgid "Building uWSGI with Go support"
+msgstr ""
+
+#: ../../Go.rst:16
+msgid ""
+"Go support can be built as an embedded component or plugin.  The main "
+"difference with the setup of other languages is this time we will build a"
+" uwsgi library and not a uwsgi binary. This library will be used by a Go "
+"package named uwsgi.go you can link with your apps.  Do not be afraid as "
+"in the uWSGI distribution there is already a build profile to make a "
+"completely (monolithic) distribution with Go support embedded.  At the "
+"end of the build procedure you will have a libuwsgi.so shared library and"
+" a uwsgi.a Go package."
+msgstr ""
+
+#: ../../Go.rst:24
+msgid "To build uWSGI+go just run (from uWSGI sources directory)"
+msgstr ""
+
+#: ../../Go.rst:30
+msgid ""
+"or if Python is not in your system path, or you need to use a specific "
+"python version:"
+msgstr ""
+
+#: ../../Go.rst:37
+msgid "(or wherever your custom Python is)"
+msgstr ""
+
+#: ../../Go.rst:39
+msgid ""
+"At the end of the build procedure you will have a libuwsgi.so file (copy "
+"or link it to a library directory like /usr/local/lib or /usr/lib and "
+"eventually run ldconfig if needed) and a uwsgi.a file in a subdirectory "
+"(based on your arch/os) in plugins/go/pkg."
+msgstr ""
+
+#: ../../Go.rst:46
+msgid ""
+"The last message from the build procedure reports the ``GOPATH`` you "
+"should use when building uWSGI Go apps (copy/remember/annotate that value"
+" somewhere)."
+msgstr ""
+
+#: ../../Go.rst:50
+msgid ""
+"If you already know how the Go import system works, feel free to copy "
+"uwsgi.a in your system-wide GOPATH."
+msgstr ""
+
+#: ../../Go.rst:54
+msgid "Writing the first Go application"
+msgstr ""
+
+#: ../../Go.rst:56
+msgid ""
+"By default the uWSGI Go plugin supports the ``http.DefaultServeMux`` "
+"handler, so if your app is already based on it, running it in uWSGI "
+"should be extremely simple."
+msgstr ""
+
+#: ../../Go.rst:85
+msgid ""
+"As you can see, the only differences from a standard ``net/http``-based "
+"application are the need to ``import \"uwsgi\"`` need and calling "
+"``uwsgi.Run()`` function, which will run the whole uWSGI server.  If you "
+"want to use your personal request handler instead of "
+"``http.DefaultServeMux``, use ``uwsgi.Handler(http.Handler)`` or "
+"``uwsgi.RequestHandler(func(http.ResponseWriter, *http.Request))`` to set"
+" it."
+msgstr ""
+
+#: ../../Go.rst:104
+msgid "Building your first app"
+msgstr ""
+
+#: ../../Go.rst:106
+msgid "Assuming you saved your app as helloworld.go, just run the following."
+msgstr ""
+
+#: ../../Go.rst:112
+msgid ""
+"change GOPATH to the value you got from the build procedure, or to the "
+"dir you have installed/copied uwsgi.a If all goes well you will end with "
+"a 'helloworld' executable.  That executable is a full uWSGI server (yes, "
+"really)."
+msgstr ""
+
+#: ../../Go.rst:120
+msgid ""
+"Just point your browser to the port 8080 and check /one/ and /two/ You "
+"can start adding processes and a master:"
+msgstr ""
+
+#: ../../Go.rst:127
+msgid "Note: modifier1 11 is officially assigned to Go."
+msgstr ""
+
+#: ../../Go.rst:130
+msgid "Going in production"
+msgstr ""
+
+#: ../../Go.rst:132
+msgid ""
+"In a production environment you will probably put a webserver/proxy in "
+"front of your app. Thus your nginx config will look like this::"
+msgstr ""
+
+#: ../../Go.rst:141
+msgid "while your uWSGI config will be something like this..."
+msgstr ""
+
+#: ../../Go.rst:150
+msgid "Finally simply run your app:"
+msgstr ""
+
+#: ../../Go.rst:157
+msgid "Goroutines (currently Linux/FreeBSD-only)"
+msgstr ""
+
+#: ../../Go.rst:159
+msgid ""
+"Goroutines are very probably the most interesting feature of the Go "
+"platform. A uWSGI loop engine for goroutines is automatically embedded in"
+" the uWSGI library when you build it with the go plugin.  To spawn "
+"goroutines in each uWSGI process just add the ``goroutines = N`` option, "
+"where N is the number of goroutines to spawn."
+msgstr ""
+
+#: ../../Go.rst:173
+msgid ""
+"With this config you will spawn 100 goroutines for each uWSGI process, "
+"yielding a grand total of 400 goroutines (!) As far as uWSGI is "
+"concerned, goroutines map to pthreads, but you will be able to spawn "
+"coroutine-based tasks from your application as well."
+msgstr ""
+
+#: ../../Go.rst:179
+msgid "uWSGI api"
+msgstr ""
+
+#: ../../Go.rst:181
+msgid ""
+"It is fairly simple to access the uWSGI API from your Go app. To do so "
+"invoke the functions exported by the uwsgi package:"
+msgstr ""
+
+#: ../../Go.rst:220
+msgid ""
+"The PostInit() function set the 'hook' to be called after the Go "
+"initialization is complete.  The PostFork() function set the 'hook' to be"
+" called after each fork() In postinit hook we register two uwsgi signals,"
+" with the second one being run in a mule (the mule1) To run the code just"
+" build your new app as above and execute it"
+msgstr ""
+
+#: ../../Go.rst:236
+msgid ""
+"This time we have added memory-report, try it to see how memory-cheap Go "
+"apps can be."
+msgstr ""
+
+#: ../../Go.rst:240
+msgid "Running from the Emperor"
+msgstr ""
+
+#: ../../Go.rst:242
+msgid ""
+"If you are running in Emperor mode, you can run uWSGI-Go apps by using "
+"the ``privileged-binary-patch`` option.  Your vassal configuration should"
+" be something like this."
+msgstr ""
+
+#: ../../Go.rst:259
+msgid "(Obviously change ``/tmp/bin/helloworld`` to wherever your app lives...)"
+msgstr ""
+
+#: ../../Go.rst:262
+msgid "Notes"
+msgstr ""
+
+#: ../../Go.rst:264
+msgid ""
+"A series of interesting go examples can be found in the ``t/go`` "
+"directory of the uWSGI source distribution."
+msgstr ""
+
+#: ../../Go.rst:266
+msgid ""
+"Changing process names is currently not possible without modifying the go"
+" core"
+msgstr ""
+
+#: ../../Go.rst:267
+msgid "You cannot use uWSGI native threads with Go (just use --goroutines)"
+msgstr ""
+
+#: ../../Go.rst:268
+msgid ""
+"Only a little part of the uWSGI API has been exposed so far. If you want "
+"to hack on it or need more, just edit the uwsgi.go file in the "
+"plugins/go/src/uwsgi directory"
+msgstr ""
+
+#: ../../Go.rst:271
+msgid ""
+"Goroutines require the async mode (if you are customizing your uWSGI "
+"library remember to always include it)"
+msgstr ""
+
+#: ../../Go.rst:273
+msgid ""
+"It looks like it is possible to load the Python, Lua and PSGI plugins "
+"without problems even in goroutines mode (more tests needed)"
+msgstr ""
+

@@ -1,0 +1,273 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../README.rst:2
+msgid "The uWSGI project"
+msgstr ""
+
+#: ../../README.rst:4
+msgid ""
+"The uWSGI project aims at developing a full stack for building hosting "
+"services."
+msgstr ""
+
+#: ../../README.rst:6
+msgid ""
+"Application servers (for various programming languages and protocols), "
+"proxies, process managers and monitors are all implemented using a common"
+" api and a common configuration style."
+msgstr ""
+
+#: ../../README.rst:9
+msgid ""
+"Thanks to its pluggable architecture it can be extended to support more "
+"platforms and languages."
+msgstr ""
+
+#: ../../README.rst:11
+msgid "Currently, you can write plugins in C, C++ and Objective-C."
+msgstr ""
+
+#: ../../README.rst:13
+msgid ""
+"The \"WSGI\" part in the name is a tribute to the namesake Python "
+"standard, as it has been the first developed plugin for the project."
+msgstr ""
+
+#: ../../README.rst:15
+msgid ""
+"Versatility, performance, low-resource usage and reliability are the "
+"strengths of the project (and the only rules followed)."
+msgstr ""
+
+#: ../../README.rst:18
+msgid "Included components (updated to latest stable release)"
+msgstr ""
+
+#: ../../README.rst:20
+msgid ""
+"The Core (implements configuration, processes management, sockets "
+"creation, monitoring, logging, shared memory areas, ipc, cluster "
+"membership and the :doc:`SubscriptionServer`)"
+msgstr ""
+
+#: ../../README.rst:22
+msgid ""
+"Request plugins (implement application server interfaces for various "
+"languages and platforms: WSGI, PSGI, Rack, Lua WSAPI, CGI, PHP, Go ...)"
+msgstr ""
+
+#: ../../README.rst:24
+msgid "Gateways (implement load balancers, proxies and routers)"
+msgstr ""
+
+#: ../../README.rst:26
+msgid ""
+"The :doc:`Emperor <Emperor>` (implements massive instances management and"
+" monitoring)"
+msgstr ""
+
+#: ../../README.rst:28
+msgid ""
+"Loop engines (implement events and concurrency, components can be run in "
+"preforking, threaded, asynchronous/evented and green thread/coroutine "
+"modes. Various technologies are supported, including uGreen, Greenlet, "
+"Stackless, :doc:`Gevent <Gevent>`, Coro::AnyEvent, :doc:`Tornado "
+"<Tornado>`, Goroutines and Fibers)"
+msgstr ""
+
+#: ../../README.rst:32
+msgid ""
+"uWSGI is a very active project with a fast release cycle. For this reason"
+" the code and the documentation may not always be in sync. We try our "
+"best to have good documentation, but it is a hard work. Sorry for that. "
+"If you are in trouble, the mailing list is the best source for help "
+"regarding uWSGI. Contributors for documentation (in addition to code) are"
+" always welcome."
+msgstr ""
+
+#: ../../README.rst:39
+msgid "Quickstarts"
+msgstr ""
+
+#: ../../README.rst:51
+msgid "Table of Contents"
+msgstr ""
+
+#: ../../README.rst:89
+msgid "Tutorials"
+msgstr ""
+
+#: ../../README.rst:105
+msgid "Articles"
+msgstr ""
+
+#: ../../README.rst:120
+msgid "uWSGI Subsystems"
+msgstr ""
+
+#: ../../README.rst:150
+msgid "Scaling with uWSGI"
+msgstr ""
+
+#: ../../README.rst:163
+msgid "Securing uWSGI"
+msgstr ""
+
+#: ../../README.rst:178
+msgid "Keeping an eye on your apps"
+msgstr ""
+
+#: ../../README.rst:192
+msgid "Async and loop engines"
+msgstr ""
+
+#: ../../README.rst:206
+msgid "Web Server support"
+msgstr ""
+
+#: ../../README.rst:223
+msgid "Language support"
+msgstr ""
+
+#: ../../README.rst:247
+msgid "Other plugins"
+msgstr ""
+
+#: ../../README.rst:258
+msgid "Broken/deprecated features"
+msgstr ""
+
+#: ../../README.rst:269
+msgid "Release Notes"
+msgstr ""
+
+#: ../../README.rst:272
+msgid "Stable releases"
+msgstr ""
+
+#: ../../README.rst:326
+msgid "Contact"
+msgstr ""
+
+#: ../../README.rst:329
+msgid "Mailing list"
+msgstr ""
+
+#: ../../README.rst:329
+msgid "http://lists.unbit.it/cgi-bin/mailman/listinfo/uwsgi"
+msgstr ""
+
+#: ../../README.rst:330
+msgid "Gmane mirror"
+msgstr ""
+
+#: ../../README.rst:330
+msgid "http://dir.gmane.org/gmane.comp.python.wsgi.uwsgi.general"
+msgstr ""
+
+#: ../../README.rst:331
+msgid "IRC"
+msgstr ""
+
+#: ../../README.rst:331
+msgid "#uwsgi @ irc.freenode.org. The owner of the channel is `unbit`."
+msgstr ""
+
+#: ../../README.rst:332
+msgid "Twitter"
+msgstr ""
+
+#: ../../README.rst:332
+msgid "https://twitter.com/unbit"
+msgstr ""
+
+#: ../../README.rst:333 ../../README.rst:339
+msgid "Commercial support"
+msgstr ""
+
+#: ../../README.rst:333
+msgid "http://unbit.com/"
+msgstr ""
+
+#: ../../README.rst:336
+msgid "."
+msgstr ""
+
+#: ../../README.rst:341
+msgid "You can buy commercial support from http://unbit.com"
+msgstr ""
+
+#: ../../README.rst:344
+msgid "Donate"
+msgstr ""
+
+#: ../../README.rst:346
+msgid ""
+"uWSGI development is maintained by `Unbit <http://unbit.it/>`_ . You can "
+"buy commercial support and licensing. If you are not an Unbit customer, "
+"or you cannot/do not want to buy a commercial uWSGI license, consider "
+"making a donation. Obviously please feel free to ask for new features in "
+"your donation."
+msgstr ""
+
+#: ../../README.rst:348
+msgid "We will give credit to everyone who wants to sponsor new features."
+msgstr ""
+
+#: ../../README.rst:350
+msgid "Check http://unbit.it/uwsgi_donate for the donation link."
+msgstr ""
+
+#: ../../README.rst:353
+msgid "Sponsors"
+msgstr ""
+
+#: ../../README.rst:355
+msgid "https://www.pythonanywhere.com/"
+msgstr ""
+
+#: ../../README.rst:357
+msgid "https://lincolnloop.com/"
+msgstr ""
+
+#: ../../README.rst:359
+msgid "https://yourlabs.io/oss"
+msgstr ""
+
+#: ../../README.rst:361
+msgid "https://fili.com"
+msgstr ""
+
+#: ../../README.rst:364
+msgid "Indices and tables"
+msgstr ""
+
+#: ../../README.rst:366
+msgid ":ref:`genindex`"
+msgstr ""
+
+#: ../../README.rst:367
+msgid ":ref:`modindex`"
+msgstr ""
+
+#: ../../README.rst:368
+msgid ":ref:`search`"
+msgstr ""
+

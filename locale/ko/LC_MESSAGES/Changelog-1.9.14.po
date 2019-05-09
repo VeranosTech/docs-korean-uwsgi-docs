@@ -1,0 +1,380 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Changelog-1.9.14.rst:2
+msgid "uWSGI 1.9.14"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:4
+msgid "Changelog [20130721]"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:8
+msgid "Bugfixes"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:10
+msgid "fixed python modifier1 management (was hardcoded to 0)"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:11
+msgid ""
+"fixed url decoding in http and http-socket (it now supports lowercase "
+"hex, spotted by Miles Shang)"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:12
+msgid "more user-friendly error message for undeletable unix sockets"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:13
+msgid "fixed --http-auto-chunked in http 1.1 keepalive mode (André Cruz)"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:14
+msgid "fixed python wheel support (Fraser Nevett)"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:15
+msgid "fixed --safe-fd (was not correctly honoured by the Emperor)"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:16
+msgid "fixed ruby 2.x reloading"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:17
+msgid "improved support for OSX Tiger (yes, OSX 10.4)"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:18
+msgid "better computation of listen queue load"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:19
+msgid "fixed v8 build on OSX"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:20
+msgid "fixed pypy rpc"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:21
+msgid "improved chunked api performance"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:22
+msgid "fixed latin1 encoding with python3"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:23
+msgid "fixed --spooler-ordered (Roberto Leandrini)"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:24
+msgid "fixed php status line reported in request logs"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:28
+msgid "New features"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:31
+msgid "Ruby 1.9.x/2.x native threads support"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:33
+msgid ""
+"Ruby 1.9 (mri) introduced native threads support (very similar to the "
+"CPython ones, governed by a global lock named GVL)."
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:35
+msgid ""
+"For various reasons (check the comments on top of the source plugin) the "
+"ruby threads support in uWSGI has been implemented as a \"loop engine "
+"plugin\"."
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:37
+msgid ""
+"You need to build the \"rbthreads\" plugin (it is automatic when using "
+"the 'ruby2' build profile) and enable it with '--rbthreads'"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:39
+msgid ""
+"The gem script has been extended, automatically selecting the 'ruby2' "
+"build profile when a ruby >= 1.9 is detected (this should make the life "
+"easier for Heroku users)"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:41
+msgid ""
+"Rails4 is the first Ruby on Rails version supporting and blessing threads"
+" (in 3.x you need to explicitly enable support). You can use multiple "
+"threads in Rails4 only when in \"production\" mode, otherwise your app "
+"will deadlock after the first request."
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:44
+msgid "An example config:"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:63
+msgid "it will generate a total of 16 threads"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:66
+msgid "Filesystem monitoring interface (fsmon)"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:68
+msgid ""
+"Currently uWSGI is able to monitor filesystem changes using the "
+"\"simple\" --touch-* facility or the signal framework (using various "
+"operating system api like inotify or kqueue)."
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:71
+msgid ""
+"A new interface for plugin writers named \"fsmon\" has been added, "
+"allowing easy implementation of realtime filesystem monitors."
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:73
+msgid "Three new options have been added:"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:75
+msgid "`--fs-reload <path>`"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:78
+msgid "`--fs-brutal-reload <path>`"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:81
+msgid "`--fs-signal <path> <signal>`"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:83
+msgid ""
+"Contrary to the --touch-* options they are realtime (the master is woke "
+"up as soon as the item changes) and. uses kernel facilities (currently "
+"only inotify() and kqueue() are supported). Thanks to this choice you can"
+" now monitor a whole directory for changes (without the need of external "
+"processes/wrapper like inotifywatch)"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:88
+msgid "uClibc support"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:90 ../../Changelog-1.9.14.rst:99
+msgid "Author: Natanael Copa"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:92
+msgid ""
+"uWSGI can now be built on uclibc-based systems (generally, embedded "
+"systems)"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:94
+msgid "Alpine Linux is the operating system on which the support has been tested"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:97
+msgid "Lua 5.2 support"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:101
+msgid "the lua plugins now supports Lua 5.2"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:104
+msgid "setscheme, setdocroot"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:106
+msgid ""
+"This two new routing actions allow you to dynamically override "
+"DOCUMENT_ROOT and UWSGI_SCHEME"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:109
+msgid "sendfile, fastfile"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:111
+msgid ""
+"This two actions (added to the router_static plugin) allows you to return"
+" static files to the client bypassing the DOCUMENT_ROOT check."
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:113
+msgid ""
+"The first one forces the use of the sendfile() syscall (where available),"
+" while the second automatically tries to choose the best serving strategy"
+" (like offloading)"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:116
+msgid "--reload-on-fd and --brutal-reload-on-fd"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:118
+msgid ""
+"Two new options allowing you to reload an instance when a file descriptor"
+" is ready."
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:120
+msgid ""
+"Currently the best usage scenario is for the oom_control cgroup interface"
+" (via eventfd)."
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:122
+msgid ""
+"Supposing you have a process wrapper allocating an eventfd() reporting "
+"OOM events (and exposed as the 'OOM' environment var) you can force a "
+"uWSGI reload when out of memory with:"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:132
+msgid "it means:"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:134
+msgid ""
+"monitor the $(OOM) file descriptor and read 8 bytes from it when ready "
+"(it is an eventfd() requirement), then print \"OUT OF MEMORY !!!\" in the"
+" logs and gracefully reload the instance."
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:136
+msgid ""
+"Obviously this is only a way to use it. The UNIX world is file-descriptor"
+" based so you have plenty of funny ways to use it."
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:140
+msgid "Spooler improvements"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:142
+msgid "Author: Roberto Leandrini"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:145
+msgid "Effectively all of the work has been done in uwsgidecorators.py"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:147
+msgid ""
+"You can now pass to all of the available spooler-related decorators the "
+"\"pass_arguments=True\" option, to automatically serialize the spooler "
+"function parameters. This is an abstraction avoiding you the need to "
+"serialize/deserialize arguments."
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:150
+msgid ""
+"In addition to this the decorators have been extended to implement "
+"__call__ in this way you can directly call spooler decorated functions as"
+" normal functions."
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:154
+msgid "--emperor-nofollow"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:156
+msgid ""
+"Enabling this option will allows the Emperor to watch for symbolic links "
+"mtime update instead of the mtime of the real file."
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:158
+msgid ""
+"Alberto Scotto is working on an updated version supporting both (should "
+"be ready for the next release)"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:161
+msgid "daemontools envdir support"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:163
+msgid ""
+"Albeit daemontools look old-fashioned, things like envdirs "
+"(http://cr.yp.to/daemontools/envdir.html) are heavily used in various "
+"context."
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:165
+msgid ""
+"uWSGI got two new options (--envdir <path> and --early-envdir <path>) "
+"allowing you to support this special (archaic ?) configuration way."
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:168
+msgid "xmldir improvements"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:170
+msgid "Author: Guido Berhoerster"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:172
+msgid ""
+"The xmldir plugins has been improved supporting iconv-based utf8 "
+"encoding. Various minor fixes have been committed."
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:174
+msgid "The examples directory contains two new files showing an xmldir+xslt usage"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:178
+msgid "Breaking News !!!"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:180
+msgid ""
+"Servlet 2.5 support development has just started. The plugin is present "
+"in the tree but it is unusable (it is a hardcoded jsp engine). We expect "
+"a beta version after the summer. Obviously we shameless consider "
+":doc:`JWSGI` a better approach than servlet for non-Enterprise people ;)"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:184
+msgid "Availability"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:186
+msgid "Download uWSGI 1.9.14 from"
+msgstr ""
+
+#: ../../Changelog-1.9.14.rst:188
+msgid "https://projects.unbit.it/downloads/uwsgi-1.9.14.tar.gz"
+msgstr ""
+

@@ -1,0 +1,319 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../SharedArea.rst:2
+msgid "SharedArea -- share memory pages between uWSGI components"
+msgstr ""
+
+#: ../../SharedArea.rst:6
+msgid ""
+"SharedArea is a very low-level mechanism. For an easier-to-use "
+"alternative, see the :doc:`Caching<Caching>` and :doc:`Queue<Queue>` "
+"frameworks."
+msgstr ""
+
+#: ../../SharedArea.rst:11
+msgid ""
+"This page refers to \"new generation\" sharedarea introduced in uWSGI "
+"1.9.21, the older API is no longer supported."
+msgstr ""
+
+#: ../../SharedArea.rst:13
+msgid ""
+"The sharedarea subsystem allows you to share pages of memory between your"
+" uWSGI components (workers, spoolers, mules, etc.) in a very fast (and "
+"safe) way."
+msgstr ""
+
+#: ../../SharedArea.rst:16
+msgid ""
+"Contrary to the higher-level :doc:`caching framework<Caching>`, "
+"sharedarea operations are way faster (a single copy instead of the "
+"double, as required by caching) and offers various optimizations for "
+"specific needs."
+msgstr ""
+
+#: ../../SharedArea.rst:19
+msgid ""
+"Each sharedarea (yes, you can have multiple areas) has a size (generally "
+"specified in the number of pages), so if you need an 8 KiB shared area on"
+" a system with 4 KiB pages, you would use ``sharedarea=2``."
+msgstr ""
+
+#: ../../SharedArea.rst:21
+msgid "The sharedarea subsystem is fully thread-safe."
+msgstr ""
+
+#: ../../SharedArea.rst:24
+msgid "Simple option VS keyval"
+msgstr ""
+
+#: ../../SharedArea.rst:26
+msgid ""
+"The sharedarea subsystem exposes (for now) a single option: "
+"``--sharedarea``."
+msgstr ""
+
+#: ../../SharedArea.rst:28
+msgid ""
+"It takes two kinds of arguments: the number of pages (simple approach) or"
+" a keyval arg (for advanced tuning)."
+msgstr ""
+
+#: ../../SharedArea.rst:30
+msgid "The following keyval keys are available:"
+msgstr ""
+
+#: ../../SharedArea.rst:32
+msgid "``pages`` -- set the number of pages"
+msgstr ""
+
+#: ../../SharedArea.rst:33
+msgid "``file`` -- create the sharedarea from a file that will be ``mmap``\\ ed"
+msgstr ""
+
+#: ../../SharedArea.rst:34
+msgid ""
+"``fd`` -- create the sharedarea from a file descriptor that will be "
+"``mmap``\\ ed"
+msgstr ""
+
+#: ../../SharedArea.rst:35
+msgid ""
+"``size`` -- mainly useful with the ``fd`` and ``ptr`` keys to specify the"
+" size of the map (can be used as a shortcut to avoid calculation of the "
+"``pages`` value too)"
+msgstr ""
+
+#: ../../SharedArea.rst:36
+msgid "``ptr`` -- directly map the area to the specified memory pointer."
+msgstr ""
+
+#: ../../SharedArea.rst:39
+msgid "The API"
+msgstr ""
+
+#: ../../SharedArea.rst:41
+msgid ""
+"The API is pretty big, the sharedarea will be the de-facto toy for "
+"writing highly optimized web apps (especially for embedded systems)."
+msgstr ""
+
+#: ../../SharedArea.rst:43
+msgid ""
+"Most of the documented uses make sense on systems with slow CPUs or very "
+"small amounts of memory."
+msgstr ""
+
+#: ../../SharedArea.rst:45
+msgid "``sharedarea_read(id, pos[, len])``"
+msgstr ""
+
+#: ../../SharedArea.rst:46
+msgid ""
+"Read ``len`` bytes from the specified sharedarea starting at offset "
+"``pos``. If ``len`` is not specified, the memory will be read til the end"
+" (starting from ``pos``)."
+msgstr ""
+
+#: ../../SharedArea.rst:47
+msgid "``sharedarea_write(id, pos, string)``"
+msgstr ""
+
+#: ../../SharedArea.rst:48
+msgid ""
+"Write the specified ``string`` (it is language-dependent, obviously) to "
+"the specified sharedarea at offset ``pos``."
+msgstr ""
+
+#: ../../SharedArea.rst:49
+msgid "``sharedarea_read8|16|32|64(id, pos)``"
+msgstr ""
+
+#: ../../SharedArea.rst:50
+msgid "Read a signed integer (8, 16, 32 or 64 bit) from the specified position."
+msgstr ""
+
+#: ../../SharedArea.rst:51
+msgid "``sharedarea_write8|16|32|64(id, pos)``"
+msgstr ""
+
+#: ../../SharedArea.rst:52
+msgid "Write a signed integer (8, 16, 32 or 64 bit) to the specified position."
+msgstr ""
+
+#: ../../SharedArea.rst:53
+msgid "``sharedarea_inc8|16|32|64(id, pos)``"
+msgstr ""
+
+#: ../../SharedArea.rst:54
+msgid ""
+"Increment the signed integer (8, 16, 32 or 64 bit) at the specified "
+"position."
+msgstr ""
+
+#: ../../SharedArea.rst:55
+msgid "``sharedarea_dec8|16|32|64(id, pos)``"
+msgstr ""
+
+#: ../../SharedArea.rst:56
+msgid ""
+"Decrement the signed integer (8, 16, 32 or 64 bit) at the specified "
+"position."
+msgstr ""
+
+#: ../../SharedArea.rst:57
+msgid "``sharedarea_wait(id[, freq, timeout])``"
+msgstr ""
+
+#: ../../SharedArea.rst:58
+msgid "Wait for modifications of the specified sharedarea (see below)."
+msgstr ""
+
+#: ../../SharedArea.rst:59
+msgid "``sharedarea_rlock(id)``"
+msgstr ""
+
+#: ../../SharedArea.rst:60
+msgid ""
+"lock a shared area for read (use only if you know what you are doing, "
+"generally the sharedarea api functions implement locking by themselves)"
+msgstr ""
+
+#: ../../SharedArea.rst:61
+msgid "``sharedarea_wlock(id)``"
+msgstr ""
+
+#: ../../SharedArea.rst:62
+msgid ""
+"lock a shared area for write (use only if you know what you are doing, "
+"generally the sharedarea api functions implement locking by themselves)"
+msgstr ""
+
+#: ../../SharedArea.rst:64
+msgid "``sharedarea_unlock(id)``"
+msgstr ""
+
+#: ../../SharedArea.rst:64
+msgid ""
+"unlock a shared area (use only if you know what you are doing, generally "
+"the sharedarea api functions implement locking by themselves)"
+msgstr ""
+
+#: ../../SharedArea.rst:67
+msgid "Waiting for updates"
+msgstr ""
+
+#: ../../SharedArea.rst:69
+msgid ""
+"One of the most powerful features of sharedareas (compared to caching) is"
+" \"waiting for updates\". Your worker/thread/async_core can be suspended "
+"until a sharedarea is modified."
+msgstr ""
+
+#: ../../SharedArea.rst:72
+msgid ""
+"Technically, a millisecond-resolution timer is triggered, constantly "
+"checking for updates (the operation is very fast, as the sharedarea "
+"object has an update counter, so we only need to check that value for "
+"changes)."
+msgstr ""
+
+#: ../../SharedArea.rst:75
+msgid "Optional API"
+msgstr ""
+
+#: ../../SharedArea.rst:77
+msgid ""
+"The following functions require specific features from the language, so "
+"not all of the language plugins are able to support them."
+msgstr ""
+
+#: ../../SharedArea.rst:81
+msgid "``sharedarea_readfast(id, pos, object, [, len])``"
+msgstr ""
+
+#: ../../SharedArea.rst:80
+msgid ""
+"Read ``len`` bytes from the specified sharedarea starting at offset "
+"``pos`` to the specified object. If ``len`` is not specified, the memory "
+"will be read til the end (starting from ``pos``). Currently is "
+"implemented only for Perl."
+msgstr ""
+
+#: ../../SharedArea.rst:84
+msgid "``sharedarea_memoryview(id)``"
+msgstr ""
+
+#: ../../SharedArea.rst:84
+msgid ""
+"returns python memoryview object you can directly manipulate (works only "
+"on CPython)"
+msgstr ""
+
+#: ../../SharedArea.rst:87
+msgid "``sharedarea_object(id)``"
+msgstr ""
+
+#: ../../SharedArea.rst:87
+msgid ""
+"some plugin exposes an alternative way to create sharedareas from "
+"internal objects. This functions returns the original object (currently "
+"implemented only on CPython on top of bytearrays using ``--py-sharedarea "
+"<size>`` option)"
+msgstr ""
+
+#: ../../SharedArea.rst:90
+msgid "Websockets integration API"
+msgstr ""
+
+#: ../../SharedArea.rst:92
+msgid "This is currently supported only in the psgi/perl plugin:"
+msgstr ""
+
+#: ../../SharedArea.rst:95
+msgid "``websocket_send_from_sharedarea(id, pos)``"
+msgstr ""
+
+#: ../../SharedArea.rst:95
+msgid "send a websocket message directly from the specified sharedarea"
+msgstr ""
+
+#: ../../SharedArea.rst:98
+msgid "``websocket_send_binary_from_sharedarea(id, pos)``"
+msgstr ""
+
+#: ../../SharedArea.rst:98
+msgid "send a websocket binary message directly from the specified sharedarea"
+msgstr ""
+
+#: ../../SharedArea.rst:101
+msgid "Advanced usage (from C)"
+msgstr ""
+
+#: ../../SharedArea.rst:104
+msgid "Work in progress."
+msgstr ""
+
+#: ../../SharedArea.rst:106
+msgid ""
+"Check https://github.com/unbit/uwsgi-capture for an example of sharedarea"
+" managed from C"
+msgstr ""
+

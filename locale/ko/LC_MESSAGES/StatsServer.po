@@ -1,0 +1,65 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../StatsServer.rst:2
+msgid "The uWSGI Stats Server"
+msgstr ""
+
+#: ../../StatsServer.rst:4
+msgid ""
+"In addition to :doc:`SNMP<SNMP>`, uWSGI also supports a Stats Server "
+"mechanism which exports the uWSGI state as a JSON object to a socket."
+msgstr ""
+
+#: ../../StatsServer.rst:6
+msgid ""
+"Simply use the ``stats`` option followed by a valid socket address. If "
+"you want the stats served over HTTP you will need to also add the "
+"``stats-http`` option."
+msgstr ""
+
+#: ../../StatsServer.rst:17
+msgid ""
+"If a client connects to the specified socket it will get a JSON object "
+"containing uWSGI internal statistics before the connection ends."
+msgstr ""
+
+#: ../../StatsServer.rst:23
+msgid "then"
+msgstr ""
+
+#: ../../StatsServer.rst:31
+msgid "will return something like this:"
+msgstr ""
+
+#: ../../StatsServer.rst:209
+msgid "uwsgitop"
+msgstr ""
+
+#: ../../StatsServer.rst:211
+msgid ""
+"``uwsgitop`` is a top-like command that uses the stats server. It is "
+"available on PyPI, so use ``easy_install`` or ``pip`` to install it "
+"(package name ``uwsgitop``, naturally)."
+msgstr ""
+
+#: ../../StatsServer.rst:213
+msgid "The sources are available on Github. https://github.com/unbit/uwsgitop"
+msgstr ""
+

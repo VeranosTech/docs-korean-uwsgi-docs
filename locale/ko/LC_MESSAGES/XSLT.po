@@ -1,0 +1,141 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../XSLT.rst:2
+msgid "The XSLT plugin"
+msgstr ""
+
+#: ../../XSLT.rst:4
+msgid ""
+"Since uWSGI 1.9.1 a new plugin named \"xslt\" is available, implementing "
+"XML Stylesheet Transformation both as request handler and routing "
+"instruction."
+msgstr ""
+
+#: ../../XSLT.rst:6
+msgid ""
+"To successfully apply a transformation you need a 'doc' (an XML document)"
+" and a stylesheet (the XSLT file)."
+msgstr ""
+
+#: ../../XSLT.rst:8
+msgid ""
+"Additionally you can apply global params and set a specific content type "
+"(by default the generated output is set as text/html)."
+msgstr ""
+
+#: ../../XSLT.rst:11
+msgid "The request handler"
+msgstr ""
+
+#: ../../XSLT.rst:13
+msgid "Modifier1 23 has been assigned to the XSLT request handler."
+msgstr ""
+
+#: ../../XSLT.rst:15
+msgid ""
+"The document path is created appending the ``PATH_INFO`` to the "
+"``DOCUMENT_ROOT``."
+msgstr ""
+
+#: ../../XSLT.rst:17
+msgid "The stylesheet path is created following these steps:"
+msgstr ""
+
+#: ../../XSLT.rst:19
+msgid ""
+"If a specific CGI variable is set (via ``--xslt-var``) it will be used as"
+" the stylesheet path."
+msgstr ""
+
+#: ../../XSLT.rst:20
+msgid ""
+"If a file named like the document plus a specific extension (by default "
+"``.xsl`` and ``.xslt`` are searched) exists it will be used as the "
+"stylesheet path."
+msgstr ""
+
+#: ../../XSLT.rst:21
+msgid ""
+"Finally a series of static XSLT files (specified with ``--xslt-"
+"stylesheet``) is tried."
+msgstr ""
+
+#: ../../XSLT.rst:23
+msgid "Examples:"
+msgstr ""
+
+#: ../../XSLT.rst:29
+msgid ""
+"If /foo.xml is requested (and the file exists) "
+"``DOCUMENT_ROOT``+``foo.xml.bar`` will be searched as the xslt file."
+msgstr ""
+
+#: ../../XSLT.rst:35
+msgid ""
+"If /foo.xml is requested (and the file exists) ``/var/www/myfile1.xslt`` "
+"will be tried. If it does not exist, ``/var/www/myfile2.xslt`` will be "
+"tried instead."
+msgstr ""
+
+#: ../../XSLT.rst:41
+msgid ""
+"If /foo.xml is requested (and the file exists), the content of the "
+"``UWSGI_XSLT`` variable (you can set it from your webserver) is used as "
+"the stylesheet path."
+msgstr ""
+
+#: ../../XSLT.rst:43
+msgid ""
+"If a ``QUERY_STRING`` is available, its items will be passed as global "
+"parameters to the stylesheet."
+msgstr ""
+
+#: ../../XSLT.rst:45
+msgid ""
+"As an example if you request ``/foo.xml?foo=bar&test=uwsgi``, \"foo\" (as"
+" \"bar\" and \"test\" (as \"uwsgi\") will be passed as global variables:"
+msgstr ""
+
+#: ../../XSLT.rst:53
+msgid "The routing instruction"
+msgstr ""
+
+#: ../../XSLT.rst:55
+msgid ""
+"The plugin registers itself as internal routing instruction named "
+"\"xslt\". It is probably a lot more versatile then the request plugin."
+msgstr ""
+
+#: ../../XSLT.rst:57
+msgid "Its syntax is pretty simple:"
+msgstr ""
+
+#: ../../XSLT.rst:65
+msgid ""
+"This will apply the ``/var/www/myfunction.xslt`` transformation to "
+"``foo.xml`` and will return it as ``text/html``."
+msgstr ""
+
+#: ../../XSLT.rst:67
+msgid ""
+"The only required parameters for the routing instruction are ``doc`` and "
+"``stylesheet``."
+msgstr ""
+

@@ -1,0 +1,264 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Changelog-1.9.19.rst:2
+msgid "uWSGI 1.9.19"
+msgstr ""
+
+#: ../../Changelog-1.9.19.rst:4
+msgid "Changelog [20131109]"
+msgstr ""
+
+#: ../../Changelog-1.9.19.rst:6
+msgid ""
+"This release starts the 'hardening' cycle for uWSGI 2.0 (scheduled for "
+"the end of december 2013)."
+msgstr ""
+
+#: ../../Changelog-1.9.19.rst:8
+msgid ""
+"The metrics subsystem was the last piece missing and this version (after "
+"1 year of analysis) finally includes it."
+msgstr ""
+
+#: ../../Changelog-1.9.19.rst:10
+msgid ""
+"During the following 2 months we will start deprecating features or "
+"plugins that got no-interest, are known to be broken or are simply "
+"superseed by more modern/advanced ones."
+msgstr ""
+
+#: ../../Changelog-1.9.19.rst:13
+msgid "Currently the following plugin and features are scheduled for removal:"
+msgstr ""
+
+#: ../../Changelog-1.9.19.rst:15
+msgid ""
+"The Go plugin, superseeded by the gccgo one. (eventually the Go plugin "
+"will be brought back if something changes in the fork() support)"
+msgstr ""
+
+#: ../../Changelog-1.9.19.rst:16
+msgid ""
+"Auto-snapshotting, was never documented, it has tons of corner case bugs "
+"and it is huber-complex. The features added by the :doc:`MasterFifo` "
+"allows for better implementations of snapshotting."
+msgstr ""
+
+#: ../../Changelog-1.9.19.rst:18
+msgid "Waiting for decision:"
+msgstr ""
+
+#: ../../Changelog-1.9.19.rst:20
+msgid ""
+"the erlang plugin is extremely old, was badly engineered and should be "
+"completely rewritten. If you are a user of it, please contact the staff. "
+"Very probably we will not be able to maintain it without sponsorship."
+msgstr ""
+
+#: ../../Changelog-1.9.19.rst:21
+msgid ""
+"the matheval support could be removed soon (unless we find some specific "
+"use that could require it), substituted by some form of simple math "
+"directly implemented in the option parser"
+msgstr ""
+
+#: ../../Changelog-1.9.19.rst:22
+msgid ""
+"the admin plugin should be substituted with something more advanced. An "
+"api for defining dynamic options is on-work"
+msgstr ""
+
+#: ../../Changelog-1.9.19.rst:25
+msgid "Bugfixes"
+msgstr ""
+
+#: ../../Changelog-1.9.19.rst:27
+msgid "completely skip cgroups initialization when non-root"
+msgstr ""
+
+#: ../../Changelog-1.9.19.rst:28
+msgid "tons of post-static_analysis fixes by Riccardo Magliocchetti"
+msgstr ""
+
+#: ../../Changelog-1.9.19.rst:29
+msgid "fixed the greenlet plugin reference counting"
+msgstr ""
+
+#: ../../Changelog-1.9.19.rst:30
+msgid "avoid kevent storm for stats pusher thread"
+msgstr ""
+
+#: ../../Changelog-1.9.19.rst:31
+msgid "fixed rbtimers math"
+msgstr ""
+
+#: ../../Changelog-1.9.19.rst:32
+msgid ""
+"both 'cache' and 'file' routers got a 'no_content_length' key option to "
+"avoid settign the Content-Length header"
+msgstr ""
+
+#: ../../Changelog-1.9.19.rst:33
+msgid "the PyPy plugin automatically enables threads/GIL"
+msgstr ""
+
+#: ../../Changelog-1.9.19.rst:34
+msgid "manage dot_segments in HTTP parser"
+msgstr ""
+
+#: ../../Changelog-1.9.19.rst:35
+msgid "improved srand() usage"
+msgstr ""
+
+#: ../../Changelog-1.9.19.rst:38
+msgid "New features"
+msgstr ""
+
+#: ../../Changelog-1.9.19.rst:41
+msgid "The Metrics subsystem"
+msgstr ""
+
+#: ../../Changelog-1.9.19.rst:43
+msgid ""
+"This was the last piece missing before uWSGI 2.0. The Metrics subsystem "
+"allows you to store \"numbers\" related to monitoring, graphing and "
+"quality checks and exports them in various ways."
+msgstr ""
+
+#: ../../Changelog-1.9.19.rst:45
+msgid "Official docs: :doc:`Metrics`"
+msgstr ""
+
+#: ../../Changelog-1.9.19.rst:48
+msgid "The Tornado loop engine"
+msgstr ""
+
+#: ../../Changelog-1.9.19.rst:50
+msgid ""
+"While working on nodejs integration we realized that contrary to what we "
+"used to believe, Tornado (an asynchronous, callback based module for "
+"python) is usable in uWSGI."
+msgstr ""
+
+#: ../../Changelog-1.9.19.rst:52
+msgid "Note: The plugin is not built-in by default"
+msgstr ""
+
+#: ../../Changelog-1.9.19.rst:54
+msgid "Official docs: :doc:`Tornado`"
+msgstr ""
+
+#: ../../Changelog-1.9.19.rst:57
+msgid "The 'puwsgi' protocol"
+msgstr ""
+
+#: ../../Changelog-1.9.19.rst:59
+msgid ""
+"A \"persistent\" (keep-alive) version of the 'uwsgi' parser has been "
+"added named 'puwsgi' (persistent uwsgi)."
+msgstr ""
+
+#: ../../Changelog-1.9.19.rst:61
+msgid ""
+"This protocol works only for request without a body and requires support "
+"from the frontend. Its use is currently for custom clients/apps, there is"
+" no webserver handler supporting it."
+msgstr ""
+
+#: ../../Changelog-1.9.19.rst:63
+msgid ""
+"The ``--puwsgi-socket <addr>`` will bind a puwsgi socket to the specified"
+" address"
+msgstr ""
+
+#: ../../Changelog-1.9.19.rst:66
+msgid "--vassal-set"
+msgstr ""
+
+#: ../../Changelog-1.9.19.rst:68
+msgid ""
+"You can tell the Emperor to pass specific options to every vassal using "
+"the --set facility:"
+msgstr ""
+
+#: ../../Changelog-1.9.19.rst:77
+msgid ""
+"this will add ``--set processes=8`` and ``--set enable-metrics=1`` to "
+"each vassal"
+msgstr ""
+
+#: ../../Changelog-1.9.19.rst:81
+msgid "The 'template' transformation"
+msgstr ""
+
+#: ../../Changelog-1.9.19.rst:83
+msgid ""
+"This is a transformation allowing you to apply all of the internal "
+"routing patterns to your responses."
+msgstr ""
+
+#: ../../Changelog-1.9.19.rst:85
+msgid "Take the following file (foo.html)"
+msgstr ""
+
+#: ../../Changelog-1.9.19.rst:101
+msgid "we will apply the 'template' transformation to it:"
+msgstr ""
+
+#: ../../Changelog-1.9.19.rst:114
+msgid ""
+"everything available in the internal routing subsystem can be used into "
+"the template transformation."
+msgstr ""
+
+#: ../../Changelog-1.9.19.rst:116
+msgid ""
+"Performance are stellar, so instead of old Server Side Includes, you may "
+"want to try it."
+msgstr ""
+
+#: ../../Changelog-1.9.19.rst:118
+msgid "Not enough ? combine it with caching:"
+msgstr ""
+
+#: ../../Changelog-1.9.19.rst:134
+msgid "Again ?"
+msgstr ""
+
+#: ../../Changelog-1.9.19.rst:136
+msgid "what about chunked encoding ?"
+msgstr ""
+
+#: ../../Changelog-1.9.19.rst:154
+msgid "or gzip ?"
+msgstr ""
+
+#: ../../Changelog-1.9.19.rst:173
+msgid "Availability"
+msgstr ""
+
+#: ../../Changelog-1.9.19.rst:175
+msgid "uWSGI 1.9.19 has been released on 20131109, you can download it from:"
+msgstr ""
+
+#: ../../Changelog-1.9.19.rst:177
+msgid "https://projects.unbit.it/downloads/uwsgi-1.9.19.tar.gz"
+msgstr ""
+

@@ -1,0 +1,220 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Changelog-2.0.8.rst:2
+msgid "uWSGI 2.0.8"
+msgstr ""
+
+#: ../../Changelog-2.0.8.rst:4
+msgid ""
+"Note: this is the first version with disabled-by-default SSL3, if you "
+"need it, you can re-enable with ``--ssl-enable3`` option"
+msgstr ""
+
+#: ../../Changelog-2.0.8.rst:7
+msgid "Bugfixes"
+msgstr ""
+
+#: ../../Changelog-2.0.8.rst:9
+msgid "fixed PHP `SCRIPT_NAME` usage when ``--php-app`` is in place"
+msgstr ""
+
+#: ../../Changelog-2.0.8.rst:10
+msgid "allow \"appendn\" hook without second argument"
+msgstr ""
+
+#: ../../Changelog-2.0.8.rst:11
+msgid "fix heap corruption in the Carbon plugin (credits: Nigel Heron)"
+msgstr ""
+
+#: ../../Changelog-2.0.8.rst:12
+msgid "fix `getifaddrs()` memory management"
+msgstr ""
+
+#: ../../Changelog-2.0.8.rst:13
+msgid "fixed `tcsetattr()` usage"
+msgstr ""
+
+#: ../../Changelog-2.0.8.rst:14
+msgid "fixed kevent usage of return value (credits: Adriano Di Luzio)"
+msgstr ""
+
+#: ../../Changelog-2.0.8.rst:15
+msgid "ensure PSGI response headers are in the right format"
+msgstr ""
+
+#: ../../Changelog-2.0.8.rst:16
+msgid "fixed reloading of attached daemons"
+msgstr ""
+
+#: ../../Changelog-2.0.8.rst:17
+msgid "fixed SSL/TLS shutdown"
+msgstr ""
+
+#: ../../Changelog-2.0.8.rst:18
+msgid ""
+"fixed mountpoint logic for paths not ending with / (credits: Adriano Di "
+"Luzio)"
+msgstr ""
+
+#: ../../Changelog-2.0.8.rst:19
+msgid "fixed Python3 support in spooler decorators (credits: Adriano Di Luzio)"
+msgstr ""
+
+#: ../../Changelog-2.0.8.rst:22
+msgid "New Features"
+msgstr ""
+
+#: ../../Changelog-2.0.8.rst:25
+msgid "RTSP and chunked input backports from 2.1 for the HTTP router"
+msgstr ""
+
+#: ../../Changelog-2.0.8.rst:27
+msgid ""
+"The ``--http-manage-rtsp`` and ``--http-chunked-input` have been "
+"backported from 2.1 allowing the HTTP router to detect RTSP and chunked "
+"requests automatically. This is useful for the upcoming "
+"https://github.com/unbit/uwsgi-realtime plugin."
+msgstr ""
+
+#: ../../Changelog-2.0.8.rst:31
+msgid "--hook-post-fork"
+msgstr ""
+
+#: ../../Changelog-2.0.8.rst:33
+msgid "This custom hook allows you to call actions after each `fork()`."
+msgstr ""
+
+#: ../../Changelog-2.0.8.rst:36
+msgid "fallback to trollius for asyncio plugin"
+msgstr ""
+
+#: ../../Changelog-2.0.8.rst:38
+msgid ""
+"If you build the asyncio plugin for python2, a fallback to the `trollius "
+"<https://trollius.readthedocs.io/>`_ module will be tried."
+msgstr ""
+
+#: ../../Changelog-2.0.8.rst:40
+msgid ""
+"This feature has gotten basically zero test coverage, so every report "
+"(bug or success alike) is welcome."
+msgstr ""
+
+#: ../../Changelog-2.0.8.rst:43
+msgid "added sweep_on_full, clear_on_full and no_expire to ``--cache2``"
+msgstr ""
+
+#: ../../Changelog-2.0.8.rst:45
+msgid ""
+"Three new options for ``--cache2`` have been added for improving the "
+"caching expire strategies:"
+msgstr ""
+
+#: ../../Changelog-2.0.8.rst:47
+msgid ""
+"``sweep_on_full`` will call a sweep (delete all of the expired items) as "
+"soon as the cache became full"
+msgstr ""
+
+#: ../../Changelog-2.0.8.rst:48
+msgid "``clear_on_full`` will completely clear the cache as soon as it is full"
+msgstr ""
+
+#: ../../Changelog-2.0.8.rst:49
+msgid ""
+"``no_expire`` forces the cache to not generate a cache sweeper thread, "
+"delegating items removal to the two previous options"
+msgstr ""
+
+#: ../../Changelog-2.0.8.rst:52
+msgid "backported wait-for-fs/mountpoints from 2.1"
+msgstr ""
+
+#: ../../Changelog-2.0.8.rst:54
+msgid ""
+"``--wait-for-fs <path>`` suspend the uWSGI startup until a file/directory"
+" is available"
+msgstr ""
+
+#: ../../Changelog-2.0.8.rst:55
+msgid ""
+"``--wait-for-file <path>`` suspend the uWSGI startup until a file is "
+"available"
+msgstr ""
+
+#: ../../Changelog-2.0.8.rst:56
+msgid ""
+"``--wait-for-dir <path>`` suspend the uWSGI startup until a directory is "
+"available"
+msgstr ""
+
+#: ../../Changelog-2.0.8.rst:57
+msgid ""
+"``--wait-for-mountpoint <path>`` suspend the uWSGI startup until a "
+"mountpoint is available"
+msgstr ""
+
+#: ../../Changelog-2.0.8.rst:60
+msgid "improved the offload api (backport from 2.1)"
+msgstr ""
+
+#: ../../Changelog-2.0.8.rst:62
+msgid ""
+"uWSGI 2.0.8 is compatible with the upcoming https://github.com/unbit"
+"/uwsgi-realtime plugin that allows the use of realtime features (like "
+"websockets or audio/video streaming) using the uWSGI offload engine + "
+"Redis publish/subscribe."
+msgstr ""
+
+#: ../../Changelog-2.0.8.rst:66
+msgid "Allows building plugins from remote sources as embedded"
+msgstr ""
+
+#: ../../Changelog-2.0.8.rst:68
+msgid ""
+"The UWSGI_EMBED_PLUGINS environment variable has been extended to support"
+" remote plugins. As an example you can build a monolithic uwsgi binary "
+"with the Avahi and realtime plugins as:"
+msgstr ""
+
+#: ../../Changelog-2.0.8.rst:76
+msgid "Automatically manage HTTP_X_FORWARDED_PROTO"
+msgstr ""
+
+#: ../../Changelog-2.0.8.rst:78
+msgid ""
+"Albeit a new standard is avavailble in the HTTP world for forwarded "
+"sessions (http://tools.ietf.org/html/rfc7239) this release adds support "
+"for the X-Forwarded-Proto header, automatically setting the request "
+"scheme accordingly."
+msgstr ""
+
+#: ../../Changelog-2.0.8.rst:82
+msgid "Availability"
+msgstr ""
+
+#: ../../Changelog-2.0.8.rst:84
+msgid "uWSGI 2.0.8 has been released on 20141026. Download it from:"
+msgstr ""
+
+#: ../../Changelog-2.0.8.rst:86
+msgid "https://projects.unbit.it/downloads/uwsgi-2.0.8.tar.gz"
+msgstr ""
+

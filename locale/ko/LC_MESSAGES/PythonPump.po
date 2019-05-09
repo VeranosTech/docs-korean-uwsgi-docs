@@ -1,0 +1,46 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../PythonPump.rst:2
+msgid "Pump support"
+msgstr ""
+
+#: ../../PythonPump.rst:4
+msgid "Pump is not a PEP nor a standard."
+msgstr ""
+
+#: ../../PythonPump.rst:6
+msgid "Pump_ is a new project aiming at a \"better\" WSGI."
+msgstr ""
+
+#: ../../PythonPump.rst:8
+msgid "An example Pump app, for your convenience:"
+msgstr ""
+
+#: ../../PythonPump.rst:19
+msgid "To load a Pump app simply use the ``pump`` option to declare the callable."
+msgstr ""
+
+#: ../../PythonPump.rst:25
+msgid ""
+"``myapp`` is the name of the module (that must be importable!) and app is"
+" the callable. The callable part is optional -- by default uWSGI will "
+"search for a callable named 'application'."
+msgstr ""
+

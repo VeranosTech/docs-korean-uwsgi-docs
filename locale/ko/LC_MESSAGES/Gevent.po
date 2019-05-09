@@ -1,0 +1,149 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Gevent.rst:2
+msgid "The Gevent loop engine"
+msgstr ""
+
+#: ../../Gevent.rst:4
+msgid ""
+"`Gevent`_ is an amazing non-blocking Python network library built on top "
+"of ``libev`` and ``greenlet``.  Even though uWSGI supports Greenlet as "
+"suspend-resume/greenthread/coroutine library, it requires a lot of effort"
+" and code modifications to work with gevent.  The gevent plugin requires "
+"gevent 1.0.0 and :doc:`Async` mode."
+msgstr ""
+
+#: ../../Gevent.rst:13
+msgid "Notes"
+msgstr ""
+
+#: ../../Gevent.rst:15
+msgid ""
+"The :doc:`SignalFramework` is fully working with Gevent mode. Each "
+"handler will be executed in a dedicated greenlet. Look at "
+":file:`tests/ugevent.py` for an example."
+msgstr ""
+
+#: ../../Gevent.rst:18
+msgid ""
+"uWSGI multithread mode (``threads`` option) will not work with Gevent. "
+"Running Python threads in your apps is supported."
+msgstr ""
+
+#: ../../Gevent.rst:20
+msgid "Mixing uWSGI's Async API with gevent's is **EXPLICITLY FORBIDDEN**."
+msgstr ""
+
+#: ../../Gevent.rst:23
+msgid "Building the plugin (uWSGI >= 1.4)"
+msgstr ""
+
+#: ../../Gevent.rst:25
+msgid ""
+"The gevent plugin is compiled in by default when the default profile is "
+"used. Doing the following will install the python plugin as well as the "
+"gevent one:"
+msgstr ""
+
+#: ../../Gevent.rst:34
+msgid "Building the plugin (uWSGI < 1.4)"
+msgstr ""
+
+#: ../../Gevent.rst:36
+msgid "A 'gevent' build profile can be found in the :file:`buildconf` directory."
+msgstr ""
+
+#: ../../Gevent.rst:49
+msgid "Running uWSGI in gevent mode"
+msgstr ""
+
+#: ../../Gevent.rst:55
+msgid "or for a modular build:"
+msgstr ""
+
+#: ../../Gevent.rst:61
+msgid "the argument of --gevent is the number of async cores to spawn"
+msgstr ""
+
+#: ../../Gevent.rst:65
+msgid "A crazy example"
+msgstr ""
+
+#: ../../Gevent.rst:67
+msgid ""
+"The following example shows how to sleep in a request, how to make "
+"asynchronous network requests and how to continue doing logic after a "
+"request has been closed."
+msgstr ""
+
+#: ../../Gevent.rst:104
+msgid "Monkey patching"
+msgstr ""
+
+#: ../../Gevent.rst:106
+msgid ""
+"uWSGI uses native gevent api, so it does not need monkey patching. That "
+"said, your code may need it, so remember to call "
+"``gevent.monkey.patch_all()`` at the start of your app. As of uWSGI 1.9, "
+"the convenience option ``--gevent-monkey-patch`` will do that for you. "
+"Please note that uWSGI does monkey patching before your application "
+"**starts**, not before your application **loads**. So if you are loading "
+"other modules while loading your application you may still need to call "
+"``gevent.monkey.patch_all()`` yourself."
+msgstr ""
+
+#: ../../Gevent.rst:115
+msgid ""
+"A common example is using ``psycopg2_gevent`` with django. Django will "
+"make a connection to postgres for each thread (storing it in thread "
+"locals)."
+msgstr ""
+
+#: ../../Gevent.rst:118
+msgid ""
+"As the uWSGI gevent plugin runs on a single thread this approach will "
+"lead to a deadlock in psycopg. Enabling monkey patch will allow you to "
+"map thread locals to greenlets (though you could avoid full monkey "
+"patching and only call ``gevent.monkey.patch_thread()``) and solves the "
+"issue:"
+msgstr ""
+
+#: ../../Gevent.rst:130
+msgid "or (to monkey patch everything)"
+msgstr ""
+
+#: ../../Gevent.rst:140
+msgid "Notes on clients and frontends"
+msgstr ""
+
+#: ../../Gevent.rst:142
+msgid ""
+"If you're testing a WSGI application that generates a stream of data, you"
+" should know that ``curl`` by default buffers data until a newline. So "
+"make sure you either disable curl's buffering with the ``-N`` flag or "
+"have regular newlines in your output."
+msgstr ""
+
+#: ../../Gevent.rst:146
+msgid ""
+"If you are using Nginx in front of uWSGI and wish to stream data from "
+"your app, you'll probably want to disable Nginx's buffering."
+msgstr ""
+

@@ -1,0 +1,190 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Symcall.rst:2
+msgid "The Symcall plugin"
+msgstr ""
+
+#: ../../Symcall.rst:4
+msgid ""
+"The symcall plugin (modifier 18) is a convenience plugin allowing you to "
+"write native uWSGI request handlers without the need of developing a full"
+" uWSGI plugin."
+msgstr ""
+
+#: ../../Symcall.rst:6
+msgid ""
+"You tell it which symbol to load on startup and then it will run it at "
+"every request."
+msgstr ""
+
+#: ../../Symcall.rst:10
+msgid "The \"symcall\" plugin is built-in by default in standard build profiles."
+msgstr ""
+
+#: ../../Symcall.rst:13
+msgid "Step 1: preparing the environment"
+msgstr ""
+
+#: ../../Symcall.rst:15
+msgid ""
+"The uWSGI binary by itself allows you to develop plugins and libraries "
+"without the need of external development packages or headers."
+msgstr ""
+
+#: ../../Symcall.rst:17
+msgid "The first step is getting the ``uwsgi.h`` C/C++ header:"
+msgstr ""
+
+#: ../../Symcall.rst:23
+msgid ""
+"Now, in the current directory, we have a fresh uwsgi.h ready to be "
+"included."
+msgstr ""
+
+#: ../../Symcall.rst:26
+msgid "Step 2: our first request handler:"
+msgstr ""
+
+#: ../../Symcall.rst:28
+msgid ""
+"Our C handler will print the REMOTE_ADDR value with a couple of HTTP "
+"headers."
+msgstr ""
+
+#: ../../Symcall.rst:30
+msgid "(call it mysym.c or whatever you want/need)"
+msgstr ""
+
+#: ../../Symcall.rst:61
+msgid "Step 3: building our code as a shared library"
+msgstr ""
+
+#: ../../Symcall.rst:63
+msgid ""
+"The uwsgi.h file is an ifdef hell (so it's probably better not to look at"
+" it too closely)."
+msgstr ""
+
+#: ../../Symcall.rst:65
+msgid ""
+"Fortunately the uwsgi binary exposes all of the required CFLAGS via the "
+"--cflags option."
+msgstr ""
+
+#: ../../Symcall.rst:67
+msgid "We can build our library in one shot:"
+msgstr ""
+
+#: ../../Symcall.rst:73
+msgid "you now have the mysym.so library ready to be loaded in uWSGI"
+msgstr ""
+
+#: ../../Symcall.rst:76
+msgid "Final step: map the symcall plugin to the ``mysym_function`` symbol"
+msgstr ""
+
+#: ../../Symcall.rst:82
+msgid ""
+"With ``--dlopen`` we load a shared library in the uWSGI process address "
+"space."
+msgstr ""
+
+#: ../../Symcall.rst:84
+msgid ""
+"The ``--symcall`` option allows us to specify which symbol to call when "
+"modifier1 18 is in place"
+msgstr ""
+
+#: ../../Symcall.rst:86
+msgid "We bind the instance to HTTP socket 9090 forcing modifier1 18."
+msgstr ""
+
+#: ../../Symcall.rst:90
+msgid "Hooks and symcall unleashed: a TCL handler"
+msgstr ""
+
+#: ../../Symcall.rst:92
+msgid ""
+"We want to write a request handler running the following TCL script "
+"(foo.tcl) every time:"
+msgstr ""
+
+#: ../../Symcall.rst:103
+msgid ""
+"We will define a function for initializing the TCL interpreter and "
+"parsing the script. This function will be called on startup soon after "
+"privileges drop."
+msgstr ""
+
+#: ../../Symcall.rst:105
+msgid ""
+"Finally we define the request handler invoking the TCL proc and passign "
+"args to it"
+msgstr ""
+
+#: ../../Symcall.rst:177
+msgid "You can build it with:"
+msgstr ""
+
+#: ../../Symcall.rst:183
+msgid ""
+"The only differences from the previous example are the -I and -l for "
+"adding the TCL headers and library."
+msgstr ""
+
+#: ../../Symcall.rst:185
+msgid "So, let's run it with:"
+msgstr ""
+
+#: ../../Symcall.rst:191
+msgid ""
+"Here the only new player is ``--hook-as-user call:ourtcl_init`` invoking "
+"the specified function after privileges drop."
+msgstr ""
+
+#: ../../Symcall.rst:196
+msgid ""
+"This code is not thread safe! If you want to improve this tcl library to "
+"support multithreading, best approach will be having a TCL interpreter "
+"for each pthread instead of a global one."
+msgstr ""
+
+#: ../../Symcall.rst:200
+msgid "Considerations"
+msgstr ""
+
+#: ../../Symcall.rst:202
+msgid ""
+"Since uWSGI 1.9.21, thanks to the ``--build-plugin`` option, developing "
+"uWSGI plugins has become really easy."
+msgstr ""
+
+#: ../../Symcall.rst:204
+msgid ""
+"The symcall plugin is for tiny libraries/pieces of code, for bigger needs"
+" consider developing a full plugin."
+msgstr ""
+
+#: ../../Symcall.rst:206
+msgid ""
+"The tcl example we have seen before is maybe the right example of "
+"\"wrong\" usage ;)"
+msgstr ""
+

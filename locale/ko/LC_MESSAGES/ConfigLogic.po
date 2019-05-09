@@ -1,0 +1,196 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../ConfigLogic.rst:2
+msgid "Configuration logic"
+msgstr ""
+
+#: ../../ConfigLogic.rst:4
+msgid "Starting from 1.1 certain logic constructs are available."
+msgstr ""
+
+#: ../../ConfigLogic.rst:6
+msgid "The following statements are currently supported:"
+msgstr ""
+
+#: ../../ConfigLogic.rst:8
+msgid "``for`` .. ``endfor``"
+msgstr ""
+
+#: ../../ConfigLogic.rst:9
+msgid "``if-dir`` / ``if-not-dir``"
+msgstr ""
+
+#: ../../ConfigLogic.rst:10
+msgid "``if-env`` / ``if-not-env``"
+msgstr ""
+
+#: ../../ConfigLogic.rst:11
+msgid "``if-exists`` / ``if-not-exists``"
+msgstr ""
+
+#: ../../ConfigLogic.rst:12
+msgid "``if-file`` / ``if-not-file``"
+msgstr ""
+
+#: ../../ConfigLogic.rst:13
+msgid "``if-opt`` / ``if-not-opt``"
+msgstr ""
+
+#: ../../ConfigLogic.rst:14
+msgid "``if-reload`` / ``if-not-reload`` -- undocumented"
+msgstr ""
+
+#: ../../ConfigLogic.rst:16
+msgid ""
+"Each of these statements exports a context value you can access with the "
+"special placeholder ``%(_)``. For example, the \"for\" statement sets "
+"``%(_)`` to the current iterated value."
+msgstr ""
+
+#: ../../ConfigLogic.rst:20
+msgid "Recursive logic is not supported and will cause uWSGI to promptly exit."
+msgstr ""
+
+#: ../../ConfigLogic.rst:23
+msgid "for"
+msgstr ""
+
+#: ../../ConfigLogic.rst:25
+msgid ""
+"For iterates over space-separated strings. The following three code "
+"blocks are equivalent."
+msgstr ""
+
+#: ../../ConfigLogic.rst:53
+msgid ""
+"Note that the for-loop is applied to each line inside the block "
+"separately, not to the block as a whole. For example, this:"
+msgstr ""
+
+#: ../../ConfigLogic.rst:64
+msgid "is expanded to:"
+msgstr ""
+
+#: ../../ConfigLogic.rst:77
+msgid "if-env"
+msgstr ""
+
+#: ../../ConfigLogic.rst:79
+msgid ""
+"Check if an environment variable is defined, putting its value in the "
+"context placeholder."
+msgstr ""
+
+#: ../../ConfigLogic.rst:92
+msgid "if-exists"
+msgstr ""
+
+#: ../../ConfigLogic.rst:94
+msgid ""
+"Check for the existence of a file or directory. The context placeholder "
+"is set to the filename found."
+msgstr ""
+
+#: ../../ConfigLogic.rst:106
+msgid "The above example uses :doc:`InternalRouting`."
+msgstr ""
+
+#: ../../ConfigLogic.rst:109
+msgid "if-file"
+msgstr ""
+
+#: ../../ConfigLogic.rst:111
+msgid ""
+"Check if the given path exists and is a regular file. The context "
+"placeholder is set to the filename found."
+msgstr ""
+
+#: ../../ConfigLogic.rst:125
+msgid "if-dir"
+msgstr ""
+
+#: ../../ConfigLogic.rst:127
+msgid ""
+"Check if the given path exists and is a directory. The context "
+"placeholder is set to the filename found."
+msgstr ""
+
+#: ../../ConfigLogic.rst:140
+msgid "if-opt"
+msgstr ""
+
+#: ../../ConfigLogic.rst:141
+msgid ""
+"Check if the given option is set, or has a given value. The context "
+"placeholder is set to the value of the option reference."
+msgstr ""
+
+#: ../../ConfigLogic.rst:144
+msgid "To check if an option was set, pass just the option name to ``if-opt``."
+msgstr ""
+
+#: ../../ConfigLogic.rst:154
+msgid ""
+"To check if an option was set to a specific value, pass ``option-"
+"name=value`` to ``if-opt``."
+msgstr ""
+
+#: ../../ConfigLogic.rst:166
+msgid ""
+"Due to the way uWSGI parses its configs, you can only refer to options "
+"that uWSGI has previously seen. In particular, this means:"
+msgstr ""
+
+#: ../../ConfigLogic.rst:169
+msgid ""
+"Only options that are set above the ``if-opt`` option are taken into "
+"account. This includes any options set by previous ``include`` (or type "
+"specific includes like ``ini``) options, but does not include options set"
+" by previous ``inherit`` options)."
+msgstr ""
+
+#: ../../ConfigLogic.rst:173
+msgid ""
+"``if-opt`` is processed after expanding magic variables, but before "
+"expanding placeholders and other variables. So if you use ``if-opt`` to "
+"compare the value of an option, check against the value as stated in the "
+"config file, with only the magic variables filled in."
+msgstr ""
+
+#: ../../ConfigLogic.rst:178
+msgid ""
+"If you use the context placeholder ``%(_)`` inside the ``if-opt`` block, "
+"you should be ok: any placeholders will later be expanded."
+msgstr ""
+
+#: ../../ConfigLogic.rst:180
+msgid ""
+"If an option is specified multiple times, only the value of the first one"
+" will be seen by ``if-opt``."
+msgstr ""
+
+#: ../../ConfigLogic.rst:182
+msgid "Only explicitly set values will be seen, not implicit defaults."
+msgstr ""
+
+#: ../../ConfigLogic.rst:184
+msgid ":doc:`ParsingOrder`"
+msgstr ""
+

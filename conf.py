@@ -16,3 +16,5 @@ latex_elements = {}
 latex_documents = [('index', 'uWSGI.tex', u'uWSGI Documentation', u'uWSGI', 'manual'),]
 man_pages = [('index', 'uwsgi', u'uWSGI Documentation', [u'uWSGI'], 1)]
 texinfo_documents = [('index', 'uWSGI', u'uWSGI Documentation', u'uWSGI', 'uWSGI', 'The uWSGI application server.', 'Miscellaneous'),]
+locale_dirs = ['locale/']
+gettext_compact = False

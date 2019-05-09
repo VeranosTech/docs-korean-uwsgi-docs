@@ -1,0 +1,298 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Erlang.rst:2
+msgid "Integrating uWSGI with Erlang"
+msgstr ""
+
+#: ../../Erlang.rst:4
+msgid "Erlang support is broken as of 1.9.20. A new solution is being worked on."
+msgstr ""
+
+#: ../../Erlang.rst:6
+msgid ""
+"The uWSGI server can act as an Erlang C-Node and exchange messages and "
+"RPC with Erlang nodes."
+msgstr ""
+
+#: ../../Erlang.rst:9
+msgid "Building"
+msgstr ""
+
+#: ../../Erlang.rst:11
+msgid ""
+"First of all you need the ``ei`` libraries and headers. They are included"
+" in the official erlang tarball. If you are on Debian/Ubuntu, install the"
+" ``erlang-dev`` package.  Erlang support can be embedded or built as a "
+"plugin. For embedding, add the ``erlang`` and ``pyerl`` plugins to your "
+"buildconf."
+msgstr ""
+
+#: ../../Erlang.rst:20
+msgid "or build both as plugins"
+msgstr ""
+
+#: ../../Erlang.rst:27
+msgid ""
+"The Erlang plugin will allow uWSGI to became a Erlang C-Node. The "
+"``pyerl`` plugin will add Erlang functions to the Python plugin."
+msgstr ""
+
+#: ../../Erlang.rst:31
+msgid "Activating Erlang support"
+msgstr ""
+
+#: ../../Erlang.rst:33
+msgid ""
+"You only need to set two options to enable Erlang support in your Erlang-"
+"enabled uWSGI build.  The ``erlang`` option sets the Erlang node name of "
+"your uWSGI server. It may be specified in simple or extended format:"
+msgstr ""
+
+#: ../../Erlang.rst:37
+msgid "``nodename@ip``"
+msgstr ""
+
+#: ../../Erlang.rst:38
+msgid "``nodename@address``"
+msgstr ""
+
+#: ../../Erlang.rst:39
+msgid "``nodename``"
+msgstr ""
+
+#: ../../Erlang.rst:41
+msgid ""
+"The ``erlang-cookie`` option sets the cookie for inter-node "
+"communications. If you do not specify it, the value is taken from the "
+":file:`~/.erlang.cookie` file."
+msgstr ""
+
+#: ../../Erlang.rst:45
+msgid "To run uWSGI with Erlang enabled:"
+msgstr ""
+
+#: ../../Erlang.rst:52
+msgid "A simple RPC hello world example"
+msgstr ""
+
+#: ../../Erlang.rst:54
+msgid "Define a new erlang module that exports only a simple function."
+msgstr ""
+
+#: ../../Erlang.rst:64
+msgid ""
+"Launch the ``erl`` shell specifying the nodename and (eventually) the "
+"cookie:"
+msgstr ""
+
+#: ../../Erlang.rst:70
+msgid "Compile the uwsgitest Erlang module"
+msgstr ""
+
+#: ../../Erlang.rst:77
+msgid "... and try to run the ``hello`` function:"
+msgstr ""
+
+#: ../../Erlang.rst:84
+msgid ""
+"Great - now that our Erlang module is working, we are ready for RPC!  "
+"Return to your uWSGI server machine and define a new WSGI module -- let's"
+" call it :file:`erhello.py`."
+msgstr ""
+
+#: ../../Erlang.rst:98
+msgid "or the fast-style"
+msgstr ""
+
+#: ../../Erlang.rst:108
+msgid "Now relaunch the uWSGI server with this new module:"
+msgstr ""
+
+#: ../../Erlang.rst:114
+msgid ""
+"Point your browser to your uWSGI enabled webserver and you should see the"
+" output of your erlang RPC call."
+msgstr ""
+
+#: ../../Erlang.rst:117
+msgid "Python-Erlang mappings"
+msgstr ""
+
+#: ../../Erlang.rst:119
+msgid ""
+"The uWSGI server tries to translate Erlang types to Python objects "
+"according to the table below."
+msgstr ""
+
+#: ../../Erlang.rst:122
+msgid "Python"
+msgstr ""
+
+#: ../../Erlang.rst:122
+msgid "Erlang"
+msgstr ""
+
+#: ../../Erlang.rst:122
+msgid "note"
+msgstr ""
+
+#: ../../Erlang.rst:124
+msgid "str"
+msgstr ""
+
+#: ../../Erlang.rst:124
+msgid "binary"
+msgstr ""
+
+#: ../../Erlang.rst:125
+msgid "unicode"
+msgstr ""
+
+#: ../../Erlang.rst:125
+msgid "atom"
+msgstr ""
+
+#: ../../Erlang.rst:125
+msgid "limited by internal atom size"
+msgstr ""
+
+#: ../../Erlang.rst:126
+msgid "int/long"
+msgstr ""
+
+#: ../../Erlang.rst:126
+msgid "int"
+msgstr ""
+
+#: ../../Erlang.rst:127
+msgid "list"
+msgstr ""
+
+#: ../../Erlang.rst:128
+msgid "tuple"
+msgstr ""
+
+#: ../../Erlang.rst:129
+msgid "3-tuple"
+msgstr ""
+
+#: ../../Erlang.rst:129
+msgid "pid"
+msgstr ""
+
+#: ../../Erlang.rst:133
+msgid "Sending messages to Erlang nodes"
+msgstr ""
+
+#: ../../Erlang.rst:135
+msgid ""
+"One of the most powerful features of Erlang is the inter-node message "
+"passing system.  uWSGI can communicate with Erlang nodes as well.  Lets "
+"define a new Erlang module that simply will echo back whatever we send to"
+" it."
+msgstr ""
+
+#: ../../Erlang.rst:158
+msgid ""
+"Remember to register your process with the Erlang ``register`` function. "
+"Using pids to identify processes is problematic.  Now you can send "
+"messages with :py:meth:`uwsgi.erlang_send_message`."
+msgstr ""
+
+#: ../../Erlang.rst:166
+msgid ""
+"The second argument is the registered process name. If you do not specify"
+" the name, pass a 3-tuple of Python elements to be interpreted as a Pid. "
+"If your Erlang server returns messages to your requests you can receive "
+"them with :py:meth:`uwsgi.erlang_recv_message`. Remember that even if "
+"Erlang needs a process name/pid to send messages, they will be blissfully"
+" ignored by uWSGI."
+msgstr ""
+
+#: ../../Erlang.rst:174
+msgid "Receiving erlang messages"
+msgstr ""
+
+#: ../../Erlang.rst:176
+msgid ""
+"Sometimes you want to directly send messages from an Erlang node to the "
+"uWSGI server. To receive Erlang messages you have to register \"Erlang "
+"processes\" in your Python code."
+msgstr ""
+
+#: ../../Erlang.rst:189
+msgid ""
+"Now from Erlang you can send messages to the \"myprocess\" process you "
+"registered:"
+msgstr ""
+
+#: ../../Erlang.rst:197
+msgid "RPC"
+msgstr ""
+
+#: ../../Erlang.rst:199
+msgid "You can call uWSGI :doc:`RPC` functions directly from Erlang."
+msgstr ""
+
+#: ../../Erlang.rst:205
+msgid ""
+"this will call the \"myfunction\" uWSGI RPC function on a uWSGI server "
+"configured as an Erlang node."
+msgstr ""
+
+#: ../../Erlang.rst:209
+msgid "Connection persistence"
+msgstr ""
+
+#: ../../Erlang.rst:211
+msgid ""
+"On high-loaded sites opening and closing connections for every Erlang "
+"interaction is overkill. Open a connection on your app initialization "
+"with :meth:`uwsgi.erlang_connect` and hold on to the file descriptor."
+msgstr ""
+
+#: ../../Erlang.rst:216
+msgid "What about Mnesia?"
+msgstr ""
+
+#: ../../Erlang.rst:218
+msgid ""
+"We suggest you to use Mnesia_ when you need a high-availability site. "
+"Build an Erlang module to expose all the database interaction you need "
+"and use :py:meth:`uwsgi.erlang_rpc` to interact with it."
+msgstr ""
+
+#: ../../Erlang.rst:226
+msgid "Can I run EWGI_ applications on top of uWSGI?"
+msgstr ""
+
+#: ../../Erlang.rst:228
+msgid ""
+"For now, no. The best way to do this would be to develop a plugin and "
+"assign a special modifier for EWGI apps."
+msgstr ""
+
+#: ../../Erlang.rst:231
+msgid ""
+"But before that happens, you can wrap the incoming request into EWGI form"
+" in Python code and use :py:meth:`uwsgi.erlang_rpc` to call your Erlang "
+"app."
+msgstr ""
+

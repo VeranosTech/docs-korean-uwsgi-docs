@@ -1,0 +1,87 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Changelog-2.0.17.1.rst:2
+msgid "uWSGI 2.0.17.1"
+msgstr ""
+
+#: ../../Changelog-2.0.17.1.rst:4
+msgid "[20180708]"
+msgstr ""
+
+#: ../../Changelog-2.0.17.1.rst:6
+msgid "Maintenance release"
+msgstr ""
+
+#: ../../Changelog-2.0.17.1.rst:10
+msgid "Changes"
+msgstr ""
+
+#: ../../Changelog-2.0.17.1.rst:12
+msgid "Fixed memory leak in HTTPS_CLIENT_CERTIFICATE"
+msgstr ""
+
+#: ../../Changelog-2.0.17.1.rst:13
+msgid ""
+"TLSv1 is now disabled by default (you can re-enable it with ssl-enable-"
+"tlsv1 at your own risk)"
+msgstr ""
+
+#: ../../Changelog-2.0.17.1.rst:14
+msgid "Improved daemons throttle system"
+msgstr ""
+
+#: ../../Changelog-2.0.17.1.rst:15
+msgid "Add \"secs\" log formatting variable (André Cruz)"
+msgstr ""
+
+#: ../../Changelog-2.0.17.1.rst:16
+msgid "Improved snprintf() usage to be OpenBSD-friendly (Henrik, http://50hz.ws/)"
+msgstr ""
+
+#: ../../Changelog-2.0.17.1.rst:17
+msgid "Improved glibc crypt/crypt_r management (Jakub Jelen, afazekas)"
+msgstr ""
+
+#: ../../Changelog-2.0.17.1.rst:18
+msgid "Fixed websocket pong timeout check (adrianbg)"
+msgstr ""
+
+#: ../../Changelog-2.0.17.1.rst:19
+msgid "Add the \"License\" classifier to setup.py (Jon Dufresne)"
+msgstr ""
+
+#: ../../Changelog-2.0.17.1.rst:20
+msgid "Add support for php user.ini (Jacco Koning)"
+msgstr ""
+
+#: ../../Changelog-2.0.17.1.rst:21
+msgid "Official support for Python 3.7 (luchr)"
+msgstr ""
+
+#: ../../Changelog-2.0.17.1.rst:24
+msgid "Availability"
+msgstr ""
+
+#: ../../Changelog-2.0.17.1.rst:26
+msgid ""
+"You can download uWSGI 2.0.17.1 from "
+"https://projects.unbit.it/downloads/uwsgi-2.0.17.1.tar.gz"
+msgstr ""
+

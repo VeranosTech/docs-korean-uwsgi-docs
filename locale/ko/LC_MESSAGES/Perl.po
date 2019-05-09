@@ -1,0 +1,198 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Perl.rst:2
+msgid "uWSGI Perl support (PSGI)"
+msgstr ""
+
+#: ../../Perl.rst:4
+msgid ":term:`PSGI` is the equivalent of :term:`WSGI` in the Perl world."
+msgstr ""
+
+#: ../../Perl.rst:6
+msgid "http://plackperl.org/"
+msgstr ""
+
+#: ../../Perl.rst:7
+msgid "https://github.com/plack/psgi-specs/blob/master/PSGI.pod"
+msgstr ""
+
+#: ../../Perl.rst:9
+msgid ""
+"The PSGI plugin is officially supported and has an officially assigned "
+"uwsgi modifier, ``5``. So as usual, when you're in the business of "
+"dispatching requests to Perl apps, set the ``modifier1`` value to 5 in "
+"your web server configuration."
+msgstr ""
+
+#: ../../Perl.rst:12
+msgid "Compiling the PSGI plugin"
+msgstr ""
+
+#: ../../Perl.rst:14
+msgid ""
+"You can build a PSGI-only uWSGI server using the supplied "
+":file:`buildconf/psgi.ini` file. Make sure that the ``ExtUtils::Embed`` "
+"module and its prerequisites are installed before building the PSGI "
+"plugin."
+msgstr ""
+
+#: ../../Perl.rst:27
+msgid "or (as always) you can use the network installer:"
+msgstr ""
+
+#: ../../Perl.rst:33
+msgid "to have a single-file uwsgi binary with perl support in /tmp/uwsgi"
+msgstr ""
+
+#: ../../Perl.rst:36
+msgid "Usage"
+msgstr ""
+
+#: ../../Perl.rst:38
+msgid "There is only one option exported by the plugin: ``psgi <app>``"
+msgstr ""
+
+#: ../../Perl.rst:40
+msgid "You can simply load applications using"
+msgstr ""
+
+#: ../../Perl.rst:50
+msgid "Tested PSGI frameworks/applications"
+msgstr ""
+
+#: ../../Perl.rst:52
+msgid "The following frameworks/apps have been tested with uWSGI:"
+msgstr ""
+
+#: ../../Perl.rst:54
+msgid "MojoMojo_"
+msgstr ""
+
+#: ../../Perl.rst:55
+msgid "Mojolicious_"
+msgstr ""
+
+#: ../../Perl.rst:56
+msgid "Mojolicious+perlbrew+uWSGI+nginx_ install bundle"
+msgstr ""
+
+#: ../../Perl.rst:63
+msgid "Multi-app support"
+msgstr ""
+
+#: ../../Perl.rst:65
+msgid ""
+"You can load multiple almost-isolated apps in the same uWSGI process "
+"using the ``mount`` option or using the ``UWSGI_SCRIPT``/``UWSGI_FILE`` "
+"request variables."
+msgstr ""
+
+#: ../../Perl.rst:111
+msgid "The auto reloader (from uWSGI 1.9.18)"
+msgstr ""
+
+#: ../../Perl.rst:113
+msgid ""
+"The option --perl-auto-reload <n> allows you to instruct uWSGI to monitor"
+" every single module imported by the perl vm."
+msgstr ""
+
+#: ../../Perl.rst:115
+msgid ""
+"Whenever one of the module changes, the whole instance will be "
+"(gracefully) reloaded."
+msgstr ""
+
+#: ../../Perl.rst:117
+msgid ""
+"The monitor works by iterating over %INC after a request is served and "
+"the specified number of seconds (from the last run) is elapsed (this "
+"number of seconds is the value of the option)"
+msgstr ""
+
+#: ../../Perl.rst:119
+msgid ""
+"This could look sub-optimal (you wil get the new content starting from "
+"from the following request) but it is the more solid (and safe) approach "
+"for the way perl works."
+msgstr ""
+
+#: ../../Perl.rst:121
+msgid ""
+"If you want to skip specific files from the monitoring, just add them "
+"with --perl-auto-reload-ignore"
+msgstr ""
+
+#: ../../Perl.rst:123
+msgid ""
+"Remember that always modules in %INC are scanned, if you want to monitor "
+"your .psgi files, you need to specify them using the classic --touch-"
+"reload option"
+msgstr ""
+
+#: ../../Perl.rst:126
+msgid "Notes"
+msgstr ""
+
+#: ../../Perl.rst:128
+msgid "Async support should work out-of-the-box."
+msgstr ""
+
+#: ../../Perl.rst:129
+msgid ""
+"Threads are supported on ithreads-enabled perl builds. For each app, a "
+"new interpreter will be created for each thread. This shouldn't be too "
+"different from a simple multi-process fork()-based subsystem."
+msgstr ""
+
+#: ../../Perl.rst:130
+msgid "There are currently no known memory leaks."
+msgstr ""
+
+#: ../../Perl.rst:134
+msgid "Real world example, `HTML::Mason`"
+msgstr ""
+
+#: ../../Perl.rst:136
+msgid ""
+"Install the HTML::Mason PSGI handler from CPAN and create a directory for"
+" your site."
+msgstr ""
+
+#: ../../Perl.rst:143
+msgid "Create ``mason/index.html``:"
+msgstr ""
+
+#: ../../Perl.rst:156
+msgid "Create the PSGI file (``mason.psgi``):"
+msgstr ""
+
+#: ../../Perl.rst:171
+msgid "Pay attention to ``comp_root``, it must be an absolute path!"
+msgstr ""
+
+#: ../../Perl.rst:173
+msgid "Now run uWSGI:"
+msgstr ""
+
+#: ../../Perl.rst:179
+msgid "Then go to ``/index.html`` with your browser."
+msgstr ""
+

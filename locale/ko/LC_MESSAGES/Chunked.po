@@ -1,0 +1,157 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Chunked.rst:2
+msgid "The Chunked input API"
+msgstr ""
+
+#: ../../Chunked.rst:4
+msgid ""
+"An API for managing HTTP chunked input requests has been added in uWSGI "
+"1.9.13."
+msgstr ""
+
+#: ../../Chunked.rst:6
+msgid "The API is very low-level to allow easy integration with standard apps."
+msgstr ""
+
+#: ../../Chunked.rst:8
+msgid "There are only two functions exposed:"
+msgstr ""
+
+#: ../../Chunked.rst:10
+msgid "``chunked_read([timeout])``"
+msgstr ""
+
+#: ../../Chunked.rst:12
+msgid "``chunked_read_nb()``"
+msgstr ""
+
+#: ../../Chunked.rst:14
+msgid "This API is supported (from uWSGI 1.9.20) on CPython, PyPy and Perl."
+msgstr ""
+
+#: ../../Chunked.rst:17
+msgid "Reading chunks"
+msgstr ""
+
+#: ../../Chunked.rst:19
+msgid "To read a chunk (blocking) just run"
+msgstr ""
+
+#: ../../Chunked.rst:25
+msgid ""
+"If no timeout is specified, the default one will be used. If you do not "
+"get a chunk in time, the function will croak (or raise an exception when "
+"under Python)."
+msgstr ""
+
+#: ../../Chunked.rst:27
+msgid "Under non-blocking/async engines you may want to use"
+msgstr ""
+
+#: ../../Chunked.rst:33
+msgid ""
+"The function will soon return ``undef`` (or ``None`` on Python) if no "
+"chunks are available (and croak/raise an exception on error)."
+msgstr ""
+
+#: ../../Chunked.rst:35
+msgid "A full PSGI streaming echo example:"
+msgstr ""
+
+#: ../../Chunked.rst:60
+msgid "Tuning the chunks buffer"
+msgstr ""
+
+#: ../../Chunked.rst:62
+msgid ""
+"Before starting to read chunks, uWSGI allocates a fixed buffer for "
+"storing chunks."
+msgstr ""
+
+#: ../../Chunked.rst:64
+msgid ""
+"All of the messages are always stored in the same buffer. If a message "
+"bigger than the buffer is received, an exception will be raised."
+msgstr ""
+
+#: ../../Chunked.rst:66
+msgid ""
+"By default the buffer is limited to 1 MB. You can tune it with the "
+"``--chunked-input-limit`` option (bytes)."
+msgstr ""
+
+#: ../../Chunked.rst:70
+msgid "Integration with proxies"
+msgstr ""
+
+#: ../../Chunked.rst:72
+msgid ""
+"If you plan to put uWSGI behind a proxy/router be sure it supports "
+"chunked input requests (or generally raw HTTP requests)."
+msgstr ""
+
+#: ../../Chunked.rst:74
+msgid ""
+"When using the uWSGI HTTP router just add ``--http-raw-body`` to support "
+"chunked input."
+msgstr ""
+
+#: ../../Chunked.rst:76
+msgid "HAProxy works out of the box."
+msgstr ""
+
+#: ../../Chunked.rst:78
+msgid "Nginx >= 1.4 supports chunked input."
+msgstr ""
+
+#: ../../Chunked.rst:81
+msgid "Options"
+msgstr ""
+
+#: ../../Chunked.rst:83
+msgid ""
+"``--chunked-input-limit``: the limit (in bytes) of a chunk message "
+"(default 1MB)"
+msgstr ""
+
+#: ../../Chunked.rst:84
+msgid ""
+"``--chunked-input-timeout``: the default timeout (in seconds) for "
+"blocking chunked_read (default to the same --socket-timeout value, 4 "
+"seconds)"
+msgstr ""
+
+#: ../../Chunked.rst:87
+msgid "Notes"
+msgstr ""
+
+#: ../../Chunked.rst:89
+msgid ""
+"Calling chunked API functions after having consumed even a single byte of"
+" the request body is wrong (this includes ``--post-buffering``)."
+msgstr ""
+
+#: ../../Chunked.rst:90
+msgid ""
+"Chunked API functions can be called independently by the presence of "
+"\"Transfer-Encoding: chunked\" header."
+msgstr ""
+

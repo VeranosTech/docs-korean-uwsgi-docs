@@ -1,0 +1,70 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Circus.rst:2
+msgid "Running uWSGI instances with Circus"
+msgstr ""
+
+#: ../../Circus.rst:4
+msgid ""
+"Circus (https://circus.readthedocs.io/en/0.7/) is a process manager "
+"written in Python. It is very similar to projects like Supervisor, but "
+"with several additional features.  Although most, if not all, of it's "
+"functionalities have a counterpart in uWSGI, Circus can be used as a "
+"library allowing you to build dynamic configurations (and extend uWSGI "
+"patterns). This aspect is very important and may be the real selling "
+"point of Circus."
+msgstr ""
+
+#: ../../Circus.rst:12
+msgid "Socket activation"
+msgstr ""
+
+#: ../../Circus.rst:14
+msgid ""
+"Based on the venerable inetd pattern, Circus can bind to sockets and pass"
+" them to children."
+msgstr ""
+
+#: ../../Circus.rst:16
+msgid "Start with a simple Circus config (call it circus.ini):"
+msgstr ""
+
+#: ../../Circus.rst:35
+msgid "run it with"
+msgstr ""
+
+#: ../../Circus.rst:42
+msgid "(Better) Socket activation"
+msgstr ""
+
+#: ../../Circus.rst:44
+msgid ""
+"If you want to spawn instances on demand, you will likely want to shut "
+"them down when they are no longer used.  To accomplish that use the "
+"--idle uWSGI option."
+msgstr ""
+
+#: ../../Circus.rst:67
+msgid ""
+"This time we have enabled the master process. It will manage the --idle "
+"option, shutting down the instance if it is inactive for more than 60 "
+"seconds."
+msgstr ""
+

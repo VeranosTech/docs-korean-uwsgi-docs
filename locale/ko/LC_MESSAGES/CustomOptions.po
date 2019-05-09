@@ -1,0 +1,120 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../CustomOptions.rst:2
+msgid "Defining new options for your instances"
+msgstr ""
+
+#: ../../CustomOptions.rst:4
+msgid ""
+"Sometimes the built-in options are not enough. For example, you may need "
+"to give your customers custom options for configuring their apps on your "
+"platform. Or you need to configure so many instances you want to simplify"
+" things such as per-datacenter or per-server-type options.  Declaring new"
+" options for your config files/command-line is a good way of achieving "
+"these goals."
+msgstr ""
+
+#: ../../CustomOptions.rst:10
+msgid "To define new options use ``--declare-option``::"
+msgstr ""
+
+#: ../../CustomOptions.rst:15
+msgid ""
+"An useful example could be defining a \"redirect\" option, using the "
+"redirect plugin of the InternalRouting subsystem::"
+msgstr ""
+
+#: ../../CustomOptions.rst:21
+msgid ""
+"This will declare a new option called ``redirect`` that takes 2 "
+"arguments. Those arguments will be expanded using the $-prefixed "
+"variables. Like shell scripts, *the backslash is required to make your "
+"shell not expand these values*."
+msgstr ""
+
+#: ../../CustomOptions.rst:26
+msgid "Now you will be able to define a redirect in your config files:"
+msgstr ""
+
+#: ../../CustomOptions.rst:32
+msgid "Config.ini:"
+msgstr ""
+
+#: ../../CustomOptions.rst:43
+msgid "or directly on the command line:"
+msgstr ""
+
+#: ../../CustomOptions.rst:50
+msgid "More fun: a bunch of shortcuts"
+msgstr ""
+
+#: ../../CustomOptions.rst:52
+msgid "Now we will define new options for frequently-used apps."
+msgstr ""
+
+#: ../../CustomOptions.rst:54
+msgid "Shortcuts.ini:"
+msgstr ""
+
+#: ../../CustomOptions.rst:66
+msgid "To hook up a Trac instance on /var/www/trac/fooenv:"
+msgstr ""
+
+#: ../../CustomOptions.rst:82
+msgid "A config for Web2py, in XML:"
+msgstr ""
+
+#: ../../CustomOptions.rst:100
+msgid "A trick for the Emperor: automatically import shortcuts for your vassals"
+msgstr ""
+
+#: ../../CustomOptions.rst:102
+msgid ""
+"If you manage your customers/users with the :doc:`Emperor<Emperor>`, you "
+"can configure it to automatically import your shortcuts in each vassal."
+msgstr ""
+
+#: ../../CustomOptions.rst:110
+msgid "For multiple shortcuts use:"
+msgstr ""
+
+#: ../../CustomOptions.rst:116
+msgid "Or (with a bit of :doc:`configuration logic magic<ConfigLogic>`):"
+msgstr ""
+
+#: ../../CustomOptions.rst:128
+msgid "An advanced trick: embedding shortcuts in your uWSGI binary"
+msgstr ""
+
+#: ../../CustomOptions.rst:130
+msgid ""
+"uWSGI's build system allows you to embed files, be they generic files or "
+"configuration, in the server binary.  Abusing this feature will enable "
+"you to embed your new option shortcuts into the server binary, "
+"automagically allowing users to use them.  To embed your shortcuts file, "
+"edit your build profile (like :file:`buildconf/base.ini`) and set "
+"``embed_config`` to the path of the shortcuts file.  Rebuild your server "
+"and your new options will be available."
+msgstr ""
+
+#: ../../CustomOptions.rst:137
+msgid ":doc:`BuildConf`"
+msgstr ""
+

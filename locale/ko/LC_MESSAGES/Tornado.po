@@ -1,0 +1,241 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Tornado.rst:2
+msgid "The Tornado loop engine"
+msgstr ""
+
+#: ../../Tornado.rst:4
+msgid "Available from: ```uWSGI 1.9.19-dev```"
+msgstr ""
+
+#: ../../Tornado.rst:6
+msgid "Supported suspend engines: ```greenlet```"
+msgstr ""
+
+#: ../../Tornado.rst:8
+msgid "Supported CPython versions: ```all of tornado supported versions```"
+msgstr ""
+
+#: ../../Tornado.rst:11
+msgid ""
+"The tornado loop engine allows you to integrate your uWSGI stack with the"
+" Tornado IOLoop class."
+msgstr ""
+
+#: ../../Tornado.rst:13
+msgid ""
+"Basically every I/O operation of the server is mapped to a tornado IOLoop"
+" callback. Making RPC, remote caching, or simply writing responses is "
+"managed by the Tornado engine."
+msgstr ""
+
+#: ../../Tornado.rst:16
+msgid ""
+"As uWSGI is not written with a callback-based programming approach, "
+"integrating with those kind of libraries requires some form of "
+"\"suspend\" engine (green threads/coroutines)"
+msgstr ""
+
+#: ../../Tornado.rst:18
+msgid ""
+"Currently the only supported suspend engine is the \"greenlet\" one. "
+"Stackless python could work too (needs testing)."
+msgstr ""
+
+#: ../../Tornado.rst:20
+msgid ""
+"PyPy is currently not supported (albeit technically possible thanks to "
+"continulets). Drop a mail to Unbit staff if you are interested."
+msgstr ""
+
+#: ../../Tornado.rst:23
+msgid "Why ?"
+msgstr ""
+
+#: ../../Tornado.rst:24
+msgid ""
+"The Tornado project includes a simple WSGI server by itself. In the same "
+"spirit of the Gevent plugin, the purpose of Loop engines is allowing "
+"external prejects to use (and abuse) the uWSGI api, for better "
+"performance, versatility and (maybe the most important thing) resource "
+"usage."
+msgstr ""
+
+#: ../../Tornado.rst:27
+msgid ""
+"All of the uWSGI subsystems are available (from caching, to websockets, "
+"to metrics) in your tornado apps, and the WSGI engine is the battle-"
+"tested uWSGI one."
+msgstr ""
+
+#: ../../Tornado.rst:31
+msgid "Installation"
+msgstr ""
+
+#: ../../Tornado.rst:33
+msgid ""
+"The tornado plugin is currently not built-in by default. To have both "
+"tornado and greenlet in a single binary you can do"
+msgstr ""
+
+#: ../../Tornado.rst:39
+msgid ""
+"or (from uWSGI sources, if you already have tornado and greenlet "
+"installed)"
+msgstr ""
+
+#: ../../Tornado.rst:46
+msgid "Running it"
+msgstr ""
+
+#: ../../Tornado.rst:48
+msgid ""
+"The ``--tornado`` option is exposed by the tornado plugin, allowing you "
+"to set optimal parameters:"
+msgstr ""
+
+#: ../../Tornado.rst:54
+msgid ""
+"this will run a uWSGI instance on http port 9090 using tornado as I/O "
+"(and time) management and greenlet as suspend engine"
+msgstr ""
+
+#: ../../Tornado.rst:56
+msgid ""
+"100 async cores are allocated, allowing you to manage up to 100 "
+"concurrent requests"
+msgstr ""
+
+#: ../../Tornado.rst:59
+msgid "Integrating WSGI with the tornado api"
+msgstr ""
+
+#: ../../Tornado.rst:61
+msgid ""
+"For the way WSGI works, dealing with callback based programming is pretty"
+" hard (if not impossible)."
+msgstr ""
+
+#: ../../Tornado.rst:63
+msgid ""
+"Thanks to greenlet we can suspend the execution of our WSGI callable "
+"until a tornado IOLoop event is available:"
+msgstr ""
+
+#: ../../Tornado.rst:94
+msgid "Welcome to Callback-Hell"
+msgstr ""
+
+#: ../../Tornado.rst:96
+msgid ""
+"As always, it is not the job of uWSGI to judge programming approaches. It"
+" is a tool for sysadmins, and sysadmins should be tolerant with "
+"developers choices."
+msgstr ""
+
+#: ../../Tornado.rst:98
+msgid ""
+"One of the things you will pretty soon experiment with this approach to "
+"programming is the callback-hell."
+msgstr ""
+
+#: ../../Tornado.rst:100
+msgid ""
+"Let's extend the previous example to wait 10 seconds before sending back "
+"the response to the client"
+msgstr ""
+
+#: ../../Tornado.rst:138
+msgid ""
+"here we have chained two callbacks, with the last one being responsable "
+"for giving back control to the WSGI callable"
+msgstr ""
+
+#: ../../Tornado.rst:140
+msgid ""
+"The code could looks ugly or overcomplex (compared to other approaches "
+"like gevent) but this is basically the most efficient way to increase "
+"concurrency (both in terms of memory usage and performance). Technologies"
+" like node.js are becoming popular thanks to the results they allow to "
+"accomplish."
+msgstr ""
+
+#: ../../Tornado.rst:146
+msgid "WSGI generators (aka yield all over the place)"
+msgstr ""
+
+#: ../../Tornado.rst:148
+msgid "Take the following WSGI app:"
+msgstr ""
+
+#: ../../Tornado.rst:158
+msgid ""
+"if you have already played with uWSGI async mode, you knows that every "
+"yield internally calls the used suspend engine (greenlet.switch() in our "
+"case)."
+msgstr ""
+
+#: ../../Tornado.rst:160
+msgid ""
+"That means we will enter the tornado IOLoop engine soon after having "
+"called \"application()\". How we can give the control back to our "
+"callable if we are not waiting for events ?"
+msgstr ""
+
+#: ../../Tornado.rst:162
+msgid ""
+"The uWSGI async api has been extended to support the \"schedule_fix\" "
+"hook. It allows you to call a hook soon after the suspend engine has been"
+" called."
+msgstr ""
+
+#: ../../Tornado.rst:164
+msgid "In the tornado's case this hook is mapped to something like:"
+msgstr ""
+
+#: ../../Tornado.rst:170
+msgid ""
+"in this way after every yield a me.switch() function is called allowing "
+"the resume of the callable."
+msgstr ""
+
+#: ../../Tornado.rst:172
+msgid ""
+"Thanks to this hook you can transparently host standard WSGI applications"
+" without changing them."
+msgstr ""
+
+#: ../../Tornado.rst:176
+msgid "Binding and listening with Tornado"
+msgstr ""
+
+#: ../../Tornado.rst:178
+msgid ""
+"The Tornado IOLoop is executed after fork() in every worker. If you want "
+"to bind to network addresses with Tornado, remember to use different "
+"ports for each workers:"
+msgstr ""
+
+#: ../../Tornado.rst:205
+msgid ""
+"Remember: do no start the IOLoop class. uWSGI will do it by itself as "
+"soon as the setup is complete"
+msgstr ""
+

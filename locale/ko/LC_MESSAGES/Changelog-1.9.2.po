@@ -1,0 +1,110 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Changelog-1.9.2.rst:2
+msgid "uWSGI 1.9.2"
+msgstr ""
+
+#: ../../Changelog-1.9.2.rst:4
+msgid "Changelog 20130326"
+msgstr ""
+
+#: ../../Changelog-1.9.2.rst:7
+msgid "Bugfixes"
+msgstr ""
+
+#: ../../Changelog-1.9.2.rst:9
+msgid "Fixed python3 response headers managament (wrong refcnt)"
+msgstr ""
+
+#: ../../Changelog-1.9.2.rst:11
+msgid "Fixed readline() on request body when postbuffering is in place"
+msgstr ""
+
+#: ../../Changelog-1.9.2.rst:13
+msgid "Fixed ruby fiber plugin"
+msgstr ""
+
+#: ../../Changelog-1.9.2.rst:16
+msgid "New features"
+msgstr ""
+
+#: ../../Changelog-1.9.2.rst:19
+msgid "route-run and the cachestore routing action"
+msgstr ""
+
+#: ../../Changelog-1.9.2.rst:21
+msgid "You can now store responses automatically in the uWSGI cache:"
+msgstr ""
+
+#: ../../Changelog-1.9.2.rst:34
+msgid ""
+"this example check every request for its availability in the cache "
+"'pippo2'. If not available the request plugin (werkzeug test app) will "
+"run normally and its output will be stored in the cache (only if it "
+"returns a HTTP 200 status)"
+msgstr ""
+
+#: ../../Changelog-1.9.2.rst:37
+msgid ""
+"``--route-run`` is a new option allowing you to directly call routing "
+"action without checking for a specific condition (yes, it is an "
+"optimization)"
+msgstr ""
+
+#: ../../Changelog-1.9.2.rst:40
+msgid "routing access to cookie and query string"
+msgstr ""
+
+#: ../../Changelog-1.9.2.rst:42 ../../Changelog-1.9.2.rst:47
+msgid "Check updated docs :doc:`InternalRouting`"
+msgstr ""
+
+#: ../../Changelog-1.9.2.rst:45
+msgid "empty internal routing condition"
+msgstr ""
+
+#: ../../Changelog-1.9.2.rst:50
+msgid "The Geoip plugin"
+msgstr ""
+
+#: ../../Changelog-1.9.2.rst:52
+msgid "Check official docs :doc:`GeoIP`"
+msgstr ""
+
+#: ../../Changelog-1.9.2.rst:55
+msgid "The SSI plugin (beta)"
+msgstr ""
+
+#: ../../Changelog-1.9.2.rst:57
+msgid "Check official docs :doc:`SSI`"
+msgstr ""
+
+#: ../../Changelog-1.9.2.rst:60
+msgid "Availability"
+msgstr ""
+
+#: ../../Changelog-1.9.2.rst:62
+msgid "uWSGI 1.9.2 has been released on 20130326 and can be downloaded from:"
+msgstr ""
+
+#: ../../Changelog-1.9.2.rst:64
+msgid "https://projects.unbit.it/downloads/uwsgi-1.9.2.tar.gz"
+msgstr ""
+

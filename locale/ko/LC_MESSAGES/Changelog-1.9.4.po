@@ -1,0 +1,152 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Changelog-1.9.4.rst:2
+msgid "uWSGI 1.9.4"
+msgstr ""
+
+#: ../../Changelog-1.9.4.rst:4
+msgid "Changelog 20130330"
+msgstr ""
+
+#: ../../Changelog-1.9.4.rst:7
+msgid "Bugfixes"
+msgstr ""
+
+#: ../../Changelog-1.9.4.rst:9
+msgid "fixed cache statistics exported by the stats subsystem (Łukasz Mierzwa)"
+msgstr ""
+
+#: ../../Changelog-1.9.4.rst:11
+msgid "fixed CoroEV bug in after_request (Tom Molesworth and John Berthels)"
+msgstr ""
+
+#: ../../Changelog-1.9.4.rst:13
+msgid ""
+"update cache items after a restore from persistent storage (Łukasz "
+"Mierzwa)"
+msgstr ""
+
+#: ../../Changelog-1.9.4.rst:15
+msgid "fixed signal handling in non-worker processes"
+msgstr ""
+
+#: ../../Changelog-1.9.4.rst:17
+msgid "fixed thundering herd in multiple mules setup"
+msgstr ""
+
+#: ../../Changelog-1.9.4.rst:19
+msgid "ported the cplusplus skeletal plugin to the new api"
+msgstr ""
+
+#: ../../Changelog-1.9.4.rst:21
+msgid "fixed uWSGI reloading when build as a shared library"
+msgstr ""
+
+#: ../../Changelog-1.9.4.rst:24
+msgid "New features"
+msgstr ""
+
+#: ../../Changelog-1.9.4.rst:27
+msgid "SmartOS official support"
+msgstr ""
+
+#: ../../Changelog-1.9.4.rst:29
+msgid ""
+"From now on, SmartOS is included in the officially supported operating "
+"systems"
+msgstr ""
+
+#: ../../Changelog-1.9.4.rst:32
+msgid "V8 initial support"
+msgstr ""
+
+#: ../../Changelog-1.9.4.rst:34
+msgid ""
+"The Lua previous suggestion for writing uWSGI routing rules and "
+"configurations, woke up lot of javascript users stating that javascript "
+"itself could be a valid alternative. A V8 plugin is now available, "
+"supporting RPC, signal handlers and configurations. You need libv8 "
+"headers to build it:"
+msgstr ""
+
+#: ../../Changelog-1.9.4.rst:55
+msgid ""
+"The previous example will allows you to write dynamic configs in "
+"javascript, while you can export javascript functions via the RPC "
+"subsystem:"
+msgstr ""
+
+#: ../../Changelog-1.9.4.rst:92
+msgid ""
+"The previous example generates an HTTP response from 3 javascript "
+"functions and store it in the uWSGI cache."
+msgstr ""
+
+#: ../../Changelog-1.9.4.rst:94
+msgid "Curious about rpcnext ?"
+msgstr ""
+
+#: ../../Changelog-1.9.4.rst:97
+msgid "The rpcnext routing action"
+msgstr ""
+
+#: ../../Changelog-1.9.4.rst:99
+msgid ""
+"We can already call rpc functions from the routing subsystem to generate "
+"response. With the rpcnext action (aliased as rpcblob too) you can call "
+"multiple rpc functions and assemble the return values in a single "
+"response."
+msgstr ""
+
+#: ../../Changelog-1.9.4.rst:103
+msgid "Legion improvements"
+msgstr ""
+
+#: ../../Changelog-1.9.4.rst:105
+msgid ""
+"We are hardly working in stabilizing :doc:`Legion` The objective is have "
+"a rock-solid clustering implementation for uWSGI 2.0 that you can use "
+"even from your applications."
+msgstr ""
+
+#: ../../Changelog-1.9.4.rst:108
+msgid ""
+"The code in 1.9.4 has been refactored a bit by Łukasz Mierzwa to allow "
+"easier integration with external plugins."
+msgstr ""
+
+#: ../../Changelog-1.9.4.rst:110
+msgid ""
+"A new \"join\" hook has been added, it is called as soon as a node "
+"becomes active part of a legion (read, it is part of a quorum)."
+msgstr ""
+
+#: ../../Changelog-1.9.4.rst:113
+msgid "Availability"
+msgstr ""
+
+#: ../../Changelog-1.9.4.rst:115
+msgid "uWSGI 1.9.4 will be available since 20130330 at this url"
+msgstr ""
+
+#: ../../Changelog-1.9.4.rst:117
+msgid "https://projects.unbit.it/downloads/uwsgi-1.9.4.tar.gz"
+msgstr ""
+

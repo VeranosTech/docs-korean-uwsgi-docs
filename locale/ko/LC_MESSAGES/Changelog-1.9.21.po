@@ -1,0 +1,410 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Changelog-1.9.21.rst:2
+msgid "uWSGI 1.9.21"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:4
+msgid "Latest 1.9 before 2.0 (scheduled at December 30th 2013)"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:6
+msgid ""
+"From now on, all of the releases will be -rc's (no new features will be "
+"added)"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:8
+msgid ""
+"A document describing notes for upgrades from the (extremely obsolete) "
+"1.2 and 1.4 versions is on work."
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:10
+msgid ""
+"This release includes a new simplified plugins builder subsystem directly"
+" embedded in the uWSGI binary."
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:12
+msgid ""
+"A page reporting third plugins is available: :doc:`ThirdPartyPlugins` "
+"(feel free to add yours)"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:14
+msgid "And now...."
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:16
+msgid "Changelog [20131211]"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:19
+msgid "Bugfixes"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:21
+msgid "croak if the psgi streamer fails"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:22
+msgid "allows building coroae on raspberrypi"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:23
+msgid "do not wait for write availability until strictly required"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:24
+msgid "avoid segfault when async mode api is called without async mode"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:25
+msgid "fixed plain (without suspend engine) async mode"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:26
+msgid "do not spit errors on non x86 timerfd_create"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:27
+msgid "support timerfd_create/timerfd_settime on __arm__"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:30
+msgid "Optimizations"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:33
+msgid "writev() for the first chunk"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:35
+msgid ""
+"Inernally when the first response body is sent, uWSGI check if response "
+"headers have been sent too, and eventually send them with an additional "
+"write() call."
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:37
+msgid ""
+"This new optimizations allows uWSGI to send both headers and the first "
+"body chunk with single writev() syscall."
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:39
+msgid ""
+"If the writev() returns with an incomplete write on the second vector, "
+"the system will fallback to simple write()."
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:42
+msgid "use a single buffer for websockets outgoing packets"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:44
+msgid ""
+"Before this patch every single websocket packet required to allocate a "
+"memory chunk."
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:46
+msgid ""
+"This patch forces the reuse of a single dynamic buffer. For games this "
+"should result in a pretty good improvement in responsiveness."
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:49
+msgid "New features"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:52
+msgid "removed zeromq api"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:54
+msgid ""
+"The zeromq api (a single function indeed) has been removed. Each plugin "
+"rquiring zeromq cam simply call zmq_init() insteadd of "
+"uwsgi_zeromq_init()."
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:56
+msgid "The mongrel2 support has been moved to a 'mongrel2' plugin."
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:58
+msgid ""
+"To pair uWSGI with mongrel2 the same options as before can be used, just "
+"remember to load (and build) the mongrel2 plugin"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:61
+msgid "The new sharedarea"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:63
+msgid ""
+"The shared area subsystem has been rewritten (it is incompatible with the"
+" old api as it requires a new argument as it now supports multiple memory"
+" areas)."
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:65
+msgid "Check updated docs: :doc:`SharedArea`"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:68
+msgid "report request data in writers and readers"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:70
+msgid ""
+"every error when reading and writing to/from the client will report "
+"current request's data."
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:72
+msgid "This should simplify debugging a lot."
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:75
+msgid "Modular logchunks management"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:77
+msgid ""
+"The uWSGI api has been extended to allow plugins to define their log-"
+"request vars."
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:79
+msgid "Check: :doc:`LogFormat`"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:82
+msgid "tmsecs and tmicros, werr, rerr, ioerr, var.XXX"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:84
+msgid "6 new request logging variables are available:"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:86
+msgid "tmsecs: report the current unix time in milliseconds"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:88
+msgid "tmicros: report the current unix time in microseconds"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:90
+msgid "werr: report the number of write errors for the current request"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:92
+msgid "rerr: report the number of read errors for the current request"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:94
+msgid "ioerr: the sum of werr and rerr"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:96
+msgid "var.XXX: report the context of the request var XXX (like var.PATH_INFO)"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:99
+msgid "mountpoints and mules support for symcall"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:101
+msgid "The symcall plugin has been improved to support mules and mountpoints."
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:103
+msgid ""
+"To run a C function in a mule just specify it as ``--mule=foobar()`` when"
+" the mule finds an argument ending with () it will consider it a function"
+" symbol."
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:107
+msgid "read2 and wait_milliseconds async hooks"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:109
+msgid ""
+"This two non-blocking hooks adds new capabilities to the non-blocking "
+"system."
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:111
+msgid ""
+"The first one allows to wait on two file descriptors with the same call "
+"(currently implemented only in plain async mode)"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:113
+msgid ""
+"The second one is used to have a millisecond resolution sleep. (this is "
+"currently used only by the sharedarea waiting system)"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:116
+msgid "websockets binary messages"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:118
+msgid ""
+"You can now send websocket binary message. Just use "
+"``uwsgi.websocket_send_binary()`` instead of ``uwsgi.websocket_send()``"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:121
+msgid "the 'S' master fifo command"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:123
+msgid ""
+"Sending 'S' to the master fifo, enable/disable the sending of "
+"subscription packets"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:126
+msgid "as-mule hook"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:128
+msgid "this new custom hooks allows you to execute custom code in every mule:"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:138
+msgid "accepting hook and improved chain reloading"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:140
+msgid ""
+"The chain reloading subsystem has been improved to take in account when a"
+" worker is really ready to accept() requests."
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:142
+msgid "This specific state is announced to the Emperor too."
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:144
+msgid ""
+"Check this article for more infos: https://uwsgi-"
+"docs.readthedocs.io/en/latest/articles/TheArtOfGracefulReloading.html"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:147
+msgid "--after-request-call"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:149
+msgid ""
+"this option allows you to call specific C functions (in chains) after "
+"each request. While you should use the framework/interface features for "
+"this kind of job, sometimes it is not possible to execute code after the "
+"logging phase. In such a case feel free to abuse this option."
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:153
+msgid "error pages"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:155
+msgid "Three new options allow the definition of custom error pages (html only):"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:157
+msgid ""
+"``--error-page-403 <file>``                     add an error page (html) "
+"for managed 403 response"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:159
+msgid ""
+"``--error-page-404 <file>``                     add an error page (html) "
+"for managed 404 response"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:161
+msgid ""
+"``--error-page-500 <file>``                     add an error page (html) "
+"for managed 500 response"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:164
+msgid "Simplified plugins builder"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:166
+msgid "Building uWSGI plugins is now super easy:"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:172
+msgid ""
+"this option will create a sane environment based on the current binary "
+"(no need to fight with build profiles and #ifdef) and will build the "
+"plugin."
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:174
+msgid ""
+"No external files (included uwsgi.h) are needed as the uWSGI binary "
+"embeds them."
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:178
+msgid "TODO for 2.0"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:180
+msgid "implement websockets and sharedarea support in Lua"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:181
+msgid "complete sharedarea api for CPython, Perl, Ruby and PyPy"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:182
+msgid ""
+"implement read2 and wait_milliseconds hook in all of the available loop "
+"engines"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:185
+msgid "Availability"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:187
+msgid ""
+"uWSGI 1.9.21 has been released on December 11th 2013 and can be "
+"downloaded at:"
+msgstr ""
+
+#: ../../Changelog-1.9.21.rst:189
+msgid "https://projects.unbit.it/downloads/uwsgi-1.9.21.tar.gz"
+msgstr ""
+

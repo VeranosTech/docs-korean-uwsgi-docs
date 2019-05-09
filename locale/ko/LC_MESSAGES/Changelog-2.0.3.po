@@ -1,0 +1,150 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Changelog-2.0.3.rst:2
+msgid "uWSGI 2.0.3"
+msgstr ""
+
+#: ../../Changelog-2.0.3.rst:4
+msgid "Changelog 20140317"
+msgstr ""
+
+#: ../../Changelog-2.0.3.rst:7
+msgid "Bugfixes"
+msgstr ""
+
+#: ../../Changelog-2.0.3.rst:9
+msgid "fixed spooler 'at' key usage"
+msgstr ""
+
+#: ../../Changelog-2.0.3.rst:10
+msgid "fixed a memory and fd leak with on-demand Emperor sokets"
+msgstr ""
+
+#: ../../Changelog-2.0.3.rst:11
+msgid "on __APPLE__ use LOG_NOTICE for syslog plugin"
+msgstr ""
+
+#: ../../Changelog-2.0.3.rst:12
+msgid "fixed mongrel2 support"
+msgstr ""
+
+#: ../../Changelog-2.0.3.rst:13
+msgid "hack for avoiding libmongoclient to crash on broken cursor"
+msgstr ""
+
+#: ../../Changelog-2.0.3.rst:14
+msgid "log alarm is now a uwsgi_log_verbose() wrapper"
+msgstr ""
+
+#: ../../Changelog-2.0.3.rst:15
+msgid "fixed tuntap router memory corruption"
+msgstr ""
+
+#: ../../Changelog-2.0.3.rst:16
+msgid "Set ECDHE curve independently from DHE parameters (Hynek Schlawack)"
+msgstr ""
+
+#: ../../Changelog-2.0.3.rst:17
+msgid "do not wait for a whole Emperor cycle before checking for each waitpid"
+msgstr ""
+
+#: ../../Changelog-2.0.3.rst:18
+msgid ""
+"fix a regression with caller() not indicating the starting *.psgi program"
+" (Ævar Arnfjörð Bjarmason)"
+msgstr ""
+
+#: ../../Changelog-2.0.3.rst:21
+msgid "New features"
+msgstr ""
+
+#: ../../Changelog-2.0.3.rst:24
+msgid "Emperor SIGWINCH and SIGURG"
+msgstr ""
+
+#: ../../Changelog-2.0.3.rst:26
+msgid "The Emperor now responds to two new signals:"
+msgstr ""
+
+#: ../../Changelog-2.0.3.rst:28
+msgid "SIGWINCH: force an emperor rescan of vassals"
+msgstr ""
+
+#: ../../Changelog-2.0.3.rst:30
+msgid "SIGURG: cleanup the Emperor states (for now it only clears its blacklist)"
+msgstr ""
+
+#: ../../Changelog-2.0.3.rst:33
+msgid "Building plugins on-the-fly from git repositories"
+msgstr ""
+
+#: ../../Changelog-2.0.3.rst:35
+msgid "You can now build plugins stored on git servers:"
+msgstr ""
+
+#: ../../Changelog-2.0.3.rst:41
+msgid "or"
+msgstr ""
+
+#: ../../Changelog-2.0.3.rst:48
+msgid "uwsgi.add_var(key, value)"
+msgstr ""
+
+#: ../../Changelog-2.0.3.rst:50
+msgid ""
+"You can now set request variables direcly from your app, for better "
+"integration with the internal routing subsystem"
+msgstr ""
+
+#: ../../Changelog-2.0.3.rst:63
+msgid "add_var has been implemented in the CPython and Perl plugins"
+msgstr ""
+
+#: ../../Changelog-2.0.3.rst:66
+msgid "'disableheaders' routing action"
+msgstr ""
+
+#: ../../Changelog-2.0.3.rst:68
+msgid ""
+"This new action disables the sending of response headers, independently "
+"by the current request state"
+msgstr ""
+
+#: ../../Changelog-2.0.3.rst:71
+msgid "Smarter Emperor on bad conditions"
+msgstr ""
+
+#: ../../Changelog-2.0.3.rst:73
+msgid ""
+"Now the Emperor completely destroys internal vassal-related structures "
+"when it is impossible to correctly kill a broken vassal (both for "
+"inconsistent Emperor state or for internal system problems)"
+msgstr ""
+
+#: ../../Changelog-2.0.3.rst:77
+msgid "Availability"
+msgstr ""
+
+#: ../../Changelog-2.0.3.rst:79
+msgid ""
+"You can download uWSGI 2.0.3 from: "
+"https://projects.unbit.it/downloads/uwsgi-2.0.3.tar.gz"
+msgstr ""
+

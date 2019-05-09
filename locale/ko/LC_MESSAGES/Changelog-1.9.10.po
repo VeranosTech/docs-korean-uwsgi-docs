@@ -1,0 +1,106 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Changelog-1.9.10.rst:2
+msgid "uWSGI 1.9.10"
+msgstr ""
+
+#: ../../Changelog-1.9.10.rst:4
+msgid "Changelog [20130511]"
+msgstr ""
+
+#: ../../Changelog-1.9.10.rst:7
+msgid "Bugfixes"
+msgstr ""
+
+#: ../../Changelog-1.9.10.rst:9
+msgid "fixed alarm threads during reloads"
+msgstr ""
+
+#: ../../Changelog-1.9.10.rst:10
+msgid "fixed uninitialized memory in --touch-* options"
+msgstr ""
+
+#: ../../Changelog-1.9.10.rst:11
+msgid "fixed a regression in --attach-daemon"
+msgstr ""
+
+#: ../../Changelog-1.9.10.rst:14
+msgid "New Features"
+msgstr ""
+
+#: ../../Changelog-1.9.10.rst:17
+msgid "Welcome to gccgo"
+msgstr ""
+
+#: ../../Changelog-1.9.10.rst:19
+msgid ""
+"Go support in gcc 4.8 is amazing, thanks to the split-stack feature you "
+"can now have goroutines without allocating a whole pthread."
+msgstr ""
+
+#: ../../Changelog-1.9.10.rst:21
+msgid ""
+"As Go 1.1 will be no no more compatible with uWSGI, gccgo will became the"
+" official way for running go apps."
+msgstr ""
+
+#: ../../Changelog-1.9.10.rst:23
+msgid ""
+"The gccgo plugin is in early stage of development but it is already able "
+"to run in preforking mode."
+msgstr ""
+
+#: ../../Changelog-1.9.10.rst:25
+msgid "We are heavy working on a true \"goroutines\" Loop engine. Stay tuned."
+msgstr ""
+
+#: ../../Changelog-1.9.10.rst:28
+msgid "Final routes"
+msgstr ""
+
+#: ../../Changelog-1.9.10.rst:30
+msgid ""
+"You can now run routing rules after a request. Obviously not all of the "
+"exposed actions make sense after the request but you should be able to "
+"write even more complex setup."
+msgstr ""
+
+#: ../../Changelog-1.9.10.rst:33
+msgid ""
+"Check this request limiter based on HTTP response status (a value you can"
+" get only after a request):"
+msgstr ""
+
+#: ../../Changelog-1.9.10.rst:35
+msgid "https://github.com/unbit/uwsgi/blob/master/t/routing/errorlimiter.ini"
+msgstr ""
+
+#: ../../Changelog-1.9.10.rst:38
+msgid "Availability"
+msgstr ""
+
+#: ../../Changelog-1.9.10.rst:40
+msgid "uWSGI 1.9.10 will be available since 20130511 at the following url:"
+msgstr ""
+
+#: ../../Changelog-1.9.10.rst:42
+msgid "https://projects.unbit.it/downloads/uwsgi-1.9.10.tar.gz"
+msgstr ""
+

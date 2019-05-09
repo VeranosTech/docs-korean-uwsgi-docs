@@ -1,0 +1,689 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Configuration.rst:2
+msgid "Configuring uWSGI"
+msgstr ""
+
+#: ../../Configuration.rst:4
+msgid ""
+"uWSGI can be configured using several different methods. All "
+"configuration methods may be mixed and matched in the same invocation of "
+"uWSGI."
+msgstr ""
+
+#: ../../Configuration.rst:6
+msgid ""
+"Some of the configuration methods may require a specific plugin (ie. "
+"sqlite and ldap)."
+msgstr ""
+
+#: ../../Configuration.rst:8
+msgid ":doc:`ConfigLogic`"
+msgstr ""
+
+#: ../../Configuration.rst:10
+msgid ""
+"The configuration system is unified, so each command line option maps 1:1"
+" with entries in the config files."
+msgstr ""
+
+#: ../../Configuration.rst:12
+msgid "Example:"
+msgstr ""
+
+#: ../../Configuration.rst:18
+msgid "can be written as"
+msgstr ""
+
+#: ../../Configuration.rst:30
+msgid "Loading configuration files"
+msgstr ""
+
+#: ../../Configuration.rst:32
+msgid ""
+"uWSGI supports loading configuration files over several methods other "
+"than simple disk files::"
+msgstr ""
+
+#: ../../Configuration.rst:41
+msgid ""
+"More esoteric file sources, such as the :doc:`Emperor<Emperor>`, embedded"
+" configuration (in two flavors), dynamic library symbols and ELF sections"
+" could also be used."
+msgstr ""
+
+#: ../../Configuration.rst:48
+msgid "Magic variables"
+msgstr ""
+
+#: ../../Configuration.rst:50
+msgid ""
+"uWSGI configuration files can include \"magic\" variables, prefixed with "
+"a percent sign.  Currently the following magic variables (you can access "
+"them in Python via :py:data:`uwsgi.magic_table`) are defined."
+msgstr ""
+
+#: ../../Configuration.rst:55
+msgid "%v"
+msgstr ""
+
+#: ../../Configuration.rst:55
+msgid "the vassals directory (pwd)"
+msgstr ""
+
+#: ../../Configuration.rst:56
+msgid "%V"
+msgstr ""
+
+#: ../../Configuration.rst:56
+msgid "the uWSGI version"
+msgstr ""
+
+#: ../../Configuration.rst:57
+msgid "%h"
+msgstr ""
+
+#: ../../Configuration.rst:57
+msgid "the hostname"
+msgstr ""
+
+#: ../../Configuration.rst:58
+#, python-format
+msgid "%o"
+msgstr ""
+
+#: ../../Configuration.rst:58
+msgid "the original config filename, as specified on the command line"
+msgstr ""
+
+#: ../../Configuration.rst:59
+msgid "%O"
+msgstr ""
+
+#: ../../Configuration.rst:59
+#, python-format
+msgid ""
+"same as %o but refer to the first non-template config file (version "
+"1.9.18)"
+msgstr ""
+
+#: ../../Configuration.rst:61
+msgid "%p"
+msgstr ""
+
+#: ../../Configuration.rst:61
+msgid "the absolute path of the configuration file"
+msgstr ""
+
+#: ../../Configuration.rst:62
+msgid "%P"
+msgstr ""
+
+#: ../../Configuration.rst:62
+msgid ""
+"same as %p but refer to the first non-template config file (version "
+"1.9.18)"
+msgstr ""
+
+#: ../../Configuration.rst:64
+#, python-format
+msgid "%s"
+msgstr ""
+
+#: ../../Configuration.rst:64
+msgid "the filename of the configuration file"
+msgstr ""
+
+#: ../../Configuration.rst:65
+msgid "%S"
+msgstr ""
+
+#: ../../Configuration.rst:65
+#, python-format
+msgid ""
+"same as %s but refer to the first non-template config file (version "
+"1.9.18)"
+msgstr ""
+
+#: ../../Configuration.rst:67
+#, python-format
+msgid "%d"
+msgstr ""
+
+#: ../../Configuration.rst:67
+msgid "the absolute path of the directory containing the configuration file"
+msgstr ""
+
+#: ../../Configuration.rst:68
+msgid "%D"
+msgstr ""
+
+#: ../../Configuration.rst:68
+#, python-format
+msgid ""
+"same as %d but refer to the first non-template config file (version "
+"1.9.18)"
+msgstr ""
+
+#: ../../Configuration.rst:70
+#, python-format
+msgid "%e"
+msgstr ""
+
+#: ../../Configuration.rst:70
+msgid "the extension of the configuration file"
+msgstr ""
+
+#: ../../Configuration.rst:71
+#, python-format
+msgid "%E"
+msgstr ""
+
+#: ../../Configuration.rst:71
+#, python-format
+msgid ""
+"same as %e but refer to the first non-template config file (version "
+"1.9.18)"
+msgstr ""
+
+#: ../../Configuration.rst:73
+msgid "%n"
+msgstr ""
+
+#: ../../Configuration.rst:73
+msgid "the filename without extension"
+msgstr ""
+
+#: ../../Configuration.rst:74
+msgid "%N"
+msgstr ""
+
+#: ../../Configuration.rst:74
+msgid ""
+"same as %n but refer to the first non-template config file (version "
+"1.9.18)"
+msgstr ""
+
+#: ../../Configuration.rst:76
+#, python-format
+msgid "%c"
+msgstr ""
+
+#: ../../Configuration.rst:76
+msgid "the name of the directory containing the config file (version 1.3+)"
+msgstr ""
+
+#: ../../Configuration.rst:77
+msgid "%C"
+msgstr ""
+
+#: ../../Configuration.rst:77
+#, python-format
+msgid ""
+"same as %c but refer to the first non-template config file (version "
+"1.9.18)"
+msgstr ""
+
+#: ../../Configuration.rst:79
+msgid "%t"
+msgstr ""
+
+#: ../../Configuration.rst:79
+msgid "unix time (in seconds, gathered at instance startup) (version 1.9.20-dev+)"
+msgstr ""
+
+#: ../../Configuration.rst:80
+msgid "%T"
+msgstr ""
+
+#: ../../Configuration.rst:80
+msgid ""
+"unix time (in microseconds, gathered at instance startup) (version "
+"1.9.20-dev+)"
+msgstr ""
+
+#: ../../Configuration.rst:81
+#, python-format
+msgid "%x"
+msgstr ""
+
+#: ../../Configuration.rst:81
+msgid ""
+"the current section identifier, eg. `config.ini:section` (version "
+"1.9-dev+)"
+msgstr ""
+
+#: ../../Configuration.rst:82
+#, python-format
+msgid "%X"
+msgstr ""
+
+#: ../../Configuration.rst:82
+#, python-format
+msgid ""
+"same as %x but refer to the first non-template config file (version "
+"1.9.18)"
+msgstr ""
+
+#: ../../Configuration.rst:84
+#, python-format
+msgid "%i"
+msgstr ""
+
+#: ../../Configuration.rst:84
+msgid "inode number of the file (version 2.0.1)"
+msgstr ""
+
+#: ../../Configuration.rst:85
+msgid "%I"
+msgstr ""
+
+#: ../../Configuration.rst:85
+#, python-format
+msgid "same as %i but refer to the first non-template config file"
+msgstr ""
+
+#: ../../Configuration.rst:86
+msgid "%0..%9"
+msgstr ""
+
+#: ../../Configuration.rst:86
+msgid ""
+"a specific component of the full path of the directory containing the "
+"config file (version 1.3+)"
+msgstr ""
+
+#: ../../Configuration.rst:87
+msgid "%["
+msgstr ""
+
+#: ../../Configuration.rst:87
+msgid "ANSI escape \"\\\\033\" (useful for printing colors)"
+msgstr ""
+
+#: ../../Configuration.rst:88
+msgid "%k"
+msgstr ""
+
+#: ../../Configuration.rst:88
+msgid "detected cpu cores (version 1.9.20-dev+)"
+msgstr ""
+
+#: ../../Configuration.rst:89
+#, python-format
+msgid "%u"
+msgstr ""
+
+#: ../../Configuration.rst:89
+msgid "uid of the user running the process (version 2.0)"
+msgstr ""
+
+#: ../../Configuration.rst:90
+msgid "%U"
+msgstr ""
+
+#: ../../Configuration.rst:90
+msgid ""
+"username (if available, otherwise fallback to uid) of the user running "
+"the process (version 2.0)"
+msgstr ""
+
+#: ../../Configuration.rst:91
+#, python-format
+msgid "%g"
+msgstr ""
+
+#: ../../Configuration.rst:91
+msgid "gid of the user running the process (version 2.0)"
+msgstr ""
+
+#: ../../Configuration.rst:92
+#, python-format
+msgid "%G"
+msgstr ""
+
+#: ../../Configuration.rst:92
+msgid ""
+"group name (if available, otherwise fallback to gid) of the user running "
+"the process (version 2.0)"
+msgstr ""
+
+#: ../../Configuration.rst:93
+msgid "%j"
+msgstr ""
+
+#: ../../Configuration.rst:93
+msgid "HEX representation of the djb33x hash of the full config path"
+msgstr ""
+
+#: ../../Configuration.rst:94
+msgid "%J"
+msgstr ""
+
+#: ../../Configuration.rst:94
+msgid "same as %j but refer to the first non-template config file"
+msgstr ""
+
+#: ../../Configuration.rst:98
+msgid ""
+"Note that most of these refer to the file they appear in, even if that "
+"file is included from another file."
+msgstr ""
+
+#: ../../Configuration.rst:101
+msgid ""
+"An exception are most of the uppercase versions, which refer to the first"
+" non-template config file loaded. This means the first config file not "
+"loaded through ``--include`` or ``--inherit``, but through for example "
+"``--ini``, ``--yaml`` or ``--config``. These are intended to use with the"
+" emperor, to refer to the actual vassal config file instead of templates "
+"included with ``--vassals-include`` or ``--vassals-inherit``."
+msgstr ""
+
+#: ../../Configuration.rst:108
+msgid "For example, here's :file:`funnyapp.ini`."
+msgstr ""
+
+#: ../../Configuration.rst:118
+msgid ""
+"``%n`` will be replaced with the name of the config file, without "
+"extension, so the result in this case will be"
+msgstr ""
+
+#: ../../Configuration.rst:131
+msgid "Placeholders"
+msgstr ""
+
+#: ../../Configuration.rst:133
+msgid ""
+"Placeholders are custom magic variables defined during configuration time"
+" by setting a new configuration variable of your own devising."
+msgstr ""
+
+#: ../../Configuration.rst:148
+msgid ""
+"Placeholders can be assigned directly, or using the ``set-placeholder`` /"
+" ``set-ph`` option. These latter options can be useful to:"
+msgstr ""
+
+#: ../../Configuration.rst:151
+msgid ""
+"Make it more explicit that you're setting placeholders instead of regular"
+" options."
+msgstr ""
+
+#: ../../Configuration.rst:153
+msgid ""
+"Set options on the commandline, since unknown options like ``--foo=bar`` "
+"are rejected but ``--set-placeholder foo=bar`` is ok."
+msgstr ""
+
+#: ../../Configuration.rst:155
+msgid "Set placeholders when strict mode is enabled."
+msgstr ""
+
+#: ../../Configuration.rst:157
+msgid ""
+"Placeholders are accessible, like any uWSGI option, in your application "
+"code via :py:data:`uwsgi.opt`."
+msgstr ""
+
+#: ../../Configuration.rst:165
+msgid ""
+"This feature can be (ab)used to reduce the number of configuration files "
+"required by your application."
+msgstr ""
+
+#: ../../Configuration.rst:168
+msgid ""
+"Similarly, contents of environment variables and external text files can "
+"be included using the `$(ENV_VAR)` and `@(file_name)` syntax. See also "
+":doc:`ParsingOrder`."
+msgstr ""
+
+#: ../../Configuration.rst:173
+msgid "Placeholders math (from uWSGI 1.9.20-dev)"
+msgstr ""
+
+#: ../../Configuration.rst:175
+msgid "You can apply math formulas to placeholders using this special syntax:"
+msgstr ""
+
+#: ../../Configuration.rst:185
+msgid "Remember to not miss spaces between operations."
+msgstr ""
+
+#: ../../Configuration.rst:187
+msgid "Operations are executed in a pipeline (not in common math style):"
+msgstr ""
+
+#: ../../Configuration.rst:196
+msgid "'total' will be evaluated as 100:"
+msgstr ""
+
+#: ../../Configuration.rst:198
+msgid "(((foo + bar) + 3) * 2)"
+msgstr ""
+
+#: ../../Configuration.rst:200
+msgid "Incremental and decremental shortcuts are available"
+msgstr ""
+
+#: ../../Configuration.rst:209
+msgid "bar will be 30"
+msgstr ""
+
+#: ../../Configuration.rst:211
+msgid ""
+"If you do not specify an operation between two items, 'string "
+"concatenation' is assumed:"
+msgstr ""
+
+#: ../../Configuration.rst:221
+msgid ""
+"the first two items will be evaluated as '29' (not 11 as no math "
+"operation has been specified)"
+msgstr ""
+
+#: ../../Configuration.rst:224
+msgid "The '@' magic"
+msgstr ""
+
+#: ../../Configuration.rst:226
+msgid ""
+"We have already seen we can use the form @(filename) to include the "
+"contents of a file"
+msgstr ""
+
+#: ../../Configuration.rst:233
+msgid "the truth is that '@' can read from all of the supported uwsgi schemes"
+msgstr ""
+
+#: ../../Configuration.rst:253
+msgid "Command line arguments"
+msgstr ""
+
+#: ../../Configuration.rst:255 ../../Configuration.rst:272
+msgid "Example::"
+msgstr ""
+
+#: ../../Configuration.rst:262
+msgid "Environment variables"
+msgstr ""
+
+#: ../../Configuration.rst:264
+msgid ""
+"When passed as environment variables, options are capitalized and "
+"prefixed with `UWSGI_`, and dashes are substituted with underscores."
+msgstr ""
+
+#: ../../Configuration.rst:269
+msgid ""
+"Several values for the same configuration variable are not supported with"
+" this method."
+msgstr ""
+
+#: ../../Configuration.rst:277
+msgid "INI files"
+msgstr ""
+
+#: ../../Configuration.rst:279
+msgid ""
+".INI files are a standard de-facto configuration format used by many "
+"applications. It consists of ``[section]``\\ s and ``key=value`` pairs."
+msgstr ""
+
+#: ../../Configuration.rst:282
+msgid "An example uWSGI INI configuration:"
+msgstr ""
+
+#: ../../Configuration.rst:292
+msgid ""
+"By default, uWSGI uses the ``[uwsgi]`` section, but you can specify "
+"another section name while loading the INI file with the syntax "
+"``filename:section``, that is::"
+msgstr ""
+
+#: ../../Configuration.rst:298
+msgid ""
+"Alternatively, you can load another section from the same file by "
+"omitting the filename and specifying just the section name. Note that "
+"technically, this loads the named section from the last .ini file loaded "
+"instead of the current one, so be careful when including other files."
+msgstr ""
+
+#: ../../Configuration.rst:319
+msgid "Whitespace is insignificant within lines."
+msgstr ""
+
+#: ../../Configuration.rst:320
+msgid ""
+"Lines starting with a semicolon (``;``) or a hash/octothorpe (``#``) are "
+"ignored as comments."
+msgstr ""
+
+#: ../../Configuration.rst:321
+msgid ""
+"Boolean values may be set without the value part. Simply ``master`` is "
+"thus equivalent to ``master=true``. This may not be compatible with other"
+" INI parsers such as ``paste.deploy``."
+msgstr ""
+
+#: ../../Configuration.rst:322
+msgid ""
+"For convenience, uWSGI recognizes bare ``.ini`` arguments specially, so "
+"the invocation ``uwsgi myconf.ini``  is equal to ``uwsgi --ini "
+"myconf.ini``."
+msgstr ""
+
+#: ../../Configuration.rst:325
+msgid "XML files"
+msgstr ""
+
+#: ../../Configuration.rst:327
+msgid "The root node should be ``<uwsgi>`` and option values text nodes."
+msgstr ""
+
+#: ../../Configuration.rst:330 ../../Configuration.rst:364
+#: ../../Configuration.rst:404
+msgid "An example:"
+msgstr ""
+
+#: ../../Configuration.rst:341
+msgid ""
+"You can also have multiple ``<uwsgi>`` stanzas in your file, marked with "
+"different ``id`` attributes. To choose the stanza to use, specify its id "
+"after the filename in the ``xml`` option, using a colon as a separator.  "
+"When using this `id` mode, the root node of the file may be anything you "
+"like. This will allow you to embed ``uwsgi`` configuration nodes in other"
+" XML files."
+msgstr ""
+
+#: ../../Configuration.rst:354
+msgid "Boolean values may be set without a text value."
+msgstr ""
+
+#: ../../Configuration.rst:355
+msgid ""
+"For convenience, uWSGI recognizes bare ``.xml`` arguments specially, so "
+"the invocation ``uwsgi myconf.xml``  is equal to ``uwsgi --xml "
+"myconf.xml``."
+msgstr ""
+
+#: ../../Configuration.rst:358
+msgid "JSON files"
+msgstr ""
+
+#: ../../Configuration.rst:360
+msgid ""
+"The JSON file should represent an object with one key-value pair, the key"
+" being `\"uwsgi\"` and the value an object of configuration variables. "
+"Native JSON lists, booleans and numbers are supported."
+msgstr ""
+
+#: ../../Configuration.rst:374 ../../Configuration.rst:414
+msgid "Again, a named section can be loaded using a colon after the filename."
+msgstr ""
+
+#: ../../Configuration.rst:384 ../../Configuration.rst:423
+msgid "And then load this using::"
+msgstr ""
+
+#: ../../Configuration.rst:390
+msgid ""
+"The `Jansson`_ library is required during uWSGI build time to enable JSON"
+" support.  By default the presence of the library will be auto-detected "
+"and JSON support will be automatically enabled, but you can force JSON "
+"support to be enabled or disabled by editing your build configuration."
+msgstr ""
+
+#: ../../Configuration.rst:395
+msgid ":doc:`Install`"
+msgstr ""
+
+#: ../../Configuration.rst:400
+msgid "YAML files"
+msgstr ""
+
+#: ../../Configuration.rst:402
+msgid ""
+"The root element should be `uwsgi`. Boolean options may be set as `true` "
+"or `1`."
+msgstr ""
+
+#: ../../Configuration.rst:429
+msgid "SQLite configuration"
+msgstr ""
+
+#: ../../Configuration.rst:433
+msgid "Under construction."
+msgstr ""
+
+#: ../../Configuration.rst:436
+msgid "LDAP configuration"
+msgstr ""
+
+#: ../../Configuration.rst:438
+msgid ""
+"LDAP is a flexible way to centralize configuration of large clusters of "
+"uWSGI servers. Configuring it is a complex topic. See :doc:`LDAP` for "
+"more information."
+msgstr ""
+

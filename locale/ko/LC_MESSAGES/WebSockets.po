@@ -1,0 +1,324 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../WebSockets.rst:2
+msgid "WebSocket support"
+msgstr ""
+
+#: ../../WebSockets.rst:4
+msgid ""
+"In uWSGI 1.9, a high performance websocket (RFC 6455) implementation has "
+"been added."
+msgstr ""
+
+#: ../../WebSockets.rst:6
+msgid ""
+"Although many different solutions exist for WebSockets, most of them rely"
+" on a higher-level language implementation, that rarely is good enough "
+"for topics like gaming or streaming."
+msgstr ""
+
+#: ../../WebSockets.rst:8
+msgid "The uWSGI websockets implementation is compiled in by default."
+msgstr ""
+
+#: ../../WebSockets.rst:10
+msgid "Websocket support is sponsored by 20Tab S.r.l. http://20tab.com/"
+msgstr ""
+
+#: ../../WebSockets.rst:12
+msgid ""
+"They released a full game (a bomberman clone based on uWSGI websockets "
+"api): https://github.com/20tab/Bombertab"
+msgstr ""
+
+#: ../../WebSockets.rst:15
+msgid "An echo server"
+msgstr ""
+
+#: ../../WebSockets.rst:17
+msgid "This is how a uWSGI websockets application looks like:"
+msgstr ""
+
+#: ../../WebSockets.rst:28
+msgid ""
+"You do not need to worry about keeping the connection alive or reject "
+"dead peers. The ``uwsgi.websocket_recv()`` function will do all of the "
+"dirty work for you in background."
+msgstr ""
+
+#: ../../WebSockets.rst:31
+msgid "Handshaking"
+msgstr ""
+
+#: ../../WebSockets.rst:33
+msgid "Handshaking is the first phase of a websocket connection."
+msgstr ""
+
+#: ../../WebSockets.rst:35
+msgid ""
+"To send a full handshake response you can use the "
+"``uwsgi.websocket_handshake([key,origin, proto])`` function. Without a "
+"correct handshake the connection will never complete."
+msgstr ""
+
+#: ../../WebSockets.rst:37
+msgid ""
+"In the 1.9 series, the key parameter is required. In 2.0+ you can call "
+"websocket_handshake without arguments (the response will be built "
+"automatically from request's data)."
+msgstr ""
+
+#: ../../WebSockets.rst:40
+msgid "Sending"
+msgstr ""
+
+#: ../../WebSockets.rst:42
+msgid ""
+"Sending data to the browser is really easy. ``uwsgi.websocket_send(msg)``"
+" -- nothing more."
+msgstr ""
+
+#: ../../WebSockets.rst:45
+msgid "Receiving"
+msgstr ""
+
+#: ../../WebSockets.rst:47
+msgid "This is the real core of the whole implementation."
+msgstr ""
+
+#: ../../WebSockets.rst:49
+msgid ""
+"This function actually lies about its real purpose. It does return a "
+"websocket message, but it really also holds the connection opened (using "
+"the ping/pong subsystem) and monitors the stream's status."
+msgstr ""
+
+#: ../../WebSockets.rst:52
+msgid "``msg = uwsgi.websocket_recv()``"
+msgstr ""
+
+#: ../../WebSockets.rst:54
+msgid ""
+"The function can receive messages from a named channel (see below) and "
+"automatically forward them to your websocket connection."
+msgstr ""
+
+#: ../../WebSockets.rst:56
+msgid ""
+"It will always return only websocket messages sent from the browser -- "
+"any other communication happens in the background."
+msgstr ""
+
+#: ../../WebSockets.rst:58
+msgid ""
+"There is a non-blocking variant too -- ``msg = "
+"uwsgi.websocket_recv_nb()``. See: "
+"https://github.com/unbit/uwsgi/blob/master/tests/websockets_chat_async.py"
+msgstr ""
+
+#: ../../WebSockets.rst:61
+msgid "PING/PONG"
+msgstr ""
+
+#: ../../WebSockets.rst:63
+msgid ""
+"To keep a websocket connection opened, you should constantly send ping "
+"(or pong, see later) to the browser and expect a response from it. If the"
+" response from the browser/client does not arrive in a timely fashion the"
+" connection is closed (``uwsgi.websocket_recv()`` will raise an "
+"exception). In addition to ping, the ``uwsgi.websocket_recv()`` function "
+"send the so called 'gratuitous pong'. They are used to inform the client "
+"of server availability."
+msgstr ""
+
+#: ../../WebSockets.rst:67
+msgid "All of these tasks happen in background. YOU DO NOT NEED TO MANAGE THEM!"
+msgstr ""
+
+#: ../../WebSockets.rst:70
+msgid "Available proxies"
+msgstr ""
+
+#: ../../WebSockets.rst:72
+msgid ""
+"Unfortunately not all of the HTTP webserver/proxies work flawlessly with "
+"websockets."
+msgstr ""
+
+#: ../../WebSockets.rst:74
+msgid ""
+"The uWSGI HTTP/HTTPS/SPDY router supports them without problems. Just "
+"remember to add the ``--http-websockets`` option."
+msgstr ""
+
+#: ../../WebSockets.rst:80 ../../WebSockets.rst:135
+msgid "or"
+msgstr ""
+
+#: ../../WebSockets.rst:86
+msgid "This is slightly more \"raw\", but supports things like chunked input."
+msgstr ""
+
+#: ../../WebSockets.rst:88
+msgid "Haproxy works fine."
+msgstr ""
+
+#: ../../WebSockets.rst:90
+msgid ""
+"nginx >= 1.4 using the ``uwsgi_pass`` directive needs no additional "
+"config."
+msgstr ""
+
+#: ../../WebSockets.rst:93
+msgid "Language support"
+msgstr ""
+
+#: ../../WebSockets.rst:95
+msgid "Python https://github.com/unbit/uwsgi/blob/master/tests/websockets_echo.py"
+msgstr ""
+
+#: ../../WebSockets.rst:96
+msgid "Perl https://github.com/unbit/uwsgi/blob/master/tests/websockets_echo.pl"
+msgstr ""
+
+#: ../../WebSockets.rst:97
+msgid ""
+"PyPy "
+"https://github.com/unbit/uwsgi/blob/master/tests/websockets_chat_async.py"
+msgstr ""
+
+#: ../../WebSockets.rst:98
+msgid "Ruby https://github.com/unbit/uwsgi/blob/master/tests/websockets_echo.ru"
+msgstr ""
+
+#: ../../WebSockets.rst:99
+msgid "Lua https://github.com/unbit/uwsgi/blob/master/tests/websockets_echo.lua"
+msgstr ""
+
+#: ../../WebSockets.rst:102
+msgid "Supported concurrency models"
+msgstr ""
+
+#: ../../WebSockets.rst:104
+msgid "Multiprocess"
+msgstr ""
+
+#: ../../WebSockets.rst:105
+msgid "Multithreaded"
+msgstr ""
+
+#: ../../WebSockets.rst:106
+msgid "uWSGI native async api"
+msgstr ""
+
+#: ../../WebSockets.rst:107
+msgid "Coro::AnyEvent"
+msgstr ""
+
+#: ../../WebSockets.rst:108
+msgid "gevent"
+msgstr ""
+
+#: ../../WebSockets.rst:109
+msgid "Ruby fibers + uWSGI async"
+msgstr ""
+
+#: ../../WebSockets.rst:110
+msgid "Ruby threads"
+msgstr ""
+
+#: ../../WebSockets.rst:111
+msgid "greenlet + uWSGI async"
+msgstr ""
+
+#: ../../WebSockets.rst:112
+msgid "uGreen + uWSGI async"
+msgstr ""
+
+#: ../../WebSockets.rst:113
+msgid "PyPy continulets"
+msgstr ""
+
+#: ../../WebSockets.rst:116
+msgid "wss:// (websockets over https)"
+msgstr ""
+
+#: ../../WebSockets.rst:118
+msgid ""
+"The uWSGI HTTPS router works without problems with websockets. Just "
+"remember to use wss:// as the connection scheme in your client code."
+msgstr ""
+
+#: ../../WebSockets.rst:121
+msgid "Websockets over SPDY"
+msgstr ""
+
+#: ../../WebSockets.rst:123
+msgid "n/a"
+msgstr ""
+
+#: ../../WebSockets.rst:126
+msgid "Routing"
+msgstr ""
+
+#: ../../WebSockets.rst:128
+msgid ""
+"The http proxy internal router supports websocket out of the box "
+"(assuming your front-line proxy already supports them)"
+msgstr ""
+
+#: ../../WebSockets.rst:143
+msgid "Api"
+msgstr ""
+
+#: ../../WebSockets.rst:145
+msgid "uwsgi.websocket_handshake([key, origin, proto])"
+msgstr ""
+
+#: ../../WebSockets.rst:147
+msgid "uwsgi.websocket_recv()"
+msgstr ""
+
+#: ../../WebSockets.rst:149
+msgid "uwsgi.websocket_send(msg)"
+msgstr ""
+
+#: ../../WebSockets.rst:151
+msgid ""
+"uwsgi.websocket_send_binary(msg) (added in 1.9.21 to support binary "
+"messages)"
+msgstr ""
+
+#: ../../WebSockets.rst:153
+msgid "uwsgi.websocket_recv_nb()"
+msgstr ""
+
+#: ../../WebSockets.rst:155
+msgid ""
+"uwsgi.websocket_send_from_sharedarea(id, pos) (added in 1.9.21, allows "
+"sending directly from a :doc:`SharedArea`)"
+msgstr ""
+
+#: ../../WebSockets.rst:157
+msgid ""
+"uwsgi.websocket_send_binary_from_sharedarea(id, pos) (added in 1.9.21, "
+"allows sending directly from a :doc:`SharedArea`)"
+msgstr ""
+

@@ -1,0 +1,181 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Changelog-2.0.11.rst:2
+msgid "uWSGI 2.0.11"
+msgstr ""
+
+#: ../../Changelog-2.0.11.rst:4
+msgid "[20150701]"
+msgstr ""
+
+#: ../../Changelog-2.0.11.rst:7
+msgid "Bugfixes"
+msgstr ""
+
+#: ../../Changelog-2.0.11.rst:9
+msgid "[pypy] fixed misuse of ffi.string"
+msgstr ""
+
+#: ../../Changelog-2.0.11.rst:10
+msgid "fixed detection for gcc 5 (jimfunk)"
+msgstr ""
+
+#: ../../Changelog-2.0.11.rst:11
+msgid "fixed shared sockets for gateways"
+msgstr ""
+
+#: ../../Changelog-2.0.11.rst:12
+msgid ""
+"[psgi] Changed abs to labs because offset is declared as a long (Peter H."
+" Ezetta)"
+msgstr ""
+
+#: ../../Changelog-2.0.11.rst:13
+msgid "add null terminator to uwsgi_get_dot_h() and uwsgi_config_py() (Jay Oster)"
+msgstr ""
+
+#: ../../Changelog-2.0.11.rst:14
+msgid "fixed thread waiting during stop/restart (Kaiwen Xu)"
+msgstr ""
+
+#: ../../Changelog-2.0.11.rst:15
+msgid "fixed chain reloading verbosity"
+msgstr ""
+
+#: ../../Changelog-2.0.11.rst:16
+msgid "[python] fixed spooler job reference counting (Curtis Maloney)"
+msgstr ""
+
+#: ../../Changelog-2.0.11.rst:17
+msgid "various static analysis improvements (Riccardo Magliocchetti)"
+msgstr ""
+
+#: ../../Changelog-2.0.11.rst:18
+msgid "fixed sharedarea support for very big ranges"
+msgstr ""
+
+#: ../../Changelog-2.0.11.rst:19
+msgid "fixed gzip transformation for zero-sized responses (Curtis Maloney)"
+msgstr ""
+
+#: ../../Changelog-2.0.11.rst:20
+msgid ""
+"fixed management of https client certificate authentication (Vladimir "
+"Didenko)"
+msgstr ""
+
+#: ../../Changelog-2.0.11.rst:21
+msgid "fixed OpenBSD build"
+msgstr ""
+
+#: ../../Changelog-2.0.11.rst:22
+msgid "fixed TMPFILE permissions"
+msgstr ""
+
+#: ../../Changelog-2.0.11.rst:26
+msgid "New Features"
+msgstr ""
+
+#: ../../Changelog-2.0.11.rst:29
+msgid "The mem_collector thread"
+msgstr ""
+
+#: ../../Changelog-2.0.11.rst:31
+msgid ""
+"Evil memory monitors (like --evil-reload-on-rss) are now asynchronously "
+"managed by a dedicated thread."
+msgstr ""
+
+#: ../../Changelog-2.0.11.rst:33
+msgid "This solves the issue of runaway processes not catched by the master."
+msgstr ""
+
+#: ../../Changelog-2.0.11.rst:36
+msgid "fixpathinfo routing action"
+msgstr ""
+
+#: ../../Changelog-2.0.11.rst:38
+msgid ""
+"This is another step in removing the need of the infamous uwsgi_modifier1"
+" 30 relic."
+msgstr ""
+
+#: ../../Changelog-2.0.11.rst:40
+msgid ""
+"This routing action assumes the PATH_INFO cgi var has the SCRIPT_NAME "
+"part included."
+msgstr ""
+
+#: ../../Changelog-2.0.11.rst:42
+msgid ""
+"This action allows you to set SCRIPT_NAME in nginx without bothering to "
+"rewrite the PATH_INFO (something nginx cannot afford)"
+msgstr ""
+
+#: ../../Changelog-2.0.11.rst:51
+msgid "uwsgi[sor] and time[micros] routing vars"
+msgstr ""
+
+#: ../../Changelog-2.0.11.rst:53
+msgid ""
+"This two new vars exposes the start of the current request (in micros) "
+"and the current time (again in micros)"
+msgstr ""
+
+#: ../../Changelog-2.0.11.rst:62
+msgid "wait-for-socket"
+msgstr ""
+
+#: ../../Changelog-2.0.11.rst:64
+msgid "This works like wait-for-fs/iface/file/dir"
+msgstr ""
+
+#: ../../Changelog-2.0.11.rst:66
+msgid ""
+"The spawn of the instance is suspended until the specified tcp/unix "
+"socket is ready."
+msgstr ""
+
+#: ../../Changelog-2.0.11.rst:68
+msgid ""
+"You can use it to synchronize vassals spawn (like stopping a vassal until"
+" a postgresql server has been spawned)"
+msgstr ""
+
+#: ../../Changelog-2.0.11.rst:71
+msgid "wait_for hooks"
+msgstr ""
+
+#: ../../Changelog-2.0.11.rst:73
+msgid "All of the wait-for-* functions can now be used as a hook:"
+msgstr ""
+
+#: ../../Changelog-2.0.11.rst:82
+msgid "Availability"
+msgstr ""
+
+#: ../../Changelog-2.0.11.rst:84
+msgid "You can download uWSGI 2.0.11 from"
+msgstr ""
+
+#: ../../Changelog-2.0.11.rst:86
+msgid "https://projects.unbit.it/downloads/uwsgi-2.0.11.tar.gz"
+msgstr ""
+

@@ -1,0 +1,309 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Signals.rst:2
+msgid "The uWSGI Signal Framework"
+msgstr ""
+
+#: ../../Signals.rst:4
+msgid ""
+"Raw usage of uwsgi signals is for advanced users only. You should see "
+":doc:`PythonDecorators` for a more elegant abstraction."
+msgstr ""
+
+#: ../../Signals.rst:6
+msgid ""
+"uWSGI Signals have _nothing_ in common with UNIX/Posix signals (if you "
+"are looking for those, :doc:`Management` is your page)."
+msgstr ""
+
+#: ../../Signals.rst:8
+msgid ""
+"Over time, your uWSGI stack is growing, you add spoolers, more processes,"
+" more plugins, whatever. The more features you add the more you need all "
+"of these components to speak to each other."
+msgstr ""
+
+#: ../../Signals.rst:10
+msgid ""
+"Another important task for today's rich/advanced web apps is to respond "
+"to different events. An event could be a file modification, a new cluster"
+" node popping up, another one (sadly) dying, a timer having elapsed... "
+"whatever you can imagine."
+msgstr ""
+
+#: ../../Signals.rst:12
+msgid ""
+"Communication and event management are all managed by the same subsystem "
+"-- the uWSGI signal framework."
+msgstr ""
+
+#: ../../Signals.rst:14
+msgid ""
+"uWSGI signals are managed with sockets, so they are *fully reliable*. "
+"When you send an uWSGI signal, you can be sure that it will be delivered."
+msgstr ""
+
+#: ../../Signals.rst:17
+msgid "The Signals table"
+msgstr ""
+
+#: ../../Signals.rst:19
+msgid ""
+"Signals are simple *1 byte* messages that are routed by the master "
+"process to workers and spoolers."
+msgstr ""
+
+#: ../../Signals.rst:21
+msgid ""
+"When a worker receives a signal it searches the signals table for the "
+"corresponding handler to execute."
+msgstr ""
+
+#: ../../Signals.rst:23
+msgid ""
+"The signal table is shared by all workers (and protected against race "
+"conditions by a shared lock)."
+msgstr ""
+
+#: ../../Signals.rst:25
+msgid ""
+"Every uWSGI process (mainly the master though) can write into it to set "
+"signal handlers and recipient processes."
+msgstr ""
+
+#: ../../Signals.rst:29
+msgid ""
+"Always pay attention to who will run the signal handler. It must have "
+"access to the handler itself. This means that if you define a new "
+"function in ``worker1`` and register it as a signal handler, only "
+"``worker1`` can run it. The best way to register signals is defining them"
+" in the master, so (thanks to ``fork()``) all workers see them."
+msgstr ""
+
+#: ../../Signals.rst:34
+msgid "Defining signal handlers"
+msgstr ""
+
+#: ../../Signals.rst:36
+msgid ""
+"To manage the signals table the uWSGI API exposes one simple function, "
+":py:meth:`uwsgi.register_signal`."
+msgstr ""
+
+#: ../../Signals.rst:38
+msgid ""
+"These are two simple examples of defining signal table items, in Python "
+"and Lua."
+msgstr ""
+
+#: ../../Signals.rst:65
+msgid "Signals targets"
+msgstr ""
+
+#: ../../Signals.rst:67
+msgid "The third argument of uwsgi.register_signal is the 'signal target'."
+msgstr ""
+
+#: ../../Signals.rst:69
+msgid ""
+"It instructs the system about 'who' must run the handler. By default the "
+"target is 'worker' that means 'the first available worker'. The following"
+" targets are available:"
+msgstr ""
+
+#: ../../Signals.rst:71
+msgid "workerN (run the signal handler only on worker N)"
+msgstr ""
+
+#: ../../Signals.rst:72
+msgid ""
+"worker/worker0 (the default one, run the signal handler on the first "
+"available worker)"
+msgstr ""
+
+#: ../../Signals.rst:73
+msgid "workers (run the signal handler on all the workers)"
+msgstr ""
+
+#: ../../Signals.rst:74
+msgid ""
+"active-workers (run the signal handlers on all the active [non-cheaped] "
+"workers)"
+msgstr ""
+
+#: ../../Signals.rst:75
+msgid "spooler (run the signal on the first available spooler)"
+msgstr ""
+
+#: ../../Signals.rst:76
+msgid "mules (run the signal handler on all of the mules)"
+msgstr ""
+
+#: ../../Signals.rst:77
+msgid "muleN (run the signal handler on mule N)"
+msgstr ""
+
+#: ../../Signals.rst:78
+msgid "mule/mule0 (run the signal handler on the first available mule)"
+msgstr ""
+
+#: ../../Signals.rst:79
+msgid "farmN/farm_XXX (run the signal handler in the mule farm N or named XXX)"
+msgstr ""
+
+#: ../../Signals.rst:82
+msgid "Raising signals"
+msgstr ""
+
+#: ../../Signals.rst:84
+msgid ""
+"Signals may be raised using :py:meth:`uwsgi.signal`. When you send a "
+"signal, it is copied into the master's queue. The master will then check "
+"the signal table and dispatch the messages."
+msgstr ""
+
+#: ../../Signals.rst:87
+msgid "External events"
+msgstr ""
+
+#: ../../Signals.rst:89
+msgid ""
+"The most useful feature of uWSGI signals is that they can be used to "
+"announce external events."
+msgstr ""
+
+#: ../../Signals.rst:91
+msgid "At the time of writing the available external events are"
+msgstr ""
+
+#: ../../Signals.rst:93
+msgid "filesystem modifications"
+msgstr ""
+
+#: ../../Signals.rst:94
+msgid "timers/rb_timers"
+msgstr ""
+
+#: ../../Signals.rst:95
+msgid "cron"
+msgstr ""
+
+#: ../../Signals.rst:97
+msgid ""
+"Other events are exposed via plugins, like https://github.com/unbit"
+"/uwsgi-pgnotify raising signal whenever a postgres notification channel "
+"is ready."
+msgstr ""
+
+#: ../../Signals.rst:100
+msgid "Filesystem modifications"
+msgstr ""
+
+#: ../../Signals.rst:102
+msgid ""
+"To map a specific file/directory modification event to a signal you can "
+"use :py:meth:`uwsgi.add_file_monitor`."
+msgstr ""
+
+#: ../../Signals.rst:104
+msgid "An example:"
+msgstr ""
+
+#: ../../Signals.rst:116
+msgid ""
+"From now on, every time ``/tmp`` is modified, signal 17 will be raised "
+"and ``hello_file`` will be run by the first available worker."
+msgstr ""
+
+#: ../../Signals.rst:119
+msgid "Timers"
+msgstr ""
+
+#: ../../Signals.rst:121
+msgid ""
+"Timers are another useful feature in web programming -- for instance to "
+"clear sessions and shopping carts and what-have-you."
+msgstr ""
+
+#: ../../Signals.rst:123
+msgid ""
+"Timers are implemented using kernel facilities (most notably kqueue on "
+"BSD systems and timerfd() on modern Linux kernels). uWSGI also contains "
+"support for rb_timers, timers implemented in user space using red-black "
+"trees."
+msgstr ""
+
+#: ../../Signals.rst:125
+msgid ""
+"To register a timer, use :meth:`uwsgi.add_timer`. To register an "
+"rb_timer, use :meth:`uwsgi.add_rb_timer`."
+msgstr ""
+
+#: ../../Signals.rst:144
+msgid ""
+"Signal 26 will be raised every 2 seconds and handled by the first "
+"available worker. Signal 30 will be raised after 40 seconds and executed "
+"only once."
+msgstr ""
+
+#: ../../Signals.rst:148
+msgid "signal_wait and signal_received"
+msgstr ""
+
+#: ../../Signals.rst:150
+msgid ""
+"Unregistered signals (those without an handler associated) will be routed"
+" to the first available worker to use the :meth:`uwsgi.signal_wait` "
+"function."
+msgstr ""
+
+#: ../../Signals.rst:157
+msgid ""
+"You can combine external events (file monitors, timers...) with this "
+"technique to implement event-based apps. A good example is a chat server "
+"where every core waits for text sent by users."
+msgstr ""
+
+#: ../../Signals.rst:159
+msgid ""
+"You can also wait for specific (even registered) signals by passing a "
+"signal number to ``signal_wait``."
+msgstr ""
+
+#: ../../Signals.rst:162
+msgid "Todo/Known Issues"
+msgstr ""
+
+#: ../../Signals.rst:164
+msgid "Signal table entry cannot be removed (this will be fixed soon)"
+msgstr ""
+
+#: ../../Signals.rst:165
+msgid "Iterations work only with rb_timers"
+msgstr ""
+
+#: ../../Signals.rst:166
+msgid "uwsgi.signal_wait() does not work in async mode (will be fixed)"
+msgstr ""
+
+#: ../../Signals.rst:167
+msgid "Add iterations to file monitoring (to allow one-shot event as timers)"
+msgstr ""
+

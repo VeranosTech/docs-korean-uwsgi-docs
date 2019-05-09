@@ -1,0 +1,265 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../BuildSystem.rst:2
+msgid "The uWSGI build system"
+msgstr ""
+
+#: ../../BuildSystem.rst:4
+msgid "This is updated to 1.9.13"
+msgstr ""
+
+#: ../../BuildSystem.rst:6
+msgid ""
+"This page describes how the uWSGI build system works and how it can be "
+"customized"
+msgstr ""
+
+#: ../../BuildSystem.rst:9
+msgid "uwsgiconfig.py"
+msgstr ""
+
+#: ../../BuildSystem.rst:11
+msgid "This is the python script aimed at calling the various compile/link stage."
+msgstr ""
+
+#: ../../BuildSystem.rst:13
+msgid ""
+"During 2009, when uWSGI guidelines (and mantra) started to be defined, "
+"people agreed that autotools, cmake and friends was not loved by a lot of"
+" sysadmins. Albeit they are pretty standardized, the amount of packages "
+"needed and the incompatibility between them (especially in the autotools "
+"world) was a problem for a project with fast development/evolution where "
+"\"compile from sources\" was, is and very probably will be the best way "
+"to get the best from the product. In addition to this the build procedure"
+" MUST BE fast (less than 1 minute on entry level x86 is the main rule)"
+msgstr ""
+
+#: ../../BuildSystem.rst:18
+msgid ""
+"For such a reason, to compile uWSGI you only need to have a c compiler "
+"suite (gcc, clang...) and a python interpreter. Someone could argue that "
+"perl could have been a better choice, and maybe it is the truth (it is "
+"generally installed by default in lot of operating systems), but we "
+"decided to stay with python mainly because when uWSGI started it was a "
+"python-only application. (Obviously if you want to develop an alternative"
+" build system you are free to do it)"
+msgstr ""
+
+#: ../../BuildSystem.rst:22
+msgid ""
+"The uwsgiconfig.py basically detects the available features in the system"
+" and builds a uwsgi binary (and eventually its plugins) using the so "
+"called 'build profile'"
+msgstr ""
+
+#: ../../BuildSystem.rst:26
+msgid "build profiles"
+msgstr ""
+
+#: ../../BuildSystem.rst:29
+msgid "First example"
+msgstr ""
+
+#: ../../BuildSystem.rst:32
+msgid "CC and CPP"
+msgstr ""
+
+#: ../../BuildSystem.rst:34
+msgid ""
+"These 2 environment variables tell uwsgiconfig.py to use an alternative C"
+" compiler and C preprocessor."
+msgstr ""
+
+#: ../../BuildSystem.rst:36
+msgid "If they are not defined the procedure is the following:"
+msgstr ""
+
+#: ../../BuildSystem.rst:38
+msgid ""
+"For CC -> try to get the CC config_var from the python binary running "
+"uwsgiconfig.py, fallback to 'gcc'"
+msgstr ""
+
+#: ../../BuildSystem.rst:40
+msgid "For CPP -> fallback to 'cpp'"
+msgstr ""
+
+#: ../../BuildSystem.rst:43
+msgid "As an example, on a system with both gcc and clang you will end with"
+msgstr ""
+
+#: ../../BuildSystem.rst:50
+msgid "CPUCOUNT"
+msgstr ""
+
+#: ../../BuildSystem.rst:52
+msgid ""
+"In the spirit of \"easy and fast build even on production systems\", "
+"uwsgiconfig.py tries to use all of your cpu cores spawning multiple "
+"instances of the c compiler (one per-core)."
+msgstr ""
+
+#: ../../BuildSystem.rst:55
+msgid ""
+"You can override this system using the CPUCOUNT environment variable, "
+"forcing the number of detected cpu cores (setting to 1 will disable "
+"parallel build)."
+msgstr ""
+
+#: ../../BuildSystem.rst:62
+msgid "UWSGI_FORCE_REBUILD"
+msgstr ""
+
+#: ../../BuildSystem.rst:65
+msgid "Plugins and uwsgiplugin.py"
+msgstr ""
+
+#: ../../BuildSystem.rst:68
+msgid ""
+"A uWSGI plugin is a shared library exporting the <name>_plugin symbol. "
+"Where <name> is the name of the plugin."
+msgstr ""
+
+#: ../../BuildSystem.rst:70
+msgid ""
+"As an example the psgi plugin will export the psgi_plugin symbol as well "
+"as pypy will export he pypy_plugin symbol and so on."
+msgstr ""
+
+#: ../../BuildSystem.rst:72
+msgid "This symbol is a uwsgi_plugin C struct defining the hooks of the plugin."
+msgstr ""
+
+#: ../../BuildSystem.rst:74
+msgid ""
+"When you ask uWSGI to load a plugin it simply calls dlopen() and get the "
+"uwsgi_plugin struct via dlsym()."
+msgstr ""
+
+#: ../../BuildSystem.rst:76
+msgid ""
+"The vast majority of the uWSGI project is developed as a plugin. This "
+"structure ensures a modular approach to configuration and a saner "
+"development style."
+msgstr ""
+
+#: ../../BuildSystem.rst:78
+msgid ""
+"The sysadmin is free to embed each plugin in the server binary or to "
+"build each plugin as an external shared library."
+msgstr ""
+
+#: ../../BuildSystem.rst:80
+msgid ""
+"Embedded plugins are defined in the 'embedded_plugins' directive of the "
+"build profile. You can add more embedded plugins from the command line "
+"using the UWSGI_EMBED_PLUGINS environment variable (see below)."
+msgstr ""
+
+#: ../../BuildSystem.rst:83
+msgid ""
+"Instead, if you want to build a plugin as a shared library just run "
+"uwsgiconfig.py with the --plugin option"
+msgstr ""
+
+#: ../../BuildSystem.rst:89
+msgid "this will build the plugin in plugins/psgi to the psgi_plugin.so file"
+msgstr ""
+
+#: ../../BuildSystem.rst:91
+msgid ""
+"To specify a build profile when you build a plugin, you can pass the "
+"profile as an additional argument"
+msgstr ""
+
+#: ../../BuildSystem.rst:98
+msgid "UWSGI_INCLUDES"
+msgstr ""
+
+#: ../../BuildSystem.rst:100
+msgid "this has been added in 1.9.13"
+msgstr ""
+
+#: ../../BuildSystem.rst:102
+msgid ""
+"On startup, the CPP binary is run to detect default include paths. You "
+"can add more paths using the UWSGI_INCLUDES environment variable"
+msgstr ""
+
+#: ../../BuildSystem.rst:109
+msgid "UWSGI_EMBED_PLUGINS"
+msgstr ""
+
+#: ../../BuildSystem.rst:112
+msgid "UWSGI_EMBED_CONFIG"
+msgstr ""
+
+#: ../../BuildSystem.rst:114
+msgid ""
+"Allows embedding the specified .ini file in the server binary (currently "
+"Linux only)"
+msgstr ""
+
+#: ../../BuildSystem.rst:116
+msgid "On startup the server parses the embedded file as soon as possible."
+msgstr ""
+
+#: ../../BuildSystem.rst:118
+msgid ""
+"Custom options defined in the embedded config will be available as "
+"standard ones."
+msgstr ""
+
+#: ../../BuildSystem.rst:121
+msgid "UWSGI_BIN_NAME"
+msgstr ""
+
+#: ../../BuildSystem.rst:124
+msgid "CFLAGS and LDFLAGS"
+msgstr ""
+
+#: ../../BuildSystem.rst:127
+msgid "UWSGICONFIG_* for plugins"
+msgstr ""
+
+#: ../../BuildSystem.rst:130
+msgid "libuwsgi.so"
+msgstr ""
+
+#: ../../BuildSystem.rst:133
+msgid "uwsgibuild.log"
+msgstr ""
+
+#: ../../BuildSystem.rst:136
+msgid "uwsgibuild.lastcflags"
+msgstr ""
+
+#: ../../BuildSystem.rst:139
+msgid "cflags and uwsgi.h magic"
+msgstr ""
+
+#: ../../BuildSystem.rst:142
+msgid "embedding files"
+msgstr ""
+
+#: ../../BuildSystem.rst:145
+msgid "The fake make"
+msgstr ""
+

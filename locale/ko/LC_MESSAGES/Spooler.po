@@ -1,0 +1,477 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Spooler.rst:2
+msgid "The uWSGI Spooler"
+msgstr ""
+
+#: ../../Spooler.rst:4
+msgid "Updated to uWSGI 2.0.1"
+msgstr ""
+
+#: ../../Spooler.rst:6
+msgid "Supported on: Perl, Python, Ruby"
+msgstr ""
+
+#: ../../Spooler.rst:8
+msgid ""
+"The Spooler is a queue manager built into uWSGI that works like a "
+"printing/mail system."
+msgstr ""
+
+#: ../../Spooler.rst:10
+msgid ""
+"You can enqueue massive sending of emails, image processing, video "
+"encoding, etc. and let the spooler do the hard work in background while "
+"your users get their requests served by normal workers."
+msgstr ""
+
+#: ../../Spooler.rst:12
+msgid ""
+"A spooler works by defining a directory in which \"spool files\" will be "
+"written, every time the spooler find a file in its directory it will "
+"parse it and will run a specific function."
+msgstr ""
+
+#: ../../Spooler.rst:14
+msgid ""
+"You can have multiple spoolers mapped to different directories and even "
+"multiple spoolers mapped to the same one."
+msgstr ""
+
+#: ../../Spooler.rst:16
+msgid ""
+"The ``--spooler <directory>`` option allows you to generate a spooler "
+"process, while the ``--spooler-processes <n>`` allows you to set how many"
+" processes to spawn for every spooler."
+msgstr ""
+
+#: ../../Spooler.rst:18
+msgid ""
+"The spooler is able to manage uWSGI signals too, so you can use it as a "
+"target for your handlers."
+msgstr ""
+
+#: ../../Spooler.rst:20
+msgid ""
+"This configuration will generate a spooler for your instance (myspool "
+"directory must exists)"
+msgstr ""
+
+#: ../../Spooler.rst:28
+msgid "while this one will create two spoolers:"
+msgstr ""
+
+#: ../../Spooler.rst:37
+msgid ""
+"having multiple spoolers allows you to prioritize tasks (and eventually "
+"parallelize them)"
+msgstr ""
+
+#: ../../Spooler.rst:40
+msgid "Spool files"
+msgstr ""
+
+#: ../../Spooler.rst:42
+msgid ""
+"Spool files are serialized hashes/dictionaries of strings. The spooler "
+"will parse them and pass the resulting hash/dictionary to the spooler "
+"function (see below)."
+msgstr ""
+
+#: ../../Spooler.rst:44
+msgid ""
+"The serialization format is the same used for the 'uwsgi' protocol, so "
+"you are limited to 64k (even if there is a trick for passing bigger "
+"values, see the 'body' magic key below). The modifier1 for spooler "
+"packets is the 17, so a {'hello' => 'world'} hash will be encoded as:"
+msgstr ""
+
+#: ../../Spooler.rst:48
+msgid "header"
+msgstr ""
+
+#: ../../Spooler.rst:48
+msgid "key1"
+msgstr ""
+
+#: ../../Spooler.rst:48
+msgid "value1"
+msgstr ""
+
+#: ../../Spooler.rst:50
+msgid "17|14|0|0"
+msgstr ""
+
+#: ../../Spooler.rst:50
+msgid "|5|0|h|e|l|l|o"
+msgstr ""
+
+#: ../../Spooler.rst:50
+msgid "|5|0|w|o|r|l|d"
+msgstr ""
+
+#: ../../Spooler.rst:53
+msgid ""
+"A locking system allows you to safely manually remove spool files if "
+"something goes wrong, or to move them between spooler directories."
+msgstr ""
+
+#: ../../Spooler.rst:55
+msgid ""
+"Spool dirs over NFS are allowed, but if you do not have proper NFS "
+"locking in place, avoid mapping the same spooler NFS directory to spooler"
+" on different machines."
+msgstr ""
+
+#: ../../Spooler.rst:58
+msgid "Setting the spooler function/callable"
+msgstr ""
+
+#: ../../Spooler.rst:60
+msgid ""
+"Because there are dozens of different ways to enqueue spooler requests, "
+"we're going to cover receiving the requests first."
+msgstr ""
+
+#: ../../Spooler.rst:62
+msgid ""
+"To have a fully operational spooler you need to define a \"spooler "
+"function/callable\" to process the requests."
+msgstr ""
+
+#: ../../Spooler.rst:64
+msgid ""
+"Regardless of the the number of configured spoolers, the same function "
+"will be executed. It is up to the developer to instruct it to recognize "
+"tasks. If you don't process requests, the spool directory will just fill "
+"up."
+msgstr ""
+
+#: ../../Spooler.rst:68
+msgid "This function must returns an integer value:"
+msgstr ""
+
+#: ../../Spooler.rst:70
+msgid ""
+"-2 (SPOOL_OK) -- the task has been completed, the spool file will be "
+"removed"
+msgstr ""
+
+#: ../../Spooler.rst:71
+msgid ""
+"-1 (SPOOL_RETRY) -- something is temporarily wrong, the task will be "
+"retried at the next spooler iteration"
+msgstr ""
+
+#: ../../Spooler.rst:72
+msgid ""
+"0 (SPOOL_IGNORE) -- ignore this task, if multiple languages are loaded in"
+" the instance all of them will fight for managing the task. This return "
+"values allows you to skip a task in specific languages."
+msgstr ""
+
+#: ../../Spooler.rst:74
+msgid "Any other value will be interpreted as -1 (retry)."
+msgstr ""
+
+#: ../../Spooler.rst:76
+msgid "Each language plugin has its own way to define the spooler function:"
+msgstr ""
+
+#: ../../Spooler.rst:78
+msgid "Perl:"
+msgstr ""
+
+#: ../../Spooler.rst:92
+msgid "Python:"
+msgstr ""
+
+#: ../../Spooler.rst:104
+msgid "Ruby:"
+msgstr ""
+
+#: ../../Spooler.rst:117
+msgid ""
+"Spooler functions must be defined in the master process, so if you are in"
+" lazy-apps mode, be sure to place it in a file that is parsed early in "
+"the server setup. (in Python you can use --shared-import, in Ruby "
+"--shared-require, in Perl --perl-exec)."
+msgstr ""
+
+#: ../../Spooler.rst:120
+msgid ""
+"Python has support for importing code directly in the spooler with the "
+"``--spooler-python-import`` option."
+msgstr ""
+
+#: ../../Spooler.rst:123
+msgid "Enqueueing requests to a spooler"
+msgstr ""
+
+#: ../../Spooler.rst:125
+msgid ""
+"The 'spool' api function allows you to enqueue a hash/dictionary into the"
+" spooler specified by the instance:"
+msgstr ""
+
+#: ../../Spooler.rst:155
+msgid "Some keys have a special meaning:"
+msgstr ""
+
+#: ../../Spooler.rst:157
+msgid ""
+"'spooler' => specify the ABSOLUTE path of the spooler that has to manage "
+"this task"
+msgstr ""
+
+#: ../../Spooler.rst:158
+msgid ""
+"'at' => unix time at which the task must be executed (read: the task will"
+" not be run until the 'at' time is passed)"
+msgstr ""
+
+#: ../../Spooler.rst:159
+msgid ""
+"'priority' => this will be the subdirectory in the spooler directory in "
+"which the task will be placed, you can use that trick to give a good-"
+"enough prioritization to tasks (for better approach use multiple "
+"spoolers)"
+msgstr ""
+
+#: ../../Spooler.rst:160
+msgid ""
+"'body' => use this key for objects bigger than 64k, the blob will be "
+"appended to the serialzed uwsgi packet and passed back to the spooler "
+"function as the 'body' argument"
+msgstr ""
+
+#: ../../Spooler.rst:164
+msgid ""
+"Spool arguments must be strings (or bytes for python3). The API functions"
+" will try to cast non-string values to strings/bytes, but do not rely on "
+"that functionality!"
+msgstr ""
+
+#: ../../Spooler.rst:167
+msgid "External spoolers"
+msgstr ""
+
+#: ../../Spooler.rst:169
+msgid ""
+"You could want to implement a centralized spooler for your server across "
+"many uWSGI instances."
+msgstr ""
+
+#: ../../Spooler.rst:171
+msgid ""
+"A single instance will manage all of the tasks enqueued by multiple uWSGI"
+" instances."
+msgstr ""
+
+#: ../../Spooler.rst:173
+msgid ""
+"To accomplish this setup, each uWSGI instance has to know which spooler "
+"directories are valid (consider it a form of security)."
+msgstr ""
+
+#: ../../Spooler.rst:175
+msgid ""
+"To add an external spooler directory use the ``--spooler-external "
+"<directory>`` option, then add to it using the spool function."
+msgstr ""
+
+#: ../../Spooler.rst:177
+msgid ""
+"The spooler locking subsystem will avoid any messes that you might think "
+"could occur."
+msgstr ""
+
+#: ../../Spooler.rst:197
+msgid "Networked spoolers"
+msgstr ""
+
+#: ../../Spooler.rst:199
+msgid ""
+"You can even enqueue tasks over the network (be sure the 'spooler' plugin"
+" is loaded in your instance, but generally it is built in by default)."
+msgstr ""
+
+#: ../../Spooler.rst:201
+msgid ""
+"As we have already seen, spooler packets have modifier1 17, you can "
+"directly send those packets to an uWSGI socket of an instance with a "
+"spooler enabled."
+msgstr ""
+
+#: ../../Spooler.rst:203
+msgid ""
+"We will use the Perl ``Net::uwsgi`` module (exposing a handy uwsgi_spool "
+"function) in this example (but feel free to use whatever you want to "
+"write the spool files)."
+msgstr ""
+
+#: ../../Spooler.rst:222
+msgid "(thanks brianhorakh for the example)"
+msgstr ""
+
+#: ../../Spooler.rst:225
+msgid "Priorities"
+msgstr ""
+
+#: ../../Spooler.rst:227
+msgid ""
+"We have already seen that you can use the 'priority' key to give order in"
+" spooler parsing."
+msgstr ""
+
+#: ../../Spooler.rst:229
+msgid ""
+"While having multiple spoolers would be an extremely better approach, on "
+"system with few resources 'priorities' are a good trick."
+msgstr ""
+
+#: ../../Spooler.rst:231
+msgid ""
+"They works only if you enable the ``--spooler-ordered`` option. This "
+"option allows the spooler to scan directories entry in alphabetical "
+"order."
+msgstr ""
+
+#: ../../Spooler.rst:233
+msgid ""
+"If during the scan a directory with a 'number' name is found, the scan is"
+" suspended and the content of this subdirectory will be explored for "
+"tasks."
+msgstr ""
+
+#: ../../Spooler.rst:244
+msgid "With this layout the order in which files will be parsed is:"
+msgstr ""
+
+#: ../../Spooler.rst:254
+msgid ""
+"Remember, priorities only work for subdirectories named as 'numbers' and "
+"you need the ``--spooler-ordered`` option."
+msgstr ""
+
+#: ../../Spooler.rst:256
+msgid ""
+"The uWSGI spooler gives special names to tasks so the ordering of "
+"enqueuing is always respected."
+msgstr ""
+
+#: ../../Spooler.rst:259
+msgid "Options"
+msgstr ""
+
+#: ../../Spooler.rst:260
+msgid "``spooler=directory`` run a spooler on the specified directory"
+msgstr ""
+
+#: ../../Spooler.rst:263
+msgid ""
+"``spooler-external=directory`` map spoolers requests to a spooler "
+"directory managed by an external instance"
+msgstr ""
+
+#: ../../Spooler.rst:266
+msgid ""
+"``spooler-ordered`` try to order the execution of spooler tasks (uses "
+"scandir instead of readdir)"
+msgstr ""
+
+#: ../../Spooler.rst:269
+msgid ""
+"``spooler-chdir=directory`` call chdir() to specified directory before "
+"each spooler task"
+msgstr ""
+
+#: ../../Spooler.rst:272
+msgid "``spooler-processes=##`` set the number of processes for spoolers"
+msgstr ""
+
+#: ../../Spooler.rst:275
+msgid "``spooler-quiet`` do not be verbose with spooler tasks"
+msgstr ""
+
+#: ../../Spooler.rst:278
+msgid ""
+"``spooler-max-tasks=##`` set the maximum number of tasks to run before "
+"recycling a spooler (to help alleviate memory leaks)"
+msgstr ""
+
+#: ../../Spooler.rst:281
+msgid ""
+"``spooler-signal-as-task`` combined use with ``spooler-max-tasks``. "
+"enable this, spooler will treat signal events as task. run signal handler"
+" will also increase the spooler task count."
+msgstr ""
+
+#: ../../Spooler.rst:285
+msgid ""
+"``spooler-harakiri=##`` set harakiri timeout for spooler tasks, see "
+"[harakiri] for more information."
+msgstr ""
+
+#: ../../Spooler.rst:288
+msgid "``spooler-frequency=##`` set the spooler frequency"
+msgstr ""
+
+#: ../../Spooler.rst:291
+msgid ""
+"``spooler-python-import=???`` import a python module directly in the "
+"spooler"
+msgstr ""
+
+#: ../../Spooler.rst:295
+msgid "Tips and tricks"
+msgstr ""
+
+#: ../../Spooler.rst:297
+msgid ""
+"You can re-enqueue a spooler request by returning ``uwsgi.SPOOL_RETRY`` "
+"in your callable:"
+msgstr ""
+
+#: ../../Spooler.rst:304
+msgid ""
+"You can set the spooler poll frequency using the ``--spooler-frequency "
+"<secs>`` option (default 30 seconds)."
+msgstr ""
+
+#: ../../Spooler.rst:306
+msgid ""
+"You could use the :doc:`Caching` or :doc:`SharedArea` to exchange memory "
+"structures between spoolers and workers."
+msgstr ""
+
+#: ../../Spooler.rst:308
+msgid ""
+"Python (uwsgidecorators.py) and Ruby (uwsgidsl.rb) exposes higher-level "
+"facilities to manage the spooler, try to use them instead of the low-"
+"level approach described here."
+msgstr ""
+
+#: ../../Spooler.rst:310
+msgid ""
+"When using a spooler as a target for a uWSGI signal handler you can "
+"specify which one to route signal to using its ABSOLUTE directory name."
+msgstr ""
+

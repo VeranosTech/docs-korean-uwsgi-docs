@@ -1,0 +1,1141 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../InternalRouting.rst:2
+msgid "uWSGI internal routing"
+msgstr ""
+
+#: ../../InternalRouting.rst:4
+msgid "``Updated to 1.9``"
+msgstr ""
+
+#: ../../InternalRouting.rst:6
+msgid ""
+"As of uWSGI 1.9, a programmable internal routing subsystem is available "
+"(older releases after 1.1 have a less featureful version).  You can use "
+"the internal routing subsystem to dynamically alter the way requests are "
+"handled. For example you can use it to trigger a 301 redirect on specific"
+" URLs, or to serve content from the cache on specific conditions.  The "
+"internal routing subsystem is inspired by Apache's ``mod_rewrite`` and "
+"Linux's ``iptables`` command. Please, before blasting it for being messy,"
+" not-elegant nor Turing-complete, remember that it must be FAST and only "
+"FAST.  If you need elegance and more complexity, do that in your code."
+msgstr ""
+
+#: ../../InternalRouting.rst:17
+msgid "The routing chains"
+msgstr ""
+
+#: ../../InternalRouting.rst:19
+msgid ""
+"During the request cycle, various \"chains\" are traversed. Each chain "
+"contains a routing table (see below)."
+msgstr ""
+
+#: ../../InternalRouting.rst:21
+msgid ""
+"Chains can be \"recursive\". A \"recursive\" chain can be called multiple"
+" times in a request cycle."
+msgstr ""
+
+#: ../../InternalRouting.rst:23
+msgid "This is the order of chains:"
+msgstr ""
+
+#: ../../InternalRouting.rst:25
+msgid "``request`` it is applied before the request is passed to the plugin"
+msgstr ""
+
+#: ../../InternalRouting.rst:27
+msgid ""
+"``error`` it is applied as soon as an HTTP status code is generate "
+"(recursive chain)"
+msgstr ""
+
+#: ../../InternalRouting.rst:29
+msgid ""
+"``response`` it is is applied after the last response header has been "
+"generated (just before sending the body)"
+msgstr ""
+
+#: ../../InternalRouting.rst:31
+msgid "``final`` it is applied after the response has been sent to the client"
+msgstr ""
+
+#: ../../InternalRouting.rst:33
+msgid ""
+"The ``request`` chain is (for convention) the 'default' one, so its "
+"options are not prefixed, while the others require a prefix."
+msgstr ""
+
+#: ../../InternalRouting.rst:35 ../../InternalRouting.rst:578
+#: ../../InternalRouting.rst:638
+msgid "Example:"
+msgstr ""
+
+#: ../../InternalRouting.rst:37
+msgid "``route-user-agent`` -> happens in the request chain"
+msgstr ""
+
+#: ../../InternalRouting.rst:39
+msgid "while"
+msgstr ""
+
+#: ../../InternalRouting.rst:41
+msgid "``response-route-uri`` -> happens in the response chain"
+msgstr ""
+
+#: ../../InternalRouting.rst:44
+msgid "The internal routing table"
+msgstr ""
+
+#: ../../InternalRouting.rst:46
+msgid ""
+"The internal routing table is a sequence of ''rules'' executed one after "
+"another (forward jumps are allowed too).  Each rule is composed by a "
+"''subject'', a ''condition'' and an ''action''. The ''condition'' is "
+"generally a PCRE regexp applied to the subject: if it matches, the action"
+" is triggered. Subjects are request's variables.  Currently the following"
+" subjects are supported:"
+msgstr ""
+
+#: ../../InternalRouting.rst:53
+msgid "``host`` (check HTTP_HOST)"
+msgstr ""
+
+#: ../../InternalRouting.rst:54
+msgid "``uri`` (check REQUEST_URI)"
+msgstr ""
+
+#: ../../InternalRouting.rst:55
+msgid "``qs`` (check QUERY_STRING)"
+msgstr ""
+
+#: ../../InternalRouting.rst:56
+msgid "``remote-addr`` (check REMOTE_ADDR)"
+msgstr ""
+
+#: ../../InternalRouting.rst:57
+msgid "``remote-user`` (check REMOTE_USER)"
+msgstr ""
+
+#: ../../InternalRouting.rst:58
+msgid "``referer`` (check HTTP_REFERER)"
+msgstr ""
+
+#: ../../InternalRouting.rst:59
+msgid "``user-agent`` (check HTTP_USER_AGENT)"
+msgstr ""
+
+#: ../../InternalRouting.rst:60
+msgid ""
+"``status`` (check HTTP response status code, not available in the request"
+" chain)"
+msgstr ""
+
+#: ../../InternalRouting.rst:61
+msgid "``default`` (default subject, maps to PATH_INFO)"
+msgstr ""
+
+#: ../../InternalRouting.rst:63
+msgid ""
+"In addition to this, a pluggable system of lower-level conditions is "
+"available. You can access this system using the ``--route-if`` option.  "
+"Currently the following checks are supported:"
+msgstr ""
+
+#: ../../InternalRouting.rst:67
+msgid "``exists`` (check if the subject exists in the filesystem)"
+msgstr ""
+
+#: ../../InternalRouting.rst:68
+msgid "``isfile`` (check if the subject is a file)"
+msgstr ""
+
+#: ../../InternalRouting.rst:69
+msgid "``isdir`` (check if the subject is a directory)"
+msgstr ""
+
+#: ../../InternalRouting.rst:70
+msgid "``isexec`` (check if the subject is an executable file)"
+msgstr ""
+
+#: ../../InternalRouting.rst:71
+msgid ""
+"``equal``/``isequal``/``eq``/``==`` (check if the subject is equal to the"
+" specified pattern)"
+msgstr ""
+
+#: ../../InternalRouting.rst:72
+msgid "``ishigherequal``/``>=``"
+msgstr ""
+
+#: ../../InternalRouting.rst:73
+msgid "``ishigher``/``>``"
+msgstr ""
+
+#: ../../InternalRouting.rst:74
+msgid "``islower``/``<``"
+msgstr ""
+
+#: ../../InternalRouting.rst:75
+msgid "``islowerequal``/``<=``"
+msgstr ""
+
+#: ../../InternalRouting.rst:76
+msgid "``startswith`` (check if the subject starts with the specified pattern)"
+msgstr ""
+
+#: ../../InternalRouting.rst:77
+msgid "``endswith`` (check if the subject ends with the specified pattern)"
+msgstr ""
+
+#: ../../InternalRouting.rst:78
+msgid "``regexp``/re (check if the subject matches the specified regexp)"
+msgstr ""
+
+#: ../../InternalRouting.rst:79
+msgid "``empty`` (check if the subject is empty)"
+msgstr ""
+
+#: ../../InternalRouting.rst:80
+msgid "``contains``"
+msgstr ""
+
+#: ../../InternalRouting.rst:82
+msgid ""
+"When a check requires a pattern (like with 'equal' or 'regexp') you split"
+" it from the subject with a semicolon:"
+msgstr ""
+
+#: ../../InternalRouting.rst:93
+msgid ""
+"Actions are the functions to run if a rule matches. These actions are "
+"exported by plugins and have a return value."
+msgstr ""
+
+#: ../../InternalRouting.rst:97
+msgid "Action return values"
+msgstr ""
+
+#: ../../InternalRouting.rst:99
+msgid ""
+"Each action has a return value which tells the routing engine what to do "
+"next. The following return codes are supported:"
+msgstr ""
+
+#: ../../InternalRouting.rst:102
+msgid "``NEXT`` (continue to the next rule)"
+msgstr ""
+
+#: ../../InternalRouting.rst:103
+msgid ""
+"``CONTINUE`` (stop scanning the internal routing table and run the "
+"request)"
+msgstr ""
+
+#: ../../InternalRouting.rst:104
+msgid "``BREAK`` (stop scanning the internal routing table and close the request)"
+msgstr ""
+
+#: ../../InternalRouting.rst:105
+msgid "``GOTO x`` (go to rule ``x``)"
+msgstr ""
+
+#: ../../InternalRouting.rst:107
+msgid "When a rule does not match, ``NEXT`` is assumed."
+msgstr ""
+
+#: ../../InternalRouting.rst:110
+msgid "The first example"
+msgstr ""
+
+#: ../../InternalRouting.rst:124
+msgid "The previous rules build the following table:"
+msgstr ""
+
+#: ../../InternalRouting.rst:126
+msgid ""
+"if the ``HTTP_USER_AGENT`` var contains 'curl' redirect the request to "
+"http://uwsgi.it (code 302, action returns BREAK)"
+msgstr ""
+
+#: ../../InternalRouting.rst:128
+msgid ""
+"if ``REMOTE_ADDR`` is '127.0.0.1' returns a 403 Forbidden (action returns"
+" BREAK)"
+msgstr ""
+
+#: ../../InternalRouting.rst:130
+msgid ""
+"if ``PATH_INFO`` starts with /test print the string 'someone called "
+"/test' in the logs (action returns NEXT)"
+msgstr ""
+
+#: ../../InternalRouting.rst:132
+msgid ""
+"if ``PATH_INFO`` ends with '.php' rewrite it to /index.php (action "
+"returns NEXT)"
+msgstr ""
+
+#: ../../InternalRouting.rst:134
+msgid ""
+"for all of the ``PATH_INFO`` add the HTTP header 'Server: my uWSGI "
+"server' to the response (action returns NEXT)"
+msgstr ""
+
+#: ../../InternalRouting.rst:136
+msgid "if ``HTTP_HOST`` is localhost add the logvar 'local' setting it to '1'"
+msgstr ""
+
+#: ../../InternalRouting.rst:137
+msgid ""
+"if ``REQUEST_URI`` starts with /foo and ends with .jpg get it from the "
+"uWSGI cache using the supplied key (built over regexp grouping) (action "
+"returns BREAK)"
+msgstr ""
+
+#: ../../InternalRouting.rst:140
+msgid "if the ``PATH_INFO`` is equal to /bad throws a 500 error"
+msgstr ""
+
+#: ../../InternalRouting.rst:143
+msgid "Accessing request vars"
+msgstr ""
+
+#: ../../InternalRouting.rst:145
+msgid ""
+"In addition to PCRE placeholders/groups (using $1 to $9) you can access "
+"request variables (PATH_INFO, SCRIPT_NAME, REQUEST_METHOD...) using the "
+"${VAR} syntax."
+msgstr ""
+
+#: ../../InternalRouting.rst:154
+msgid "Accessing cookies"
+msgstr ""
+
+#: ../../InternalRouting.rst:156
+msgid "You can access a cookie value using the ${cookie[name]} syntax:"
+msgstr ""
+
+#: ../../InternalRouting.rst:163
+msgid "This will log the content of the 'foobar' cookie of the current request"
+msgstr ""
+
+#: ../../InternalRouting.rst:166
+msgid "Accessing query string items"
+msgstr ""
+
+#: ../../InternalRouting.rst:168
+msgid ""
+"You can access the value of the HTTP query string using the ${qs[name]} "
+"syntax:"
+msgstr ""
+
+#: ../../InternalRouting.rst:175
+msgid ""
+"This will log the content of the 'foobar' item of the current request's "
+"query string"
+msgstr ""
+
+#: ../../InternalRouting.rst:178
+msgid "Pluggable routing variables"
+msgstr ""
+
+#: ../../InternalRouting.rst:180
+msgid ""
+"Both the cookie and qs vars, are so-called \"routing vars\". They are "
+"pluggable, so external plugins can add new vars to add new features to "
+"your application. (Check the :doc:`GeoIP` plugin for an example of this.)"
+" A number of embedded routing variables are also available."
+msgstr ""
+
+#: ../../InternalRouting.rst:185
+msgid ""
+"``mime`` -- returns the mime type of the specified var: "
+"${mime[REQUEST_URI]}"
+msgstr ""
+
+#: ../../InternalRouting.rst:193
+msgid ""
+"``time`` -- returns time/date in various forms. The only supported (for "
+"now) is time[unix] returning the epoch"
+msgstr ""
+
+#: ../../InternalRouting.rst:194
+msgid ""
+"``httptime`` -- return http date adding the numeric argument (if "
+"specified) to the current time (use empty arg for current server time)"
+msgstr ""
+
+#: ../../InternalRouting.rst:203
+msgid "``math`` -- requires matheval support. Example: math[CONTENT_LENGTH+1]"
+msgstr ""
+
+#: ../../InternalRouting.rst:204
+msgid "``base64`` -- encode the specified var in base64"
+msgstr ""
+
+#: ../../InternalRouting.rst:205
+msgid "``hex`` -- encode the specified var in hex"
+msgstr ""
+
+#: ../../InternalRouting.rst:206
+msgid "``upper`` -- uppercase the specified var"
+msgstr ""
+
+#: ../../InternalRouting.rst:207
+msgid "``lower`` -- lowercase the specified var"
+msgstr ""
+
+#: ../../InternalRouting.rst:208
+msgid ""
+"``uwsgi`` -- return internal uWSGI information, uwsgi[wid], uwsgi[pid], "
+"uwsgi[uuid] and uwsgi[status] are currently supported"
+msgstr ""
+
+#: ../../InternalRouting.rst:211
+msgid "Is --route-if not enough? Why --route-uri and friends?"
+msgstr ""
+
+#: ../../InternalRouting.rst:213
+msgid ""
+"This is a good question. You just need to always remember that uWSGI is "
+"about versatility and *performance*. Gaining cycles is always good. The "
+"``--route-if`` option, while versatile, cannot be optimized as all of its"
+" parts have to be recomputed on every request.  This is obviously very "
+"fast, but the ``--route-uri`` option (and friends) can be pre-optimized "
+"(during startup) to directly map to the request memory areas, so if you "
+"can use them, you definitely should. :)"
+msgstr ""
+
+#: ../../InternalRouting.rst:222
+msgid "GOTO"
+msgstr ""
+
+#: ../../InternalRouting.rst:224
+msgid ""
+"Yes, the most controversial construct of the whole information technology"
+" industry (and history) is here. You can make forward (only forward!) "
+"jumps to specific points of the internal routing table. You can set "
+"labels to mark specific point of the table, or if you are brave (or "
+"foolish) jump directly to a rule number. Rule numbers are printed on "
+"server startup, but please use labels."
+msgstr ""
+
+#: ../../InternalRouting.rst:259
+msgid ""
+"The example is like the previous one, but with some differences between "
+"domains. Check the use of \"last:\", to interrupt the routing table scan."
+" You can rewrite the first 2 rules as one:"
+msgstr ""
+
+#: ../../InternalRouting.rst:270
+msgid "Collecting response headers"
+msgstr ""
+
+#: ../../InternalRouting.rst:272
+msgid ""
+"As we have already seen, each uWSGI request has a set of variables "
+"associated. They are generally the CGI vars passed by the webserver, but "
+"you can extend them with other variables too (check the 'addvar' action)."
+msgstr ""
+
+#: ../../InternalRouting.rst:275
+msgid ""
+"uWSGI 1.9.16 added a new feature allowing you to store the content of a "
+"response header in a request var. This makes writing more advanced rules "
+"much simpler."
+msgstr ""
+
+#: ../../InternalRouting.rst:277
+msgid "For example you may want to gzip all of the text/html responses:"
+msgstr ""
+
+#: ../../InternalRouting.rst:293
+msgid "The available actions"
+msgstr ""
+
+#: ../../InternalRouting.rst:296
+msgid "``continue``/``last``"
+msgstr ""
+
+#: ../../InternalRouting.rst:298
+msgid "Return value: ``CONTINUE``"
+msgstr ""
+
+#: ../../InternalRouting.rst:300
+msgid ""
+"Stop scanning the internal routing table and continue to the selected "
+"request handler."
+msgstr ""
+
+#: ../../InternalRouting.rst:304
+msgid "``break``"
+msgstr ""
+
+#: ../../InternalRouting.rst:306 ../../InternalRouting.rst:333
+#: ../../InternalRouting.rst:452 ../../InternalRouting.rst:461
+#: ../../InternalRouting.rst:492 ../../InternalRouting.rst:527
+#: ../../InternalRouting.rst:548 ../../InternalRouting.rst:652
+msgid "Return value: ``BREAK``"
+msgstr ""
+
+#: ../../InternalRouting.rst:308
+msgid ""
+"Stop scanning the internal routing table and close the request. Can "
+"optionally return the specified HTTP status code:"
+msgstr ""
+
+#: ../../InternalRouting.rst:318
+msgid ""
+"Note: ``break`` doesn't support request variables because it's intended "
+"to notify browser about the error, not the end user. That said, we can "
+"tell following code will send what it reads to browser (i.e. without "
+"``${REMOTE_ADDR}`` being translated to the remote IP address)."
+msgstr ""
+
+#: ../../InternalRouting.rst:328
+msgid "If you really do want to do wacky stuff, see ``clearheaders``."
+msgstr ""
+
+#: ../../InternalRouting.rst:331
+msgid "``return``/``break-with-status``"
+msgstr ""
+
+#: ../../InternalRouting.rst:335
+msgid ""
+"``return`` uses uWSGI's built-in status code and returns both status code"
+" and message body. It's similar to ``break``, but as mentioned above "
+"``break`` doesn't have the error message body. ``return:403`` is "
+"equivalent to following:"
+msgstr ""
+
+#: ../../InternalRouting.rst:349
+msgid "``log``"
+msgstr ""
+
+#: ../../InternalRouting.rst:351 ../../InternalRouting.rst:363
+#: ../../InternalRouting.rst:375 ../../InternalRouting.rst:382
+#: ../../InternalRouting.rst:394 ../../InternalRouting.rst:406
+#: ../../InternalRouting.rst:419 ../../InternalRouting.rst:426
+#: ../../InternalRouting.rst:439 ../../InternalRouting.rst:470
+msgid "Return value: ``NEXT``"
+msgstr ""
+
+#: ../../InternalRouting.rst:353
+msgid "Print the specified message in the logs."
+msgstr ""
+
+#: ../../InternalRouting.rst:361
+msgid "``logvar``"
+msgstr ""
+
+#: ../../InternalRouting.rst:365
+msgid "Add the specified logvar."
+msgstr ""
+
+#: ../../InternalRouting.rst:373
+msgid "``goto``"
+msgstr ""
+
+#: ../../InternalRouting.rst:377
+msgid "Make a forward jump to the specified label or rule position."
+msgstr ""
+
+#: ../../InternalRouting.rst:380
+msgid "``addvar``"
+msgstr ""
+
+#: ../../InternalRouting.rst:384
+msgid "Add the specified CGI (environment) variable to the request."
+msgstr ""
+
+#: ../../InternalRouting.rst:392
+msgid "``addheader``"
+msgstr ""
+
+#: ../../InternalRouting.rst:396
+msgid "Add the specified HTTP header to the response."
+msgstr ""
+
+#: ../../InternalRouting.rst:404
+msgid "``delheader``//``remheader``"
+msgstr ""
+
+#: ../../InternalRouting.rst:408
+msgid "Remove the specified HTTP header from the response."
+msgstr ""
+
+#: ../../InternalRouting.rst:417
+msgid "``signal``"
+msgstr ""
+
+#: ../../InternalRouting.rst:421
+msgid "Raise the specified uwsgi signal."
+msgstr ""
+
+#: ../../InternalRouting.rst:424
+msgid "``send``"
+msgstr ""
+
+#: ../../InternalRouting.rst:428
+msgid ""
+"Extremely advanced (and dangerous) function allowing you to add raw data "
+"to the response."
+msgstr ""
+
+#: ../../InternalRouting.rst:437
+msgid "``send-crnl``"
+msgstr ""
+
+#: ../../InternalRouting.rst:441
+msgid ""
+"Extremely advanced (and dangerous) function allowing you to add raw data "
+"to the response, suffixed with \\r\\n."
+msgstr ""
+
+#: ../../InternalRouting.rst:450
+msgid "``redirect``/``redirect-302``"
+msgstr ""
+
+#: ../../InternalRouting.rst:454 ../../InternalRouting.rst:463
+msgid "Plugin: ``router_redirect``"
+msgstr ""
+
+#: ../../InternalRouting.rst:456
+msgid "Return a HTTP 302 Redirect to the specified URL."
+msgstr ""
+
+#: ../../InternalRouting.rst:459
+msgid "``redirect-permanent``/``redirect-301``"
+msgstr ""
+
+#: ../../InternalRouting.rst:465
+msgid "Return a HTTP 301 Permanent Redirect to the specified URL."
+msgstr ""
+
+#: ../../InternalRouting.rst:468
+msgid "``rewrite``"
+msgstr ""
+
+#: ../../InternalRouting.rst:472
+msgid "Plugin: ``router_rewrite``"
+msgstr ""
+
+#: ../../InternalRouting.rst:474
+msgid ""
+"A rewriting engine inspired by Apache mod_rewrite. Rebuild PATH_INFO and "
+"QUERY_STRING according to the specified rules before the request is "
+"dispatched to the request handler."
+msgstr ""
+
+#: ../../InternalRouting.rst:484
+msgid "``rewrite-last``"
+msgstr ""
+
+#: ../../InternalRouting.rst:486
+msgid ""
+"Alias for rewrite but with a return value of ``CONTINUE``, directly "
+"passing the request to the request handler next."
+msgstr ""
+
+#: ../../InternalRouting.rst:490
+msgid "``uwsgi``"
+msgstr ""
+
+#: ../../InternalRouting.rst:494 ../../InternalRouting.rst:909
+msgid "Plugin: ``router_uwsgi``"
+msgstr ""
+
+#: ../../InternalRouting.rst:496
+msgid ""
+"Rewrite the modifier1, modifier2 and optionally ``UWSGI_APPID`` values of"
+" a request or route the request to an external uwsgi server."
+msgstr ""
+
+#: ../../InternalRouting.rst:504
+msgid ""
+"This configuration routes all of the requests starting with ``/psgi`` to "
+"the uwsgi server running on 127.0.0.1:3031 setting modifier1 to 5 and "
+"modifier2 to 0.  If you only want to change the modifiers without routing"
+" the request to an external server, use the following syntax."
+msgstr ""
+
+#: ../../InternalRouting.rst:514
+msgid "To set a specific ``UWSGI_APPID`` value, append it."
+msgstr ""
+
+#: ../../InternalRouting.rst:521
+msgid ""
+"The subrequest is async-friendly (engines such as gevent or ugreen are "
+"supported) and if offload threads are available they will be used."
+msgstr ""
+
+#: ../../InternalRouting.rst:525
+msgid "``http``"
+msgstr ""
+
+#: ../../InternalRouting.rst:529 ../../InternalRouting.rst:858
+msgid "Plugin: ``router_http``"
+msgstr ""
+
+#: ../../InternalRouting.rst:531
+msgid "Route the request to an external HTTP server."
+msgstr ""
+
+#: ../../InternalRouting.rst:538
+msgid "You can substitute an alternative Host header with the following syntax:"
+msgstr ""
+
+#: ../../InternalRouting.rst:546
+msgid "``static``"
+msgstr ""
+
+#: ../../InternalRouting.rst:550
+msgid "Plugin: ``router_static``"
+msgstr ""
+
+#: ../../InternalRouting.rst:552
+msgid "Serve a static file from the specified physical path."
+msgstr ""
+
+#: ../../InternalRouting.rst:560
+msgid "``basicauth``"
+msgstr ""
+
+#: ../../InternalRouting.rst:562 ../../InternalRouting.rst:618
+msgid "Return value: ``NEXT`` or ``BREAK 401`` on failed authentication"
+msgstr ""
+
+#: ../../InternalRouting.rst:564
+msgid "Plugin: ``router_basicauth``"
+msgstr ""
+
+#: ../../InternalRouting.rst:566
+msgid "Four syntaxes are supported."
+msgstr ""
+
+#: ../../InternalRouting.rst:568
+msgid "``basicauth:realm,user:password`` – a simple user:password mapping"
+msgstr ""
+
+#: ../../InternalRouting.rst:569
+msgid "``basicauth:realm,user:`` – only authenticates username"
+msgstr ""
+
+#: ../../InternalRouting.rst:570
+msgid ""
+"``basicauth:realm,htpasswd`` – use a htpasswd-like file. All POSIX "
+"crypt() algorithms are supported. This is _not_ the same behavior as "
+"Apache’s traditional htpasswd files, so use the ``-d`` flag of the "
+"htpasswd utility to create compatible files."
+msgstr ""
+
+#: ../../InternalRouting.rst:574
+msgid ""
+"``basicauth:realm,`` – Useful to cause a HTTP 401 response immediately. "
+"As routes are parsed top-bottom, you may want to raise that to avoid "
+"bypassing rules."
+msgstr ""
+
+#: ../../InternalRouting.rst:587
+msgid "Example: using basicauth for Trac"
+msgstr ""
+
+#: ../../InternalRouting.rst:611
+msgid "``basicauth-next``"
+msgstr ""
+
+#: ../../InternalRouting.rst:613
+msgid "Same as ``basicauth`` but returns ``NEXT`` on failed authentication."
+msgstr ""
+
+#: ../../InternalRouting.rst:616
+msgid "``ldapauth``"
+msgstr ""
+
+#: ../../InternalRouting.rst:620
+msgid "Plugin: ``ldap``"
+msgstr ""
+
+#: ../../InternalRouting.rst:622
+msgid ""
+"This auth router is part of the LDAP plugin, so it has to be loaded in "
+"order for this to be available.  It's like the basicauth router, but uses"
+" an LDAP server for authentication, syntax: ``ldapauth:realm,options`` "
+"Available options:"
+msgstr ""
+
+#: ../../InternalRouting.rst:627
+msgid "``url`` - LDAP server URI (required)"
+msgstr ""
+
+#: ../../InternalRouting.rst:628
+msgid ""
+"``binddn`` - DN used for binding. Required if the LDAP server does not "
+"allow anonymous searches."
+msgstr ""
+
+#: ../../InternalRouting.rst:630
+msgid "``bindpw`` - password for the ``binddn`` user."
+msgstr ""
+
+#: ../../InternalRouting.rst:631
+msgid "``basedn`` - base DN used when searching for users (required)"
+msgstr ""
+
+#: ../../InternalRouting.rst:632
+msgid ""
+"``filter`` - filter used when searching for users (default is "
+"\"(objectClass=*)\")"
+msgstr ""
+
+#: ../../InternalRouting.rst:634
+msgid "``attr`` - LDAP attribute that holds user login (default is \"uid\")"
+msgstr ""
+
+#: ../../InternalRouting.rst:635
+msgid ""
+"``loglevel`` - 0 - don't log any binds, 1 - log authentication errors, 2 "
+"- log both successful and failed binds"
+msgstr ""
+
+#: ../../InternalRouting.rst:645
+msgid "``ldapauth-next``"
+msgstr ""
+
+#: ../../InternalRouting.rst:647
+msgid "Same as ldapauth but returns ``NEXT`` on failed authentication."
+msgstr ""
+
+#: ../../InternalRouting.rst:650
+msgid "``cache``"
+msgstr ""
+
+#: ../../InternalRouting.rst:654 ../../InternalRouting.rst:822
+#: ../../InternalRouting.rst:828 ../../InternalRouting.rst:834
+#: ../../InternalRouting.rst:840 ../../InternalRouting.rst:846
+#: ../../InternalRouting.rst:852
+msgid "Plugin: ``router_cache``"
+msgstr ""
+
+#: ../../InternalRouting.rst:657
+msgid "``cachestore``/``cache-store``"
+msgstr ""
+
+#: ../../InternalRouting.rst:660 ../../InternalRouting.rst:826
+msgid "``cachevar``"
+msgstr ""
+
+#: ../../InternalRouting.rst:663
+msgid "``cacheset``"
+msgstr ""
+
+#: ../../InternalRouting.rst:666 ../../InternalRouting.rst:862
+msgid "``memcached``"
+msgstr ""
+
+#: ../../InternalRouting.rst:669
+msgid "``rpc``"
+msgstr ""
+
+#: ../../InternalRouting.rst:671
+msgid ""
+"The \"rpc\" routing instruction allows you to call uWSGI RPC functions "
+"directly from the routing subsystem and forward their output to the "
+"client."
+msgstr ""
+
+#: ../../InternalRouting.rst:687
+msgid "``call``"
+msgstr ""
+
+#: ../../InternalRouting.rst:689 ../../InternalRouting.rst:694
+#: ../../InternalRouting.rst:703 ../../InternalRouting.rst:712
+#: ../../InternalRouting.rst:718
+msgid "Plugin: ``rpc``"
+msgstr ""
+
+#: ../../InternalRouting.rst:692
+msgid "``rpcret``"
+msgstr ""
+
+#: ../../InternalRouting.rst:696
+msgid ""
+"`rpcret` calls the specified rpc function and uses its return value as "
+"the action return code (next, continue, goto, etc)"
+msgstr ""
+
+#: ../../InternalRouting.rst:701
+msgid "``rpcblob``//``rpcnext``"
+msgstr ""
+
+#: ../../InternalRouting.rst:705
+msgid ""
+"`rpcnext/rpcblob` calls the specified RPC function, sends the response to"
+" the client and continues to the next rule."
+msgstr ""
+
+#: ../../InternalRouting.rst:710
+msgid "``rpcraw``"
+msgstr ""
+
+#: ../../InternalRouting.rst:716
+msgid "``rpcvar``"
+msgstr ""
+
+#: ../../InternalRouting.rst:720
+msgid ""
+"Calls the specified rpc function and assigns its return value to the "
+"specified CGI environ variable."
+msgstr ""
+
+#: ../../InternalRouting.rst:724 ../../InternalRouting.rst:814
+msgid "``access``"
+msgstr ""
+
+#: ../../InternalRouting.rst:727
+msgid "``spnego``"
+msgstr ""
+
+#: ../../InternalRouting.rst:729 ../../InternalRouting.rst:734
+msgid "In development..."
+msgstr ""
+
+#: ../../InternalRouting.rst:732
+msgid "``radius``"
+msgstr ""
+
+#: ../../InternalRouting.rst:737
+msgid "``xslt``"
+msgstr ""
+
+#: ../../InternalRouting.rst:739
+msgid ":doc:`XSLT`"
+msgstr ""
+
+#: ../../InternalRouting.rst:742
+msgid "ssi"
+msgstr ""
+
+#: ../../InternalRouting.rst:744
+msgid ":doc:`SSI`"
+msgstr ""
+
+#: ../../InternalRouting.rst:747
+msgid "gridfs"
+msgstr ""
+
+#: ../../InternalRouting.rst:749
+msgid ":doc:`GridFS`"
+msgstr ""
+
+#: ../../InternalRouting.rst:752
+msgid "``donotlog``"
+msgstr ""
+
+#: ../../InternalRouting.rst:756
+msgid "``chdir``"
+msgstr ""
+
+#: ../../InternalRouting.rst:760
+msgid "``seturi``"
+msgstr ""
+
+#: ../../InternalRouting.rst:762
+msgid "Updates `REQUEST_URI`"
+msgstr ""
+
+#: ../../InternalRouting.rst:766
+msgid "``setapp``"
+msgstr ""
+
+#: ../../InternalRouting.rst:770
+msgid "``setuser``"
+msgstr ""
+
+#: ../../InternalRouting.rst:774
+msgid "``sethome``"
+msgstr ""
+
+#: ../../InternalRouting.rst:778
+msgid "``setfile``"
+msgstr ""
+
+#: ../../InternalRouting.rst:782
+msgid "``setscriptname``"
+msgstr ""
+
+#: ../../InternalRouting.rst:786
+msgid "``setprocname``"
+msgstr ""
+
+#: ../../InternalRouting.rst:790
+msgid "``alarm``"
+msgstr ""
+
+#: ../../InternalRouting.rst:794
+msgid "``flush``"
+msgstr ""
+
+#: ../../InternalRouting.rst:798
+msgid "``fixcl``"
+msgstr ""
+
+#: ../../InternalRouting.rst:802
+msgid "``cgi``"
+msgstr ""
+
+#: ../../InternalRouting.rst:804 ../../InternalRouting.rst:810
+msgid "Plugin: ``cgi``"
+msgstr ""
+
+#: ../../InternalRouting.rst:808
+msgid "``cgihelper``"
+msgstr ""
+
+#: ../../InternalRouting.rst:816
+msgid "Plugin: ``router_access``"
+msgstr ""
+
+#: ../../InternalRouting.rst:820
+msgid "``cache-continue``"
+msgstr ""
+
+#: ../../InternalRouting.rst:832
+msgid "``cacheinc``"
+msgstr ""
+
+#: ../../InternalRouting.rst:838
+msgid "``cachedec``"
+msgstr ""
+
+#: ../../InternalRouting.rst:844
+msgid "``cachemul``"
+msgstr ""
+
+#: ../../InternalRouting.rst:850
+msgid "``cachediv``"
+msgstr ""
+
+#: ../../InternalRouting.rst:856
+msgid "``proxyhttp``"
+msgstr ""
+
+#: ../../InternalRouting.rst:864 ../../InternalRouting.rst:870
+#: ../../InternalRouting.rst:875 ../../InternalRouting.rst:880
+msgid "Plugin: ``router_memcached``"
+msgstr ""
+
+#: ../../InternalRouting.rst:868
+msgid "``memcached-continue``"
+msgstr ""
+
+#: ../../InternalRouting.rst:873
+msgid "``memcachedstore``"
+msgstr ""
+
+#: ../../InternalRouting.rst:878
+msgid "``memcached-store``"
+msgstr ""
+
+#: ../../InternalRouting.rst:885
+msgid "``redis``"
+msgstr ""
+
+#: ../../InternalRouting.rst:887 ../../InternalRouting.rst:893
+#: ../../InternalRouting.rst:898 ../../InternalRouting.rst:903
+msgid "Plugin: ``router_redis``"
+msgstr ""
+
+#: ../../InternalRouting.rst:891
+msgid "``redis-continue``"
+msgstr ""
+
+#: ../../InternalRouting.rst:896
+msgid "``redisstore``"
+msgstr ""
+
+#: ../../InternalRouting.rst:901
+msgid "``redis-store``"
+msgstr ""
+
+#: ../../InternalRouting.rst:907
+msgid "``proxyuwsgi``"
+msgstr ""
+
+#: ../../InternalRouting.rst:912
+msgid "``harakiri``"
+msgstr ""
+
+#: ../../InternalRouting.rst:914
+msgid "Set harakiri for the current request."
+msgstr ""
+
+#: ../../InternalRouting.rst:917
+msgid "``file``"
+msgstr ""
+
+#: ../../InternalRouting.rst:919
+msgid ""
+"Directly transfer the specified filename *without* using acceleration "
+"(sendfile, offloading, etc.)."
+msgstr ""
+
+#: ../../InternalRouting.rst:928
+msgid "``clearheaders``"
+msgstr ""
+
+#: ../../InternalRouting.rst:930
+msgid ""
+"Clear the response headers, setting a new HTTP status code, useful for "
+"resetting a response"
+msgstr ""
+
+#: ../../InternalRouting.rst:944
+msgid "``resetheaders``"
+msgstr ""
+
+#: ../../InternalRouting.rst:946
+msgid "Alias for clearheaders"
+msgstr ""
+
+#: ../../InternalRouting.rst:949
+msgid "``xattr``"
+msgstr ""
+
+#: ../../InternalRouting.rst:951
+msgid "Plugin: ``xattr``"
+msgstr ""
+
+#: ../../InternalRouting.rst:953
+msgid ""
+"The xattr plugin allows you to reference files extended attributes in the"
+" internal routing subsystem:"
+msgstr ""
+
+#: ../../InternalRouting.rst:963
+msgid "or (variant with 2 vars)"
+msgstr ""
+
+#: ../../InternalRouting.rst:973
+msgid "It work only on linux platforms."
+msgstr ""
+

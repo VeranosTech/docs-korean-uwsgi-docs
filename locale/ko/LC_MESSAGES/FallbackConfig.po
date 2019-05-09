@@ -1,0 +1,160 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../FallbackConfig.rst:2
+msgid "Fallback configuration"
+msgstr ""
+
+#: ../../FallbackConfig.rst:4
+msgid "(available from 1.9.15-dev)"
+msgstr ""
+
+#: ../../FallbackConfig.rst:6
+msgid ""
+"If you need a \"reset to factory defaults\", or \"show a welcome page if "
+"the user has made mess with its config\" scenario, fallback configuration"
+" is your silver bullet"
+msgstr ""
+
+#: ../../FallbackConfig.rst:10
+msgid "Simple case"
+msgstr ""
+
+#: ../../FallbackConfig.rst:12
+msgid ""
+"A very common problem is screwing-up the port on which the instance is "
+"listening."
+msgstr ""
+
+#: ../../FallbackConfig.rst:14
+msgid ""
+"To emulate this kind of error we try to bind on port 80 as an "
+"unprivileged user:"
+msgstr ""
+
+#: ../../FallbackConfig.rst:20
+msgid "uWSGI will exit with:"
+msgstr ""
+
+#: ../../FallbackConfig.rst:26
+msgid ""
+"Internally (from the kernel point of view) the instance exited with "
+"status 1"
+msgstr ""
+
+#: ../../FallbackConfig.rst:28
+msgid ""
+"Now we want to allow the instance to automatically bind on port 8080 when"
+" the user supplied config fails."
+msgstr ""
+
+#: ../../FallbackConfig.rst:30
+msgid "Let's define a fallback config (you can save it as safe.ini):"
+msgstr ""
+
+#: ../../FallbackConfig.rst:39
+msgid "Now we can re-run the (broken) instance:"
+msgstr ""
+
+#: ../../FallbackConfig.rst:46
+msgid "Your error will be now something like:"
+msgstr ""
+
+#: ../../FallbackConfig.rst:57
+msgid ""
+"As you can see, the instance has detected the exit code 1 and has binary "
+"patched itself with a new config (without changing the pid, or calling "
+"fork())"
+msgstr ""
+
+#: ../../FallbackConfig.rst:61
+msgid "Broken apps"
+msgstr ""
+
+#: ../../FallbackConfig.rst:63
+msgid ""
+"Another common problem is the inability to load an application, but "
+"instead of bringing down the whole site we want to load an alternate "
+"application:"
+msgstr ""
+
+#: ../../FallbackConfig.rst:70
+msgid ""
+"Here the key is --need-app. It will call exit(1) if the instance has not "
+"been able to load at least one application."
+msgstr ""
+
+#: ../../FallbackConfig.rst:73
+msgid "Multiple fallback levels"
+msgstr ""
+
+#: ../../FallbackConfig.rst:75
+msgid ""
+"Your fallback config file can specify a fallback-config directive too, "
+"allowing multiple fallback levels. BEWARE OF LOOPS!!!"
+msgstr ""
+
+#: ../../FallbackConfig.rst:78
+msgid "How it works"
+msgstr ""
+
+#: ../../FallbackConfig.rst:80
+msgid ""
+"The objective is catching the exit code of a process before the process "
+"itself is destroyed (we do not want to call another fork(), or destroy "
+"already opened file descriptors)"
+msgstr ""
+
+#: ../../FallbackConfig.rst:82
+msgid ""
+"uWSGI makes heavy usage of atexit() hooks, so we only need to register "
+"the fallback handler as the first one (hooks are executed in reverse "
+"order)."
+msgstr ""
+
+#: ../../FallbackConfig.rst:84
+msgid ""
+"In addition to this we need to get the exit code in our atexit() hook, "
+"something is not supported by default (the on_exit() function is now "
+"deprecated)."
+msgstr ""
+
+#: ../../FallbackConfig.rst:86
+msgid ""
+"The solution is \"patching\" exit(x) with uwsgi_exit(x) that is a simple "
+"wrapper setting uwsgi.last_exit_code memory pointer."
+msgstr ""
+
+#: ../../FallbackConfig.rst:88
+msgid ""
+"Now the hook only needs to check for uwsgi.last_exit_code == 1 and "
+"eventually execve() the binary again passing the fallback config to it"
+msgstr ""
+
+#: ../../FallbackConfig.rst:99
+msgid "Notes"
+msgstr ""
+
+#: ../../FallbackConfig.rst:101
+msgid ""
+"Try to place --fallback-config as soon as possible in your config tree. "
+"The various config parsers may fail (calling exit(1)) before the fallback"
+" file is registered"
+msgstr ""
+

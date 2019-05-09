@@ -1,0 +1,274 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../PythonDecorators.rst:2
+msgid "uWSGI API - Python decorators"
+msgstr ""
+
+#: ../../PythonDecorators.rst:4
+msgid ""
+":doc:`The uWSGI API<PythonModule>` is very low-level, as it must be "
+"language-independent."
+msgstr ""
+
+#: ../../PythonDecorators.rst:6
+msgid ""
+"That said, being too low-level is not a Good Thing for many languages, "
+"such as Python."
+msgstr ""
+
+#: ../../PythonDecorators.rst:8
+msgid ""
+"Decorators are, in our humble opinion, one of the more kick-ass features "
+"of Python, so in the uWSGI source tree you will find a module exporting a"
+" bunch of decorators that cover a good part of the uWSGI API."
+msgstr ""
+
+#: ../../PythonDecorators.rst:14
+msgid "Notes"
+msgstr ""
+
+#: ../../PythonDecorators.rst:16
+msgid ""
+"Signal-based decorators execute the signal handler in the first available"
+" worker. If you have enabled the spooler you can execute the signal "
+"handlers in it, leaving workers free to manage normal requests. Simply "
+"pass ``target='spooler'`` to the decorator."
+msgstr ""
+
+#: ../../PythonDecorators.rst:27
+msgid "Example: a Django session cleaner and video encoder"
+msgstr ""
+
+#: ../../PythonDecorators.rst:29
+msgid ""
+"Let's define a :file:`task.py` module and put it in the Django project "
+"directory."
+msgstr ""
+
+#: ../../PythonDecorators.rst:46
+msgid ""
+"The session cleaner will be executed every day at 2:40, to enqueue a "
+"video encoding we simply need to spool it from somewhere else."
+msgstr ""
+
+#: ../../PythonDecorators.rst:57
+msgid "Now run uWSGI with the spooler enabled:"
+msgstr ""
+
+#: ../../PythonDecorators.rst:82
+msgid ""
+"The only especially relevant option is the ``import`` one. It works in "
+"the same way as ``module`` but skips the WSGI callable search. You can "
+"use it to preload modules before the loading of WSGI apps. You can "
+"specify an unlimited number of '''import''' directives."
+msgstr ""
+
+#: ../../PythonDecorators.rst:86
+msgid "Example: web2py + spooler + timer"
+msgstr ""
+
+#: ../../PythonDecorators.rst:88
+msgid ""
+"First of all define your spooler and timer functions (we will call it "
+":file:``mytasks.py``)"
+msgstr ""
+
+#: ../../PythonDecorators.rst:110
+msgid "Now run web2py."
+msgstr ""
+
+#: ../../PythonDecorators.rst:116
+msgid ""
+"As soon as the application is loaded, you will see the 2 timers running "
+"in your logs."
+msgstr ""
+
+#: ../../PythonDecorators.rst:118
+msgid "Now we want to enqueue tasks from our web2py controllers."
+msgstr ""
+
+#: ../../PythonDecorators.rst:120
+msgid "Edit one of them and add"
+msgstr ""
+
+#: ../../PythonDecorators.rst:132
+msgid "uwsgidecorators API reference"
+msgstr ""
+
+#: ../../PythonDecorators.rst:140
+msgid ""
+"uWSGI is a preforking (or \"fork-abusing\") server, so you might need to "
+"execute a fixup task after each ``fork()``. The ``postfork`` decorator is"
+" just the ticket. You can declare multiple ``postfork`` tasks. Each "
+"decorated function will be executed in sequence after each ``fork()``."
+msgstr ""
+
+#: ../../PythonDecorators.rst:155
+msgid ""
+"The uWSGI :doc:`spooler<Spooler>` can be very useful. Compared to Celery "
+"or other queues it is very \"raw\". The ``spool`` decorator will help!"
+msgstr ""
+
+#: ../../PythonDecorators.rst:178 ../../PythonDecorators.rst:234
+#: ../../PythonDecorators.rst:283
+msgid ""
+"On Python3, only ``bytes`` type arguments are allowed. See below for "
+"another way of passing arguments."
+msgstr ""
+
+#: ../../PythonDecorators.rst:181 ../../PythonDecorators.rst:237
+#: ../../PythonDecorators.rst:286
+msgid ""
+"When ``pass_arguments`` is set to ``True``, arguments can be of any type "
+"supported by the :mod:`pickle` module. The following arguments have a "
+"special meaning:"
+msgstr ""
+
+#: ../../PythonDecorators.rst:185 ../../PythonDecorators.rst:241
+#: ../../PythonDecorators.rst:290
+msgid ""
+"``spooler``: specify the **absolute** path of the spooler that has to "
+"manage this task"
+msgstr ""
+
+#: ../../PythonDecorators.rst:188 ../../PythonDecorators.rst:244
+#: ../../PythonDecorators.rst:293
+msgid ""
+"``at``: unix time at which the task must be executed (read: the task will"
+" not be run until the ``at`` time is passed)"
+msgstr ""
+
+#: ../../PythonDecorators.rst:191 ../../PythonDecorators.rst:247
+#: ../../PythonDecorators.rst:296
+msgid ""
+"``priority``: this will be the subdirectory in the spooler directory in "
+"which the task will be placed, you can use that trick to give a good-"
+"enough prioritization to tasks (for better approach use multiple "
+"spoolers)"
+msgstr ""
+
+#: ../../PythonDecorators.rst:197 ../../PythonDecorators.rst:253
+#: ../../PythonDecorators.rst:302
+msgid ""
+"On Python3, the special arguments ``spooler``, ``at``, ``priority`` and "
+"``body`` **must** be ``bytes``."
+msgstr ""
+
+#: ../../PythonDecorators.rst:212
+msgid ""
+"The functions will automatically return ``uwsgi.SPOOL_OK`` so they will "
+"be executed one time independently by their return status."
+msgstr ""
+
+#: ../../PythonDecorators.rst:219
+msgid ""
+"Use ``spoolforever`` when you want to continuously execute a spool task. "
+"A ``@spoolforever`` task will always return ``uwsgi.SPOOL_RETRY``."
+msgstr ""
+
+#: ../../PythonDecorators.rst:270
+msgid "Advanced users may want to control the return value of a task."
+msgstr ""
+
+#: ../../PythonDecorators.rst:317
+msgid ""
+"uWSGI :doc:`RPC` is the fastest way to remotely call functions in "
+"applications hosted in uWSGI instances. You can easily define exported "
+"functions with the @rpc decorator."
+msgstr ""
+
+#: ../../PythonDecorators.rst:327
+msgid ""
+"You can register signals for the :doc:`signal framework<Signals>` in one "
+"shot."
+msgstr ""
+
+#: ../../PythonDecorators.rst:337
+msgid "Execute a function at regular intervals."
+msgstr ""
+
+#: ../../PythonDecorators.rst:347
+msgid "Works like @timer but using red black timers."
+msgstr ""
+
+#: ../../PythonDecorators.rst:354
+msgid "Easily register functions for the :doc:`CronInterface`."
+msgstr ""
+
+#: ../../PythonDecorators.rst:362
+msgid ""
+"Since 1.2, a new syntax is supported to simulate ``crontab``-like "
+"intervals (every Nth minute, etc.). ``*/5 * * * *`` can be specified in "
+"uWSGI like thus:"
+msgstr ""
+
+#: ../../PythonDecorators.rst:372
+msgid "Execute a function every time a file/directory is modified."
+msgstr ""
+
+#: ../../PythonDecorators.rst:382
+msgid "Map a function as an :doc:`Erlang<Erlang>` process."
+msgstr ""
+
+#: ../../PythonDecorators.rst:393
+msgid "Mark function to be executed in a separate thread."
+msgstr ""
+
+#: ../../PythonDecorators.rst:395
+msgid ""
+"Threading must be enabled in uWSGI with the ``enable-threads`` or "
+"``threads <n>`` option."
+msgstr ""
+
+#: ../../PythonDecorators.rst:414
+msgid ""
+"You may also combine ``@thread`` with ``@postfork`` to spawn the postfork"
+" handler in a new thread in the freshly spawned worker."
+msgstr ""
+
+#: ../../PythonDecorators.rst:427
+msgid ""
+"This decorator will execute a function in fully locked environment, "
+"making it impossible for other workers or threads (or the master, if "
+"you're foolish or brave enough) to run it simultaneously. Obviously this "
+"may be combined with @postfork."
+msgstr ""
+
+#: ../../PythonDecorators.rst:439
+msgid ""
+"Offload the execution of the function to a :doc:`mule<Mules>`. When the "
+"offloaded function is called, it will return immediately and execution is"
+" delegated to a mule."
+msgstr ""
+
+#: ../../PythonDecorators.rst:447
+msgid ""
+"You may also specify a mule ID or mule farm to run the function on. "
+"Please remember to register your function with a uwsgi import "
+"configuration option."
+msgstr ""
+
+#: ../../PythonDecorators.rst:461
+msgid ""
+"Starting from uWSGI 1.3-dev, a customizable secondary :term:`harakiri` "
+"subsystem has been added. You can use this decorator to kill a worker if "
+"the given call is taking too long."
+msgstr ""
+

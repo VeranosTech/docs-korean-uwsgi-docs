@@ -1,0 +1,91 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Cgroups.rst:2
+msgid "Running uWSGI in a Linux CGroup"
+msgstr ""
+
+#: ../../Cgroups.rst:4
+msgid ""
+"Linux cgroups are an amazing feature available in recent Linux kernels. "
+"They allow you to \"jail\" your processes in constrained environments "
+"with limited CPU, memory, scheduling priority, IO, etc.."
+msgstr ""
+
+#: ../../Cgroups.rst:8
+msgid ""
+"uWSGI has to be run as root to use cgroups. ``uid`` and ``gid`` are very,"
+" very necessary."
+msgstr ""
+
+#: ../../Cgroups.rst:11
+msgid "Enabling cgroups"
+msgstr ""
+
+#: ../../Cgroups.rst:13
+msgid ""
+"First you need to enable cgroup support in your system.  Create the "
+"/cgroup directory and add this to your /etc/fstab:"
+msgstr ""
+
+#: ../../Cgroups.rst:20
+msgid ""
+"Then mount /cgroup and you'll have jails with controlled CPU and memory "
+"usage. There are other Cgroup subsystems, but CPU and memory usage are "
+"the most useful to constrain."
+msgstr ""
+
+#: ../../Cgroups.rst:24
+msgid "Let's run uWSGI in a cgroup:"
+msgstr ""
+
+#: ../../Cgroups.rst:30
+msgid ""
+"Cgroups are simple directories. With this command your uWSGI server and "
+"its workers are \"jailed\" in the 'cgroup/jail001' cgroup.  If you make a"
+" bunch of requests to the server,  you will see usage counters -- "
+"cpuacct.* and memoryfiles.* in the cgroup directory growing.  You can "
+"also use pre-existing cgroups by specifying a directory that already "
+"exists."
+msgstr ""
+
+#: ../../Cgroups.rst:37
+msgid "A real world example: Scheduling QoS for your customers"
+msgstr ""
+
+#: ../../Cgroups.rst:39
+#, python-format
+msgid ""
+"Suppose you're hosting apps for 4 customers.  Two of them are paying you "
+"$100 a month, one is paying $200, and the last is paying $400.  To have a"
+" good Quality of Service implementation, the $100 apps should get 1/8, or"
+" 12.5% of your CPU power, the $200 app should get 1/4 (25%) and the last "
+"should get 50%.  To implement this, we have to create 4 cgroups, one for "
+"each app, and limit their scheduling weights."
+msgstr ""
+
+#: ../../Cgroups.rst:54
+msgid ""
+"The ``cpu.shares`` values are simply computed relative to each other, so "
+"you can use whatever scheme you like, such as (125, 125, 250, 500) or "
+"even (1, 1, 2, 4).  With CPU handled, we turn to limiting memory.  Let's "
+"use the same scheme as before, with a maximum of 2 GB for all apps "
+"altogether."
+msgstr ""
+

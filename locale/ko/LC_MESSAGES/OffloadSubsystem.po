@@ -1,0 +1,119 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../OffloadSubsystem.rst:2
+msgid "The uWSGI offloading subsystem"
+msgstr ""
+
+#: ../../OffloadSubsystem.rst:4
+msgid ""
+"Offloading is a way to optimize tiny tasks, delegating them to one or "
+"more threads."
+msgstr ""
+
+#: ../../OffloadSubsystem.rst:6
+msgid ""
+"These threads run such tasks in a non-blocking/evented way allowing for a"
+" huge amount of concurrency."
+msgstr ""
+
+#: ../../OffloadSubsystem.rst:8
+msgid ""
+"Various components of the uWSGI stack are offload-friendly, and the long-"
+"term target is to allow application code to abuse them."
+msgstr ""
+
+#: ../../OffloadSubsystem.rst:12
+msgid ""
+"To start the offloading subsystem just add --offload-threads <n>, where "
+"<n> is the number of threads (per-worker) to spawn. They are native "
+"threads, they are lock-free (no shared resources), thundering-herd free "
+"(requests to the system are made in round-robin) and they are the best "
+"way to abuse your CPU cores."
+msgstr ""
+
+#: ../../OffloadSubsystem.rst:16
+msgid ""
+"The number of offloaded requests is accounted in the "
+"\"offloaded_requests\" metric of the stats subsystem."
+msgstr ""
+
+#: ../../OffloadSubsystem.rst:20
+msgid "Offloading static files"
+msgstr ""
+
+#: ../../OffloadSubsystem.rst:22
+msgid "The first offload-aware component is the static file serving system."
+msgstr ""
+
+#: ../../OffloadSubsystem.rst:24
+msgid ""
+"When offload threads are available, the whole transfer of the file is "
+"delegated to one of those threads, freeing your worker suddenly (so it "
+"will be ready to accept new requests)"
+msgstr ""
+
+#: ../../OffloadSubsystem.rst:27 ../../OffloadSubsystem.rst:44
+msgid "Example:"
+msgstr ""
+
+#: ../../OffloadSubsystem.rst:37
+msgid "Offloading internal routing"
+msgstr ""
+
+#: ../../OffloadSubsystem.rst:39
+msgid "The router_uwsgi and router_http plugins are offload-friendly."
+msgstr ""
+
+#: ../../OffloadSubsystem.rst:41
+msgid ""
+"You can route requests to external uwsgi/HTTP servers without being "
+"worried about having a blocked worker during the response generation."
+msgstr ""
+
+#: ../../OffloadSubsystem.rst:55
+msgid "Since 1.9.11 the ``cache`` router is offload friendly too."
+msgstr ""
+
+#: ../../OffloadSubsystem.rst:64
+msgid ""
+"As soon as the object is retrieved from the cache, it will be transferred"
+" in one of the offload threads."
+msgstr ""
+
+#: ../../OffloadSubsystem.rst:67
+msgid "The Future"
+msgstr ""
+
+#: ../../OffloadSubsystem.rst:69
+msgid ""
+"The offloading subsystem has a great potential, you can think of it as a "
+"software DMA: you program it, and then it goes alone."
+msgstr ""
+
+#: ../../OffloadSubsystem.rst:71
+msgid ""
+"Currently it is pretty monolithic, but the idea is to allow more complex "
+"plugins (a redis one is in the works)."
+msgstr ""
+
+#: ../../OffloadSubsystem.rst:73
+msgid "Next step is allowing the user to \"program\" it via the uwsgi api."
+msgstr ""
+

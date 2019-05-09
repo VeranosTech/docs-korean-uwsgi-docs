@@ -1,0 +1,234 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../AttachingDaemons.rst:2
+msgid "Managing external daemons/services"
+msgstr ""
+
+#: ../../AttachingDaemons.rst:4
+msgid ""
+"uWSGI can easily monitor external processes, allowing you to increase "
+"reliability and usability of your multi-tier apps.  For example you can "
+"manage services like Memcached, Redis, Celery, Ruby delayed_job or even "
+"dedicated PostgreSQL instances."
+msgstr ""
+
+#: ../../AttachingDaemons.rst:10
+msgid "Kinds of services"
+msgstr ""
+
+#: ../../AttachingDaemons.rst:12
+msgid "Currently uWSGI supports 3 categories of processes:"
+msgstr ""
+
+#: ../../AttachingDaemons.rst:14
+msgid "``--attach-daemon`` -- directly attached non daemonized processes"
+msgstr ""
+
+#: ../../AttachingDaemons.rst:15
+msgid ""
+"``--smart-attach-daemon`` -- pidfile governed (both foreground and "
+"daemonized)"
+msgstr ""
+
+#: ../../AttachingDaemons.rst:16
+msgid ""
+"``--smart-attach-daemon2`` -- pidfile governed with daemonization "
+"management"
+msgstr ""
+
+#: ../../AttachingDaemons.rst:18
+msgid ""
+"The first category allows you to directly attach processes to the uWSGI "
+"master. When the master dies or is reloaded these processes are "
+"destroyed. This is the best choice for services that must be flushed "
+"whenever the app is restarted."
+msgstr ""
+
+#: ../../AttachingDaemons.rst:22
+msgid ""
+"Pidfile governed processes can survive death or reload of the master so "
+"long as their pidfiles are available and the pid contained therein "
+"matches a running pid. This is the best choice for processes requiring "
+"longer persistence, and for which a brutal kill could mean loss of data "
+"such as a database."
+msgstr ""
+
+#: ../../AttachingDaemons.rst:27
+msgid ""
+"The last category is a superset of the second one. If your process does "
+"not support daemonization or writing to pidfile, you can let the master "
+"do the management.  Very few daemons/applications require this feature, "
+"but it could be useful for tiny prototype applications or simply poorly "
+"designed ones."
+msgstr ""
+
+#: ../../AttachingDaemons.rst:32
+msgid ""
+"Since uWSGI 2.0 a fourth option, ``--attach-daemon2`` has been added for "
+"advanced configurations (see below)."
+msgstr ""
+
+#: ../../AttachingDaemons.rst:35
+msgid "Examples"
+msgstr ""
+
+#: ../../AttachingDaemons.rst:37
+msgid ""
+"Managing a **memcached** instance in 'dumb' mode. Whenever uWSGI is "
+"stopped or reloaded, memcached is destroyed."
+msgstr ""
+
+#: ../../AttachingDaemons.rst:46
+msgid ""
+"Managing a **memcached** instance in 'smart' mode. Memcached survives "
+"uWSGI stop and reload."
+msgstr ""
+
+#: ../../AttachingDaemons.rst:55
+msgid "Managing 2 **mongodb** instances in smart mode:"
+msgstr ""
+
+#: ../../AttachingDaemons.rst:65
+msgid "Managing **PostgreSQL** dedicated-instance (cluster in /db/foobar1):"
+msgstr ""
+
+#: ../../AttachingDaemons.rst:74
+msgid "Managing **celery**:"
+msgstr ""
+
+#: ../../AttachingDaemons.rst:83
+msgid "Managing **delayed_job**:"
+msgstr ""
+
+#: ../../AttachingDaemons.rst:96
+msgid "Managing **dropbear**:"
+msgstr ""
+
+#: ../../AttachingDaemons.rst:108
+msgid ""
+"When using the namespace option you can attach a dropbear daemon to allow"
+" direct access to the system inside the specified namespace.  This "
+"requires the */dev/pts* filesystem to be mounted inside the namespace, "
+"and the user your workers will be running as have access to the "
+"*/etc/dropbear* directory inside the namespace."
+msgstr ""
+
+#: ../../AttachingDaemons.rst:115
+msgid "Legion support"
+msgstr ""
+
+#: ../../AttachingDaemons.rst:117
+msgid ""
+"Starting with uWSGI 1.9.9 it's possible to use the :doc:`Legion` "
+"subsystem for daemon management.  Legion daemons will be executed only on"
+" the legion lord node, so there will always be a single daemon instance "
+"running in each legion. Once the lord dies a daemon will be spawned on "
+"another node.  To add a legion daemon use --legion-attach-daemon, "
+"--legion-smart-attach-daemon and --legion-smart-attach-daemon2 options, "
+"they have the same syntax as normal daemon options. The difference is the"
+" need to add legion name as first argument."
+msgstr ""
+
+#: ../../AttachingDaemons.rst:126 ../../AttachingDaemons.rst:158
+msgid "Example:"
+msgstr ""
+
+#: ../../AttachingDaemons.rst:128
+msgid "Managing **celery beat**:"
+msgstr ""
+
+#: ../../AttachingDaemons.rst:140
+msgid "``--attach-daemon2``"
+msgstr ""
+
+#: ../../AttachingDaemons.rst:142
+msgid ""
+"This option has been added in uWSGI 2.0 and allows advanced "
+"configurations. It is a keyval option, and it accepts the following keys:"
+msgstr ""
+
+#: ../../AttachingDaemons.rst:144
+msgid "``command``/``cmd``/``exec``: the command line to execute"
+msgstr ""
+
+#: ../../AttachingDaemons.rst:145
+msgid "``freq``: maximum attempts before considering a daemon \"broken\""
+msgstr ""
+
+#: ../../AttachingDaemons.rst:146
+msgid "``pidfile``: the pidfile to check (enable smart mode)"
+msgstr ""
+
+#: ../../AttachingDaemons.rst:147
+msgid ""
+"``control``: if set, the daemon becomes a 'control' one: if it dies the "
+"whole uWSGI instance dies"
+msgstr ""
+
+#: ../../AttachingDaemons.rst:148
+msgid "``daemonize``/``daemon``: daemonize the process (enable smart2 mode)"
+msgstr ""
+
+#: ../../AttachingDaemons.rst:149
+msgid ""
+"``touch`` semicolon separated list of files to check: whenever they are "
+"'touched', the daemon is restarted"
+msgstr ""
+
+#: ../../AttachingDaemons.rst:150
+msgid ""
+"``stopsignal``/``stop_signal``: the signal number to send to the daemon "
+"when uWSGI is stopped"
+msgstr ""
+
+#: ../../AttachingDaemons.rst:151
+msgid ""
+"``reloadsignal``/``reload_signal``: the signal to send to the daemon when"
+" uWSGI is reloaded"
+msgstr ""
+
+#: ../../AttachingDaemons.rst:152
+msgid "``stdin``: if set the file descriptor zero is not remapped to /dev/null"
+msgstr ""
+
+#: ../../AttachingDaemons.rst:153
+msgid ""
+"``uid``: drop privileges to the specified uid (requires master running as"
+" root)"
+msgstr ""
+
+#: ../../AttachingDaemons.rst:154
+msgid ""
+"``gid``: drop privileges to the specified gid (requires master running as"
+" root)"
+msgstr ""
+
+#: ../../AttachingDaemons.rst:155
+msgid ""
+"``ns_pid``: spawn the process in a new pid namespace (requires master "
+"running as root, Linux only)"
+msgstr ""
+
+#: ../../AttachingDaemons.rst:156
+msgid ""
+"``chdir``: chdir() to the specified directory before running the command "
+"(added in uWSGI 2.0.6)"
+msgstr ""
+

@@ -1,0 +1,332 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../UpgradingTo2.0.rst:2
+msgid "Upgrading your 1.x uWSGI instances to 2.0 (work in progress)"
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:4
+msgid ""
+"The following notes are for users moving from 1.0, 1.2 and 1.4 to uWSGI "
+"2.0."
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:6
+msgid ""
+"Users of the 1.9 tree can skip this document as 2.0 is a "
+"\"stabilized/freezed\" 1.9."
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:9
+msgid "What's new"
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:12
+msgid "License change"
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:14
+msgid "uWSGI is now GPL2 + linking exception instead of plain GPL2."
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:16
+msgid ""
+"This should address some legal issues with users compiling uWSGI as a "
+"library (libuwsgi.so) and loading non-GPL compatible plugins/libraries."
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:19
+msgid "Non-blocking by default"
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:21
+msgid ""
+"All of the I/O of the uWSGI stack (from the core to the plugins) is now "
+"fully non-blocking."
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:23
+msgid ""
+"No area in the whole stack is allowed to block (except your app "
+"obviously), and plugins must use uWSGI's I/O API."
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:25
+msgid ""
+"When you load loop engines like gevent or Coro::AnyEvent, the uWSGI "
+"internals are patched to support their specific non-blocking hooks."
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:27
+msgid "What does this mean for app developers?"
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:29
+msgid ""
+"Well, the most important aspect is that network congestions or kernel "
+"problems do not block your instances and badly behaving peers are closed "
+"if they do not unblock in the socket-timeout interval (default 4 "
+"seconds)."
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:33
+msgid "Newer, faster and better parsers"
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:35
+msgid ""
+"uWSGI 2.0 has support for pluggable protocols. The following protocols "
+"are supported and all of them have been updated for better performance:"
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:38
+msgid "``uwsgi`` -- the classic uwsgi parser, improved for reduced syscall usage"
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:39
+msgid ""
+"``http`` -- the classic HTTP parser, improved for reduced syscall usage "
+"(supports the PROXY1 protocol)"
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:40
+msgid "``https`` -- (new) support for native HTTPS"
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:41
+msgid "``fastcgi`` -- classic FastCGI parser, improved for reduced syscall usage"
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:42
+msgid "``scgi`` -- (new) support for SCGI"
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:43
+msgid "``suwsgi`` -- (new) secured uwsgi, uwsgi over SSL (supported by Nginx 1.5)"
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:44
+msgid ""
+"``puwsgi`` -- (new) persistent uwsgi, uwsgi with persistent connections, "
+"supported only internally"
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:45
+msgid ""
+"``mongrel2`` -- classic zeromq/mongrel2 support, now it is exposed as a "
+"plugin"
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:46
+msgid ""
+"``raw`` -- (new) fake parser, allows you to write applications directly "
+"working on file descriptors"
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:49
+msgid "New reloading ways"
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:51
+msgid "uWSGI 2.0 introduces a blast of new ways for reloading instances."
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:55
+msgid ":doc:`TheArtOfGracefulReloading`"
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:58
+msgid "Other new features"
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:60
+msgid ""
+":doc:`MasterFIFO` -- A signal-free new approach for managing your "
+"instances."
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:61
+msgid ""
+":doc:`Caching` & :doc:`tutorials/CachingCookbook` -- The new generation "
+"caching subsystem."
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:62
+msgid ":doc:`SharedArea` -- The new sharedarea."
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:63
+msgid ":doc:`SNI`"
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:64
+msgid ":doc:`Legion`"
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:65
+msgid ":doc:`WebSockets`"
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:66
+msgid ":doc:`Hooks`"
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:67
+msgid ":doc:`Transformations`"
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:68
+msgid ":doc:`Namespaces`"
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:69
+msgid ":doc:`FreeBSDJails`"
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:70
+msgid ":doc:`Metrics`"
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:71
+msgid ":doc:`tutorials/GraphiteAndMetrics`"
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:72
+msgid ":doc:`RPC` -- now supports 64-bit length responses"
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:75
+msgid "New plugin build system"
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:77
+msgid ""
+"It is pretty fun (and easy) to write uWSGI plugins, but (funnily enough) "
+"the worst aspect was building them, as dealing with build profiles, "
+"cflags, ldflags and friends tend to lead to all sorts of bugs and "
+"crashes."
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:79
+msgid ""
+"A simplified (and saner) build system for external plugins has been "
+"added. Now you only need to call the uwsgi binary you want to build the "
+"plugin for:"
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:85
+msgid ""
+"where <plugin> is the directory where the plugin sources (and the "
+"uwsgiplugin.py file) are stored."
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:89
+msgid ":doc:`ThirdPartyPlugins`"
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:92
+msgid "Strict mode"
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:94
+msgid ""
+"while having the freedom of defining custom options in uWSGI config files"
+" is a handy features, sometimes typos will bring you lot of headaches."
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:97
+msgid ""
+"Adding --strict to your instance options will instruct uWSGI config "
+"parser to raise an error when not-available options have been specified."
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:99
+msgid ""
+"If you are in trouble and want to be sure you did not have written wrong "
+"options, add --strict and retry"
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:102
+msgid "Cygwin support"
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:104
+msgid "Yes, you can now build and run uWSGI on Windows systems :("
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:107
+msgid "kFreeBSD support"
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:110
+msgid "PyPy support"
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:113
+msgid "JVM support"
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:116
+msgid "Mono support"
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:119
+msgid "V8 support"
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:122
+msgid "Upgrading Notes"
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:124
+msgid ""
+"Snapshotting mode is no longer available. Check the new graceful "
+"reloading ways for better approaches."
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:125
+msgid ""
+"Mongrel2 support is no longer a built-in. you have to build the "
+"'mongrel2' plugin to pair uWSGI with Mongrel2."
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:126
+msgid ""
+"LDAP and Sqlite support has been moved to two plugins, you need to load "
+"them for using their features."
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:127
+msgid "Dynamic options are no more."
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:128
+msgid "The 'admin' plugin is gone."
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:129
+msgid ""
+"Probes have been removed, the alarm framework presents better ways to "
+"monitor services."
+msgstr ""
+
+#: ../../UpgradingTo2.0.rst:130
+msgid "The shared area API changed dramatically, check the new sharedarea docs."
+msgstr ""
+

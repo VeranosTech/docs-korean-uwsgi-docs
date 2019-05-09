@@ -1,0 +1,180 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../SSLScaling.rst:2
+msgid "Scaling SSL connections (uWSGI 1.9)"
+msgstr ""
+
+#: ../../SSLScaling.rst:4
+msgid ""
+"Distributing SSL servers in a cluster is a hard topic. The biggest "
+"problem is sharing SSL sessions between different nodes."
+msgstr ""
+
+#: ../../SSLScaling.rst:6
+msgid ""
+"The problem is amplified in non-blocking servers due to OpenSSL's limits "
+"in the way sessions are managed."
+msgstr ""
+
+#: ../../SSLScaling.rst:8
+msgid ""
+"For example, you cannot share sessions in Memcached servers and access "
+"them in a non-blocking way."
+msgstr ""
+
+#: ../../SSLScaling.rst:10
+msgid ""
+"A common solution (well, a compromise, maybe) until now has been to use a"
+" single SSL terminator balancing requests to multiple non-encrypted "
+"backends. This solution kinda works, but obviously it does not scale."
+msgstr ""
+
+#: ../../SSLScaling.rst:12
+msgid ""
+"Starting from uWSGI 1.9-dev an implementation (based on the *stud* "
+"project) of distributed caching has been added."
+msgstr ""
+
+#: ../../SSLScaling.rst:15
+msgid "Setup 1: using the uWSGI cache for storing SSL sessions"
+msgstr ""
+
+#: ../../SSLScaling.rst:17
+msgid ""
+"You can configure the SSL subsystem of uWSGI to use the shared cache. The"
+" SSL sessions will time out according to the expiry value of the cache "
+"item. This way the cache sweeper thread (managed by the master) will "
+"destroy sessions in the cache."
+msgstr ""
+
+#: ../../SSLScaling.rst:19
+msgid ""
+"The order of the options is important. ``cache`` options must be "
+"specified BEFORE ``ssl-sessions-use-cache`` and ``https`` options."
+msgstr ""
+
+#: ../../SSLScaling.rst:47
+msgid ""
+"Now start blasting your HTTPS router and then telnet to port 5001. Under "
+"the \"cache\" object of the JSON output you should see the values "
+"\"items\" and \"hits\" increasing. The value \"miss\" is increased every "
+"time a session is not found in the cache. It is a good metric of the SSL "
+"performance users can expect."
+msgstr ""
+
+#: ../../SSLScaling.rst:52
+msgid "Setup 2: synchronize caches of different HTTPS routers"
+msgstr ""
+
+#: ../../SSLScaling.rst:54
+msgid ""
+"The objective is to synchronize each new session in each distributed "
+"cache. To accomplish that you have to spawn a special thread (``cache-"
+"udp-server``) in each instance and list all of the remote servers that "
+"should be synchronized."
+msgstr ""
+
+#: ../../SSLScaling.rst:57
+msgid ""
+"A pure-TCP load balancer (like HAProxy or uWSGI's Rawrouter) can be used "
+"to load balance between the various HTTPS routers."
+msgstr ""
+
+#: ../../SSLScaling.rst:59
+msgid "Here's a possible Rawrouter config."
+msgstr ""
+
+#: ../../SSLScaling.rst:70
+msgid ""
+"Now you can configure the first node (the new options are at the end of "
+"the .ini config)"
+msgstr ""
+
+#: ../../SSLScaling.rst:104
+msgid "and the other two..."
+msgstr ""
+
+#: ../../SSLScaling.rst:171
+msgid ""
+"Start hammering the Rawrouter (remember to use a client supporting "
+"persistent SSL sessions, like your browser) and get cache statistics from"
+" the stats server of each HTTPS terminator node. If the count of \"hits\""
+" is a lot higher than the \"miss\" value the system is working well and "
+"your load is distributed and in awesome hyper high performance mode."
+msgstr ""
+
+#: ../../SSLScaling.rst:175
+msgid ""
+"So, what is ``https-session-context``, you ask? Basically each SSL "
+"session before being used is checked against a fixed string (the session "
+"context). If the session does not match that string, it is rejected. By "
+"default the session context is initialized to a value built from the HTTP"
+" server address. Forcing it to a shared value will avoid a session "
+"created in a node being rejected in another one."
+msgstr ""
+
+#: ../../SSLScaling.rst:178
+msgid "Using named caches"
+msgstr ""
+
+#: ../../SSLScaling.rst:180
+msgid ""
+"Starting from uWSGI 1.9 you can have multiple caches. This is a setup "
+"with 2 nodes using a new generation cache named \"ssl\"."
+msgstr ""
+
+#: ../../SSLScaling.rst:182
+msgid ""
+"The ``cache2`` option allows also to set a custom key size. Since SSL "
+"session keys are not very long, we can use it to optimize memory usage. "
+"In this example we use 128 byte key size limit, which should be enough "
+"for session IDs."
+msgstr ""
+
+#: ../../SSLScaling.rst:205
+msgid "and the second node..."
+msgstr ""
+
+#: ../../SSLScaling.rst:229
+msgid "Notes"
+msgstr ""
+
+#: ../../SSLScaling.rst:231
+msgid ""
+"If you do not want to manually configure the cache UDP nodes and your "
+"network configuration supports it, you can use UDP multicast."
+msgstr ""
+
+#: ../../SSLScaling.rst:240
+msgid ""
+"A new gateway server is in development, named \"udprepeater\". It will "
+"basically forward all of UDP packets it receives to the subscribed back-"
+"end nodes. It will allow you to maintain the zero-config style of the "
+"subscription system (basically you only need to configure a single cache "
+"UDP node pointing to the repeater)."
+msgstr ""
+
+#: ../../SSLScaling.rst:241
+msgid ""
+"Currently there is no security between the cache nodes. For some users "
+"this may be a huge problem, so a security mode (encrypting the packets) "
+"is in development."
+msgstr ""
+

@@ -1,0 +1,214 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Changelog-2.0.4.rst:2
+msgid "uWSGI 2.0.4"
+msgstr ""
+
+#: ../../Changelog-2.0.4.rst:4
+msgid "Changelog [20140422]"
+msgstr ""
+
+#: ../../Changelog-2.0.4.rst:7
+msgid "Bugfixes"
+msgstr ""
+
+#: ../../Changelog-2.0.4.rst:9
+msgid "fixed \"mime\" routing var (Steve Stagg)"
+msgstr ""
+
+#: ../../Changelog-2.0.4.rst:10
+msgid "allow duplicate headers in http parsers"
+msgstr ""
+
+#: ../../Changelog-2.0.4.rst:11
+msgid "faster on_demand Emperor management"
+msgstr ""
+
+#: ../../Changelog-2.0.4.rst:12
+msgid "fixed UWSGI_ADDITIONAL_SOURCES build option"
+msgstr ""
+
+#: ../../Changelog-2.0.4.rst:13
+msgid "merge duplicated headers when SPDY is enabled (Łukasz Mierzwa)"
+msgstr ""
+
+#: ../../Changelog-2.0.4.rst:14
+msgid "fixed segfault for unnamed loggers"
+msgstr ""
+
+#: ../../Changelog-2.0.4.rst:15
+msgid "--need-app works in lazy-apps mode"
+msgstr ""
+
+#: ../../Changelog-2.0.4.rst:16
+msgid "fixed fatal hooks management"
+msgstr ""
+
+#: ../../Changelog-2.0.4.rst:20
+msgid "New features"
+msgstr ""
+
+#: ../../Changelog-2.0.4.rst:23
+msgid "The experimental asyncio loop engine (CPython >= 3.4)"
+msgstr ""
+
+#: ../../Changelog-2.0.4.rst:25
+msgid ""
+"asyncio (also known as 'tulip') is the new infrastructure for writing "
+"non-blocking/async/callback-based code with Python 3."
+msgstr ""
+
+#: ../../Changelog-2.0.4.rst:27
+msgid ""
+"This (experimental) plugin allows you to use asyncio as the uWSGI loop "
+"engine."
+msgstr ""
+
+#: ../../Changelog-2.0.4.rst:29
+msgid "Docs: https://uwsgi-docs.readthedocs.io/en/latest/asyncio.html"
+msgstr ""
+
+#: ../../Changelog-2.0.4.rst:32
+msgid "httprouter advanced timeout management"
+msgstr ""
+
+#: ../../Changelog-2.0.4.rst:34
+msgid "The HTTP router learned 2 new specific timeouts:"
+msgstr ""
+
+#: ../../Changelog-2.0.4.rst:36
+msgid ""
+"`--http-headers-timeout <n>`: defines the timeout while waiting for http "
+"headers"
+msgstr ""
+
+#: ../../Changelog-2.0.4.rst:37
+msgid ""
+"`--http-connect-timeout <n>`: defines the timeout when connecting to "
+"backend instances"
+msgstr ""
+
+#: ../../Changelog-2.0.4.rst:39
+msgid "These should help sysadmins to improve security and availability."
+msgstr ""
+
+#: ../../Changelog-2.0.4.rst:41
+msgid "Credits: Łukasz Mierzwa"
+msgstr ""
+
+#: ../../Changelog-2.0.4.rst:44
+msgid "allow disabling cache warnings in --cache2"
+msgstr ""
+
+#: ../../Changelog-2.0.4.rst:46
+msgid "Author: Łukasz Mierzwa"
+msgstr ""
+
+#: ../../Changelog-2.0.4.rst:48
+msgid ""
+"The 'ignore_full' keyval option has been added to cache2. This will "
+"disable warnings when a cache is full."
+msgstr ""
+
+#: ../../Changelog-2.0.4.rst:51
+msgid "purge LRU cache feature by Yu Zhao (getcwd)"
+msgstr ""
+
+#: ../../Changelog-2.0.4.rst:53
+msgid ""
+"This new mode allows you to configure a cache to automatically expire the"
+" least recently used (LRU) items to make space when it's running out."
+msgstr ""
+
+#: ../../Changelog-2.0.4.rst:55
+msgid "Just add `purge_lru=1` into your cache2 directive."
+msgstr ""
+
+#: ../../Changelog-2.0.4.rst:58
+msgid "support embedded config on FreeBSD"
+msgstr ""
+
+#: ../../Changelog-2.0.4.rst:60
+msgid ""
+"You can now embed configuration files into the binary also on FreeBSD "
+"systems:"
+msgstr ""
+
+#: ../../Changelog-2.0.4.rst:62
+msgid ""
+"https://uwsgi-docs.readthedocs.io/en/latest/Embed.html#step-2-embedding-"
+"the-config-file"
+msgstr ""
+
+#: ../../Changelog-2.0.4.rst:65
+msgid "RPC hook"
+msgstr ""
+
+#: ../../Changelog-2.0.4.rst:67
+msgid "Two new hooks have been added:"
+msgstr ""
+
+#: ../../Changelog-2.0.4.rst:69
+msgid "'rpc' -> call the specified RPC function (fails on error)"
+msgstr ""
+
+#: ../../Changelog-2.0.4.rst:70
+msgid "'rpcretry' -> call the specified RPC function (retries on error)"
+msgstr ""
+
+#: ../../Changelog-2.0.4.rst:73
+msgid "`setmodifier1` and `setmodifier2` routing actions"
+msgstr ""
+
+#: ../../Changelog-2.0.4.rst:75
+msgid ""
+"Having to load the 'uwsgi' routing plugin to simply set modifiers was "
+"really annoying."
+msgstr ""
+
+#: ../../Changelog-2.0.4.rst:77
+msgid ""
+"These two new routing options allow you to dynamically set request "
+"modifiers."
+msgstr ""
+
+#: ../../Changelog-2.0.4.rst:80
+msgid "`no_headers` option for static router"
+msgstr ""
+
+#: ../../Changelog-2.0.4.rst:82
+msgid ""
+"keyval based static routing actions can now avoid rewriting response "
+"headers (useful for X-Sendfile), just add no_headers=1 to your keyval "
+"options."
+msgstr ""
+
+#: ../../Changelog-2.0.4.rst:85
+msgid "Availability"
+msgstr ""
+
+#: ../../Changelog-2.0.4.rst:87
+msgid "uWSGI 2.0.4 has been released on 20140422, you can download it from:"
+msgstr ""
+
+#: ../../Changelog-2.0.4.rst:89
+msgid "https://projects.unbit.it/downloads/uwsgi-2.0.4.tar.gz"
+msgstr ""
+

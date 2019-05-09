@@ -1,0 +1,217 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../MasterFIFO.rst:2
+msgid "The Master FIFO"
+msgstr ""
+
+#: ../../MasterFIFO.rst:4
+msgid "Available from uWSGI 1.9.17."
+msgstr ""
+
+#: ../../MasterFIFO.rst:6
+msgid ""
+"Generally you use UNIX signals to manage the master, but we are running "
+"out of signal numbers and (more importantly) not needing to mess with "
+"PIDs greatly simplifies the implementation of external management "
+"scripts."
+msgstr ""
+
+#: ../../MasterFIFO.rst:9
+msgid ""
+"So, instead of signals, you can tell the master to create a UNIX named "
+"pipe (FIFO) that you may use to issue commands to the master."
+msgstr ""
+
+#: ../../MasterFIFO.rst:11
+msgid ""
+"To create a FIFO just add ``--master-fifo <filename>`` then start issuing"
+" commands to it."
+msgstr ""
+
+#: ../../MasterFIFO.rst:17
+msgid "You can send multiple commands in one shot."
+msgstr ""
+
+#: ../../MasterFIFO.rst:25
+msgid "Available commands"
+msgstr ""
+
+#: ../../MasterFIFO.rst:27
+msgid "'0' to '9' - set the fifo slot (see below)"
+msgstr ""
+
+#: ../../MasterFIFO.rst:28
+msgid ""
+"'+' - increase the number of workers when in cheaper mode (add "
+"``--cheaper-algo manual`` for full control)"
+msgstr ""
+
+#: ../../MasterFIFO.rst:29
+msgid ""
+"'-' - decrease the number of workers when in cheaper mode (add "
+"``--cheaper-algo manual`` for full control)"
+msgstr ""
+
+#: ../../MasterFIFO.rst:30
+msgid ""
+"'B' - ask Emperor for reinforcement (broodlord mode, requires uWSGI >= "
+"2.0.7)"
+msgstr ""
+
+#: ../../MasterFIFO.rst:31
+msgid "'C' - set cheap mode"
+msgstr ""
+
+#: ../../MasterFIFO.rst:32
+msgid "'c' - trigger chain reload"
+msgstr ""
+
+#: ../../MasterFIFO.rst:33
+msgid "'E' - trigger an Emperor rescan"
+msgstr ""
+
+#: ../../MasterFIFO.rst:34
+msgid "'f' - re-fork the master (dangerous, but very powerful)"
+msgstr ""
+
+#: ../../MasterFIFO.rst:35
+msgid "'l' - reopen log file (need --log-master and --logto/--logto2)"
+msgstr ""
+
+#: ../../MasterFIFO.rst:36
+msgid "'L' - trigger log rotation (need --log-master and --logto/--logto2)"
+msgstr ""
+
+#: ../../MasterFIFO.rst:37
+msgid "'p' - pause/resume the instance"
+msgstr ""
+
+#: ../../MasterFIFO.rst:38
+msgid "'P' - update pidfiles (can be useful after master re-fork)"
+msgstr ""
+
+#: ../../MasterFIFO.rst:39
+msgid "'Q' - brutally shutdown the instance"
+msgstr ""
+
+#: ../../MasterFIFO.rst:40
+msgid "'q' - gracefully shutdown the instance"
+msgstr ""
+
+#: ../../MasterFIFO.rst:41
+msgid "'R' - send brutal reload"
+msgstr ""
+
+#: ../../MasterFIFO.rst:42
+msgid "'r' - send graceful reload"
+msgstr ""
+
+#: ../../MasterFIFO.rst:43
+msgid "'S' - block/unblock subscriptions"
+msgstr ""
+
+#: ../../MasterFIFO.rst:44
+msgid "'s' - print stats in the logs"
+msgstr ""
+
+#: ../../MasterFIFO.rst:45
+msgid "'W' - brutally reload workers"
+msgstr ""
+
+#: ../../MasterFIFO.rst:46
+msgid "'w' - gracefully reload workers"
+msgstr ""
+
+#: ../../MasterFIFO.rst:49
+msgid "FIFO slots"
+msgstr ""
+
+#: ../../MasterFIFO.rst:51
+msgid ""
+"uWSGI supports up to 10 different FIFO files. By default the first "
+"specified is bound (mapped as '0')."
+msgstr ""
+
+#: ../../MasterFIFO.rst:53
+msgid ""
+"During the instance's lifetime you can change from one FIFO to another by"
+" simply sending the number of the FIFO slot to use."
+msgstr ""
+
+#: ../../MasterFIFO.rst:64
+msgid "By default ``/tmp/fifo0`` will be allocated, but after sending:"
+msgstr ""
+
+#: ../../MasterFIFO.rst:70
+msgid "the ``/tmp/fifo1`` file will be bound."
+msgstr ""
+
+#: ../../MasterFIFO.rst:72
+msgid ""
+"This is very useful to map FIFO files to specific instance when you "
+"(ab)use the 'fork the master' command (the 'f' one)."
+msgstr ""
+
+#: ../../MasterFIFO.rst:78
+msgid ""
+"After sending this command, a new uWSGI instance (inheriting all of the "
+"bound sockets) will be spawned, the old one will be put in \"paused\" "
+"mode (the 'p' command)."
+msgstr ""
+
+#: ../../MasterFIFO.rst:80
+msgid ""
+"As we have sent the '1' command before 'f' and 'p' the old instance will "
+"now accept commands on /tmp/fifo1 (the slot 1), and the new one will use "
+"the default one ('0')."
+msgstr ""
+
+#: ../../MasterFIFO.rst:82
+msgid ""
+"There are lot of tricks you can accomplish, and lots of ways to abuse the"
+" forking of the master."
+msgstr ""
+
+#: ../../MasterFIFO.rst:84
+msgid ""
+"Just take into account that corner-case problems can occur all over the "
+"place, especially if you use the most complex features of uWSGI."
+msgstr ""
+
+#: ../../MasterFIFO.rst:87
+msgid "Notes"
+msgstr ""
+
+#: ../../MasterFIFO.rst:89
+msgid ""
+"The FIFO is created in non-blocking modes and recreated by the master "
+"every time a client disconnects."
+msgstr ""
+
+#: ../../MasterFIFO.rst:90
+msgid ""
+"You can override (or add) commands using the global array "
+"``uwsgi_fifo_table`` via plugins or C hooks."
+msgstr ""
+
+#: ../../MasterFIFO.rst:91
+msgid "Only the uid running the master has write access to the fifo."
+msgstr ""
+

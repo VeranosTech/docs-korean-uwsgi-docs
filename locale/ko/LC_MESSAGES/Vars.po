@@ -1,0 +1,162 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Vars.rst:2
+msgid "uwsgi protocol magic variables"
+msgstr ""
+
+#: ../../Vars.rst:4
+msgid ""
+"You can dynamically tune or configure various aspects of the uWSGI server"
+" using special variables passed by the web server (or in general by a "
+"uwsgi compliant client)."
+msgstr ""
+
+#: ../../Vars.rst:6
+msgid "For Nginx, the ``uwsgi_param <name> <value>;`` directive is used."
+msgstr ""
+
+#: ../../Vars.rst:7
+msgid "For Apache, the ``SetEnv <name> <value>`` directive is used."
+msgstr ""
+
+#: ../../Vars.rst:10
+msgid "``UWSGI_SCHEME``"
+msgstr ""
+
+#: ../../Vars.rst:12
+msgid ""
+"Set the URL scheme when it cannot be reliably determined. This may be "
+"used to force HTTPS (with the value ``https``), for instance."
+msgstr ""
+
+#: ../../Vars.rst:15
+msgid "``UWSGI_SCRIPT``"
+msgstr ""
+
+#: ../../Vars.rst:17
+msgid ""
+"Load the specified script as a new application mapped to ``SCRIPT_NAME``."
+" The app will obviously only be loaded once, not on each request."
+msgstr ""
+
+#: ../../Vars.rst:26
+msgid "``UWSGI_MODULE`` and ``UWSGI_CALLABLE``"
+msgstr ""
+
+#: ../../Vars.rst:28
+msgid ""
+"Load a new app (defined as ``module:callable``) mapped into "
+"``SCRIPT_NAME``."
+msgstr ""
+
+#: ../../Vars.rst:38
+msgid "``UWSGI_PYHOME``"
+msgstr ""
+
+#: ../../Vars.rst:40
+msgid ""
+"Dynamically set the Python :ref:`Virtualenv` for a :doc:`dynamic "
+"application<DynamicApps>`."
+msgstr ""
+
+#: ../../Vars.rst:42
+msgid ":ref:`DynamicVirtualenv`"
+msgstr ""
+
+#: ../../Vars.rst:45
+msgid "``UWSGI_CHDIR``"
+msgstr ""
+
+#: ../../Vars.rst:47
+msgid "``chdir()`` to the specified directory before managing the request."
+msgstr ""
+
+#: ../../Vars.rst:50
+msgid "``UWSGI_FILE``"
+msgstr ""
+
+#: ../../Vars.rst:52
+msgid "Load the specified file as a new dynamic app."
+msgstr ""
+
+#: ../../Vars.rst:55
+msgid "``UWSGI_TOUCH_RELOAD``"
+msgstr ""
+
+#: ../../Vars.rst:57
+msgid ""
+"Reload the uWSGI stack when the specified file's modification time has "
+"changed since the last request."
+msgstr ""
+
+#: ../../Vars.rst:68
+msgid "``UWSGI_CACHE_GET``"
+msgstr ""
+
+#: ../../Vars.rst:70
+msgid ":doc:`Caching`"
+msgstr ""
+
+#: ../../Vars.rst:72
+msgid ""
+"Check the uWSGI cache for a specified key. If the value is found, it will"
+" be returned as raw HTTP output instead of the usual processing of the "
+"request."
+msgstr ""
+
+#: ../../Vars.rst:84
+msgid "``UWSGI_SETENV``"
+msgstr ""
+
+#: ../../Vars.rst:86
+msgid "Set the specified environment variable for a new dynamic app."
+msgstr ""
+
+#: ../../Vars.rst:88
+msgid ""
+"To allow this in Python applications you need to enable the ``reload-os-"
+"env`` uWSGI option."
+msgstr ""
+
+#: ../../Vars.rst:90
+msgid "Dynamically load a Django app without using a WSGI file/module::"
+msgstr ""
+
+#: ../../Vars.rst:101
+msgid "``UWSGI_APPID``"
+msgstr ""
+
+#: ../../Vars.rst:103
+msgid "Available since 0.9.9."
+msgstr ""
+
+#: ../../Vars.rst:105
+msgid ""
+"Bypass ``SCRIPT_NAME`` and :doc:`VirtualHosting` to let the user choose "
+"the mountpoint without limitations (or headaches)."
+msgstr ""
+
+#: ../../Vars.rst:107
+msgid ""
+"The concept is very generic: ``UWSGI_APPID`` is the identifier of an "
+"application. If it is not found in the internal list of apps, it will be "
+"loaded."
+msgstr ""
+

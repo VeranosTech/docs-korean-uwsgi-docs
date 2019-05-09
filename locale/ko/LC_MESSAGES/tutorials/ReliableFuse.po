@@ -1,0 +1,217 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../tutorials/ReliableFuse.rst:2
+msgid "Reliably use FUSE filesystems for uWSGI vassals (with Linux)"
+msgstr ""
+
+#: ../../tutorials/ReliableFuse.rst:4
+msgid "Requirements: uWSGI 1.9.18, Linux kernel with FUSE and namespaces support."
+msgstr ""
+
+#: ../../tutorials/ReliableFuse.rst:6
+msgid ""
+"FUSE is a technology allowing the implementation of filesystems in user "
+"space (hence the name: **F**\\ ilesystem in **Use**\\ rspace). There are "
+"hundreds of high-quality FUSE filesystems, so having your application "
+"relying on them is a common situation."
+msgstr ""
+
+#: ../../tutorials/ReliableFuse.rst:9
+msgid ""
+"FUSE filesystems are normal system processes, so as any process in the "
+"system, they can crash (or you may involuntarily kill them). In addition "
+"to this, if you host multiple applications, each one requiring a FUSE "
+"mount point, you may want to avoid polluting the main mount points "
+"namespace and, more important, avoid having unused mount points in your "
+"system (i.e. an instance is completely removed and you do not want its "
+"FUSE mount point to be still available in the system)."
+msgstr ""
+
+#: ../../tutorials/ReliableFuse.rst:13
+msgid ""
+"The purpose of this tutorial is to configure an Emperor and a series of "
+"vassals, each one mounting a FUSE filesystem."
+msgstr ""
+
+#: ../../tutorials/ReliableFuse.rst:16
+msgid "A Zip filesystem"
+msgstr ""
+
+#: ../../tutorials/ReliableFuse.rst:18
+msgid ""
+"`fuse-zip <https://code.google.com/p/fuse-zip/>`_ is a FUSE process "
+"exposing a zip file as a filesystem."
+msgstr ""
+
+#: ../../tutorials/ReliableFuse.rst:20
+msgid ""
+"Our objective is to store whole app in a zip archive and instruct uWSGI "
+"to mount it as a filesystem (via FUSE) under ``/app``."
+msgstr ""
+
+#: ../../tutorials/ReliableFuse.rst:23 ../../tutorials/ReliableFuse.rst:92
+msgid "The Emperor"
+msgstr ""
+
+#: ../../tutorials/ReliableFuse.rst:31
+msgid ""
+"The trick here is to use Linux namespaces to create vassals in a new pid "
+"and filesystem namespace."
+msgstr ""
+
+#: ../../tutorials/ReliableFuse.rst:33
+msgid ""
+"The first one (``fs``) allows mount point created by the vassal to be "
+"available only to the vassal (without messing with the main system), "
+"while the ``pid`` allows the uWSGI master to be the \"init\" process (pid"
+" 1) of the vassal. Being \"pid 1\" means that when you die all your "
+"children die too. In our scenario (where our vassal launches a FUSE "
+"process on startup) it means that when the vassal is destroyed, the FUSE "
+"process is destroyed too, as well as its mount point."
+msgstr ""
+
+#: ../../tutorials/ReliableFuse.rst:38 ../../tutorials/ReliableFuse.rst:135
+msgid "A Vassal"
+msgstr ""
+
+#: ../../tutorials/ReliableFuse.rst:54
+msgid ""
+"Here we use the ``-r`` option of the ``fuse-zip`` command for a read-only"
+" mount."
+msgstr ""
+
+#: ../../tutorials/ReliableFuse.rst:57
+msgid "Monitoring mount points"
+msgstr ""
+
+#: ../../tutorials/ReliableFuse.rst:59
+msgid ""
+"The problem with the current setup is that if the ``fuse-zip`` process "
+"dies, the instance will no more be able to access ``/app`` until it is "
+"respawned."
+msgstr ""
+
+#: ../../tutorials/ReliableFuse.rst:61
+msgid ""
+"uWSGI 1.9.18 added the ``--mountpoint-check`` option. It forces the "
+"master to constantly verify the specified filesystem. If it fails, the "
+"whole instance will be brutally destroyed. As we are under The Emperor, "
+"soon after the vassal is destroyed it will be restarted in a clean state "
+"(allowing the FUSE mount point to be started again)."
+msgstr ""
+
+#: ../../tutorials/ReliableFuse.rst:81
+msgid "Going Heavy Metal: A CoW rootfs (unionfs-fuse)"
+msgstr ""
+
+#: ../../tutorials/ReliableFuse.rst:83
+msgid ""
+"`unionfs-fuse <http://podgorny.cz/moin/UnionFsFuse>`_ is a user-space "
+"implementation of a union filesystem. A union filesystem is a stack of "
+"multiple filesystems, so directories with same name are merged into a "
+"single view."
+msgstr ""
+
+#: ../../tutorials/ReliableFuse.rst:86
+msgid ""
+"Union filesystems are more than this and one of the most useful features "
+"is copy-on-write (COW or CoW). Enabling CoWs means you will have an "
+"immutable/read-only mount point base and all of the modifications to it "
+"will go to another mount point."
+msgstr ""
+
+#: ../../tutorials/ReliableFuse.rst:89
+msgid ""
+"Our objective is to have a read-only rootfs shared by all of our "
+"customers, and a writable mount point (configured as CoW) for each "
+"customer, in which every modification will be stored."
+msgstr ""
+
+#: ../../tutorials/ReliableFuse.rst:94
+msgid ""
+"Previous Emperor configuration can be used, but we need to prepare our "
+"filesystems."
+msgstr ""
+
+#: ../../tutorials/ReliableFuse.rst:97
+msgid "The layout will be:"
+msgstr ""
+
+#: ../../tutorials/ReliableFuse.rst:113
+msgid "We create our rootfs:"
+msgstr ""
+
+#: ../../tutorials/ReliableFuse.rst:121
+msgid ""
+"And we create the ``.old_root`` directory in each one (it is required for"
+" ``pivot_root``, see below):"
+msgstr ""
+
+#: ../../tutorials/ReliableFuse.rst:129
+msgid ""
+"Be sure to install the required libraries into each of them (especially "
+"the libraries required for your language)."
+msgstr ""
+
+#: ../../tutorials/ReliableFuse.rst:131
+msgid ""
+"The ``uwsgi`` binary must be executable in this rootfs, so you have to "
+"invest a bit of time in it (a good approach is having a language plugin "
+"compiled for each distribution and placed into a common directory, for "
+"example, each rootfs could have an ``/opt/uwsgi/plugins/psgi_plugin.so`` "
+"file and so on)."
+msgstr ""
+
+#: ../../tutorials/ReliableFuse.rst:137
+msgid ""
+"Here things get a bit more complicated. We need to launch the unionfs "
+"process (as root, as it must be our new rootfs) and then call "
+"``pivot_root`` (a more advanced ``chroot`` available on Linux)."
+msgstr ""
+
+#: ../../tutorials/ReliableFuse.rst:139
+msgid ""
+":doc:`../Hooks` are the best way to run custom commands (or functions) at"
+" various uWSGI startup phases."
+msgstr ""
+
+#: ../../tutorials/ReliableFuse.rst:141
+msgid ""
+"In our example we will run FUSE processes at the \"pre-jail\" phase, and "
+"deal with mount points at the \"as-root\" phase (that happens after "
+"``pivot_root``)."
+msgstr ""
+
+#: ../../tutorials/ReliableFuse.rst:183
+msgid ""
+"If your app will try to write to its filesystem, you will see that all of"
+" the created/updated files are available in its ``/cow`` directory."
+msgstr ""
+
+#: ../../tutorials/ReliableFuse.rst:187
+msgid "Notes"
+msgstr ""
+
+#: ../../tutorials/ReliableFuse.rst:189
+msgid ""
+"Some FUSE filesystems do not commit writes until they are unmounted. In "
+"such a case unmounting on vassal shutdown is a good trick:"
+msgstr ""
+

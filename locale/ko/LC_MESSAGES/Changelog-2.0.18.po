@@ -1,0 +1,99 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Changelog-2.0.18.rst:2
+msgid "uWSGI 2.0.18"
+msgstr ""
+
+#: ../../Changelog-2.0.18.rst:4
+msgid "[20190209]"
+msgstr ""
+
+#: ../../Changelog-2.0.18.rst:6
+msgid "Maintenance release"
+msgstr ""
+
+#: ../../Changelog-2.0.18.rst:10
+msgid "Changes"
+msgstr ""
+
+#: ../../Changelog-2.0.18.rst:12
+msgid "Fixed support for Python 3.7 (Takumi Akiyama)"
+msgstr ""
+
+#: ../../Changelog-2.0.18.rst:13
+msgid ""
+"Allow to use autoport (socket :0) with custom socket backlog (Pavel "
+"Patrin)"
+msgstr ""
+
+#: ../../Changelog-2.0.18.rst:14
+msgid "pyuwsgi ported to python3 (thanks lincolnloop)"
+msgstr ""
+
+#: ../../Changelog-2.0.18.rst:15
+msgid "pyuwsgi packages fixes (Peter Baumgartner)"
+msgstr ""
+
+#: ../../Changelog-2.0.18.rst:16
+msgid ""
+"pyuwsginossl build configuration for building pyuwsgi without ssl support"
+" (Peter Baumgartner)"
+msgstr ""
+
+#: ../../Changelog-2.0.18.rst:17
+msgid "Fix unix socket inheritance after reload on FreeBSD (Anton Yuzhaninov)"
+msgstr ""
+
+#: ../../Changelog-2.0.18.rst:18
+msgid "Fix crashes with --wsgi-env-behavior=holy (#1950)"
+msgstr ""
+
+#: ../../Changelog-2.0.18.rst:19
+msgid "Fix invalid free in python plugin (Riccardo Magliocchetti, #1942)"
+msgstr ""
+
+#: ../../Changelog-2.0.18.rst:20
+msgid ""
+"Fix compilation warnings with gcc-8 (Riccardo Magliocchetti, Ruslan "
+"Bilovol #1819)"
+msgstr ""
+
+#: ../../Changelog-2.0.18.rst:21
+msgid "Fix spooler python references (Brett Rosen)"
+msgstr ""
+
+#: ../../Changelog-2.0.18.rst:22
+msgid "Don't generate build warnings in systemd_logger (Chris Mayo)"
+msgstr ""
+
+#: ../../Changelog-2.0.18.rst:23
+msgid "Fix segmentation fault during worker shutdown (Allan Feldman, #1651)"
+msgstr ""
+
+#: ../../Changelog-2.0.18.rst:27
+msgid "Availability"
+msgstr ""
+
+#: ../../Changelog-2.0.18.rst:29
+msgid ""
+"You can download uWSGI 2.0.18 from "
+"https://projects.unbit.it/downloads/uwsgi-2.0.18.tar.gz"
+msgstr ""
+

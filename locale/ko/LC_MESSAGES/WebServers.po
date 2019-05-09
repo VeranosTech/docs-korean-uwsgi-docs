@@ -1,0 +1,176 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../WebServers.rst:2
+msgid "Web server integration"
+msgstr ""
+
+#: ../../WebServers.rst:4
+msgid ""
+"uWSGI supports several methods of integrating with web servers. It is "
+"also capable of serving HTTP requests by itself."
+msgstr ""
+
+#: ../../WebServers.rst:7
+msgid "Nginx"
+msgstr ""
+
+#: ../../WebServers.rst:9
+msgid ":doc:`Nginx`"
+msgstr ""
+
+#: ../../WebServers.rst:11
+msgid ""
+"The uWSGI module is included in the official Nginx distribution since "
+"version 0.8.40. A version supporting Nginx 0.7.x  is maintained in the "
+"uWSGI package."
+msgstr ""
+
+#: ../../WebServers.rst:13
+msgid "This is a stable handler commercially supported by Unbit."
+msgstr ""
+
+#: ../../WebServers.rst:17
+msgid "Apache"
+msgstr ""
+
+#: ../../WebServers.rst:19
+msgid ":doc:`Apache`"
+msgstr ""
+
+#: ../../WebServers.rst:21
+msgid ""
+"The Apache2 `mod_uwsgi` module was the first web server integration "
+"module developed for uWSGI. It is stable but could be better integrated "
+"with the Apache API."
+msgstr ""
+
+#: ../../WebServers.rst:24
+msgid "It is commercially supported by Unbit."
+msgstr ""
+
+#: ../../WebServers.rst:26
+msgid ""
+"Since uWSGI 0.9.6-dev a second Apache2 module called `mod_Ruwsgi` is "
+"included. It's more Apache API friendly. *mod_Ruwsgi is not commercially "
+"supported by Unbit.*"
+msgstr ""
+
+#: ../../WebServers.rst:28
+msgid ""
+"During the 1.2 development cycle, another module called `mod_proxy_uwsgi`"
+" has been added. In the near future this should be the best choice for "
+"Apache based deployments."
+msgstr ""
+
+#: ../../WebServers.rst:32
+msgid "Lighttpd (Experimental)"
+msgstr ""
+
+#: ../../WebServers.rst:34
+msgid ""
+"This module is the latest developed, but its inclusion in the official "
+"Lighttpd distribution has been rejected, as the main author considers the"
+" :doc:`uwsgi protocol<Protocol>` a \"reinventing the wheel\" technology "
+"while suggesting a FastCGI approach. We respect this position. The module"
+" will continue to reside in the uWSGI source tree, but it is currently "
+"unmaintained."
+msgstr ""
+
+#: ../../WebServers.rst:36
+msgid ""
+"There is currently no commercial support for this handler. We consider "
+"this module \"experimental\"."
+msgstr ""
+
+#: ../../WebServers.rst:40
+msgid "Twisted"
+msgstr ""
+
+#: ../../WebServers.rst:42
+msgid ""
+"This is a \"commodity\" handler, useful mainly for testing applications "
+"without installing a full web server. If you want to develop an uWSGI "
+"server, look at this module. :doc:`Twisted`."
+msgstr ""
+
+#: ../../WebServers.rst:46
+msgid "Tomcat"
+msgstr ""
+
+#: ../../WebServers.rst:48
+msgid ""
+"The included servlet can be used to forward requests from Tomcat to the "
+"uWSGI server. It is stable, but currently lacks documentation."
+msgstr ""
+
+#: ../../WebServers.rst:51
+msgid "There is currently no commercial support for this handler."
+msgstr ""
+
+#: ../../WebServers.rst:55
+msgid "CGI"
+msgstr ""
+
+#: ../../WebServers.rst:57
+msgid ""
+"The CGI handlers are for \"lazy\" installations. Their use in production "
+"environments is discouraged."
+msgstr ""
+
+#: ../../WebServers.rst:61
+msgid "Cherokee (Obsolete)"
+msgstr ""
+
+#: ../../WebServers.rst:63
+msgid ":doc:`Cherokee`"
+msgstr ""
+
+#: ../../WebServers.rst:65
+msgid ""
+"The Cherokee webserver officially supports uWSGI. Cherokee is fast and "
+"lightweight, has a beautiful admin interface and a great community. Their"
+" support for uWSGI has been awesome since the beginning and we recommend "
+"its use in most situations. The userbase of the Cherokee uWSGI handler is"
+" probably the biggest of all. The Cherokee uWSGI handler is commercially "
+"supported by Unbit."
+msgstr ""
+
+#: ../../WebServers.rst:72
+msgid "Mongrel2 (Obsolete)"
+msgstr ""
+
+#: ../../WebServers.rst:74
+msgid ":doc:`Mongrel2`"
+msgstr ""
+
+#: ../../WebServers.rst:77
+msgid ""
+"Support for the `Mongrel2 Project <http://mongrel2.org/>`_ has been "
+"available since 0.9.8-dev via the :doc:`ZeroMQ` protocol plugin."
+msgstr ""
+
+#: ../../WebServers.rst:79
+msgid "In our tests Mongrel2 survived practically all of the loads we sent."
+msgstr ""
+
+#: ../../WebServers.rst:81
+msgid "Very good and solid project. Try it :)"
+msgstr ""
+

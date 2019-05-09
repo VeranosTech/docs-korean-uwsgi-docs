@@ -1,0 +1,68 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Pty.rst:2
+msgid "The Pty plugin"
+msgstr ""
+
+#: ../../Pty.rst:4
+msgid "Available since uWSGI 1.9.15, supported on Linux, OpenBSD, FreeBSD and OSX"
+msgstr ""
+
+#: ../../Pty.rst:6
+msgid "This plugin allows you to attach pseudo terminals to your applications."
+msgstr ""
+
+#: ../../Pty.rst:8
+msgid ""
+"Currently the pseudoterminal server can be attached (and exposed over "
+"network) only on the first worker (this limit will be removed in the "
+"future)."
+msgstr ""
+
+#: ../../Pty.rst:11
+msgid ""
+"The plugin exposes a client mode too (avoiding you to mess with netcat, "
+"telnet or screen settings)"
+msgstr ""
+
+#: ../../Pty.rst:15
+msgid "Building it"
+msgstr ""
+
+#: ../../Pty.rst:17
+msgid ""
+"The plugin is not included in the default build profiles, so you have to "
+"build it manually:"
+msgstr ""
+
+#: ../../Pty.rst:23
+msgid ""
+"(remember to specify the build profile if you are not using the default "
+"one)"
+msgstr ""
+
+#: ../../Pty.rst:26
+msgid "Example 1: Rack application shared debugging"
+msgstr ""
+
+#: ../../Pty.rst:41
+msgid "Example 2: IPython control thread"
+msgstr ""
+

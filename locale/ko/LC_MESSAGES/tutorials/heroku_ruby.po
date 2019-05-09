@@ -1,0 +1,319 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../tutorials/heroku_ruby.rst:2
+msgid "Running Ruby/Rack webapps on Heroku with uWSGI"
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:4
+msgid ""
+"Prerequisites: a Heroku account (on the cedar platform), git (on the "
+"local system) and the heroku toolbelt (or the old/deprecated heroku gem)"
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:6
+msgid ""
+"Note: you need a uWSGI version >= 1.4.8 to correctly run ruby/rack apps. "
+"Older versions may work, but are not supported."
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:9
+msgid "Preparing the environment (a Sinatra application)"
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:11
+msgid "On your local system prepare the structure for your sinatra application"
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:21
+msgid ""
+"the last command will create a new heroku application (you can check it "
+"on the web dashboard)."
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:23
+msgid ""
+"Next step is creating our Gemfile (this file contains the gem required by"
+" the application)"
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:32
+msgid "we now need to run ``bundle install`` to create the Gemfile.lock file"
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:34
+msgid "let's track the two with git:"
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:41
+msgid "Finally create a config.ru file containing the Sinatra sample app"
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:53
+msgid "and track it"
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:60
+msgid "Creating the uWSGI config file"
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:62
+msgid ""
+"We are now ready to create the uWSGI configuration (we will use the .ini "
+"format in a file called uwsgi.ini)."
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:64
+msgid ""
+"The minimal setup for heroku is the following (check the comments in the "
+"file for an explanation)"
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:80
+msgid "but a better setup will be"
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:104
+msgid "Let's track it"
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:111
+msgid "Deploying to heroku"
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:113
+msgid ""
+"We need to create the last file (required by Heroku). It is the Procfile,"
+" that instruct the Heroku system on which process to start for a web "
+"application."
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:115
+msgid ""
+"We want to spawn uwsgi (installed as a gem via bundler) using the "
+"uwsgi.ini config file"
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:121
+msgid "track it"
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:127
+msgid "And let's commit all:"
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:133
+msgid "And push to heroku:"
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:139
+msgid ""
+"If all goes well, you will see your page under your app url on the /hi "
+"path"
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:141
+msgid "Remember to run ``heroku logs`` to check if all is ok."
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:144
+msgid "fork() for dummies"
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:146
+msgid "uWSGI allows you to choose how to abuse the fork() syscall in your app."
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:148
+msgid ""
+"By default the approach is loading the application in the master process "
+"and then fork() to the workers that will inherit a copy of the master "
+"process."
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:151
+msgid ""
+"This approach speedup startup and can potentially consume less memory. "
+"The truth is that often (for the way ruby garbage collection works) you "
+"will get few memory gain. The real advantage in in performance as the "
+"vast majority of time during application startup is spent in (slowly) "
+"searching for files. With the fork() early approach you can avoid "
+"repeating that slow procedure one time for worker."
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:155
+msgid ""
+"Obviously the uWSGI mantra is \"do whatever you need, if you can't, it is"
+" a uWSGI bug\" so if your app is not fork()-friendly you can add the "
+"``lazy-apps = true`` option that will load your app one time per-worker."
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:159
+msgid "The ruby GC"
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:161
+msgid ""
+"By default uWSGI, calls the ruby Garbage collector after each request. "
+"This ensure an optimal use of memory (remember on Heroku, your memory is "
+"limited) you should not touch the default approach, but if you experience"
+" a drop in performance you may want to tune it using the ``ruby-gc-freq ="
+" n`` option where n is the number of requests after the GC is called."
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:166
+msgid "Concurrency"
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:168
+msgid ""
+"Albeit uWSGI supports lot of different paradigms for concurrency, the "
+"multiprocess one is suggested for the vast majority of ruby/rack apps."
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:170
+msgid ""
+"Basically all popular ruby-frameworks rely on that. Remember that your "
+"app is limited so spawn a number of processes that can fit in your Heroku"
+" dyno."
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:173
+msgid ""
+"Starting from uWSGI 1.9.14, native ruby 1.9/2.x threads support has been "
+"added. Rails4 (only in production mode !!!) supports them:"
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:188
+msgid "Harakiri"
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:190
+msgid ""
+"If you plan to put production-apps on heroku, be sure to understand how "
+"dynos and their proxy works. Based on that, try to always set the "
+"harakiri parameters to a good value for your app. (do not ask for a "
+"default value, IT IS APP-DEPENDENT)"
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:192
+msgid ""
+"Harakiri, is the maximum time a single request can run, before being "
+"destroyed by the master"
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:195
+msgid "Static files"
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:197
+msgid ""
+"Generally, serving static files on Heroku is not a good idea (mainly from"
+" a design point of view). You could obviously have that need. In such a "
+"case remember to use uWSGI facilities for that, in particular offloading "
+"is the best way to leave your workers free while you serve big files (in "
+"addition to this remember that your static files must be tracked with "
+"git)"
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:199
+msgid ""
+"Try to avoid serving static files from your ruby/rack code. It will be "
+"extremely slow (compared to the uWSGI facilities) and can hold your "
+"worker busy for the whole transfer of the file"
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:203
+msgid "Adaptive process spawning"
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:205
+msgid ""
+"None of the supported algorithms are good for the Heroku approach and, "
+"very probably, it makes little sense to use a dynamic process number on "
+"such a platform."
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:208
+msgid "Logging"
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:210
+msgid ""
+"If you plan to use heroku on production, remember to send your logs (via "
+"udp for example) on an external server (with persistent storage)."
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:212
+msgid ""
+"Check the uWSGI available loggers. Surely one will fit your need. (pay "
+"attention to security, as logs will fly in clear)."
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:214
+msgid "UPDATE: a udp logger with crypto features is on work."
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:217
+msgid "Alarms"
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:219
+msgid "All of the alarms plugin should work without problems"
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:222
+msgid "The Spooler"
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:224
+msgid ""
+"As your app runs on a non-persistent filesystem, using the Spooler is a "
+"bad idea (you will easily lose tasks)."
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:227
+msgid "Mules"
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:229
+msgid "They can be used without problems"
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:232
+msgid "Signals (timers, filemonitors, crons...)"
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:234
+msgid ""
+"They all works, but do not rely on cron facilities, as heroku can "
+"kill/destroy/restarts your instances in every moment."
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:237
+msgid "External daemons"
+msgstr ""
+
+#: ../../tutorials/heroku_ruby.rst:239
+msgid ""
+"The --attach-daemon option and its --smart variants work without "
+"problems. Just remember you are on a volatile filesystem and you are not "
+"free to bind on port/addresses as you may wish"
+msgstr ""
+

@@ -1,0 +1,140 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Mules.rst:2
+msgid "uWSGI Mules"
+msgstr ""
+
+#: ../../Mules.rst:4
+msgid ""
+"Mules are worker processes living in the uWSGI stack but not reachable "
+"via socket connections, that can be used as a generic subsystem to "
+"offload tasks. You can see them as a more primitive "
+":doc:`spooler<Spooler>`."
+msgstr ""
+
+#: ../../Mules.rst:6
+msgid ""
+"They can access the entire uWSGI API and can manage signals and be "
+"communicated with through a simple string-based message system."
+msgstr ""
+
+#: ../../Mules.rst:8
+msgid ""
+"To start a mule (you can start an unlimited number of them), use the "
+"``mule`` option as many times as you need."
+msgstr ""
+
+#: ../../Mules.rst:10
+msgid "Mules have two modes,"
+msgstr ""
+
+#: ../../Mules.rst:12
+msgid ""
+"Signal only mode (the default). In this mode the mules load your "
+"application as normal workers would. They can only respond to :doc:`uWSGI"
+" signals<Signals>`."
+msgstr ""
+
+#: ../../Mules.rst:13
+msgid ""
+"Programmed mode. In this mode mules load a program separate from your "
+"application. See ProgrammedMules_."
+msgstr ""
+
+#: ../../Mules.rst:15
+msgid "By default each mule starts in signal-only mode."
+msgstr ""
+
+#: ../../Mules.rst:32
+msgid "Basic usage"
+msgstr ""
+
+#: ../../Mules.rst:58
+msgid "Giving a brain to mules"
+msgstr ""
+
+#: ../../Mules.rst:60
+msgid ""
+"As mentioned before, mules can be programmed. To give custom logic to a "
+"mule, give the ``mule`` option a path to a script (it must end in "
+"\".py\") or a \"package.module:callable\" value."
+msgstr ""
+
+#: ../../Mules.rst:67
+msgid ""
+"This will run 4 mules, 2 in signal-only mode, one running "
+":file:`somaro.py` and one running `mypkg.myapp:run_mule`."
+msgstr ""
+
+#: ../../Mules.rst:94
+msgid ""
+"So as you can see from the example, you can use "
+":py:meth:`uwsgi.mule_get_msg` to receive messages in a programmed mule. "
+"Multiple threads in the same programmed mule can wait for messages."
+msgstr ""
+
+#: ../../Mules.rst:96
+msgid ""
+"If you want to block a mule to wait on an uWSGI signal instead of a "
+"message you can use :py:meth:`uwsgi.signal_wait`."
+msgstr ""
+
+#: ../../Mules.rst:98
+msgid ""
+"Use :py:meth:`uwsgi.mule_msg` to send a message to a programmed mule. "
+"Mule messages can be sent from anywhere in the uWSGI stack, including but"
+" not limited to workers, the spoolers, another mule."
+msgstr ""
+
+#: ../../Mules.rst:106
+msgid ""
+"As you can spawn an unlimited number of mules, you may need some form of "
+"synchronization -- for example if you are developing a task management "
+"subsystem and do not want two mules to be able to start the same task "
+"simultaneously. You're in luck -- see :doc:`Locks`."
+msgstr ""
+
+#: ../../Mules.rst:109
+msgid "Organizing mules"
+msgstr ""
+
+#: ../../Mules.rst:111
+msgid ""
+"Messages are eligible to be received by all programmed mules. They can be"
+" limited to specified groups of mules by creating mule farms using the "
+"``farm`` option:"
+msgstr ""
+
+#: ../../Mules.rst:117
+msgid ""
+"This will run three mules, where the mules 1 and 2, running ``feed.py``, "
+"are members of the ``busy`` farm, and mule 3, running ``wallow.py`` is "
+"the sole member of the ``idle`` farm. Messages are retrieved exactly as "
+"in ``somaro.py`` above but using :py:meth:`uwsgi.farm_get_msg` in place "
+"of :py:meth:`uwsgi.mule_get_msg`. Use :py:meth:`uwsgi.farm_msg` to send a"
+" message to a mule in a specified farm:"
+msgstr ""
+
+#: ../../Mules.rst:124
+msgid ""
+"As with mules, :doc:`Locks` can be used to ensure only a single mule in a"
+" farm receives a given message to that farm."
+msgstr ""
+

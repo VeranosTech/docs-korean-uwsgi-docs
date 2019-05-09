@@ -1,0 +1,99 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../WebCaching.rst:2
+msgid "WebCaching framework"
+msgstr ""
+
+#: ../../WebCaching.rst:6
+msgid ""
+"This is a port of the old caching subsystem to the new uWSGI caching API "
+"documented here :doc:`Caching`. Using the options here will create a new-"
+"style cache named \"default\"."
+msgstr ""
+
+#: ../../WebCaching.rst:10
+msgid ""
+"To enable web caching, allocate slots for your items using the ``cache`` "
+"option. The following command line would create a cache that can contain "
+"at most 1000 items."
+msgstr ""
+
+#: ../../WebCaching.rst:16
+msgid "To use the cache in your application,"
+msgstr ""
+
+#: ../../WebCaching.rst:25
+msgid "Persistent storage"
+msgstr ""
+
+#: ../../WebCaching.rst:27
+msgid ""
+"You can store cache data in a backing store file to implement "
+"persistence. Simply add the ``cache-store <filename>`` option. Every "
+"kernel will commit data to the disk at a different rate. You can set "
+"if/when to force this with ``cache-store-sync <n>``, where ``n`` is the "
+"number of master cycles to wait before each disk sync."
+msgstr ""
+
+#: ../../WebCaching.rst:31
+msgid "Cache sweeper"
+msgstr ""
+
+#: ../../WebCaching.rst:33
+msgid ""
+"Since uWSGI 1.2, cache item expiration is managed by a thread in the "
+":term:`master` process, to reduce the risk of deadlock. This thread can "
+"be disabled (making item expiry a no-op) with the ``cache-no-expire`` "
+"option."
+msgstr ""
+
+#: ../../WebCaching.rst:35
+msgid ""
+"The frequency of the cache sweeper thread can be set with ``cache-expire-"
+"freq <seconds>``. You can make the sweeper log the number of freed items "
+"with ``cache-report-freed-items``."
+msgstr ""
+
+#: ../../WebCaching.rst:38
+msgid "Directly accessing the cache from your web server"
+msgstr ""
+
+#: ../../WebCaching.rst:49
+msgid ""
+"That's it! Nginx would now get HTTP responses from a remote uwsgi "
+"protocol compliant server. Although honestly this is not very useful, as "
+"if you get a cache miss, you will see a blank page."
+msgstr ""
+
+#: ../../WebCaching.rst:51
+msgid "A better system, that will fallback to a real uwsgi request would be"
+msgstr ""
+
+#: ../../WebCaching.rst:72
+msgid "Django cache backend"
+msgstr ""
+
+#: ../../WebCaching.rst:74
+msgid ""
+"If you are running Django, there's a ready-to-use application called "
+"``django-uwsgi-cache``. It is maintained by Ionel Cristian Mărieș at "
+"https://github.com/ionelmc/django-uwsgi-cache and available on pypi."
+msgstr ""
+

@@ -1,0 +1,126 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Broodlord.rst:2
+msgid "Auto-scaling with Broodlord mode"
+msgstr ""
+
+#: ../../Broodlord.rst:4
+msgid ""
+"Broodlord (taken from Starcraft, like :doc:`Zerg` mode) is a way for a "
+"vassal to ask for \"reinforcements\" to the Emperor. \"Reinforcements\" "
+"are new vassals spawned on demand generally bound on the same socket. "
+"Broodlord mode alone is not very useful. However, when combined with "
+":doc:`Zerg`, :doc:`Idle` and :doc:`Emperor` it can be used to implement "
+"auto-scaling for your apps."
+msgstr ""
+
+#: ../../Broodlord.rst:9
+msgid ""
+"WARNING: If you are looking for a way to dynamically adapt the number of "
+"workers of an instance, check the :doc:`Cheaper` mode, Broodlord mode is "
+"for spawning totally new instances."
+msgstr ""
+
+#: ../../Broodlord.rst:12
+msgid "A 'simple' example"
+msgstr ""
+
+#: ../../Broodlord.rst:14
+msgid ""
+"We'll start apps with a single worker, adding resources on demand.  "
+"Broodlord mode expects an additional stanza in your config file to be "
+"used for zergs."
+msgstr ""
+
+#: ../../Broodlord.rst:37
+msgid ""
+"The ``vassal-sos-backlog`` option (supported only on Linux and TCP "
+"sockets) will ask the Emperor for zergs when the listen queue is higher "
+"than the given value. By default the value is 10. More \"vassal-sos-\" "
+"options will be added in the future to allow for more specific detect-"
+"overload systems."
+msgstr ""
+
+#: ../../Broodlord.rst:42
+msgid ""
+"The ``[zerg]`` stanza is the config the Emperor will run when a vassal "
+"requires resources.  The ``die-on-idle`` option will completely destroy "
+"the zerg when inactive for more than 30 seconds.  This configuration "
+"shows how to combine the various uWSGI features to implement different "
+"means of scaling.  To run the Emperor we need to specify how many zerg "
+"instances can be run:"
+msgstr ""
+
+#: ../../Broodlord.rst:52
+msgid "This will allow you to run up to 40 additional zerg workers for your apps."
+msgstr ""
+
+#: ../../Broodlord.rst:55
+msgid "`--vassal-sos`"
+msgstr ""
+
+#: ../../Broodlord.rst:59
+msgid "This flag has been added in 2.0.7."
+msgstr ""
+
+#: ../../Broodlord.rst:61
+msgid ""
+"`--vassal-sos` allows the vassal to ask for reinforcement as soon as all "
+"of its workers are busy."
+msgstr ""
+
+#: ../../Broodlord.rst:63
+msgid ""
+"The option takes an integer value, the number of seconds to wait between "
+"asking for a new reinforcements."
+msgstr ""
+
+#: ../../Broodlord.rst:66
+msgid "Manually asking for reinforcement"
+msgstr ""
+
+#: ../../Broodlord.rst:68
+msgid ""
+"You can use the master FIFO's \"B\" command to force an instance to ask "
+"for reinforcements from the Emperor."
+msgstr ""
+
+#: ../../Broodlord.rst:75
+msgid "Under the hood (or: hacking broodlord mode)"
+msgstr ""
+
+#: ../../Broodlord.rst:77
+msgid ""
+"Technically broodlord mode is a simple message sent by a vassal to "
+"\"force\" the Emperor to spawn another vassal with a ':zerg' suffix in "
+"the instance name."
+msgstr ""
+
+#: ../../Broodlord.rst:79
+msgid ""
+"Even if the suffix is ':zerg' this does not mean you need to use Zerg "
+"mode. A 'zerg' instance could be a completely independent one that simply"
+" subscribes to a router, or binds to a SO_REUSEPORT socket."
+msgstr ""
+
+#: ../../Broodlord.rst:82
+msgid "This is an example with subscription system."
+msgstr ""
+

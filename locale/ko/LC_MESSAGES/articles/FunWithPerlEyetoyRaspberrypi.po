@@ -1,0 +1,441 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:2
+msgid "Fun with Perl, Eyetoy and RaspberryPi"
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:4
+msgid "Author: Roberto De Ioris"
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:6
+msgid "Date: 2013-12-07"
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:11
+msgid "Intro"
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:13
+msgid ""
+"This article is the result of various experiments aimed at improving "
+"uWSGI performance and usability in various areas before the 2.0 release."
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:15
+msgid "To follow the article you need:"
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:17
+msgid ""
+"a Raspberry Pi (any model) with a Linux distribution installed (I used "
+"standard Raspbian)"
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:18
+msgid "a PS3 Eyetoy webcam"
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:19
+msgid "a websocket-enabled browser (basically any serious browser)"
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:20
+msgid ""
+"a bit of Perl knowledge (really only a bit, there's less than 10 lines of"
+" Perl ;)"
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:21
+msgid "Patience (building uWSGI + PSGI + coroae on the RPI requires 13 minutes)"
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:24
+msgid "uWSGI subsystems and plugins"
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:26
+msgid "The project makes use of the following uWSGI subsystems and plugins:"
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:28
+msgid ":doc:`../WebSockets`"
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:29
+msgid ":doc:`../SharedArea` (for storing frames)"
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:30
+msgid ":doc:`../Mules` (for gathering frames)"
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:31
+msgid ":doc:`../Symcall`"
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:32
+msgid ":doc:`../Perl`"
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:33
+msgid ""
+":doc:`../Async` (optional, we use ``Coro::Anyevent`` but you can rely on "
+"standard processes, though you'll need way more memory)"
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:36
+msgid "What we want to accomplish"
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:38
+msgid ""
+"We want our RPI to gather frames from the Eyetoy and stream them to "
+"various connected clients using websockets, using a HTML5 canvas element "
+"to show them."
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:40
+msgid ""
+"The whole system must use as little memory as possible, as few CPU cycles"
+" as possible, and it should support a large number of clients (... though"
+" well, even 10 clients will be a success for the Raspberry Pi hardware ;)"
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:43
+msgid "Technical background"
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:45
+msgid ""
+"The Eyetoy captures frames in YUYV format (known as YUV 4:2:2). This "
+"means we need 4 bytes for 2 pixels."
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:47
+msgid ""
+"By default the resolution is set to 640x480, so each frame will need "
+"614,400 bytes."
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:49
+msgid ""
+"Once we have a frame we need to decode it to RGBA to allow the HTML5 "
+"canvas to show it."
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:51
+msgid ""
+"The translation between YUYV and RGBA is pretty heavy for the RPI "
+"(especially if you need to do it for every connected client) so we will "
+"do it in the browser using Javascript. (There are other approaches we "
+"could follow, just check the end of the article for them.)"
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:54
+msgid ""
+"The uWSGI stack is composed by a mule gathering frames from the Eyetoy "
+"and writing them to the uWSGI SharedArea."
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:56
+msgid ""
+"Workers constantly read from that SharedArea and send frames as binary "
+"websocket messages."
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:59
+msgid "Let's start: the uwsgi-capture plugin"
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:61
+msgid ""
+"uWSGI 1.9.21 introduced a simplified (and safe) procedure to build uWSGI "
+"plugins. (Expect more third party plugins soon!)"
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:63
+msgid ""
+"The project at: https://github.com/unbit/uwsgi-capture shows a very "
+"simple plugin using the Video4Linux 2 API to gather frames."
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:65
+msgid "Each frame is written in a shared area initialized by the plugin itself."
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:67
+msgid "The first step is getting uWSGI and building it with the 'coroae' profile:"
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:76
+msgid ""
+"The procedure requires about 13 minutes. If all goes well you can clone "
+"the uwsgi-capture plugin and build it."
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:83
+msgid "You now have the capture_plugin.so file in your uwsgi directory."
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:85
+msgid "Plug your Eyetoy into an USB port on your RPI and check if it works:"
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:91
+msgid "(the ``--v4l-capture`` option is exposed by the capture plugin)"
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:93
+msgid "If all goes well you should see the following lines in uWSGI startup logs:"
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:103
+msgid "(the sharedarea memory pointers will obviously probably be different)"
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:105
+msgid ""
+"The uWSGI process will exit soon after this as we did not tell it what to"
+" do. :)"
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:107
+msgid "The ``uwsgi-capture`` plugin exposes 2 functions:"
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:109
+msgid ""
+"``captureinit()``, mapped as the init() hook of the plugin, will be "
+"called automatically by uWSGI. If the --v4l-capture option is specified, "
+"this function will initialize the specified device and will map it to a "
+"uWSGI sharedarea."
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:110
+msgid ""
+"``captureloop()`` is the function gathering frames and writing them to "
+"the sharedarea. This function should constantly run (even if there are no"
+" clients reading frames)"
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:112
+msgid "We want a mule to run the ``captureloop()`` function."
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:118
+msgid ""
+"This time we have bound uWSGI to HTTP port 9090 with a mule mapped to the"
+" \"captureloop()\" function. This mule syntax is exposed by the symcall "
+"plugin that takes control of every mule argument ending with \"()\" (the "
+"quoting is required to avoid the shell making a mess of the parentheses)."
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:121
+msgid ""
+"If all goes well you should see your uWSGI server spawning a master, a "
+"mule and a worker."
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:124
+msgid "Step 2: the PSGI app"
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:126
+msgid ""
+"Time to write our websocket server sending Eyetoy frames (you can find "
+"sources for the example here: https://github.com/unbit/uwsgi-"
+"capture/tree/master/rpi-examples)."
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:128
+msgid "The PSGI app will be very simple:"
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:155
+msgid "The only interesting parts are:"
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:161
+msgid ""
+"This function suspends the current request until the specified shared "
+"area (the 'zero' one) gets an update. As this function is basically a "
+"busy-loop poll, the second argument specifies the polling frequency in "
+"milliseconds. 50 milliseconds gave us good results (feel free to try with"
+" other values)."
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:167
+msgid ""
+"This is a special utility function sending a websocket binary message "
+"directly from the sharedarea (yep, zero-copy). The first argument is the "
+"sharedarea id (the 'zero' one) and the second is the position in the "
+"sharedarea to start reading from (zero again, as we want a full frame)."
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:171
+msgid "Step 3: HTML5"
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:173
+msgid ""
+"The HTML part (well it would be better to say Javascript part) is very "
+"easy, aside from the YUYV to RGB(A) transform voodoo."
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:243
+msgid ""
+"Nothing special here. The vast majority of the code is related to "
+"YUYV->RGBA conversion. Pay attention to set the websocket communication "
+"in 'binary' mode (binaryType = 'arraybuffer' is enough) and be sure to "
+"use an Uint8ClampedArray (otherwise performance will be terribly bad)"
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:247
+msgid "Ready to watch"
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:253
+msgid ""
+"Connect with your browser to TCP port 9090 of your Raspberry Pi and start"
+" watching."
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:256
+msgid "Concurrency"
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:258
+msgid ""
+"While you watch your websocket stream, you may want to start another "
+"browser window to see a second copy of your video. Unfortunately you "
+"spawned uWSGI with a single worker, so only a single client can get the "
+"stream."
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:261
+msgid "You can add multiple workers easily:"
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:267
+msgid "Like this up to 10 people will be able to watch the stream."
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:269
+msgid ""
+"But coroutines are way better (and cheaper) for I/O bound applications "
+"such as this:"
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:275
+msgid ""
+"Now, magically, we are able to manage 10 clients with but a single "
+"process! The memory on the RPI will be grateful to you."
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:278
+msgid "Zero-copy all the things"
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:280
+msgid "Why are we using the SharedArea?"
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:282
+msgid ""
+"The SharedArea is one of the most advanced uWSGI features. If you give a "
+"look at the uwsgi-capture plugin you will see how it easily creates a "
+"sharedarea pointing to a mmap()'ed region. Basically each worker, thread "
+"(but please do not use threads with Perl) or coroutine will have access "
+"to that memory in a concurrently safe way."
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:285
+msgid ""
+"In addition to this, thanks to the websocket/sharedarea cooperation API "
+"you can directly send websocket packets from a sharedarea without copying"
+" memory (except for the resulting websocket packet)."
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:287
+msgid "This is way faster than something like:"
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:294
+msgid ""
+"We would need to allocate the memory for $chunk at every iteration, "
+"copying the sharedarea content into it and finally encapsulating it in a "
+"websocket message."
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:296
+msgid ""
+"With the sharedarea you remove the need to allocate (and free) memory "
+"constantly and to copy it from sharedarea to the Perl VM."
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:299
+msgid "Alternative approaches"
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:301
+msgid "There are obviously other approaches you can follow."
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:303
+msgid ""
+"You could hack uwsgi-capture to allocate a second sharedarea into which "
+"it will directly write RGBA frames."
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:305
+msgid ""
+"JPEG encoding is relatively fast, you can try encoding frames in the RPI "
+"and sending them as MJPEG frames (instead of using websockets):"
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:321
+msgid "Other languages"
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:323
+msgid ""
+"At the time of writing, the uWSGI PSGI plugin is the only one exposing "
+"the additional API for websockets+sharedarea. The other language plugins "
+"will be updated soon."
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:327
+msgid "More hacking"
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:329
+msgid ""
+"The RPI board is really fun to tinker with and uWSGI is a great companion"
+" for it (especially its lower-level API functions)."
+msgstr ""
+
+#: ../../articles/FunWithPerlEyetoyRaspberrypi.rst:333
+msgid ""
+"As an exercise left to the reader: remember you can mmap() the address "
+"0x20200000 to access the Raspberry PI GPIO controller... ready to write a"
+" uwsgi-gpio plugin?"
+msgstr ""
+

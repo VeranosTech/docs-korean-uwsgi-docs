@@ -1,0 +1,91 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Queue.rst:2
+msgid "The uWSGI queue framework"
+msgstr ""
+
+#: ../../Queue.rst:4
+msgid ""
+"In addition to the :doc:`caching framework <Caching>`, uWSGI includes a "
+"shared queue."
+msgstr ""
+
+#: ../../Queue.rst:6
+msgid ""
+"At the low level it is a simple block-based shared array, with two "
+"optional counters, one for stack-style, LIFO usage, the other one for "
+"FIFO."
+msgstr ""
+
+#: ../../Queue.rst:8
+msgid ""
+"The array is circular, so when one of the two pointers reaches the end "
+"(or the beginning), it is reset. Remember this!"
+msgstr ""
+
+#: ../../Queue.rst:10
+msgid ""
+"To enable the queue, use the ``queue`` option. Queue blocks are 8 KiB by "
+"default. Use ``queue-blocksize`` to change this."
+msgstr ""
+
+#: ../../Queue.rst:20
+msgid "Using the queue as a shared array"
+msgstr ""
+
+#: ../../Queue.rst:32
+msgid "Using the queue as a shared stack"
+msgstr ""
+
+#: ../../Queue.rst:34
+msgid ""
+"Remember that :py:meth:`uwsgi.queue_pop` and :py:meth:`uwsgi.queue_last` "
+"will remove the item or items from the queue."
+msgstr ""
+
+#: ../../Queue.rst:51
+msgid "Using the queue as a FIFO queue"
+msgstr ""
+
+#: ../../Queue.rst:53
+msgid ""
+"Currently you can only pull, not push. To enqueue an item, use "
+":py:meth:`uwsgi.queue_set`."
+msgstr ""
+
+#: ../../Queue.rst:63
+msgid "Notes"
+msgstr ""
+
+#: ../../Queue.rst:65
+msgid "You can get the queue size with :py:data:`uwsgi.queue_size`."
+msgstr ""
+
+#: ../../Queue.rst:66
+msgid ""
+"Use the ``queue-store`` option to persist the queue on disk. Use ``queue-"
+"store-sync`` (in master cycles -- usually seconds) to force disk syncing "
+"of the queue."
+msgstr ""
+
+#: ../../Queue.rst:67
+msgid "The ``tests/queue.py`` application is a fully working example."
+msgstr ""
+

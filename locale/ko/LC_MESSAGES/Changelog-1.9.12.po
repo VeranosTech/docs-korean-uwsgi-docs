@@ -1,0 +1,292 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2012-2016, uWSGI
+# This file is distributed under the same license as the uWSGI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: uWSGI 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 10:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: ../../Changelog-1.9.12.rst:2
+msgid "uWSGI 1.9.12"
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:4
+msgid "Changelog [20130605]"
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:7
+msgid "Bugfixes"
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:9
+msgid "offloading cache writes will return the correct status code and not 202"
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:10
+msgid ""
+"you can now control the path of temporary files setting the TMPDIR "
+"environment variable (this fixes an old issue for users without control "
+"over /tmp)"
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:11
+msgid "fixed a compilation error on amqp imperial monitor"
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:12
+msgid "cron commands are correctly escaped when reported in the stats server"
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:13
+msgid "fixed fastcgi parser corner-case bug with big uploads"
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:14
+msgid "fixed support for newest cygwin"
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:17
+msgid "New Features"
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:20
+msgid "Offloading responses"
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:22
+msgid "Take the following WSGI app:"
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:30
+#, python-format
+msgid ""
+"it will generate about 100megs of data. 98% of the time the worker spent "
+"on the request was on the data transfer. As the whole response is "
+"followed by the end of the request we can offload the data write to a "
+"thread and free the worker suddenly (so it will be able to handle a new "
+"request)."
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:33
+msgid ""
+"100megs are a huge value, but even 1MB can cause a dozen of "
+"poll()/write() syscalls that blocks your worker for a bunch of "
+"milliseconds"
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:35
+msgid ""
+"Thanks to the 'memory offload' facility added in 1.9.11 implementing it "
+"has been very easy."
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:37
+msgid "The offloading happens via the :doc:`Transformations`"
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:47
+msgid ""
+"By default the response is buffered to memory until it reaches 1MB size. "
+"After that it will be buffered to disk and the offload engine will use "
+"sendfile()."
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:50
+msgid ""
+"You can set the limit (in bytes) after disk buffering passing an argument"
+" to the offload:"
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:60
+msgid "\"offload\" MUST BE the last transformation in the chain"
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:74
+msgid "JWSGI and JVM improvements"
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:76
+msgid ""
+"The JVM plugin has been extended to support more objects helper (like "
+"ArrayList), while JWSGI can now be used as a low-level layer to add "
+"support for more JVM-based languages."
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:79
+msgid ""
+"JRuby integration is the first attempt of such a usage. We have just "
+"releases a JWSGI to Rack adapter allowing you tun run Ruby/Rack apps on "
+"top of JRUBY:"
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:82
+msgid "https://github.com/unbit/jwsgi-rack"
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:85
+msgid "A similar approach for Jython is on work"
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:88
+msgid "--touch-signal"
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:90
+msgid ""
+"A new touch option has been added allowing the rise of a uwsgi signal "
+"when a file is touched:"
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:101
+msgid "The \"pipe\" offload engine"
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:103
+msgid ""
+"A new offload engine allowing transfer from a socket to the client has "
+"been added."
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:105
+msgid ""
+"it will be automatically used in the new router_memacached and "
+"router_redis plugins"
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:109
+msgid "memcached router improvements"
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:112
+msgid ""
+"You can now store responses in memcached (as you can already do with "
+"uWSGI caching)"
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:122
+msgid "obviously you can get them too"
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:131
+msgid "The memcached router is now builtin in the default profiles"
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:134
+msgid "The new redis router"
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:136
+msgid ""
+"Based on the memcached router, a redis router has been added. It works in"
+" the same way:"
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:147
+msgid "... and get the values"
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:156
+msgid "The redis router is builtin by default"
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:159
+msgid "The \"hash\" router"
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:161
+msgid ""
+"this special routing action allows you to hash a string and return a "
+"value from a list (indexed with the hashed key)."
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:163
+msgid "Take the following list:"
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:165
+msgid "127.0.0.1:11211"
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:167
+msgid "192.168.0.1:11222"
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:169
+msgid "192.168.0.2:22122"
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:171
+msgid "192.168.0.4:11321"
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:173
+msgid "and a string:"
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:175
+msgid "/foobar"
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:177
+msgid ""
+"we hash the string /foobar using djb33x algorithm and we apply the modulo"
+" 4 (the size of the items list) to the result."
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:179
+msgid ""
+"We get \"1\", so we will get the second items in the list (we are "
+"obviously zero-indexed)."
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:181
+msgid "Do you recognize the pattern ?"
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:183
+msgid ""
+"Yes, it is the standard way to distribute items on multiple servers "
+"(memcached clients for example uses it from ages)."
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:185
+msgid ""
+"The hash router exposes this system allowing you to distribute items in "
+"you redis/memcached servers or to make other funny things."
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:187
+msgid "This an example usage for redis:"
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:201
+msgid "you can even choose the hashing algo from those supported in uWSGI"
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:215
+msgid "the router_hash plugin is compiled-in by default"
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:218
+msgid "Availability"
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:220
+msgid "uWSGI 1.9.12 will be available starting from 20130605 at the following url"
+msgstr ""
+
+#: ../../Changelog-1.9.12.rst:222
+msgid "https://projects.unbit.it/downloads/uwsgi-1.9.12.tar.gz"
+msgstr ""
+
