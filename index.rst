@@ -39,7 +39,7 @@ Quickstarts
 ===========
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth:3
 
    WSGIquickstart
    PSGIquickstart
@@ -51,7 +51,7 @@ Table of Contents
 =================
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth:3
 
    Download
    Install
@@ -89,7 +89,7 @@ Tutorials
 =========
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 3
 
    tutorials/CachingCookbook
    tutorials/Django_and_nginx
@@ -105,7 +105,7 @@ Articles
 ========
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 3
 
    articles/SerializingAccept
    #articles/MassiveHostingWithEmperorAndNamespaces
@@ -120,7 +120,7 @@ uWSGI Subsystems
 ================
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 3
 
    AlarmSubsystem
    Caching
@@ -150,7 +150,7 @@ Scaling with uWSGI
 ==================
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 3
 
    Cheaper
    Emperor
@@ -163,7 +163,7 @@ Securing uWSGI
 ==============
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 3
 
    Capabilities
    Cgroups
@@ -178,7 +178,7 @@ Keeping an eye on your apps
 ===========================
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 3
 
    Nagios
    SNMP
@@ -192,7 +192,7 @@ Async and loop engines
 ======================
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 3
 
    Async
    Gevent
@@ -206,7 +206,7 @@ Web Server support
 ==================
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth:3
 
    Apache
    Cherokee
@@ -223,7 +223,7 @@ Language support
 ==================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
 
    Python
    PyPy
@@ -247,7 +247,7 @@ Other plugins
 =============
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 3
 
    Pty
    SPNEGO
@@ -258,7 +258,7 @@ Broken/deprecated features
 ==========================
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 3
 
    Erlang
    ManagementFlag
